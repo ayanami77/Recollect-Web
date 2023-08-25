@@ -18,7 +18,10 @@
     "next": "13.4.19",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "typescript": "5.2.2"
+    "react-hook-form": "^7.45.4",
+    "typescript": "5.2.2",
+    "zod": "^3.22.2",
+    "zustand": "^4.4.1"
   },
   "devDependencies": {
     "@pandacss/dev": "^0.12.1",
