@@ -6,8 +6,7 @@ export const Header = () => {
     <header className={hstack({ height: '80px', padding: '24px', backgroundColor: 'white' })}>
       <div
         className={css({
-          color: 'fontBlack',
-          fontFamily: 'Inter',
+          color: 'black',
           fontSize: '3xl',
           fontWeight: 'bold',
         })}

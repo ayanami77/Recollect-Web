@@ -4,7 +4,7 @@ import { hstack } from '../../../../styled-system/patterns'
 export const Footer = () => {
   return (
     <footer className={hstack({ justifyContent: 'center', height: '60px', mt: '64px' })}>
-      <small className={css({ color: 'fontBlack' })}>&copy; 2023 - チーム名</small>
+      <small className={css({ color: 'black' })}>&copy; 2023 - チーム名</small>
     </footer>
   )
 }
