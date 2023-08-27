@@ -168,8 +168,6 @@
   --animations-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   --animations-bounce: bounce 1s infinite;
   --colors-current: currentColor;
-  --colors-black: #000;
-  --colors-white: #fff;
   --colors-transparent: rgb(0 0 0 / 0);
   --colors-rose-50: #fff1f2;
   --colors-rose-100: #ffe4e6;
@@ -413,12 +411,13 @@
   --colors-slate-800: #1e293b;
   --colors-slate-900: #0f172a;
   --colors-slate-950: #020617;
-  --colors-bg-default: #F5F5F5;
-  --colors-bg-white: #FFFFFF;
-  --colors-bg-blue: #0C4C97;
-  --colors-font-default: #0000009c;
-  --colors-font-red: #FD4444;
-  --colors-font-black: #000000;
+  --colors-light-gray: #F5F5F5;
+  --colors-white: #FFFFFF;
+  --colors-dim-blue: #0C4C97;
+  --colors-dim-gray: #0000009c;
+  --colors-cinnabar: #FD4444;
+  --colors-sky-blue: #1578c0;
+  --colors-black: #000000;
   --breakpoints-sm: 640px;
   --breakpoints-md: 768px;
   --breakpoints-lg: 1024px;

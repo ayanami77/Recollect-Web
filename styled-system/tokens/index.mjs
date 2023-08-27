@@ -671,14 +671,6 @@ const tokens = {
     "value": "currentColor",
     "variable": "var(--colors-current)"
   },
-  "colors.black": {
-    "value": "#000",
-    "variable": "var(--colors-black)"
-  },
-  "colors.white": {
-    "value": "#fff",
-    "variable": "var(--colors-white)"
-  },
   "colors.transparent": {
     "value": "rgb(0 0 0 / 0)",
     "variable": "var(--colors-transparent)"
@@ -1651,29 +1643,33 @@ const tokens = {
     "value": "#020617",
     "variable": "var(--colors-slate-950)"
   },
-  "colors.bgDefault": {
+  "colors.lightGray": {
     "value": "#F5F5F5",
-    "variable": "var(--colors-bg-default)"
+    "variable": "var(--colors-light-gray)"
   },
-  "colors.bgWhite": {
+  "colors.white": {
     "value": "#FFFFFF",
-    "variable": "var(--colors-bg-white)"
+    "variable": "var(--colors-white)"
   },
-  "colors.bgBlue": {
+  "colors.dimBlue": {
     "value": "#0C4C97",
-    "variable": "var(--colors-bg-blue)"
+    "variable": "var(--colors-dim-blue)"
   },
-  "colors.fontDefault": {
+  "colors.dimGray": {
     "value": "#0000009c",
-    "variable": "var(--colors-font-default)"
+    "variable": "var(--colors-dim-gray)"
   },
-  "colors.fontRed": {
+  "colors.cinnabar": {
     "value": "#FD4444",
-    "variable": "var(--colors-font-red)"
+    "variable": "var(--colors-cinnabar)"
   },
-  "colors.fontBlack": {
+  "colors.skyBlue": {
+    "value": "#1578c0",
+    "variable": "var(--colors-sky-blue)"
+  },
+  "colors.black": {
     "value": "#000000",
-    "variable": "var(--colors-font-black)"
+    "variable": "var(--colors-black)"
   },
   "breakpoints.sm": {
     "value": "640px",

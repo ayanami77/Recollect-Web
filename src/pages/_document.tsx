@@ -5,7 +5,7 @@ export default function Document() {
   return (
     <Html lang='en'>
       <Head />
-      <body className={css({backgroundColor: "bgDefault"})}>
+      <body className={css({ backgroundColor: 'lightGray' })}>
         <Main />
         <NextScript />
       </body>
