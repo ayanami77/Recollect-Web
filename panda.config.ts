@@ -24,6 +24,9 @@ export default defineConfig({
           bgBlue: {
             value: "#0C4C97"
           },
+          fontDefault: {
+            value: "#0000009c"
+          },
           fontRed: {
             value: "#FD4444"
           },

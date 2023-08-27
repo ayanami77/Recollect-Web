@@ -416,6 +416,7 @@
   --colors-bg-default: #F5F5F5;
   --colors-bg-white: #FFFFFF;
   --colors-bg-blue: #0C4C97;
+  --colors-font-default: #0000009c;
   --colors-font-red: #FD4444;
   --colors-font-black: #000000;
   --breakpoints-sm: 640px;

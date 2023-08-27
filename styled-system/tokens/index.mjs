@@ -1663,6 +1663,10 @@ const tokens = {
     "value": "#0C4C97",
     "variable": "var(--colors-bg-blue)"
   },
+  "colors.fontDefault": {
+    "value": "#0000009c",
+    "variable": "var(--colors-font-default)"
+  },
   "colors.fontRed": {
     "value": "#FD4444",
     "variable": "var(--colors-font-red)"
