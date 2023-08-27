@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { css } from '../../styled-system/css'
+import { Footer, Header } from '@/components/common'
 
 export default function Home() {
   return (
@@ -11,7 +11,8 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <main>
-        <div className={css({ fontSize: '2xl', fontWeight: 'bold', color: 'red' })}>Hello 🐼!</div>
+        <Header />
+        <Footer />
       </main>
     </>
   )
