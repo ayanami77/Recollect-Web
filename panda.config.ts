@@ -15,20 +15,26 @@ export default defineConfig({
     extend: {
       tokens: {
         colors: {
-          bgDefault: {
-            value: "#F5F5F5"
+          lightGray: {
+            value: '#F5F5F5',
           },
-          bgWhite: {
-            value: "#FFFFFF"
+          white: {
+            value: '#FFFFFF',
           },
-          bgBlue: {
-            value: "#0C4C97"
+          dimBlue: {
+            value: '#0C4C97',
           },
-          fontRed: {
-            value: "#FD4444"
+          dimGray: {
+            value: '#0000009c',
           },
-          fontBlack: {
-            value: "#000000"
+          cinnabar: {
+            value: '#FD4444',
+          },
+          skyBlue: {
+            value: '#1578c0',
+          },
+          black: {
+            value: '#000000',
           },
         },
       },
