@@ -1,5 +1,8 @@
-import { Header, ViewButtons } from '@/components/common'
+import { Header } from '@/components/common'
+import { FadeInWrapper } from '@/components/common/framer-motion/FadeInWrapper'
 import Head from 'next/head'
+import { vstack } from '../../../styled-system/patterns'
+import { ViewButtons } from '@/components/views'
 
 export default function ChronologicalOrder() {
   return (
@@ -13,6 +16,9 @@ export default function ChronologicalOrder() {
       <main>
         <Header />
         <ViewButtons />
+        <FadeInWrapper>
+          <p className={vstack()}>こんにちは</p>
+        </FadeInWrapper>
       </main>
     </>
   )
