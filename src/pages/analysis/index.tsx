@@ -1,17 +1,53 @@
 import { Header } from '@/components/common'
 import Head from 'next/head'
-import { center, hstack, vstack } from '../../../styled-system/patterns'
-import { css } from '../../../styled-system/css'
-import { Analyzing } from '@/components/views'
-import { useState } from 'react'
 import { FadeInWrapper } from '@/components/common/framer-motion/FadeInWrapper'
-import { ViewButtons } from '@/components/views'
+import { Board, Button, ViewButtons } from '@/components/views'
+import { hstack } from '../../../styled-system/patterns'
+import { useState } from 'react'
+
+const mock_data = [
+  {
+    title: '開発インターン',
+    subTitle: '実務を通して、様々な学びを得た話',
+    content: 'xxxxx',
+  },
+  {
+    title: 'サークル',
+    subTitle: '秋の新歓活動を頑張った話',
+    content: 'xxxxx',
+  },
+  {
+    title: '高校生',
+    subTitle: '文系でも化学部が楽しかった話！',
+    content:
+      '毎週、教科書で出てくるような有名な実験から面白い実験まで色々なことをしていました。やはり化学実験ではあるので、部員としっかりと協力して取り組んでいました。色々な事象を目の当たりにするたびにわくわくを沢山感じていました。さらに、文化祭準備期間では自分たちで何をするか考え、じっくりと時間をかけて楽しく取り組んでいました。',
+  },
+]
 
 export default function Analysis() {
-  const [isAnalyzing, setIsAnalyzing] = useState(false)
-  const handleAnalyze = () => {
-    setIsAnalyzing(true)
+  const [index, setIndex] = useState(0)
+
+  const prev = () => {
+    const prevPos = index - 1
+    if (prevPos < 0) {
+      setIndex(mock_data.length - 1)
+    } else {
+      setIndex(prevPos)
+    }
   }
+
+  const next = () => {
+    const nextPos = index + 1
+    if (mock_data.length - 1 < nextPos) {
+      setIndex(0)
+    } else {
+      setIndex(nextPos)
+    }
+  }
+  // const [isAnalyzing, setIsAnalyzing] = useState(false)
+  // const handleAnalyze = () => {
+  //   setIsAnalyzing(true)
+  // }
   return (
     <>
       <Head>
@@ -26,76 +62,16 @@ export default function Analysis() {
         <ViewButtons />
         <FadeInWrapper>
           <div
-            className={css({
-              w: '720px',
-              h: '480px',
-              mx: 'auto',
-              px: '40px',
-              py: '24px',
-              bg: 'white',
-              rounded: '14px',
-              shadow: 'xl',
-            })}
-          >
-            <div className={hstack({ justify: 'space-between' })}>
-              <div
-                className={css({
-                  minW: '360px',
-                  p: '24px',
-                  shadow: 'xl',
-                  rounded: '3xl',
-                  bg: 'slate.100',
-                })}
-              >
-                <h2 className={css({ fontSize: '2xl', fontWeight: 'bold' })}>開発インターン</h2>
-                <p className={css({ fontSize: 'md', mt: '8px', color: 'dimGray' })}>
-                  実務を通して、様々な学びを得た話
-                </p>
-              </div>
-              <div className={vstack({ alignItems: 'start' })}>
-                <p className={css({ fontSize: '2xl', fontWeight: 'bold' })}>について</p>
-                <button
-                  className={css({
-                    bg: 'dimBlue',
-                    fontWeight: 'medium',
-                    fontSize: '20px',
-                    color: 'white',
-                    p: '12px',
-                    rounded: '12px',
-                    cursor: 'pointer',
-                  })}
-                  onClick={handleAnalyze}
-                >
-                  AIで自己の特性を知る
-                </button>
-              </div>
-            </div>
-            <div
-              className={css({ w: 'full', h: '4px', bg: 'slate.200', mt: '24px', rounded: 'full' })}
-            />
-            <div className={center({ w: 'full', h: '280px' })}>
-              {isAnalyzing ? (
-                <Analyzing />
-              ) : (
-                <p className={css({ fontSize: 'lg', color: 'dimGray' })}>
-                  AIで自分の特性を分析してみよう!
-                </p>
-              )}
-            </div>
-          </div>
-
-          {/* <div
             className={hstack({
-              w: '1200px',
-              h: '320px',
+              gap: '60px',
+              w: 'fit',
               mx: 'auto',
-              mt: '24px',
-              gap: '32px',
-              overflowX: 'auto',
             })}
           >
-            <Card />
-          </div> */}
+            <Button content={{ movement: 'prev', onClick: prev }} />
+            <Board content={mock_data[index]} />
+            <Button content={{ movement: 'next', onClick: next }} />
+          </div>
         </FadeInWrapper>
       </main>
     </>
