@@ -42,6 +42,9 @@ export default defineConfig({
           lightGreen: {
             value: '#0C976D',
           },
+          dullBlue: {
+            value: '#0c4c9742',
+          },
         },
       },
     },

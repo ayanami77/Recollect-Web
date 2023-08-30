@@ -1,18 +1,34 @@
+import { ChangeEvent, Dispatch, FC, SetStateAction } from 'react'
 import { css } from '../../../../styled-system/css'
 
 type Priod = '幼少期' | '小学生' | '中学生' | '高校生' | '大学生'
-
 type Card = {
   priod: Priod
-  title: string
+  subTitle: string
   content: string
 }
+type CardProps = {
+  content: {
+    cardPostion: number
+    setCardList: Dispatch<SetStateAction<Card[]>>
+    cardList: Card[]
+  }
+}
+export const Card: FC<CardProps> = ({ content }) => {
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    content.setCardList((prev) => {
+      prev[content.cardPostion].subTitle = e.target.value
+      return [...prev]
+    })
+  }
 
-// type CardProps = {
-//   cardPostion: number;
-// }
+  const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    content.setCardList((prev) => {
+      prev[content.cardPostion].content = e.target.value
+      return [...prev]
+    })
+  }
 
-export const Card = () => {
   return (
     <div
       className={css({
@@ -36,7 +52,9 @@ export const Card = () => {
         <input
           type='text'
           id='title'
-          placeholder='一言タイトル'
+          onChange={(e) => handleTitleChange(e)}
+          value={content.cardList[content.cardPostion].subTitle}
+          placeholder='一言で'
           className={css({
             borderBottom: '4px solid',
             borderColor: 'gray',
@@ -46,7 +64,9 @@ export const Card = () => {
         />
       </label>
       <textarea
-        placeholder='どんなあそびをしていた？'
+        placeholder='どんなことをしていた？'
+        onChange={(e) => handleContentChange(e)}
+        value={content.cardList[content.cardPostion].content}
         className={css({
           width: '100%',
           height: '250px',
