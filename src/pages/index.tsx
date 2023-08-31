@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { Footer, Header } from '@/components/common'
+import { Footer } from '@/components/common'
 import { Hero, SignUp } from '@/components/entrance'
 
 export default function Home() {
@@ -11,12 +11,9 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main>
-        <Header />
-        <Hero />
-        <SignUp />
-        <Footer />
-      </main>
+      <Hero />
+      <SignUp />
+      <Footer />
     </>
   )
 }

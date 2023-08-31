@@ -1,4 +1,3 @@
-import { Header } from '@/components/common'
 import Head from 'next/head'
 import { FadeInWrapper } from '@/components/common/framer-motion/FadeInWrapper'
 import { Board, Button, ViewButtons } from '@/components/views'
@@ -57,8 +56,6 @@ export default function Analysis() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <main>
-        <Header />
-
         <ViewButtons />
         <FadeInWrapper>
           <div

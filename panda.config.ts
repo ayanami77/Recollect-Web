@@ -18,6 +18,9 @@ export default defineConfig({
           lightGray: {
             value: '#F5F5F5',
           },
+          gray: {
+            value: '#E0E0E0',
+          },
           white: {
             value: '#FFFFFF',
           },
@@ -35,6 +38,12 @@ export default defineConfig({
           },
           black: {
             value: '#000000',
+          },
+          lightGreen: {
+            value: '#0C976D',
+          },
+          dullBlue: {
+            value: '#0c4c9742',
           },
         },
       },
