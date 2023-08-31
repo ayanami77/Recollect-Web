@@ -17,6 +17,18 @@ pnpm i
 pnpm run dev
 ```
 
+3. huskyの準備
+
+```sh
+pnpx husky install
+```
+
+4. pandacssのstyled-systemフォルダが無い場合
+
+```sh
+pnpm prepare
+```
+
 ## 作業の流れ
 
 本プロジェクトでは、github projectsを使用しタスク管理を行いたいと思います。
