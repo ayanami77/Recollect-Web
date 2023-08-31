@@ -13,8 +13,9 @@ export const LeavingButton: FC = () => {
   return (
     <motion.button
       className={css({
-        position: 'absolute',
-        left: '10px',
+        position: 'fixed',
+        left: '20px',
+        bottom: '20px',
         color: 'dimBlue',
         border: 'solid 1px',
         borderColor: 'dimBlue',

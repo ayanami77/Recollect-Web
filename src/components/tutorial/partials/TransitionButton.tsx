@@ -22,7 +22,7 @@ export const TransitionButton: FC<TransitionButtonProps> = ({ content }) => {
         bg: 'dimBlue',
         rounded: 'full',
         color: 'white',
-        cursor: 'poiF\nter',
+        cursor: 'pointer',
         visibility:
           (content.cardPosition === 0 && content.movement === 'prev') ||
           (content.cardPosition === 4 && content.movement === 'next')

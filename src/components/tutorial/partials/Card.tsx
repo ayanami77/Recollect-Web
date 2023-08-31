@@ -1,9 +1,9 @@
 import { ChangeEvent, Dispatch, FC, SetStateAction } from 'react'
 import { css } from '../../../../styled-system/css'
 
-type Priod = '幼少期' | '小学生' | '中学生' | '高校生' | '大学生'
+type Period = '幼少期' | '小学生' | '中学生' | '高校生' | '大学生'
 type Card = {
-  priod: Priod
+  period: Period
   subTitle: string
   content: string
 }
