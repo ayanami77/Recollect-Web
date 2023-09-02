@@ -56,13 +56,14 @@ export default function Analysis() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <main>
-        <ViewButtons />
+        {/* <ViewButtons /> */}
         <FadeInWrapper>
           <div
             className={hstack({
               gap: '60px',
               w: 'fit',
               mx: 'auto',
+              mt: "80px"
             })}
           >
             <Button content={{ movement: 'prev', onClick: prev }} />
