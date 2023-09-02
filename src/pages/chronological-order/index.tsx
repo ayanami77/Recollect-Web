@@ -2,7 +2,6 @@ import { Menu } from '@/components/common'
 import { FadeInWrapper } from '@/components/common/framer-motion/FadeInWrapper'
 import Head from 'next/head'
 import { vstack } from '../../../styled-system/patterns'
-import { ViewButtons } from '@/components/views'
 
 export default function ChronologicalOrder() {
   return (
@@ -14,7 +13,6 @@ export default function ChronologicalOrder() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <main>
-        <ViewButtons />
         <FadeInWrapper>
           <p className={vstack()}>こんにちは</p>
         </FadeInWrapper>

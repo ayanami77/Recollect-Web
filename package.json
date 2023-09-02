@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "prepare": "panda codegen",
+    "json-server": "json-server --watch src/api/mocks/index.json --port 4000",
     "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}'",
     "dev": "next dev",
     "build": "next build",
@@ -39,11 +40,8 @@
     "@typescript-eslint/parser": "^6.4.1",
     "eslint-config-prettier": "^9.0.0",
     "husky": "^8.0.3",
+    "json-server": "^0.17.3",
     "lint-staged": "^14.0.1",
-    "msw": "^1.2.5",
     "prettier": "^3.0.2"
-  },
-  "msw": {
-    "workerDirectory": "public"
   }
 }
