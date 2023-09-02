@@ -1,3 +1,4 @@
+import { Menu } from '@/components/common'
 import { FadeInWrapper } from '@/components/common/framer-motion/FadeInWrapper'
 import Head from 'next/head'
 import { vstack } from '../../../styled-system/patterns'
@@ -17,6 +18,7 @@ export default function ChronologicalOrder() {
         <FadeInWrapper>
           <p className={vstack()}>こんにちは</p>
         </FadeInWrapper>
+        <Menu />
       </main>
     </>
   )
