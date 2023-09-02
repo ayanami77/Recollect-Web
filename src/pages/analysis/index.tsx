@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { FadeInWrapper } from '@/components/common/framer-motion/FadeInWrapper'
-import { Board, Button, ViewButtons } from '@/components/views'
+import { Board, Button } from '@/components/views'
 import { hstack } from '../../../styled-system/patterns'
 import { useState } from 'react'
 
@@ -56,7 +56,6 @@ export default function Analysis() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <main>
-        {/* <ViewButtons /> */}
         <FadeInWrapper>
           <div
             className={hstack({
