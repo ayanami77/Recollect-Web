@@ -8,6 +8,7 @@ import {
   Assistant,
 } from '@/components/tutorial'
 import { center, hstack } from '../../../styled-system/patterns'
+import { FadeInWrapper } from '@/components/common'
 
 type Period = '幼少期' | '小学生' | '中学生' | '高校生' | '大学生'
 
@@ -64,15 +65,17 @@ const Tutorial: FC = () => {
   return (
     <div>
       <ProgressBar currentValue={curretValue} />
-      <div className={hstack({ justifyContent: 'center', mt: '30px', gap: '20' })}>
-        <TransitionButton
-          content={{ movement: 'prev', onClick: handlePrev, cardPosition: cardPosition }}
-        />
-        <Card
-          content={{ cardPostion: cardPosition, setCardList: setCardList, cardList: cardList }}
-        />
-        <TransitionButton content={{ movement: 'next', onClick: handleNext, cardPosition }} />
-      </div>
+      <FadeInWrapper>
+        <div className={hstack({ justifyContent: 'center', mt: '30px', gap: '20' })}>
+          <TransitionButton
+            content={{ movement: 'prev', onClick: handlePrev, cardPosition: cardPosition }}
+          />
+          <Card
+            content={{ cardPostion: cardPosition, setCardList: setCardList, cardList: cardList }}
+          />
+          <TransitionButton content={{ movement: 'next', onClick: handleNext, cardPosition }} />
+        </div>
+      </FadeInWrapper>
       <div className={center()}>
         <Button
           content={{
