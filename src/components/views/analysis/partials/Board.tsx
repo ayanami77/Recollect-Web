@@ -16,6 +16,18 @@ type BoardProps = {
 const markdownString =
   '- **責任感**: 美化委員として学校清掃に取り組み、地域ボランティアに自発的に参加する姿勢から、責任感が強いことが分かります。\n- **努力家**: 自由研究での入賞や清掃活動での頑張りから、努力を惜しまない姿勢が伺えます。\n- **創造力**: 夏休みの自由研究で入賞したことから、独自のアイデアや創造力を活かす能力があることが窺えます。\n- **協力意識**: 地域のボランティア活動への自己応募から、協力と共同作業への意欲が感じられます。'
 
+/**
+ * 正規表現を使って、マークダウンからタグを抽出する処理
+ */
+const generateNewTags = (markdownString: string): string[] => {
+  const regex = /\*\*(.*?)\*\*/g;
+  const newTags = markdownString.match(regex)?.map(v => v.slice(2, v.length - 2))
+  if (newTags === undefined) {
+    return ['']
+  }
+  return newTags
+}
+
 export const Board: FC<BoardProps> = (props) => {
   const { content } = props
 
@@ -28,6 +40,7 @@ export const Board: FC<BoardProps> = (props) => {
     setTimeout(() => {
       setIsAnalyzing(false)
       setIsSuccessful(true)
+      console.log(generateNewTags(markdownString))
     }, 6000)
   }
   return (

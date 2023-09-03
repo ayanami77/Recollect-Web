@@ -6,6 +6,7 @@ type TagProps = {
     name: string
   }
 }
-export const Tag: FC<TagProps> = () => {
-  return <div className={css({ px: '12px', py: '4px', bg: 'blue.200', rounded: 'xl' })}>Tag</div>
+export const Tag: FC<TagProps> = (props) => {
+  const { content } = props;
+  return <div className={css({ px: '12px', py: '4px', bg: 'blue.200', rounded: 'lg', fontSize: "sm" })}>{content.name}</div>
 }
