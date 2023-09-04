@@ -26,7 +26,7 @@ export const SignUp = () => {
         w: '500px',
         p: '28px',
         mx: 'auto',
-        mt: '180px',
+        mt: '90px',
         bg: 'white',
         rounded: '2xl',
         shadow: 'xl',
