@@ -6,7 +6,7 @@ export const ViewButtons = () => {
   return (
     <div className={hstack({ gap: '24px', justify: 'end', p: '24px' })}>
       <Link
-        href={'/chronological-order'}
+        href={'/history'}
         className={css({
           minW: '180px',
           p: '8px',
