@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { FC } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
@@ -14,7 +14,7 @@ type TransitionButtonProps = {
 
 export const TransitionButton: FC<TransitionButtonProps> = ({ content }) => {
   return (
-    <motion.button
+    <m.button
       onClick={content.onClick}
       className={center({
         w: '70px',
@@ -36,6 +36,6 @@ export const TransitionButton: FC<TransitionButtonProps> = ({ content }) => {
       ) : (
         <FontAwesomeIcon icon={faChevronRight} style={{ width: '30px', height: '30px' }} />
       )}
-    </motion.button>
+    </m.button>
   )
 }

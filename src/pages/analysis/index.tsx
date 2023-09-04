@@ -24,7 +24,7 @@ const mock_data = [
   },
 ]
 
-export default function Analysis() {
+export default function AnalysisPage() {
   const [index, setIndex] = useState(0)
 
   const prev = () => {

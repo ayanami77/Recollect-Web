@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { FC } from 'react'
 import { css } from '../../../../styled-system/css'
 import { useRouter } from 'next/router'
@@ -11,7 +11,7 @@ export const LeavingButton: FC = () => {
     }
   }
   return (
-    <motion.button
+    <m.button
       className={css({
         position: 'fixed',
         left: '20px',
@@ -28,6 +28,6 @@ export const LeavingButton: FC = () => {
       whileTap={{ scale: 0.9 }}
     >
       チュートリアルを退出する
-    </motion.button>
+    </m.button>
   )
 }

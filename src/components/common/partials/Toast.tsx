@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck, faXmark, faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { hstack } from '../../../../styled-system/patterns'
 import { css } from '../../../../styled-system/css'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { FC, useEffect, useState } from 'react'
 
 //TODO: 自動で消滅するようにする。
@@ -26,7 +26,7 @@ export const Toast: FC<ToastProps> = (props) => {
     <AnimatePresence>
       {isShow && (
         <div className={css({ position: 'fixed', top: '24px', right: '24px' })}>
-          <motion.div
+          <m.div
             className={css({
               position: 'relative',
               bg: content.status === 'success' ? 'green.100' : 'red.100',
@@ -84,7 +84,7 @@ export const Toast: FC<ToastProps> = (props) => {
               )}
               <p className={css({ fontSize: 'md' })}>{content.message}</p>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       )}
     </AnimatePresence>

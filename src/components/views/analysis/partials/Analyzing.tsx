@@ -1,15 +1,12 @@
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { center, vstack } from '../../../../../styled-system/patterns'
 import { css } from '../../../../../styled-system/css'
 
-{
-  /* TODO: 分析中のアニメーション */
-}
 export const Analyzing = () => {
   return (
     <div className={center({ w: 'full', h: '280px' })}>
-      <motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
@@ -25,13 +22,13 @@ export const Analyzing = () => {
         >
           分析中...
         </p>
-        <motion.div
+        <m.div
           animate={{ rotate: 360 }}
           transition={{ repeat: Infinity, repeatDelay: 1, duration: 0.5 }}
         >
           <Image src={'/bookshelf.png'} alt={'マスコットキャラクター'} width={75} height={75} />
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </div>
   )
 }

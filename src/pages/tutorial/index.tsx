@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { useState } from 'react'
 import {
   Button,
   Card,
@@ -18,7 +18,7 @@ type Card = {
   content: string
 }
 
-const Tutorial: FC = () => {
+export default function TutorialPage() {
   const progressStepSize = 100 / 6
   const [curretValue, setCurrentValue] = useState<number>(progressStepSize)
   const [cardPosition, setCardProsition] = useState<number>(0)
@@ -90,5 +90,3 @@ const Tutorial: FC = () => {
     </div>
   )
 }
-
-export default Tutorial

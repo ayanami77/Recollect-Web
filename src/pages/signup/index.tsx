@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { SignUp } from '@/components/auth'
 
-export default function Auth() {
+export default function SignUpPage() {
   return (
     <>
       <Head>

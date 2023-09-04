@@ -3,7 +3,7 @@ import { vstack } from '../../../styled-system/patterns'
 import { FadeInWrapper } from '@/components/common'
 import MainLayout from '@/components/layouts/MainLayout'
 
-export default function History() {
+export default function HistoryPage() {
   // const mock_data = [
   //   {
   //     id: 0,

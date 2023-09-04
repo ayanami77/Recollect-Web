@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { FC, useState } from 'react'
 import { css } from '../../../../styled-system/css'
 import { center } from '../../../../styled-system/patterns'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -32,7 +32,7 @@ export const Menu: FC = () => {
           h: '80px',
         })}
       >
-        <motion.div
+        <m.div
           className={center({
             pos: 'absolute',
             zIndex: 1000,
@@ -50,9 +50,9 @@ export const Menu: FC = () => {
             icon={faCompass}
             style={{ width: '42px', height: '42px', color: 'white' }}
           />
-        </motion.div>
+        </m.div>
         <Link href={'/analysis'} title='自分史を分析する'>
-          <motion.li
+          <m.li
             className={center({
               pos: 'absolute',
               top: 1,
@@ -81,10 +81,10 @@ export const Menu: FC = () => {
               icon={faMagnifyingGlassChart}
               style={{ width: '32px', height: '32px', color: '#0C4C97' }}
             />
-          </motion.li>
+          </m.li>
         </Link>
         <Link href={'/history'} title='自分史を見る'>
-          <motion.li
+          <m.li
             className={center({
               pos: 'absolute',
               top: 1,
@@ -113,10 +113,10 @@ export const Menu: FC = () => {
               icon={faMapLocationDot}
               style={{ width: '32px', height: '32px', color: '#0C4C97' }}
             />
-          </motion.li>
+          </m.li>
         </Link>
         <Link href={'/'} title='ログアウト'>
-          <motion.li
+          <m.li
             className={center({
               pos: 'absolute',
               top: 1,
@@ -143,7 +143,7 @@ export const Menu: FC = () => {
               icon={faArrowRightFromBracket}
               style={{ width: '32px', height: '32px', color: '#0C4C97' }}
             />
-          </motion.li>
+          </m.li>
         </Link>
       </div>
     </div>
