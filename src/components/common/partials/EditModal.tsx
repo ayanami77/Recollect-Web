@@ -115,7 +115,7 @@ export const EditModal: FC<EditModalProps> = ({ content }) => {
               outline: 'none',
               resize: 'none',
               backgroundColor: 'slate.100',
-              padding: '5px',
+              padding: '8px',
               borderColor: 'dimgray',
               borderWidth: '1px',
               rounded: 'md',

@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { FC } from 'react'
-import { center } from '../../../../../styled-system/patterns'
+import { center } from '../../../../styled-system/patterns'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 
@@ -13,7 +13,7 @@ type ButtonProps = {
 export const Button: FC<ButtonProps> = (props) => {
   const { content } = props
   return (
-    <motion.button
+    <m.button
       onClick={content.onClick}
       className={center({
         w: '70px',
@@ -30,6 +30,6 @@ export const Button: FC<ButtonProps> = (props) => {
       ) : (
         <FontAwesomeIcon icon={faChevronRight} style={{ width: '30px', height: '30px' }} />
       )}
-    </motion.button>
+    </m.button>
   )
 }

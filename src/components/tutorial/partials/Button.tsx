@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Dispatch, FC, SetStateAction, useState } from 'react'
 import { css } from '../../../../styled-system/css'
 import { useRouter } from 'next/router'
@@ -23,7 +23,7 @@ export const Button: FC<ButtonProps> = ({ content }) => {
   }
 
   return (
-    <motion.button
+    <m.button
       className={css({
         w: '200px',
         color: 'white',
@@ -41,6 +41,6 @@ export const Button: FC<ButtonProps> = ({ content }) => {
       whileTap={{ scale: isLoading ? 1 : 0.9 }}
     >
       {isLoading ? '読み込み中...' : '自分史を見る！'}
-    </motion.button>
+    </m.button>
   )
 }

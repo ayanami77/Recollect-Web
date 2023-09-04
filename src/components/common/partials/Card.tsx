@@ -31,7 +31,7 @@ export const Card: FC<CardProps> = ({ contents }) => {
     <>
       <div
         className={css({
-          width: '500px',
+          width: '560px',
           height: '162px',
           backgroundColor: 'white',
           borderRadius: '10px',
@@ -95,6 +95,7 @@ export const Card: FC<CardProps> = ({ contents }) => {
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
+            color: 'dimGray',
             mt: '16px',
           })}
         >

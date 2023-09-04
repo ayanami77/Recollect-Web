@@ -3,7 +3,7 @@ import { hstack, vstack } from '../../../../styled-system/patterns'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { css } from '../../../../styled-system/css'
 import { FC } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Backdrop } from './Backdrop'
 
 const fadeIn = {
@@ -31,7 +31,7 @@ export const ConfirmModal: FC<ConfirmModalProps> = (props) => {
   const { content } = props
   return (
     <Backdrop onClick={content.handleClose}>
-      <motion.div
+      <m.div
         className={vstack({
           bg: 'white',
           p: '24px',
@@ -91,7 +91,7 @@ export const ConfirmModal: FC<ConfirmModalProps> = (props) => {
             </button>
           </div>
         </div>
-      </motion.div>
+      </m.div>
     </Backdrop>
   )
 }

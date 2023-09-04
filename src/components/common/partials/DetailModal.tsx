@@ -3,9 +3,8 @@ import { hstack, vstack } from '../../../../styled-system/patterns'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { css } from '../../../../styled-system/css'
 import { FC } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Backdrop } from './Backdrop'
-import { Tag } from '@/components/views'
 
 const fadeIn = {
   hidden: {
@@ -32,7 +31,7 @@ export const DetailModal: FC<DetailModalProps> = (props) => {
   const { content } = props
   return (
     <Backdrop onClick={content.handleClose}>
-      <motion.div
+      <m.div
         className={vstack({
           bg: 'white',
           p: '20px',
@@ -45,7 +44,7 @@ export const DetailModal: FC<DetailModalProps> = (props) => {
         onClick={(e) => e.stopPropagation()}
         variants={fadeIn}
       >
-        <div className={vstack({ w: "full", alignItems: "end" })}>
+        <div className={vstack({ w: 'full', alignItems: 'end' })}>
           <button
             className={css({
               cursor: 'pointer',
@@ -55,22 +54,26 @@ export const DetailModal: FC<DetailModalProps> = (props) => {
             <FontAwesomeIcon icon={faXmark} style={{ width: '26px', height: '26px' }} />
           </button>
         </div>
-        <div className={css({ w: "full", px: "24px" })}>
-          <div className={hstack({ w: "fuil", alignItems: 'start', justify: "space-between" })}>
-            <div className={vstack({ alignItems: "start" })}>
-              <h2 className={css({ fontSize: "3xl", fontWeight: "bold" })}>高校生</h2>
-              <div className={hstack({})}>
-                <Tag content={{
-                  name: '責任感'
-                }} />
-              </div>
+        <div className={css({ w: 'full', px: '24px' })}>
+          <div className={hstack({ w: 'fuil', alignItems: 'start', justify: 'space-between' })}>
+            <div className={vstack({ alignItems: 'start' })}>
+              <h2 className={css({ fontSize: '3xl', fontWeight: 'bold' })}>高校生</h2>
+              {/* <div className={hstack({})}>
+                <Tag
+                  content={{
+                    name: '責任感',
+                  }}
+                />
+              </div> */}
             </div>
             <div className={css({ color: 'dimGray' })}>
               <p>作成日 2023-11-23</p>
               <p>更新日 2023-11-23</p>
             </div>
           </div>
-          <p className={css({ fontSize: "xl", fontWeight: "medium", mt: "14px" })}>文系でも化学部が楽しかった話！</p>
+          <p className={css({ fontSize: 'xl', fontWeight: 'medium', mt: '14px' })}>
+            文系でも化学部が楽しかった話！
+          </p>
           <div className={css({ w: 'full', h: '4px', bg: 'lightgrey' })} />
           <div
             className={vstack({
@@ -87,7 +90,7 @@ export const DetailModal: FC<DetailModalProps> = (props) => {
             </div>
           </div>
         </div>
-      </motion.div>
+      </m.div>
     </Backdrop>
   )
 }

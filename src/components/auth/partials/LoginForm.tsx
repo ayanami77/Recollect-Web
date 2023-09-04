@@ -4,8 +4,10 @@ import { hstack, vstack } from '../../../../styled-system/patterns'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { AuthValidationSchema, AuthValidationSchemaType } from '@/libs/validations/authValidation'
 import { ReactNode } from 'react'
+import { useRouter } from 'next/router'
 
-export const Login = () => {
+export const LoginForm = () => {
+  const router = useRouter()
   const {
     register,
     handleSubmit,
@@ -18,6 +20,7 @@ export const Login = () => {
 
   const onSubmit = (data: AuthValidationSchemaType) => {
     console.log(data)
+    router.push('/history')
   }
 
   return (
