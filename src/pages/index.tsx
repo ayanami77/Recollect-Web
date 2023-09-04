@@ -1,6 +1,6 @@
 import Head from 'next/head'
-import { Footer } from '@/components/common'
 import { Hero, SignUp } from '@/components/entrance'
+import { Footer } from '@/components/common'
 
 export default function Home() {
   return (

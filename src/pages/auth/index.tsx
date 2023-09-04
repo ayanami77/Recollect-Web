@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { SignUp } from '@/components/auth'
 
-export default function ChronologicalOrder() {
+export default function Auth() {
   return (
     <>
       <Head>

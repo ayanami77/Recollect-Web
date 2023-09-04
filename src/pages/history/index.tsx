@@ -1,8 +1,9 @@
 import Head from 'next/head'
 import { vstack } from '../../../styled-system/patterns'
 import { FadeInWrapper } from '@/components/common'
+import MainLayout from '@/components/layouts/MainLayout'
 
-export default function ChronologicalOrder() {
+export default function History() {
   // const mock_data = [
   //   {
   //     id: 0,
@@ -23,14 +24,14 @@ export default function ChronologicalOrder() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main>
+      <MainLayout>
         <FadeInWrapper>
           <p className={vstack()}>こんにちは</p>
           {/* {mock_data.map((data, i) => (
             <Card key={i} contents={{ data }} />
           ))} */}
         </FadeInWrapper>
-      </main>
+      </MainLayout>
     </>
   )
 }

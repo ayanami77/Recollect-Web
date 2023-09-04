@@ -3,6 +3,7 @@ import { FadeInWrapper } from '@/components/common/framer-motion/FadeInWrapper'
 import { Board, Button } from '@/components/views'
 import { hstack } from '../../../styled-system/patterns'
 import { useState } from 'react'
+import MainLayout from '@/components/layouts/MainLayout'
 
 const mock_data = [
   {
@@ -55,14 +56,13 @@ export default function Analysis() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main>
+      <MainLayout>
         <FadeInWrapper>
           <div
             className={hstack({
               gap: '60px',
               w: 'fit',
               mx: 'auto',
-              mt: "80px"
             })}
           >
             <Button content={{ movement: 'prev', onClick: prev }} />
@@ -70,7 +70,7 @@ export default function Analysis() {
             <Button content={{ movement: 'next', onClick: next }} />
           </div>
         </FadeInWrapper>
-      </main>
+      </MainLayout>
     </>
   )
 }
