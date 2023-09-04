@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const SignUpValidationSchema = z.object({
+export const AuthValidationSchema = z.object({
   userId: z
     .string()
     .nonempty('ユーザーIDは必須です。')
@@ -9,4 +9,4 @@ export const SignUpValidationSchema = z.object({
     .max(20, '3文字以上20文字以下で入力してください。'),
   password: z.string().nonempty('パスワードは必須です。').min(6, '6文字以上で入力してください。'),
 })
-export type SignUpValidationSchemaType = z.infer<typeof SignUpValidationSchema>
+export type AuthValidationSchemaType = z.infer<typeof AuthValidationSchema>
