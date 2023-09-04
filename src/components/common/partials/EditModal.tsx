@@ -3,6 +3,8 @@ import { Backdrop } from './Backdrop'
 import { css } from '../../../../styled-system/css'
 import { CancelButton, Tag } from '.'
 import { flex } from '../../../../styled-system/patterns'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import Link from 'next/link'
 type EditModalProps = {
   content: {
     handleOpen: () => void
@@ -17,23 +19,20 @@ type EditModalProps = {
     }
   }
 }
+type Inputs = {
+  title: string
+  content: string
+}
 
 export const EditModal: FC<EditModalProps> = ({ content }) => {
+  // todo: zodでバリデーション
   const { handleOpen, data } = content
-
-  // const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
-  // 	content.setCardList((prev) => {
-  // 	  prev[content.cardPostion].subTitle = e.target.value
-  // 	  return [...prev]
-  // 	})
-  // }
-
-  // const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-  // 	content.setCardList((prev) => {
-  // 	  prev[content.cardPostion].content = e.target.value
-  // 	  return [...prev]
-  // 	})
-  // }
+  const {
+    register,
+    handleSubmit,
+    // formState: { errors },
+  } = useForm<Inputs>()
+  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
 
   const createdAt = new Date(data.createdAt)
   const updatedAt = new Date(data.updatedAt)
@@ -45,7 +44,7 @@ export const EditModal: FC<EditModalProps> = ({ content }) => {
   }/${updatedAt.getDate()}`
 
   return (
-    <Backdrop onClick={handleOpen}>
+    <Backdrop onClick={() => false}>
       <div
         onClick={(e) => e.stopPropagation()}
         className={css({
@@ -57,55 +56,96 @@ export const EditModal: FC<EditModalProps> = ({ content }) => {
           shadow: 'xl',
         })}
       >
-        <div className={flex({})}>
-          <label
-            className={css({
-              width: '350px',
-              height: '24px',
-              display: 'inline-block',
-              mt: '7px',
-              fontSize: '2xl',
-            })}
-          >
-            <input
-              type='text'
-              id='title'
-              // onChange={(e) => handleTitleChange(e)}
-              value={content.data.title}
-              placeholder='一言で'
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className={flex({})}>
+            <label
               className={css({
-                outline: 'none',
-                fontWeight: 'bold',
+                width: '350px',
+                height: '24px',
+                display: 'inline-block',
+                mt: '7px',
+                fontSize: '2xl',
               })}
-            />
-          </label>
-          <div className={css({ color: 'GrayText', ml: 'auto', mt: '4px' })}>
-            <div>作成日: {createdAtString}</div>
-            <div>更新日: {updatedAtString}</div>
+            >
+              <input
+                type='text'
+                id='title'
+                defaultValue={content.data.title}
+                required
+                {...register('title', {
+                  required: true,
+                  maxLength: { value: 20, message: '最大20文字です' },
+                })}
+                placeholder='一言で'
+                className={css({
+                  outline: 'none',
+                  fontWeight: 'bold',
+                  backgroundColor: 'slate.100',
+                  padding: '5px',
+                  borderColor: 'dimgray',
+                  borderWidth: '1px',
+                  rounded: 'md',
+                })}
+              />
+            </label>
+            <div className={css({ color: 'GrayText', ml: 'auto', mt: '4px' })}>
+              <div>作成日: {createdAtString}</div>
+              <div>更新日: {updatedAtString}</div>
+            </div>
           </div>
-        </div>
 
-        <div>
-          {data.tags.length > 0 &&
-            data.tags.map((tag, index) => <Tag key={index} content={{ name: tag }} />)}
-        </div>
-
-        <textarea
-          placeholder='どんなことをしていた？'
-          // onChange={(e) => handleContentChange(e)}
-          value={data.content}
-          className={css({
-            width: '100%',
-            height: '340px',
-            borderColor: 'gray',
-            mt: '20px',
-            outline: 'none',
-            resize: 'none',
-          })}
-        ></textarea>
-        <div className={flex()}>
-          <CancelButton content={{ handleOpen }} />
-        </div>
+          <div className={css({ mt: '10px' })}>
+            {data.tags.length > 0 ? (
+              data.tags.map((tag, index) => <Tag key={index} content={{ name: tag }} />)
+            ) : (
+              <Link href={'/analysis'}>
+                <Tag content={{ name: '今すぐ分析する' }} />
+              </Link>
+            )}
+          </div>
+          <textarea
+            placeholder='どんなことをしていた？'
+            defaultValue={data.content}
+            required
+            {...register('content', { required: true })}
+            className={css({
+              width: '100%',
+              height: '300px',
+              mt: '5px',
+              outline: 'none',
+              resize: 'none',
+              backgroundColor: 'slate.100',
+              padding: '5px',
+              borderColor: 'dimgray',
+              borderWidth: '1px',
+              rounded: 'md',
+            })}
+          ></textarea>
+          <div className={flex({ justifyContent: 'end', gap: '10px' })}>
+            <CancelButton content={{ handleOpen }} />
+            <label
+              className={css({
+                cursor: 'pointer',
+                border: 'none',
+                backgroundColor: 'dimBlue',
+                fontSize: 'sm',
+                fontWeight: 'bold',
+                padding: '10px 20px',
+                borderRadius: '10px',
+              })}
+            >
+              <input
+                type='submit'
+                value='保存'
+                className={css({
+                  color: 'white',
+                  cursor: 'pointer',
+                  padding: '5px',
+                })}
+              />
+            </label>
+          </div>
+        </form>
       </div>
     </Backdrop>
   )

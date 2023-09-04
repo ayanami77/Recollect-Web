@@ -30,6 +30,9 @@ export default defineConfig({
           dimGray: {
             value: '#0000009c',
           },
+          modestGray: {
+            value: '#A0A0A0',
+          },
           cinnabar: {
             value: '#FD4444',
           },
@@ -44,6 +47,9 @@ export default defineConfig({
           },
           dullBlue: {
             value: '#0c4c9742',
+          },
+          logoRed: {
+            value: '#FD4444',
           },
         },
       },

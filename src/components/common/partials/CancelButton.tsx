@@ -13,11 +13,12 @@ export const CancelButton: FC<CancelButtonProps> = ({ content }) => {
       className={css({
         cursor: 'pointer',
         border: 'none',
-        backgroundColor: 'transparent',
-        color: 'gray',
+        backgroundColor: 'modestGray',
+        color: 'white',
         fontSize: 'sm',
         fontWeight: 'bold',
-        // border: "1px solid",
+        padding: '10px 20px',
+        borderRadius: '10px',
       })}
       onClick={handleOpen}
     >

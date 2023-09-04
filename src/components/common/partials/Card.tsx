@@ -2,8 +2,8 @@ import { FC, useState } from 'react'
 import { css } from '../../../../styled-system/css'
 import { flex } from '../../../../styled-system/patterns'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
-import { EditModal, Tag } from '.'
+import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { ConfirmModal, EditModal, Tag } from '.'
 import Link from 'next/link'
 
 type CardProps = {
@@ -23,7 +23,9 @@ type CardProps = {
 export const Card: FC<CardProps> = ({ contents }) => {
   const { data } = contents
   const [isOpen, setIsOpen] = useState(true)
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const handleOpen = () => setIsOpen((prev) => !prev)
+  const handleDeleteModalOpen = () => setIsDeleteModalOpen((prev) => !prev)
 
   return (
     <>
@@ -35,27 +37,46 @@ export const Card: FC<CardProps> = ({ contents }) => {
           borderRadius: '10px',
           paddingX: '38px',
           paddingY: '20px',
-          shadow: 'xl',
+          shadow: 'md',
+          position: 'relative',
         })}
       >
+        <div
+          className={css({
+            position: 'absolute',
+            bottom: '0',
+            right: '-50px',
+            backgroundColor: 'white',
+            shadow: 'md',
+            p: '5px 10px',
+            borderRadius: '10px',
+          })}
+        >
+          <div
+            className={css({ w: '20px', marginLeft: 'auto', mb: '15px', cursor: 'pointer' })}
+            onClick={handleOpen}
+          >
+            <FontAwesomeIcon icon={faPenToSquare} color='#0c4c97' />
+          </div>
+          <div
+            className={css({ w: '20px', marginLeft: 'auto', cursor: 'pointer' })}
+            onClick={handleDeleteModalOpen}
+          >
+            <FontAwesomeIcon icon={faTrash} color='#FD4444' />
+          </div>
+        </div>
         <div className={flex({ alignItems: 'center' })}>
           <div
             className={css({
               width: '350px',
               height: '24px',
               display: 'inline-block',
-              mb: '5px',
+              mb: '10px',
               fontSize: '2xl',
               fontWeight: 'bold',
             })}
           >
             {data.title}
-          </div>
-          <div
-            className={css({ w: '20px', marginLeft: 'auto', cursor: 'pointer' })}
-            onClick={handleOpen}
-          >
-            <FontAwesomeIcon icon={faPenToSquare} style={{ color: '#0c4c97' }} />
           </div>
         </div>
         <div className={css({ mt: '10px' })}>
@@ -81,6 +102,7 @@ export const Card: FC<CardProps> = ({ contents }) => {
         </div>
       </div>
       {isOpen && <EditModal content={{ handleOpen, data }} />}
+      {isDeleteModalOpen && <ConfirmModal content={{ handleClose: handleDeleteModalOpen }} />}
     </>
   )
 }
