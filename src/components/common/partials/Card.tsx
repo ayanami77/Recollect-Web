@@ -22,7 +22,7 @@ type CardProps = {
 
 export const Card: FC<CardProps> = ({ contents }) => {
   const { data } = contents
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const handleOpen = () => setIsOpen((prev) => !prev)
   const handleDeleteModalOpen = () => setIsDeleteModalOpen((prev) => !prev)

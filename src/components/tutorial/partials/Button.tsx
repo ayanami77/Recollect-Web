@@ -18,7 +18,7 @@ export const Button: FC<ButtonProps> = ({ content }) => {
     content.setCurrentValue((prevValue) => Math.min(prevValue + content.progressStepSize, 100))
     setIsLoading(true)
     setTimeout(() => {
-      router.push('/chronological-order')
+      router.push('/history')
     }, 1500)
   }
 
