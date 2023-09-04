@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { FadeInWrapper } from '@/components/common/framer-motion/FadeInWrapper'
-import { Board, Button } from '@/components/views'
+import { Board, Button } from '@/components/analysis'
 import { hstack } from '../../../styled-system/patterns'
 import { useState } from 'react'
 import MainLayout from '@/components/layouts/MainLayout'

@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import { Analyzing } from '.'
-import { css } from '../../../../../styled-system/css'
-import { center, hstack, vstack } from '../../../../../styled-system/patterns'
+import { css } from '../../../../styled-system/css'
+import { center, hstack, vstack } from '../../../../styled-system/patterns'
 import ReactMarkdown from 'react-markdown'
 
 type BoardProps = {
@@ -20,8 +20,8 @@ const markdownString =
  * 正規表現を使って、マークダウンからタグを抽出する処理
  */
 const generateNewTags = (markdownString: string): string[] => {
-  const regex = /\*\*(.*?)\*\*/g;
-  const newTags = markdownString.match(regex)?.map(v => v.slice(2, v.length - 2))
+  const regex = /\*\*(.*?)\*\*/g
+  const newTags = markdownString.match(regex)?.map((v) => v.slice(2, v.length - 2))
   if (newTags === undefined) {
     return ['']
   }

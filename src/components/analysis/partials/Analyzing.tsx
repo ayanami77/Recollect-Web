@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { m } from 'framer-motion'
-import { center, vstack } from '../../../../../styled-system/patterns'
-import { css } from '../../../../../styled-system/css'
+import { center, vstack } from '../../../../styled-system/patterns'
+import { css } from '../../../../styled-system/css'
 
 export const Analyzing = () => {
   return (

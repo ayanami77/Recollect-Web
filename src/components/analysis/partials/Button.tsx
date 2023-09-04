@@ -1,6 +1,6 @@
 import { m } from 'framer-motion'
 import { FC } from 'react'
-import { center } from '../../../../../styled-system/patterns'
+import { center } from '../../../../styled-system/patterns'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 
