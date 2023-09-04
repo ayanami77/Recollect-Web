@@ -9,6 +9,7 @@ import {
 } from '@/components/tutorial'
 import { center, hstack } from '../../../styled-system/patterns'
 import { FadeInWrapper } from '@/components/common'
+import { CommonMeta } from '@/components/common/meta'
 
 type Period = '幼少期' | '小学生' | '中学生' | '高校生' | '大学生'
 
@@ -18,7 +19,7 @@ type Card = {
   content: string
 }
 
-export default function TutorialPage() {
+export default function Tutorial() {
   const progressStepSize = 100 / 6
   const [curretValue, setCurrentValue] = useState<number>(progressStepSize)
   const [cardPosition, setCardProsition] = useState<number>(0)
@@ -63,30 +64,33 @@ export default function TutorialPage() {
   }
 
   return (
-    <div>
-      <ProgressBar currentValue={curretValue} />
-      <FadeInWrapper>
-        <div className={hstack({ justifyContent: 'center', mt: '30px', gap: '20' })}>
-          <TransitionButton
-            content={{ movement: 'prev', onClick: handlePrev, cardPosition: cardPosition }}
+    <>
+      <CommonMeta title={'Recollect - チュートリアル'} description={'チュートリアルページです。'} />
+      <div>
+        <ProgressBar currentValue={curretValue} />
+        <FadeInWrapper>
+          <div className={hstack({ justifyContent: 'center', mt: '30px', gap: '20' })}>
+            <TransitionButton
+              content={{ movement: 'prev', onClick: handlePrev, cardPosition: cardPosition }}
+            />
+            <Card
+              content={{ cardPostion: cardPosition, setCardList: setCardList, cardList: cardList }}
+            />
+            <TransitionButton content={{ movement: 'next', onClick: handleNext, cardPosition }} />
+          </div>
+        </FadeInWrapper>
+        <div className={center()}>
+          <Button
+            content={{
+              cardPosition: cardPosition,
+              setCurrentValue: setCurrentValue,
+              progressStepSize: progressStepSize,
+            }}
           />
-          <Card
-            content={{ cardPostion: cardPosition, setCardList: setCardList, cardList: cardList }}
-          />
-          <TransitionButton content={{ movement: 'next', onClick: handleNext, cardPosition }} />
         </div>
-      </FadeInWrapper>
-      <div className={center()}>
-        <Button
-          content={{
-            cardPosition: cardPosition,
-            setCurrentValue: setCurrentValue,
-            progressStepSize: progressStepSize,
-          }}
-        />
+        <LeavingButton />
+        <Assistant content={{ cardPosition: cardPosition }} />
       </div>
-      <LeavingButton />
-      <Assistant content={{ cardPosition: cardPosition }} />
-    </div>
+    </>
   )
 }

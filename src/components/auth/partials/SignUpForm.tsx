@@ -6,7 +6,7 @@ import { AuthValidationSchema, AuthValidationSchemaType } from '@/libs/validatio
 import { ReactNode } from 'react'
 import { useRouter } from 'next/router'
 
-export const Login = () => {
+export const SignUpForm = () => {
   const router = useRouter()
   const {
     register,
@@ -37,7 +37,7 @@ export const Login = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className={vstack({ alignItems: 'start', w: 'full' })}>
-        <h2 className={css({ fontSize: '2xl', fontWeight: 'bold' })}>ログイン</h2>
+        <h2 className={css({ fontSize: '2xl', fontWeight: 'bold' })}>登録</h2>
         <div className={vstack({ alignItems: 'start', w: 'full' })}>
           <label className={hstack({ fontSize: 'xs' })}>
             <span>ユーザーID</span>
