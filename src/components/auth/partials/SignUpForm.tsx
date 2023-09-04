@@ -53,6 +53,7 @@ export const SignUpForm = () => {
               borderWidth: '1px',
               bg: 'slate.100',
             })}
+            placeholder='e.g. taro1123'
             {...register('userId')}
           />
           <p className={css({ fontSize: 'xs', color: 'cinnabar' })}>
