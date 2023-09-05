@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { useError } from '../utils/useError'
 import { useMutation } from '@tanstack/react-query'
 import { UserCredential, userFactory } from '@/api/models/user.model'

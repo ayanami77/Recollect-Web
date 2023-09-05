@@ -15,7 +15,6 @@ export const LoginForm = () => {
     formState: { errors },
   } = useForm<AuthValidationSchemaType>({
     mode: 'onBlur',
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolver: zodResolver(AuthValidationSchema as any),
   })
 

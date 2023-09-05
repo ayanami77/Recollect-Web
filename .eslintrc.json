@@ -2,5 +2,8 @@
   "extends": ["plugin:@typescript-eslint/recommended", "next/core-web-vitals"],
   "parserOptions": {
     "project": "./tsconfig.json"
+  },
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off"
   }
 }
