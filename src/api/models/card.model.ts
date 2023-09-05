@@ -1,10 +1,9 @@
-import { cardRepository } from "../repositories"
+import { cardRepository } from '../repositories'
 
 //TODO: 適宜修正
 export type Card = {
-  cardId: number
+  id: number
   title: string
-  subTitle: string
   content: string
   tags: string[]
   createdAt: Date | string
@@ -17,6 +16,6 @@ export const cardFactory = () => {
     list: async (): Promise<Card[]> => {
       const response = await repository.listCards()
       return response
-    }
+    },
   }
 }

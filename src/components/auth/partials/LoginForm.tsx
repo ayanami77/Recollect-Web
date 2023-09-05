@@ -4,10 +4,11 @@ import { hstack, vstack } from '../../../../styled-system/patterns'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { AuthValidationSchema, AuthValidationSchemaType } from '@/libs/validations/authValidation'
 import { ReactNode } from 'react'
-import { useRouter } from 'next/router'
+import { useMutateUser } from '@/api/hooks/user/useMutateUser'
 
 export const LoginForm = () => {
-  const router = useRouter()
+  const { loginMutation } = useMutateUser()
+
   const {
     register,
     handleSubmit,
@@ -16,11 +17,10 @@ export const LoginForm = () => {
     mode: 'onBlur',
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolver: zodResolver(AuthValidationSchema as any),
-  }) //TODO: 苦渋のキャスティング
+  })
 
-  const onSubmit = (data: AuthValidationSchemaType) => {
-    console.log(data)
-    router.push('/history')
+  const onSubmitLogin = (userCredential: AuthValidationSchemaType) => {
+    loginMutation.mutate(userCredential)
   }
 
   return (
@@ -34,7 +34,7 @@ export const LoginForm = () => {
         rounded: '2xl',
         shadow: 'xl',
       })}
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmitLogin)}
     >
       <div className={vstack({ alignItems: 'start', w: 'full' })}>
         <h2 className={css({ fontSize: '2xl', fontWeight: 'bold' })}>ログイン</h2>
@@ -52,7 +52,11 @@ export const LoginForm = () => {
               borderColor: 'dimgray',
               borderWidth: '1px',
               bg: 'slate.100',
+              _placeholder: {
+                fontSize: 'xs',
+              },
             })}
+            placeholder='e.g. taro1123'
             {...register('userId')}
           />
           <p className={css({ fontSize: 'xs', color: 'cinnabar' })}>
@@ -73,7 +77,11 @@ export const LoginForm = () => {
               borderColor: 'dimgray',
               borderWidth: '1px',
               bg: 'slate.100',
+              _placeholder: {
+                fontSize: 'xs',
+              },
             })}
+            placeholder='半角英数字6文字以上'
             {...register('password')}
           />
           <p className={css({ fontSize: 'xs', color: 'cinnabar' })}>

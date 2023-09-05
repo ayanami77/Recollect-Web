@@ -4,10 +4,10 @@ import { hstack, vstack } from '../../../../styled-system/patterns'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { AuthValidationSchema, AuthValidationSchemaType } from '@/libs/validations/authValidation'
 import { ReactNode } from 'react'
-import { useRouter } from 'next/router'
+import { useMutateUser } from '@/api/hooks/user/useMutateUser'
 
 export const SignUpForm = () => {
-  const router = useRouter()
+  const { signUpMutation } = useMutateUser()
   const {
     register,
     handleSubmit,
@@ -16,11 +16,10 @@ export const SignUpForm = () => {
     mode: 'onBlur',
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolver: zodResolver(AuthValidationSchema as any),
-  }) //TODO: 苦渋のキャスティング
+  })
 
-  const onSubmit = (data: AuthValidationSchemaType) => {
-    console.log(data)
-    router.push('/history')
+  const onSubmit = (userCredential: AuthValidationSchemaType) => {
+    signUpMutation.mutate(userCredential)
   }
 
   return (
@@ -52,6 +51,9 @@ export const SignUpForm = () => {
               borderColor: 'dimgray',
               borderWidth: '1px',
               bg: 'slate.100',
+              _placeholder: {
+                fontSize: 'xs',
+              },
             })}
             placeholder='e.g. taro1123'
             {...register('userId')}
@@ -74,7 +76,11 @@ export const SignUpForm = () => {
               borderColor: 'dimgray',
               borderWidth: '1px',
               bg: 'slate.100',
+              _placeholder: {
+                fontSize: 'xs',
+              },
             })}
+            placeholder='半角英数字6文字以上'
             {...register('password')}
           />
           <p className={css({ fontSize: 'xs', color: 'cinnabar' })}>
