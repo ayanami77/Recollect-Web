@@ -19,7 +19,14 @@
   ],
   "signup": [
     {
-      "userId": "taro1123",
+      "userId": "naruto8864",
+      "password": "password",
+      "id": 1
+    }
+  ],
+  "login": [
+    {
+      "userId": "naruto8864",
       "password": "password",
       "id": 1
     }
