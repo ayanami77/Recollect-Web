@@ -6,9 +6,11 @@ export default function Home() {
   return (
     <>
       <CommonMeta title={'Recollect '} description={'Recollectというサービスの紹介ページです。'} />
-      <Hero />
-      <SignUp />
-      <Footer />
+      <div>
+        <Hero />
+        <SignUp />
+        <Footer />
+      </div>
     </>
   )
 }
