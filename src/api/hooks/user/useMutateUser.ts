@@ -12,8 +12,7 @@ export const useMutateUser = () => {
     {
       onSuccess: (res) => {
         console.log(res)
-        //TODO: チュートリアルに飛ばすか
-        router.push('/history')
+        router.push('/tutorial')
       },
       onError: (err: any) => {
         if (err.response.data.message) {
