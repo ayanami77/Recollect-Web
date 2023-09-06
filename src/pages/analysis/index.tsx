@@ -45,6 +45,7 @@ export default function Analysis() {
               gap: '60px',
               w: 'fit',
               mx: 'auto',
+              mt: '80px',
             })}
           >
             <Button content={{ movement: 'prev', onClick: prev }} />

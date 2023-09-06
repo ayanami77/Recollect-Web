@@ -2,6 +2,7 @@ import { FC, useState } from 'react'
 import { css } from '../../../../styled-system/css'
 import { flex } from '../../../../styled-system/patterns'
 import { EditModal, Tag } from '.'
+import { m } from 'framer-motion'
 import Link from 'next/link'
 
 type CardProps = {
@@ -25,7 +26,7 @@ export const Card: FC<CardProps> = ({ contents }) => {
 
   return (
     <>
-      <div
+      <m.div
         className={css({
           width: '560px',
           height: '162px',
@@ -36,6 +37,7 @@ export const Card: FC<CardProps> = ({ contents }) => {
           shadow: 'md',
           cursor: 'pointer',
         })}
+        whileHover={{ scale: 1.05 }}
         onClick={handleOpen}
       >
         <div className={flex({ alignItems: 'center' })}>
@@ -74,7 +76,7 @@ export const Card: FC<CardProps> = ({ contents }) => {
         >
           {data.content}
         </div>
-      </div>
+      </m.div>
       {isOpen && <EditModal content={{ handleOpen, data }} />}
     </>
   )

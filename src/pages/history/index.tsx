@@ -2,21 +2,14 @@ import { Card, FadeInWrapper } from '@/components/common'
 import MainLayout from '@/components/layouts/MainLayout'
 import { CommonMeta } from '@/components/common/meta'
 import { css } from '../../../styled-system/css'
-
-const mock_data = [
-  {
-    id: 0,
-    period: '高校生',
-    title: '文系でも化学部が楽しかった話!',
-    content:
-      '毎週、教科書で出てくるような有名な実験から面白い実験まで色々なことをしていました。やはり化学実験ではあるので、部員としっかりと協力して取り組んでいました。色々な事象を目の当たりにするたびにわくわくを沢山感じていました。さらに、文化祭準備期間では自分たちで何をするか考え、じっくりと時間をかけて楽しく取り組んでいました。',
-    tags: ['責任感'],
-    createdAt: '2023-09-01T12:14:57.548Z',
-    updatedAt: '2023-09-01T12:14:57.548Z',
-  },
-]
+import { useQueryCard } from '@/api/hooks/card/useQueryCard'
+import { Suspense } from 'react'
+import { vstack } from '../../../styled-system/patterns'
 
 export default function History() {
+  const { listCardsQuery } = useQueryCard()
+  const { data } = listCardsQuery
+
   return (
     <>
       <CommonMeta
@@ -25,10 +18,31 @@ export default function History() {
       />
       <MainLayout>
         <FadeInWrapper>
-          <div className={css({ w: 'fit', mx: 'auto' })}>
-            {mock_data.map((data, i) => (
-              <Card key={i} contents={{ data }} />
-            ))}
+          <div className={css({ w: '1200px', mx: 'auto', mt: '24px' })}>
+            <h2 className={css({ fontSize: '3xl', fontWeight: 'bold' })}>naruto8864さんの自分史</h2>
+            <div
+              className={vstack({
+                w: '720px',
+                h: '640px',
+                gap: '32px',
+                overflowY: 'auto',
+                mt: '24px',
+                mx: 'auto',
+                _scrollbar: { w: '10px' },
+                _scrollbarTrack: { bg: 'slate.300' },
+                _scrollbarThumb: { bg: 'dimBlue', borderRadius: 'md' },
+                bg: 'slate.200',
+                p: '24px',
+              })}
+            >
+              <Suspense fallback={<p>Now Loading...</p>}>
+                {data?.length ? (
+                  data.map((d) => <Card key={d.id} contents={{ data: d }} />)
+                ) : (
+                  <li>nothing here...</li>
+                )}
+              </Suspense>
+            </div>
           </div>
         </FadeInWrapper>
       </MainLayout>
