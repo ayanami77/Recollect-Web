@@ -21,6 +21,7 @@ export const Backdrop: FC<BackdropProps> = (props) => {
         w: '100%',
         h: '100%',
         bg: '#000000c0',
+        zIndex: 10000,
       })}
       onClick={onClick}
       initial={{ opacity: 0 }}
