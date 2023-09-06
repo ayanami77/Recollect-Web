@@ -24,13 +24,17 @@ const fadeIn = {
 // TODO: 必要なpropsは後で追加
 type ConfirmModalProps = {
   content: {
-    handleClose: () => void
+    onCancel: () => void
+    onConfirm: () => void
+    cancelMessage: string
+    confirmMessage: string
+    message: string
   }
 }
 export const ConfirmModal: FC<ConfirmModalProps> = (props) => {
   const { content } = props
   return (
-    <Backdrop onClick={content.handleClose}>
+    <Backdrop onClick={() => false}>
       <m.div
         className={vstack({
           bg: 'white',
@@ -63,7 +67,7 @@ export const ConfirmModal: FC<ConfirmModalProps> = (props) => {
           })}
         >
           <div className={css({ mt: '12px', color: 'dimGray' })}>
-            <p>本当に「タイトルです」を削除しますか？</p>
+            <p>{content.message}</p>
           </div>
           <div className={hstack({ gap: '24px', fontSize: 'md', fontWeight: 'bold', ml: 'auto' })}>
             <button
@@ -75,9 +79,9 @@ export const ConfirmModal: FC<ConfirmModalProps> = (props) => {
                 cursor: 'pointer',
                 _hover: { bg: 'slate.200', transition: 'all 0.15s' },
               })}
-              onClick={content.handleClose}
+              onClick={content.onCancel}
             >
-              キャンセル
+              {content.cancelMessage}
             </button>
             <button
               className={hstack({
@@ -86,8 +90,9 @@ export const ConfirmModal: FC<ConfirmModalProps> = (props) => {
                 color: 'cinnabar',
                 cursor: 'pointer',
               })}
+              onClick={content.onConfirm}
             >
-              削除
+              {content.confirmMessage}
             </button>
           </div>
         </div>
