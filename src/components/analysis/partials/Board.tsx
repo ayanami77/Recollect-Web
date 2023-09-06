@@ -6,10 +6,13 @@ import ReactMarkdown from 'react-markdown'
 
 type BoardProps = {
   content: {
+    id: number
+    period: string
     title: string
-    subTitle: string
     content: string
-    comment?: string
+    tags: string[]
+    createdAt: string
+    updatedAt: string
   }
 }
 
@@ -65,8 +68,8 @@ export const Board: FC<BoardProps> = (props) => {
             bg: 'slate.100',
           })}
         >
-          <h2 className={css({ fontSize: '2xl', fontWeight: 'bold' })}>{content.title}</h2>
-          <p className={css({ fontSize: 'md', mt: '8px', color: 'dimGray' })}>{content.subTitle}</p>
+          <h2 className={css({ fontSize: '2xl', fontWeight: 'bold' })}>{content.period}</h2>
+          <p className={css({ fontSize: 'md', mt: '8px', color: 'dimGray' })}>{content.title}</p>
         </div>
         <div className={vstack({ alignItems: 'start' })}>
           <p className={css({ fontSize: '2xl', fontWeight: 'bold' })}>について</p>

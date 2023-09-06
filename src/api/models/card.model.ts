@@ -3,11 +3,12 @@ import { cardRepository } from '../repositories'
 //TODO: 適宜修正
 export type Card = {
   id: number
+  period: string
   title: string
   content: string
   tags: string[]
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt: string
+  updatedAt: string
 }
 
 export const cardFactory = () => {
