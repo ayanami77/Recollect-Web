@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "prepare": "panda codegen",
-    "json-server": "json-server --watch src/api/mocks/index.json --port 4000",
+    "json-server": "json-server --watch src/api/mocks/index.json --port 4000 --routes src/api/mocks/routes.json",
     "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}'",
     "dev": "next dev",
     "build": "next build",
