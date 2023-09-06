@@ -4,33 +4,17 @@ import { hstack } from '../../../styled-system/patterns'
 import { useState } from 'react'
 import MainLayout from '@/components/layouts/MainLayout'
 import { CommonMeta } from '@/components/common/meta/CommonMeta'
-
-const mock_data = [
-  {
-    title: '開発インターン',
-    subTitle: '実務を通して、様々な学びを得た話',
-    content: 'xxxxx',
-  },
-  {
-    title: 'サークル',
-    subTitle: '秋の新歓活動を頑張った話',
-    content: 'xxxxx',
-  },
-  {
-    title: '高校生',
-    subTitle: '文系でも化学部が楽しかった話！',
-    content:
-      '毎週、教科書で出てくるような有名な実験から面白い実験まで色々なことをしていました。やはり化学実験ではあるので、部員としっかりと協力して取り組んでいました。色々な事象を目の当たりにするたびにわくわくを沢山感じていました。さらに、文化祭準備期間では自分たちで何をするか考え、じっくりと時間をかけて楽しく取り組んでいました。',
-  },
-]
+import { useQueryCard } from '@/api/hooks/card/useQueryCard'
 
 export default function Analysis() {
   const [index, setIndex] = useState(0)
+  const { listCardsQuery } = useQueryCard()
+  const { data } = listCardsQuery
 
   const prev = () => {
     const prevPos = index - 1
-    if (prevPos < 0) {
-      setIndex(mock_data.length - 1)
+    if (data && prevPos < 0) {
+      setIndex(data.length - 1)
     } else {
       setIndex(prevPos)
     }
@@ -38,7 +22,7 @@ export default function Analysis() {
 
   const next = () => {
     const nextPos = index + 1
-    if (mock_data.length - 1 < nextPos) {
+    if (data && data.length - 1 < nextPos) {
       setIndex(0)
     } else {
       setIndex(nextPos)
@@ -64,7 +48,7 @@ export default function Analysis() {
             })}
           >
             <Button content={{ movement: 'prev', onClick: prev }} />
-            <Board content={mock_data[index]} />
+            {data ? <Board content={data[index]} /> : <div>nothing</div>}
             <Button content={{ movement: 'next', onClick: next }} />
           </div>
         </FadeInWrapper>

@@ -8,13 +8,19 @@ export interface UserRepository {
 }
 
 const signUp: UserRepository['signUp'] = async (userCredential): Promise<User> => {
-  const { data } = await apiClient.post(`/signup`, userCredential)
+  const { data } = await apiClient.post(`/user/signup`, {
+    user_id: userCredential.userId,
+    password: userCredential.password,
+  })
   return data
 }
 
 const login: UserRepository['login'] = async (userCredential): Promise<User> => {
   //TODO: post or get
-  const { data } = await apiClient.post(`/login`, userCredential)
+  const { data } = await apiClient.post(`/user/login`, {
+    user_id: userCredential.userId,
+    password: userCredential.password,
+  })
   // const { data } = await apiClient.get(`/login?user_id=${userCredential.userId}?password=${userCredential.password}`)
   return data
 }
