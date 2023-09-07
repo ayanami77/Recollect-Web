@@ -9,7 +9,7 @@ import { CardBox } from '@/components/history/partials/CardBox'
 import { Card as TCard } from '@/api/models'
 
 const period_with_number = {
-  現在: 0,
+  現在まで: 0,
   高校生: 1,
   中学生: 2,
   小学生: 3,
