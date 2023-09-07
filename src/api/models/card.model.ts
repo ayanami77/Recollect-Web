@@ -1,9 +1,11 @@
 import { cardRepository } from '../repositories'
 
 //TODO: 適宜修正
+type Period = '現在' | '高校生' | '中学生' | '小学生' | '幼少期'
+
 export type Card = {
   id: number
-  period: string
+  period: Period
   title: string
   content: string
   tags: string[]

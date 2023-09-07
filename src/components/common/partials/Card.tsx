@@ -28,16 +28,16 @@ export const Card: FC<CardProps> = ({ contents }) => {
     <>
       <m.div
         className={css({
-          width: '560px',
+          width: 'full',
           height: '162px',
-          backgroundColor: 'white',
+          bg: 'white',
           borderRadius: '10px',
           paddingX: '38px',
           paddingY: '20px',
           shadow: 'md',
-          cursor: 'pointer',
         })}
-        whileHover={{ scale: 1.05 }}
+        whileHover={{ scale: 1.03 }}
+        //TODO: アクセシビリティ的に詳細ボタン設けたほうがわかりやすい
         onClick={handleOpen}
       >
         <div className={flex({ alignItems: 'center' })}>
