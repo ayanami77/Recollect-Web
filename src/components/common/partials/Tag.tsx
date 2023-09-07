@@ -17,8 +17,6 @@ export const Tag: FC<TagProps> = ({ content }) => {
         color: 'white',
         backgroundColor: 'lightGreen',
         p: '2px 10px',
-        mr: '5px',
-        mb: '5px',
         fontSize: 'sm',
         fontWeight: 'bold',
       })}

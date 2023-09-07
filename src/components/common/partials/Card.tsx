@@ -1,7 +1,8 @@
 import { FC, useState } from 'react'
 import { css } from '../../../../styled-system/css'
-import { flex } from '../../../../styled-system/patterns'
+import { flex, hstack } from '../../../../styled-system/patterns'
 import { EditModal, Tag } from '.'
+import { m } from 'framer-motion'
 import Link from 'next/link'
 
 type CardProps = {
@@ -25,23 +26,21 @@ export const Card: FC<CardProps> = ({ contents }) => {
 
   return (
     <>
-      <div
+      <m.div
         className={css({
-          width: '560px',
+          width: 'full',
           height: '162px',
-          backgroundColor: 'white',
+          bg: 'white',
           borderRadius: '10px',
           paddingX: '38px',
           paddingY: '20px',
           shadow: 'md',
-          cursor: 'pointer',
         })}
-        onClick={handleOpen}
+        whileHover={{ scale: 1.03 }}
       >
-        <div className={flex({ alignItems: 'center' })}>
+        <div className={flex({ alignItems: 'center', gap: '32px' })}>
           <div
             className={css({
-              width: '350px',
               height: '24px',
               display: 'inline-block',
               mb: '10px',
@@ -53,13 +52,18 @@ export const Card: FC<CardProps> = ({ contents }) => {
           </div>
         </div>
         <div className={css({ mt: '10px' })}>
-          {data.tags.length > 0 ? (
-            data.tags.map((tag, index) => <Tag key={index} content={{ name: tag }} />)
-          ) : (
-            <Link href={'/analysis'}>
-              <Tag content={{ name: '今すぐ分析する' }} />
-            </Link>
-          )}
+          <div className={hstack({ gap: '24px' })}>
+            {data.tags.length > 0 ? (
+              data.tags.map((tag, index) => <Tag key={index} content={{ name: tag }} />)
+            ) : (
+              <Link href={'/analysis'}>
+                <Tag content={{ name: '今すぐ分析する' }} />
+              </Link>
+            )}
+            <button className={css({ color: 'dimgray', cursor: 'pointer' })} onClick={handleOpen}>
+              詳細
+            </button>
+          </div>
         </div>
         <div
           className={css({
@@ -74,7 +78,7 @@ export const Card: FC<CardProps> = ({ contents }) => {
         >
           {data.content}
         </div>
-      </div>
+      </m.div>
       {isOpen && <EditModal content={{ handleOpen, data }} />}
     </>
   )
