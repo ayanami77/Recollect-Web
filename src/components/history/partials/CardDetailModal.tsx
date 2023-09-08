@@ -5,7 +5,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons'
-import { useMutationCard } from '@/api/hooks/card/useMutateCard'
+import { useMutateCard } from '@/api/hooks/card/useMutateCard'
 import { Period as TPeriod } from '@/api/models'
 import { ConfirmModal, Tag } from '@/components/common'
 import { Backdrop } from '@/components/common/partials/Backdrop'
@@ -29,7 +29,7 @@ type CardDetailModalProps = {
 }
 export const CardDetailModal: FC<CardDetailModalProps> = ({ content }) => {
   const { handleOpen, data } = content
-  const { updateCardMutation, deleteUserMutation } = useMutationCard()
+  const { updateCardMutation, deleteUserMutation } = useMutateCard()
   const {
     register,
     handleSubmit,

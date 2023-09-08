@@ -3,7 +3,7 @@ import { useError } from '../utils/useError'
 import { Card, cardFactory } from '@/api/models'
 import { queryClient } from '@/api/clients/tanstackQueryClient'
 
-export const useMutationCard = () => {
+export const useMutateCard = () => {
   const { switchErrorHandling } = useError()
 
   const createCardMutation = useMutation(
