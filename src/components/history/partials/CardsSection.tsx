@@ -9,15 +9,7 @@ type CardBoxProps = {
   period: string
 }
 
-// const period_to_color = {
-//   "大学生": "green.200",
-//   "高校生": "yellow.200",
-//   "中学生": "blue.200",
-//   "小学生": "orange.200",
-//   "幼少期": "beige.200",
-// }
-
-export const CardBox: FC<CardBoxProps> = (props) => {
+export const CardsSection: FC<CardBoxProps> = (props) => {
   const { children, period } = props
 
   return (

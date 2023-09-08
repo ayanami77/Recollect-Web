@@ -1,19 +1,21 @@
 import { FC, useEffect, useState } from 'react'
-import { Backdrop } from './Backdrop'
 import { css } from '../../../../styled-system/css'
-import { ConfirmModal, Tag } from '.'
 import { flex, hstack } from '../../../../styled-system/patterns'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { useMutationCard } from '@/api/hooks/card/useMutateCard'
+import { Period as TPeriod } from '@/api/models'
+import { ConfirmModal, Tag } from '@/components/common'
+import { Backdrop } from '@/components/common/partials/Backdrop'
 
-type EditModalProps = {
+type CardDetailModalProps = {
   content: {
     handleOpen: () => void
     data: {
       id: number
-      period: string
+      period: TPeriod
       title: string
       content: string
       tags: string[]
@@ -28,7 +30,8 @@ type Inputs = {
   content: string
 }
 
-export const EditModal: FC<EditModalProps> = ({ content }) => {
+export const CardDetailModal: FC<CardDetailModalProps> = ({ content }) => {
+  const { updateCardMutation, deleteUserMutation } = useMutationCard()
   // todo: zodでバリデーション
   const { handleOpen, data } = content
   const {
@@ -39,7 +42,18 @@ export const EditModal: FC<EditModalProps> = ({ content }) => {
     // formState: { errors },
   } = useForm<Inputs>()
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
+  const onSubmitUpdate: SubmitHandler<Inputs> = (d) => {
+    if (isEdited) {
+      updateCardMutation.mutate({
+        id: data.id,
+        period: data.period,
+        title: d.title,
+        content: d.content,
+      })
+    }
+    setIsEditMode(false)
+  }
+
   const updatedAt = new Date(data.updatedAt)
 
   const updatedAtString = `${updatedAt.getFullYear()}/${
@@ -55,6 +69,12 @@ export const EditModal: FC<EditModalProps> = ({ content }) => {
   const watchedContent = watch('content')
 
   const handleDeleteModalOpen = () => setIsDeleteModalOpen((prev) => !prev)
+  const handleDeleteModalProceed = async (id: number) => {
+    deleteUserMutation.mutate({
+      id: id,
+    })
+    setIsConfirmModalOpen(false)
+  }
 
   const handleConfirmModalCancel = () => {
     setIsConfirmModalOpen(false)
@@ -63,6 +83,7 @@ export const EditModal: FC<EditModalProps> = ({ content }) => {
   const handleConfirmModalProceed = () => {
     setIsEditMode(false)
     setIsConfirmModalOpen(false)
+
     reset({
       title: data.title,
       content: data.content,
@@ -83,7 +104,7 @@ export const EditModal: FC<EditModalProps> = ({ content }) => {
     } else {
       setIsEdited(false)
     }
-  }, [watchedTitle, watchedContent, data.title, data.content])
+  }, [watchedTitle, watchedContent, data.title, data.content, watch])
 
   return (
     <>
@@ -99,7 +120,7 @@ export const EditModal: FC<EditModalProps> = ({ content }) => {
             shadow: 'xl',
           })}
         >
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmitUpdate)}>
             <div className={flex({})}>
               <label
                 className={css({
@@ -130,41 +151,42 @@ export const EditModal: FC<EditModalProps> = ({ content }) => {
                   style={{
                     backgroundColor: isEditMode ? '#f1f5f9' : 'white',
                     borderColor: isEditMode ? '#0000009c' : 'none',
-                    borderWidth: isEditMode ? '1px' : '0',
+                    borderWidth: isEditMode ? '2px' : '0',
                   }}
                 />
               </label>
               <div
-                className={flex({
-                  alignItems: 'center',
-                  p: '5px 10px',
-                  borderRadius: '10px',
-                  gap: '10px',
+                className={hstack({
+                  px: '10px',
+                  py: '5px',
+                  gap: '16px',
                   ml: 'auto',
                 })}
               >
                 <div
-                  className={css({ w: '20px', cursor: isEditMode ? '' : 'pointer' })}
+                  className={css({ cursor: isEditMode ? '' : 'pointer' })}
                   onClick={isEditMode ? () => false : handleEditMode}
+                  title='編集'
                 >
                   <FontAwesomeIcon
                     icon={faPenToSquare}
-                    style={{ color: isEditMode ? '#F5F5F5' : '#0c4c97' }}
+                    style={{ width: '20px', color: isEditMode ? '#F5F5F5' : '#0c4c97' }}
                   />
                 </div>
-                <div
-                  className={css({ w: '20px', cursor: isEditMode ? '' : 'pointer' })}
+                <button
+                  className={css({ cursor: isEditMode ? '' : 'pointer' })}
                   onClick={isEditMode ? () => false : handleDeleteModalOpen}
+                  title='削除'
                 >
                   <FontAwesomeIcon
                     icon={faTrash}
-                    style={{ color: isEditMode ? '#F5F5F5' : '#FD4444' }}
+                    style={{ width: '20px', color: isEditMode ? '#F5F5F5' : '#FD4444' }}
                   />
-                </div>
+                </button>
               </div>
             </div>
-            <div className={css({ color: 'GrayText', ml: 'auto', mt: '4px', px: '8px' })}>
-              <div>更新日: {updatedAtString}</div>
+            <div className={css({ color: 'GrayText', ml: 'auto', mt: '8px', px: '8px' })}>
+              <span>更新日: {updatedAtString}</span>
             </div>
             <div className={css({ mt: '10px', px: '8px' })}>
               {data.tags.length > 0 ? (
@@ -184,12 +206,12 @@ export const EditModal: FC<EditModalProps> = ({ content }) => {
               style={{
                 backgroundColor: isEditMode ? '#f1f5f9' : 'white',
                 borderColor: isEditMode ? '#0000009c' : 'none',
-                borderWidth: isEditMode ? '1px' : '0',
+                borderWidth: isEditMode ? '2px' : '0',
               }}
               className={css({
                 width: '100%',
                 height: '300px',
-                mt: '5px',
+                mt: '8px',
                 outline: 'none',
                 resize: 'none',
                 padding: '8px',
@@ -199,6 +221,7 @@ export const EditModal: FC<EditModalProps> = ({ content }) => {
             {isEditMode && (
               <div className={flex({ justifyContent: 'end', gap: '10px' })}>
                 <button
+                  type='button'
                   className={hstack({
                     bg: 'slate.100',
                     px: '18px',
@@ -211,27 +234,20 @@ export const EditModal: FC<EditModalProps> = ({ content }) => {
                 >
                   キャンセル
                 </button>
-                <label
+                <button
+                  type='submit'
                   className={css({
-                    cursor: 'pointer',
                     border: 'none',
                     backgroundColor: 'dimBlue',
-                    fontSize: 'sm',
                     fontWeight: 'bold',
                     padding: '10px 20px',
                     borderRadius: '10px',
+                    color: 'white',
+                    cursor: 'pointer',
                   })}
                 >
-                  <input
-                    type='submit'
-                    value='保存'
-                    className={css({
-                      color: 'white',
-                      cursor: 'pointer',
-                      padding: '5px',
-                    })}
-                  />
-                </label>
+                  保存
+                </button>
               </div>
             )}
           </form>
@@ -241,7 +257,7 @@ export const EditModal: FC<EditModalProps> = ({ content }) => {
         <ConfirmModal
           content={{
             onCancel: handleDeleteModalOpen,
-            onConfirm: handleDeleteModalOpen,
+            onConfirm: () => handleDeleteModalProceed(content.data.id),
             cancelMessage: 'キャンセル',
             confirmMessage: '削除',
             message: `本当にこのカードを削除しますか？`,
