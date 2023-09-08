@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form'
 import { css } from '../../../../styled-system/css'
 import { hstack, vstack } from '../../../../styled-system/patterns'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { AuthValidationSchema, AuthValidationSchemaType } from '@/libs/validations/authValidation'
+import { AuthValidationSchema, TAuthValidationSchema } from '@/libs/validations/authValidation'
 import { useMutateUser } from '@/api/hooks/user/useMutateUser'
 import Link from 'next/link'
 
@@ -13,12 +13,12 @@ export const LoginForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<AuthValidationSchemaType>({
+  } = useForm<TAuthValidationSchema>({
     mode: 'onBlur',
     resolver: zodResolver(AuthValidationSchema as any),
   })
 
-  const onSubmitLogin = (userCredential: AuthValidationSchemaType) => {
+  const onSubmitLogin = (userCredential: TAuthValidationSchema) => {
     loginMutation.mutate(userCredential)
   }
 
@@ -49,11 +49,16 @@ export const LoginForm = () => {
                 w: 'full',
                 p: '6px',
                 rounded: 'md',
-                borderColor: 'dimgray',
+                bg: 'slate.50',
                 borderWidth: '1px',
-                bg: 'slate.100',
+                borderColor: 'slate.500',
+                outline: 'none',
                 _placeholder: {
                   fontSize: 'xs',
+                },
+                _focus: {
+                  borderWidth: '2px',
+                  borderColor: 'blue.400',
                 },
               })}
               placeholder='e.g. taro1123'
@@ -74,11 +79,16 @@ export const LoginForm = () => {
                 w: 'full',
                 p: '6px',
                 rounded: 'md',
-                borderColor: 'dimgray',
+                bg: 'slate.50',
                 borderWidth: '1px',
-                bg: 'slate.100',
+                borderColor: 'slate.500',
+                outline: 'none',
                 _placeholder: {
                   fontSize: 'xs',
+                },
+                _focus: {
+                  borderWidth: '2px',
+                  borderColor: 'blue.400',
                 },
               })}
               placeholder='半角英数字6文字以上'
