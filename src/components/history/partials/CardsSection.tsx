@@ -19,7 +19,7 @@ export const CardsSection: FC<CardBoxProps> = (props) => {
           <div className={css({ w: '12px', h: '12px', bg: 'orange.300', rounded: 'full' })}></div>
           <h2 className={css({ fontSize: '2xl', w: 'fit', fontWeight: 'bold' })}>{period}</h2>
         </div>
-        <button className={css({ cursor: 'pointer' })}>
+        <button className={css({ cursor: 'pointer' })} title='自分史を追加'>
           <FontAwesomeIcon
             icon={faPlus}
             style={{ width: '28px', height: '28px', color: '#0C4C97' }}

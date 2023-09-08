@@ -19,7 +19,17 @@ export default function History() {
       <MainLayout>
         <FadeInWrapper>
           <div className={css({ w: '840px', mx: 'auto', mt: '24px' })}>
-            <h2 className={css({ fontSize: '3xl', fontWeight: 'bold' })}>{userName}さんの自分史</h2>
+            <h2
+              className={css({
+                fontSize: '3xl',
+                fontWeight: 'bold',
+                borderLeftWidth: '8px',
+                borderColor: 'dimBlue',
+                px: '16px',
+              })}
+            >
+              {userName}さんの自分史
+            </h2>
             <CardsContainer data={data ? data : []} />
           </div>
         </FadeInWrapper>
