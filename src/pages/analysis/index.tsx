@@ -5,6 +5,7 @@ import { useState } from 'react'
 import MainLayout from '@/components/layouts/MainLayout'
 import { CommonMeta } from '@/components/common/meta/CommonMeta'
 import { useQueryCard } from '@/api/hooks/card/useQueryCard'
+import { AnalysisDataNotRegistered } from '@/components/analysis/partials/AnalysisDataNotRegistered'
 
 export default function Analysis() {
   const [index, setIndex] = useState(0)
@@ -48,9 +49,15 @@ export default function Analysis() {
               mt: '80px',
             })}
           >
-            <Button content={{ movement: 'prev', onClick: prev }} />
-            {data ? <Board content={data[index]} /> : <div>nothing</div>}
-            <Button content={{ movement: 'next', onClick: next }} />
+            {data?.length ? (
+              <>
+                <Button content={{ movement: 'prev', onClick: prev }} />
+                <Board content={data[index]} />
+                <Button content={{ movement: 'next', onClick: next }} />
+              </>
+            ) : (
+              <AnalysisDataNotRegistered />
+            )}
           </div>
         </FadeInWrapper>
       </MainLayout>

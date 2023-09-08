@@ -11,8 +11,9 @@ export const useMutateUser = () => {
     async (userCredential: UserCredential) => await userFactory().signUp(userCredential),
     {
       onSuccess: (res) => {
-        console.log(res)
-        router.push('/tutorial')
+        // サインアップ成功時、そのままログインする。
+        const userCredential = { userId: res.user_id, password: res.password }
+        loginMutation.mutate(userCredential)
       },
       onError: (err: any) => {
         if (err.response.data.message) {

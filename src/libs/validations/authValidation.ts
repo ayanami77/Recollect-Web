@@ -9,4 +9,4 @@ export const AuthValidationSchema = z.object({
     .max(20, '3文字以上20文字以下で入力してください。'),
   password: z.string().nonempty('パスワードは必須です。').min(6, '6文字以上で入力してください。'),
 })
-export type AuthValidationSchemaType = z.infer<typeof AuthValidationSchema>
+export type TAuthValidationSchema = z.infer<typeof AuthValidationSchema>

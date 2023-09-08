@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form'
 import { css } from '../../../../styled-system/css'
 import { hstack, vstack } from '../../../../styled-system/patterns'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { AuthValidationSchema, AuthValidationSchemaType } from '@/libs/validations/authValidation'
+import { AuthValidationSchema, TAuthValidationSchema } from '@/libs/validations/authValidation'
 import { useMutateUser } from '@/api/hooks/user/useMutateUser'
 
 export const SignUpForm = () => {
@@ -11,12 +11,12 @@ export const SignUpForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<AuthValidationSchemaType>({
+  } = useForm<TAuthValidationSchema>({
     mode: 'onBlur',
     resolver: zodResolver(AuthValidationSchema as any),
   })
 
-  const onSubmit = (userCredential: AuthValidationSchemaType) => {
+  const onSubmitSignUp = (userCredential: TAuthValidationSchema) => {
     signUpMutation.mutate(userCredential)
   }
 
@@ -31,7 +31,7 @@ export const SignUpForm = () => {
         rounded: '2xl',
         shadow: 'xl',
       })}
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmitSignUp)}
     >
       <div className={vstack({ alignItems: 'start', w: 'full' })}>
         <h2 className={css({ fontSize: '2xl', fontWeight: 'bold' })}>登録</h2>
@@ -47,11 +47,16 @@ export const SignUpForm = () => {
                 w: 'full',
                 p: '6px',
                 rounded: 'md',
-                borderColor: 'dimgray',
+                bg: 'slate.50',
                 borderWidth: '1px',
-                bg: 'slate.100',
+                borderColor: 'slate.500',
+                outline: 'none',
                 _placeholder: {
                   fontSize: 'xs',
+                },
+                _focus: {
+                  borderWidth: '2px',
+                  borderColor: 'blue.400',
                 },
               })}
               placeholder='e.g. taro1123'
@@ -72,11 +77,16 @@ export const SignUpForm = () => {
                 w: 'full',
                 p: '6px',
                 rounded: 'md',
-                borderColor: 'dimgray',
+                bg: 'slate.50',
                 borderWidth: '1px',
-                bg: 'slate.100',
+                borderColor: 'slate.500',
+                outline: 'none',
                 _placeholder: {
                   fontSize: 'xs',
+                },
+                _focus: {
+                  borderWidth: '2px',
+                  borderColor: 'blue.400',
                 },
               })}
               placeholder='半角英数字6文字以上'

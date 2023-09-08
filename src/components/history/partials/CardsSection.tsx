@@ -9,15 +9,7 @@ type CardBoxProps = {
   period: string
 }
 
-// const period_to_color = {
-//   "大学生": "green.200",
-//   "高校生": "yellow.200",
-//   "中学生": "blue.200",
-//   "小学生": "orange.200",
-//   "幼少期": "beige.200",
-// }
-
-export const CardBox: FC<CardBoxProps> = (props) => {
+export const CardsSection: FC<CardBoxProps> = (props) => {
   const { children, period } = props
 
   return (
@@ -27,7 +19,7 @@ export const CardBox: FC<CardBoxProps> = (props) => {
           <div className={css({ w: '12px', h: '12px', bg: 'orange.300', rounded: 'full' })}></div>
           <h2 className={css({ fontSize: '2xl', w: 'fit', fontWeight: 'bold' })}>{period}</h2>
         </div>
-        <button className={css({ cursor: 'pointer' })}>
+        <button className={css({ cursor: 'pointer' })} title='自分史を追加'>
           <FontAwesomeIcon
             icon={faPlus}
             style={{ width: '28px', height: '28px', color: '#0C4C97' }}
