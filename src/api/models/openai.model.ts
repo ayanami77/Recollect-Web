@@ -1,11 +1,15 @@
-import { openaiRepository } from "../repositories/openai.repository"
+import { openaiRepository } from '../repositories/openai.repository'
+
+export type OpenAICredential = {
+  prompt: string
+}
 
 export const openAiFactory = () => {
   const repository = openaiRepository
-	return {
-		getOpenAIResponse: async (): Promise<any> => {
-			const response = await repository.getOpenAIResponse()
-			return response
-		},
-	}
+  return {
+    getOpenAIResponse: async (credential: OpenAICredential): Promise<string | null> => {
+      const response = await repository.getOpenAIResponse(credential.prompt)
+      return response.choices[0].message.content
+    },
+  }
 }
