@@ -35,15 +35,10 @@ export const CardsContainer = (props: { data: TCard[] }) => {
       <div
         className={vstack({
           w: 'full',
-          h: '640px',
           gap: '32px',
-          overflowY: 'auto',
           mt: '24px',
           mx: 'auto',
           p: '24px',
-          _scrollbar: { w: '10px' },
-          _scrollbarTrack: { bg: 'slate.300' },
-          _scrollbarThumb: { bg: 'dimBlue', borderRadius: 'md' },
           rounded: 'xl',
         })}
       >
