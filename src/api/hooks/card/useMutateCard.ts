@@ -70,9 +70,33 @@ export const useMutateCard = () => {
     },
   )
 
+  const updateAnalysisResultMutation = useMutation(
+    (cardData: Pick<Card, 'id' | 'analysisResult'>) => cardFactory().updateAnalysisResult(cardData),
+    {
+      onSuccess: (res, variables) => {
+        console.log(res)
+        const previousCards = queryClient.getQueryData<Card[]>(['cards'])
+        if (previousCards) {
+          queryClient.setQueryData<Card[]>(
+            ['cards'],
+            previousCards.map((card) => (card.id === variables.id ? res : card)),
+          )
+        }
+      },
+      onError: (err: any) => {
+        if (err.response.data.message) {
+          switchErrorHandling(err.response.data.message)
+        } else {
+          switchErrorHandling(err.response.data)
+        }
+      },
+    },
+  )
+
   return {
     createCardMutation,
     updateCardMutation,
     deleteUserMutation,
+    updateAnalysisResultMutation: updateAnalysisResultMutation,
   }
 }
