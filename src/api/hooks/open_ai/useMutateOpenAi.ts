@@ -10,7 +10,6 @@ export const useMutateOpenAIResponse = () => {
     async (credential: OpenAICredential) => await openAiFactory().getOpenAIResponse(credential),
     {
       onSuccess: (res, variables: OpenAICredential) => {
-        console.log(res, variables.id)
         // TODO: GoのAPIをたたく
         if (res) {
           updateAnalisisResultMutation.mutate({ id: variables.id, analisisResult: res })

@@ -1,4 +1,5 @@
 import { useMutateOpenAIResponse } from '@/api/hooks/open_ai/useMutateOpenAi'
+import { css } from '../../../styled-system/css'
 
 const prompt = `
     下記文章を読み、その人の特性を分析し、マークダウン形式で出力して。
@@ -14,16 +15,17 @@ const prompt = `
 `
 export default function OpenAi() {
   const { openaiResponseMutation } = useMutateOpenAIResponse()
-
   const onSubmitOpenAi = () => {
     openaiResponseMutation.mutate({ id: 0, prompt })
   }
-
   return (
     <>
-      <div>
-        <button onClick={onSubmitOpenAi}>OpenAi</button>
-      </div>
+      <button
+        className={css({ cursor: 'pointer', p: '5', bgColor: 'dimBlue', color: 'white' })}
+        onClick={onSubmitOpenAi}
+      >
+        OpenAi
+      </button>
     </>
   )
 }
