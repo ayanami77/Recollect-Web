@@ -15,7 +15,7 @@ export const ProgressBar: FC<ProgressBarProps> = ({ currentValue }) => {
         <p>小学生</p>
         <p>中学生</p>
         <p>高校生</p>
-        <p>大学生</p>
+        <p>現在まで</p>
       </div>
       <div
         className={css({

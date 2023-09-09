@@ -6,7 +6,7 @@ import ReactMarkdown from 'react-markdown'
 
 type BoardProps = {
   content: {
-    id: number
+    id: string
     period: string
     title: string
     content: string

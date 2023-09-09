@@ -4,7 +4,7 @@ import { cardRepository } from '../repositories'
 export type Period = '現在まで' | '高校生' | '中学生' | '小学生' | '幼少期'
 
 export type Card = {
-  id: number
+  id: string
   period: Period
   title: string
   content: string

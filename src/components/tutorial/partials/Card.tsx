@@ -1,30 +1,34 @@
 import { ChangeEvent, Dispatch, FC, SetStateAction } from 'react'
 import { css } from '../../../../styled-system/css'
+import { Period as TPeriod } from '@/api/models'
 
-type Period = '幼少期' | '小学生' | '中学生' | '高校生' | '大学生'
 type Card = {
-  period: Period
-  subTitle: string
+  period: TPeriod
+  title: string
   content: string
 }
+
 type CardProps = {
   content: {
-    cardPostion: number
+    cardPosition: number
+    placeholderText: string
     setCardList: Dispatch<SetStateAction<Card[]>>
     cardList: Card[]
+    isValidated: boolean
   }
 }
+
 export const Card: FC<CardProps> = ({ content }) => {
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     content.setCardList((prev) => {
-      prev[content.cardPostion].subTitle = e.target.value
+      prev[content.cardPosition].title = e.target.value
       return [...prev]
     })
   }
 
   const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     content.setCardList((prev) => {
-      prev[content.cardPostion].content = e.target.value
+      prev[content.cardPosition].content = e.target.value
       return [...prev]
     })
   }
@@ -33,7 +37,7 @@ export const Card: FC<CardProps> = ({ content }) => {
     <div
       className={css({
         width: '600px',
-        height: '370px',
+        minH: '370px',
         backgroundColor: 'white',
         borderRadius: '10px',
         padding: '38px',
@@ -53,7 +57,7 @@ export const Card: FC<CardProps> = ({ content }) => {
           type='text'
           id='title'
           onChange={(e) => handleTitleChange(e)}
-          value={content.cardList[content.cardPostion].subTitle}
+          value={content.cardList[content.cardPosition].title}
           placeholder='一言で'
           className={css({
             borderBottom: '4px solid',
@@ -62,11 +66,16 @@ export const Card: FC<CardProps> = ({ content }) => {
             fontWeight: 'bold',
           })}
         />
+        {content.isValidated && (
+          <p className={css({ color: 'cinnabar', mt: '4px', fontSize: 'md' })}>
+            タイトルは必須です。
+          </p>
+        )}
       </label>
       <textarea
-        placeholder='どんなことをしていた？'
+        placeholder={`ヒント: ${content.placeholderText}`}
         onChange={(e) => handleContentChange(e)}
-        value={content.cardList[content.cardPostion].content}
+        value={content.cardList[content.cardPosition].content}
         className={css({
           width: '100%',
           height: '250px',
