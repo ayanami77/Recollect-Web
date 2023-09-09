@@ -7,7 +7,7 @@ import { Period as TPeriod } from '@/api/models'
 
 type Card = {
   period: TPeriod
-  subTitle: string
+  title: string
   content: string
 }
 
@@ -18,27 +18,27 @@ export default function Tutorial() {
   const [cardList, setCardList] = useState<Card[]>([
     {
       period: '幼少期',
-      subTitle: '',
+      title: '',
       content: '',
     },
     {
       period: '小学生',
-      subTitle: '',
+      title: '',
       content: '',
     },
     {
       period: '中学生',
-      subTitle: '',
+      title: '',
       content: '',
     },
     {
       period: '高校生',
-      subTitle: '',
+      title: '',
       content: '',
     },
     {
       period: '現在まで',
-      subTitle: '',
+      title: '',
       content: '',
     },
   ])
@@ -51,16 +51,25 @@ export default function Tutorial() {
     '熱中したことは？',
   ]
 
+  const [isValidated, setIsValidated] = useState(false)
+
+  const handleValidate = () => {
+    if (cardList[cardPosition].title) return false
+    setIsValidated(true)
+    return true
+  }
+
   const handleNext = () => {
-    if (currentValue >= 100) return
+    if (handleValidate()) return
     setCardPosition((prevValue) => Math.min(prevValue + 1, 4))
     setCurrentValue((prevValue) => Math.min(prevValue + progressStepSize, 100))
+    setIsValidated(false)
   }
 
   const handlePrev = () => {
-    if (currentValue <= 0) return
     setCardPosition((prevValue) => Math.max(prevValue - 1, 0))
     setCurrentValue((prevValue) => Math.max(prevValue - progressStepSize, progressStepSize))
+    setIsValidated(false)
   }
 
   return (
@@ -79,6 +88,7 @@ export default function Tutorial() {
                 setCardList: setCardList,
                 cardList: cardList,
                 placeholderText: questions[cardPosition],
+                isValidated: isValidated,
               }}
             />
             <TransitionButton content={{ movement: 'next', onClick: handleNext, cardPosition }} />

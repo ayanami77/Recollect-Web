@@ -1,38 +1,27 @@
 import { ChangeEvent, Dispatch, FC, SetStateAction } from 'react'
 import { css } from '../../../../styled-system/css'
 import { Period as TPeriod } from '@/api/models'
-// import { useForm } from 'react-hook-form'
-// import { zodResolver } from '@hookform/resolvers/zod'
 
 type Card = {
   period: TPeriod
-  subTitle: string
+  title: string
   content: string
 }
+
 type CardProps = {
   content: {
     cardPosition: number
     placeholderText: string
     setCardList: Dispatch<SetStateAction<Card[]>>
     cardList: Card[]
+    isValidated: boolean
   }
 }
 
 export const Card: FC<CardProps> = ({ content }) => {
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   watch,
-  //   reset,
-  //   formState: { errors },
-  // } = useForm({
-  //   mode: 'onBlur',
-  //   resolver: zodResolver(CardValidationSchema as any),
-  // })
-
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     content.setCardList((prev) => {
-      prev[content.cardPosition].subTitle = e.target.value
+      prev[content.cardPosition].title = e.target.value
       return [...prev]
     })
   }
@@ -48,7 +37,7 @@ export const Card: FC<CardProps> = ({ content }) => {
     <div
       className={css({
         width: '600px',
-        height: '370px',
+        minH: '370px',
         backgroundColor: 'white',
         borderRadius: '10px',
         padding: '38px',
@@ -68,7 +57,7 @@ export const Card: FC<CardProps> = ({ content }) => {
           type='text'
           id='title'
           onChange={(e) => handleTitleChange(e)}
-          value={content.cardList[content.cardPosition].subTitle}
+          value={content.cardList[content.cardPosition].title}
           placeholder='一言で'
           className={css({
             borderBottom: '4px solid',
@@ -77,6 +66,11 @@ export const Card: FC<CardProps> = ({ content }) => {
             fontWeight: 'bold',
           })}
         />
+        {content.isValidated && (
+          <p className={css({ color: 'cinnabar', mt: '4px', fontSize: 'md' })}>
+            タイトルは必須です。
+          </p>
+        )}
       </label>
       <textarea
         placeholder={`ヒント: ${content.placeholderText}`}
