@@ -12,9 +12,11 @@ export const Backdrop: FC<BackdropProps> = (props) => {
   return (
     <m.div
       className={css({
-        pos: 'absolute',
+        pos: 'fixed',
         top: 0,
         left: 0,
+        right: 0,
+        bottom: 0,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
