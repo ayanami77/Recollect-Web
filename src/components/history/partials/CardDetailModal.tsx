@@ -179,7 +179,11 @@ export const CardDetailModal: FC<CardDetailModalProps> = ({ content }) => {
             {!isEditMode && (
               <div className={css({ mt: '10px', px: '8px' })}>
                 {data.tags.length > 0 ? (
-                  data.tags.map((tag, index) => <Tag key={index} content={{ name: tag }} />)
+                  <div className={hstack({})}>
+                    {data.tags.map((tag, index) => (
+                      <Tag key={index} content={{ name: tag }} />
+                    ))}
+                  </div>
                 ) : (
                   <Link href={'/analysis'}>
                     <Tag content={{ name: '今すぐAI分析する' }} />

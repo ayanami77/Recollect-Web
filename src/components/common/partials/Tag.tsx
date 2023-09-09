@@ -9,13 +9,14 @@ type TagProps = {
 
 export const Tag: FC<TagProps> = ({ content }) => {
   const { name } = content
+
   return (
     <div
       className={css({
         display: 'inline-block',
-        borderRadius: 'full',
+        borderRadius: name === '今すぐ分析する' ? 'lg' : 'full',
         color: 'white',
-        backgroundColor: 'lightGreen',
+        backgroundColor: name === '今すぐ分析する' ? 'dimBlue' : 'lightGreen',
         p: '2px 10px',
         fontSize: 'sm',
         fontWeight: 'bold',
