@@ -1,8 +1,9 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { Analyzing } from '.'
 import { css } from '../../../../styled-system/css'
 import { center, hstack, vstack } from '../../../../styled-system/patterns'
 import ReactMarkdown from 'react-markdown'
+import { useMutateOpenAIResponse } from '@/api/hooks/open_ai/useMutateOpenAi'
 
 type BoardProps = {
   content: {
@@ -10,41 +11,34 @@ type BoardProps = {
     period: string
     title: string
     content: string
+    analysisResult: string
     tags: string[]
     createdAt: string
     updatedAt: string
   }
 }
 
-const markdownString =
-  '- **責任感**: 美化委員として学校清掃に取り組み、地域ボランティアに自発的に参加する姿勢から、責任感が強いことが分かります。\n- **努力家**: 自由研究での入賞や清掃活動での頑張りから、努力を惜しまない姿勢が伺えます。\n- **創造力**: 夏休みの自由研究で入賞したことから、独自のアイデアや創造力を活かす能力があることが窺えます。\n- **協力意識**: 地域のボランティア活動への自己応募から、協力と共同作業への意欲が感じられます。'
+const makePrompt = (content: string): string => {
+  return `
+    下記文章を読み、その人の特性を分析し、マークダウン形式で出力して。
+    なお、文章のフォーマットは以下のようなものとする
 
-/**
- * 正規表現を使って、マークダウンからタグを抽出する処理
- */
-const generateNewTags = (markdownString: string): string[] => {
-  const regex = /\*\*(.*?)\*\*/g
-  const newTags = markdownString.match(regex)?.map((v) => v.slice(2, v.length - 2))
-  if (newTags === undefined) {
-    return ['']
-  }
-  return newTags
+    フォーマット例:「
+        - **責任感**: 美化委員として学校清掃に取り組み、地域ボランティアに自発的に参加する姿勢から、責任感が強いことが分かります。\n- **努力家**: 自由研究での入賞や清掃活動での頑張りから、努力を惜しまない姿勢が伺えます。\n
+    」
+
+    文章:「
+      ${content}
+    」
+  `
 }
 
 export const Board: FC<BoardProps> = (props) => {
   const { content } = props
 
-  // ここらへんは全部親コンポーネントからもらうようにしてもいいか。
-  const [isAnalyzing, setIsAnalyzing] = useState(false)
-  const [isSuccessful, setIsSuccessful] = useState(false) //今は適当
+  const { openaiResponseMutation } = useMutateOpenAIResponse()
   const handleAnalyze = () => {
-    setIsSuccessful(false)
-    setIsAnalyzing(true)
-    setTimeout(() => {
-      setIsAnalyzing(false)
-      setIsSuccessful(true)
-      console.log(generateNewTags(markdownString))
-    }, 6000)
+    openaiResponseMutation.mutate({ id: content.id, prompt: makePrompt(content.content) })
   }
   return (
     <div
@@ -58,7 +52,7 @@ export const Board: FC<BoardProps> = (props) => {
         shadow: 'xl',
       })}
     >
-      <div className={hstack({ justify: 'space-between' })}>
+      <div className={hstack({ gap: '40px' })}>
         <div
           className={css({
             minW: '360px',
@@ -76,7 +70,7 @@ export const Board: FC<BoardProps> = (props) => {
           <button
             className={css({
               bg: 'dimBlue',
-              fontWeight: 'medium',
+              fontWeight: 'bold',
               fontSize: '20px',
               color: 'white',
               p: '12px',
@@ -85,15 +79,15 @@ export const Board: FC<BoardProps> = (props) => {
             })}
             onClick={handleAnalyze}
           >
-            AIで自己の特性を知る
+            {content.analysisResult ? 'もう一度試す' : 'AIで特性を知る'}
           </button>
         </div>
       </div>
       <div className={css({ w: 'full', h: '4px', bg: 'slate.200', mt: '24px', rounded: 'full' })} />
-      {isAnalyzing ? (
+      {openaiResponseMutation.isLoading ? (
         <Analyzing />
-      ) : isSuccessful ? (
-        <ReactMarkdown className={css({ p: '16px' })}>{markdownString}</ReactMarkdown>
+      ) : content.analysisResult ? (
+        <ReactMarkdown className={css({ p: '16px' })}>{content.analysisResult}</ReactMarkdown>
       ) : (
         <div className={center({ w: 'full', h: '280px' })}>
           <p className={css({ fontSize: 'lg', color: 'dimGray' })}>
