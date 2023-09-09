@@ -70,8 +70,8 @@ export const useMutateCard = () => {
     },
   )
 
-  const updateAnalisisResultMutation = useMutation(
-    (cardData: Pick<Card, 'id' | 'analisisResult'>) => cardFactory().updateAnalisisResult(cardData),
+  const updateAnalysisResultMutation = useMutation(
+    (cardData: Pick<Card, 'id' | 'analysisResult'>) => cardFactory().updateAnalysisResult(cardData),
     {
       onSuccess: (res, variables) => {
         console.log(res)
@@ -97,6 +97,6 @@ export const useMutateCard = () => {
     createCardMutation,
     updateCardMutation,
     deleteUserMutation,
-    updateAnalisisResultMutation,
+    updateAnalysisResultMutation: updateAnalysisResultMutation,
   }
 }

@@ -9,7 +9,7 @@ export type Card = {
   title: string
   content: string
   tags: string[]
-  analisisResult: string
+  analysisResult: string
   createdAt: string
   updatedAt: string
 }
@@ -32,8 +32,8 @@ export const cardFactory = () => {
     delete: async (cardData: Pick<Card, 'id'>): Promise<void> => {
       repository.deleteCard(cardData)
     },
-    updateAnalisisResult: async (cardData: Pick<Card, 'id' | 'analisisResult'>): Promise<Card> => {
-      const response = await repository.updateAnalisisResult(cardData)
+    updateAnalysisResult: async (cardData: Pick<Card, 'id' | 'analysisResult'>): Promise<Card> => {
+      const response = await repository.updateAnalysisResult(cardData)
       return response
     },
   }

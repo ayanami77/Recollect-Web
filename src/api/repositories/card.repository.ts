@@ -6,7 +6,7 @@ export interface CardRepository {
   createCard: (cardData: Pick<Card, 'title' | 'content' | 'period'>) => Promise<Card>
   updateCard: (cardData: Pick<Card, 'id' | 'title' | 'content' | 'period'>) => Promise<Card>
   deleteCard: (cardData: Pick<Card, 'id'>) => void
-  updateAnalisisResult: (cardData: Pick<Card, 'id' | 'analisisResult'>) => Promise<Card>
+  updateAnalysisResult: (cardData: Pick<Card, 'id' | 'analysisResult'>) => Promise<Card>
 }
 
 const listCards: CardRepository['listCards'] = async (): Promise<Card[]> => {
@@ -38,11 +38,11 @@ const deleteCard: CardRepository['deleteCard'] = async (cardData: Pick<Card, 'id
   await apiClient.delete(`/cards/${cardData.id}`)
 }
 
-const updateAnalisisResult = async (
-  cardData: Pick<Card, 'id' | 'analisisResult'>,
+const updateAnalysisResult = async (
+  cardData: Pick<Card, 'id' | 'analysisResult'>,
 ): Promise<Card> => {
   const { data } = await apiClient.patch(`/cards/${cardData.id}`, {
-    analisisResult: cardData.analisisResult,
+    analysisResult: cardData.analysisResult,
   })
   return data
 }
@@ -52,5 +52,5 @@ export const cardRepository: CardRepository = {
   createCard,
   updateCard,
   deleteCard,
-  updateAnalisisResult,
+  updateAnalysisResult,
 }

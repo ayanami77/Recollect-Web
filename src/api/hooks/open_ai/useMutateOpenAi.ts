@@ -5,14 +5,14 @@ import { useMutateCard } from '../card/useMutateCard'
 
 export const useMutateOpenAIResponse = () => {
   const { switchErrorHandling } = useError()
-  const { updateAnalisisResultMutation } = useMutateCard()
+  const { updateAnalysisResultMutation: updateAnalysisResultMutation } = useMutateCard()
   const openaiResponseMutation = useMutation(
     async (credential: OpenAICredential) => await openAiFactory().getOpenAIResponse(credential),
     {
       onSuccess: (res, variables: OpenAICredential) => {
         // TODO: GoのAPIをたたく
         if (res) {
-          updateAnalisisResultMutation.mutate({ id: variables.id, analisisResult: res })
+          updateAnalysisResultMutation.mutate({ id: variables.id, analysisResult: res })
         }
       },
       onError: (err: any) => {
