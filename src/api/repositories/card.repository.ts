@@ -1,5 +1,6 @@
 import { apiClient } from '../clients/apiClient.app'
 import { Card } from '../models'
+import { v4 as uuidv4 } from 'uuid'
 
 export interface CardRepository {
   listCards: () => Promise<Card[]>
@@ -14,15 +15,9 @@ const listCards: CardRepository['listCards'] = async (): Promise<Card[]> => {
   return data
 }
 
-const getJsonListSize = () => {
-  return listCards().then((res) => res.length)
-}
-
 const createCard = async (cardData: Pick<Card, 'title' | 'content' | 'period'>): Promise<Card> => {
-  const index = (await getJsonListSize()) + 1
-
   const { data } = await apiClient.post(`/card`, {
-    id: index.toString(10),
+    id: uuidv4(),
     period: cardData.period,
     title: cardData.title,
     content: cardData.content,

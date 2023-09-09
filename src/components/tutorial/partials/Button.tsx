@@ -2,9 +2,18 @@ import { m } from 'framer-motion'
 import { Dispatch, FC, SetStateAction, useState } from 'react'
 import { css } from '../../../../styled-system/css'
 import { useRouter } from 'next/router'
+import { Period as TPeriod } from '@/api/models'
+import { useMutateCard } from '@/api/hooks/card/useMutateCard'
+
+type Card = {
+  period: TPeriod
+  title: string
+  content: string
+}
 
 type ButtonProps = {
   content: {
+    cardList: Card[]
     cardPosition: number
     progressStepSize: number
     setCurrentValue: Dispatch<SetStateAction<number>>
@@ -13,10 +22,19 @@ type ButtonProps = {
 export const Button: FC<ButtonProps> = ({ content }) => {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const { createCardMutation } = useMutateCard()
 
   const handleClick = () => {
     content.setCurrentValue((prevValue) => Math.min(prevValue + content.progressStepSize, 100))
     setIsLoading(true)
+    content.cardList.forEach((card) => {
+      createCardMutation.mutate({
+        period: card.period,
+        title: card.title,
+        content: card.content,
+      })
+    })
+    // TODO: 本当は全部レスポンスが成功した時にpushするようにしたいが、妥協
     setTimeout(() => {
       router.push('/history')
     }, 1500)
