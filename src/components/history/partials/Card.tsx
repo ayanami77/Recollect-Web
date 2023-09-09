@@ -74,7 +74,7 @@ export const Card: FC<CardProps> = (props) => {
                 ))}
               </div>
             ) : (
-              <Link href={'/analysis'}>
+              <Link href={`/analysis?card_id=${data.id}`}>
                 <Tag content={{ name: '今すぐ分析する' }} />
               </Link>
             )}

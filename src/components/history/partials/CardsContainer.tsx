@@ -12,7 +12,7 @@ const period_with_number = {
   幼少期: 4,
 }
 
-const sortCardsByPeriod = (data: TCard[]) => {
+export const sortCardsByPeriod = (data: TCard[]) => {
   const results = []
   for (let i = 0; i < Object.keys(period_with_number).length; i++) {
     const arr = []
