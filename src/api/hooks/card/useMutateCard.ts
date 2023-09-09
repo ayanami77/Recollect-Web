@@ -71,7 +71,8 @@ export const useMutateCard = () => {
   )
 
   const updateAnalysisResultMutation = useMutation(
-    (cardData: Pick<Card, 'id' | 'analysisResult'>) => cardFactory().updateAnalysisResult(cardData),
+    (cardData: Pick<Card, 'id' | 'analysisResult' | 'tags'>) =>
+      cardFactory().updateAnalysisResult(cardData),
     {
       onSuccess: (res, variables) => {
         console.log(res)
