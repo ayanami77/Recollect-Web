@@ -9,7 +9,7 @@ export const useQueryCard = () => {
     queryKey: ['cards'],
     queryFn: () => cardFactory().list(),
     staleTime: Infinity,
-    onSuccess: () => console.log(`fetch success`),
+    onSuccess: () => {},
     onError: (err: any) => {
       if (err.response.data.message) {
         switchErrorHandling(err.response.data.message)

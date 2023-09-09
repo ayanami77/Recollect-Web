@@ -29,7 +29,6 @@ export const useMutateCard = () => {
     (cardData: Pick<Card, 'id' | 'title' | 'content' | 'period'>) => cardFactory().update(cardData),
     {
       onSuccess: (res, variables) => {
-        console.log(res)
         const previousCards = queryClient.getQueryData<Card[]>(['cards'])
         if (previousCards) {
           queryClient.setQueryData<Card[]>(
@@ -75,7 +74,6 @@ export const useMutateCard = () => {
       cardFactory().updateAnalysisResult(cardData),
     {
       onSuccess: (res, variables) => {
-        console.log(res)
         const previousCards = queryClient.getQueryData<Card[]>(['cards'])
         if (previousCards) {
           queryClient.setQueryData<Card[]>(
@@ -98,6 +96,6 @@ export const useMutateCard = () => {
     createCardMutation,
     updateCardMutation,
     deleteUserMutation,
-    updateAnalysisResultMutation: updateAnalysisResultMutation,
+    updateAnalysisResultMutation,
   }
 }
