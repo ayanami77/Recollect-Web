@@ -32,7 +32,9 @@ export const cardFactory = () => {
     delete: async (cardData: Pick<Card, 'id'>): Promise<void> => {
       repository.deleteCard(cardData)
     },
-    updateAnalysisResult: async (cardData: Pick<Card, 'id' | 'analysisResult'>): Promise<Card> => {
+    updateAnalysisResult: async (
+      cardData: Pick<Card, 'id' | 'analysisResult' | 'tags'>,
+    ): Promise<Card> => {
       const response = await repository.updateAnalysisResult(cardData)
       return response
     },
