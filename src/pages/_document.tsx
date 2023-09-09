@@ -3,7 +3,7 @@ import { css } from '../../styled-system/css'
 
 export default function Document() {
   return (
-    <Html lang='en'>
+    <Html lang='ja'>
       <Head />
       <body className={css({ backgroundColor: 'lightGray' })}>
         <Main />

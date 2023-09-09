@@ -17,7 +17,7 @@ type CardDetailModalProps = {
   content: {
     handleOpen: () => void
     data: {
-      id: number
+      id: string
       period: TPeriod
       title: string
       content: string
@@ -60,7 +60,7 @@ export const CardDetailModal: FC<CardDetailModalProps> = ({ content }) => {
 
   const handleDeleteModalOpen = () => setIsDeleteModalOpen((prev) => !prev)
 
-  const handleDeleteModalProceed = async (id: number) => {
+  const handleDeleteModalProceed = async (id: string) => {
     deleteUserMutation.mutate({
       id: id,
     })
