@@ -82,7 +82,7 @@ export const Card: FC<CardProps> = (props) => {
         </div>
         <div
           className={css({
-            width: '400px',
+            width: '650px',
             borderColor: 'gray',
             overflow: 'hidden',
             textOverflow: 'ellipsis',

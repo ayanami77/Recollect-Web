@@ -11,7 +11,6 @@ export default function Analysis() {
   const [index, setIndex] = useState(0)
   const { listCardsQuery } = useQueryCard()
   const { data } = listCardsQuery
-
   const prev = () => {
     const prevPos = index - 1
     if (data && prevPos < 0) {
