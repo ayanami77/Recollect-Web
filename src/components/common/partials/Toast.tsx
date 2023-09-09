@@ -1,30 +1,23 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleCheck, faXmark, faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { faCircleCheck, faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { hstack } from '../../../../styled-system/patterns'
 import { css } from '../../../../styled-system/css'
 import { m, AnimatePresence } from 'framer-motion'
-import { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
 
 //TODO: 自動で消滅するようにする。
 type ToastProps = {
   content: {
     status: string
     message: string
+    isShow: boolean
   }
 }
 export const Toast: FC<ToastProps> = (props) => {
   const { content } = props
-  const [isShow, setIsShow] = useState(false)
-  useEffect(() => {
-    const clearUpTimeout = setTimeout(() => {
-      setIsShow(true)
-    }, 3000)
-    return () => clearTimeout(clearUpTimeout)
-  }, [])
-
   return (
     <AnimatePresence>
-      {isShow && (
+      {content.isShow && (
         <div className={css({ position: 'fixed', top: '24px', right: '24px' })}>
           <m.div
             className={css({
@@ -47,17 +40,6 @@ export const Toast: FC<ToastProps> = (props) => {
               opacity: 0,
             }}
           >
-            <button
-              className={css({
-                position: 'absolute',
-                top: '14px',
-                right: '14px',
-                cursor: 'pointer',
-              })}
-              onClick={() => setIsShow(false)}
-            >
-              <FontAwesomeIcon icon={faXmark} style={{ width: '20px', height: '20px' }} />
-            </button>
             <div className={hstack({ gap: '24px', p: '20px' })}>
               {content.status === 'success' ? (
                 <FontAwesomeIcon

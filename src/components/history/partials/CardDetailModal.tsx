@@ -13,6 +13,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { CardValidationSchema, TCardValidationSchema } from '@/libs/validations/cardValidation'
 import { formatToDate } from '@/libs/dayjs'
 import { controlScreenScroll } from '@/utils/controlScreenScroll'
+import useStore from '@/store'
 
 type CardDetailModalProps = {
   content: {
@@ -49,22 +50,48 @@ export const CardDetailModal: FC<CardDetailModalProps> = ({ content }) => {
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
-  const onSubmitUpdate: SubmitHandler<TCardValidationSchema> = (d) => {
-    updateCardMutation.mutate({
-      id: data.id,
-      period: data.period,
-      title: d.title,
-      content: d.content,
-    })
+  const store = useStore()
+
+  const onSubmitUpdate: SubmitHandler<TCardValidationSchema> = async (d) => {
+    try {
+      const res = await updateCardMutation.mutateAsync({
+        id: data.id,
+        period: data.period,
+        title: d.title,
+        content: d.content,
+      })
+      if (res) {
+        store.show('カードを更新しました', 'success')
+        setTimeout(() => {
+          store.hide()
+        }, 2000)
+      }
+    } catch (error) {
+      store.show('カードの更新に失敗しました', 'error')
+      setTimeout(() => {
+        store.hide()
+      }, 2000)
+    }
     setIsEditMode(false)
   }
 
   const handleDeleteModalOpen = () => setIsDeleteModalOpen((prev) => !prev)
 
   const handleDeleteModalProceed = async (id: string) => {
-    deleteUserMutation.mutate({
-      id: id,
-    })
+    try {
+      await deleteUserMutation.mutateAsync({
+        id: id,
+      })
+      store.show('カードを削除しました', 'success')
+      setTimeout(() => {
+        store.hide()
+      }, 2000)
+    } catch (error) {
+      store.show('カードの削除に失敗しました', 'error')
+      setTimeout(() => {
+        store.hide()
+      }, 2000)
+    }
     setIsConfirmModalOpen(false)
     controlScreenScroll(true)
   }

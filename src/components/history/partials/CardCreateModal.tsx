@@ -7,6 +7,7 @@ import { Period as TPeriod } from '@/api/models'
 import { Backdrop } from '@/components/common/partials/Backdrop'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CardValidationSchema, TCardValidationSchema } from '@/libs/validations/cardValidation'
+import useStore from '@/store'
 
 type CardCreateModalProps = {
   content: {
@@ -19,6 +20,7 @@ type CardCreateModalProps = {
 export const CardCreateModal: FC<CardCreateModalProps> = ({ content }) => {
   const { handleOpen, data } = content
   const { createCardMutation } = useMutateCard()
+  const store = useStore()
   const {
     register,
     handleSubmit,
@@ -28,15 +30,27 @@ export const CardCreateModal: FC<CardCreateModalProps> = ({ content }) => {
     resolver: zodResolver(CardValidationSchema as any),
   })
 
-  const onSubmitCreate: SubmitHandler<TCardValidationSchema> = (d) => {
-    createCardMutation.mutate({
-      period: data.period,
-      title: d.title,
-      content: d.content,
-    })
+  const onSubmitCreate: SubmitHandler<TCardValidationSchema> = async (d) => {
+    try {
+      const res = await createCardMutation.mutateAsync({
+        period: data.period,
+        title: d.title,
+        content: d.content,
+      })
+      if (res) {
+        store.show('カードを作成しました', 'success')
+        setTimeout(() => {
+          store.hide()
+        }, 2000)
+      }
+    } catch (error) {
+      store.show('カードの作成に失敗しました', 'error')
+      setTimeout(() => {
+        store.hide()
+      }, 2000)
+    }
     handleOpen()
   }
-
   return (
     <>
       <Backdrop onClick={() => false}>
