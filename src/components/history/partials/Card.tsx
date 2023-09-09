@@ -42,7 +42,7 @@ export const Card: FC<CardProps> = (props) => {
         })}
         whileHover={{ scale: 1.03 }}
       >
-        <div className={flex({ alignItems: 'center', gap: '32px' })}>
+        <div className={flex({ alignItems: 'center', justify: 'space-between' })}>
           <div
             className={css({
               height: '24px',
@@ -54,19 +54,30 @@ export const Card: FC<CardProps> = (props) => {
           >
             {data.title}
           </div>
+          <button
+            className={css({
+              color: 'dimgray',
+              cursor: 'pointer',
+              _hover: { textDecoration: 'underline' },
+            })}
+            onClick={handleOpen}
+          >
+            詳細
+          </button>
         </div>
         <div className={css({ mt: '10px' })}>
           <div className={hstack({ gap: '24px' })}>
             {data.tags.length > 0 ? (
-              data.tags.map((tag, index) => <Tag key={index} content={{ name: tag }} />)
+              <div className={hstack({})}>
+                {data.tags.map((tag, index) => (
+                  <Tag key={index} content={{ name: tag }} />
+                ))}
+              </div>
             ) : (
               <Link href={'/analysis'}>
                 <Tag content={{ name: '今すぐ分析する' }} />
               </Link>
             )}
-            <button className={css({ color: 'dimgray', cursor: 'pointer' })} onClick={handleOpen}>
-              詳細
-            </button>
           </div>
         </div>
         <div
