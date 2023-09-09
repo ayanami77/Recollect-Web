@@ -1,30 +1,45 @@
 import { ChangeEvent, Dispatch, FC, SetStateAction } from 'react'
 import { css } from '../../../../styled-system/css'
+import { Period as TPeriod } from '@/api/models'
+// import { useForm } from 'react-hook-form'
+// import { zodResolver } from '@hookform/resolvers/zod'
 
-type Period = '幼少期' | '小学生' | '中学生' | '高校生' | '大学生'
 type Card = {
-  period: Period
+  period: TPeriod
   subTitle: string
   content: string
 }
 type CardProps = {
   content: {
-    cardPostion: number
+    cardPosition: number
+    placeholderText: string
     setCardList: Dispatch<SetStateAction<Card[]>>
     cardList: Card[]
   }
 }
+
 export const Card: FC<CardProps> = ({ content }) => {
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   watch,
+  //   reset,
+  //   formState: { errors },
+  // } = useForm({
+  //   mode: 'onBlur',
+  //   resolver: zodResolver(CardValidationSchema as any),
+  // })
+
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     content.setCardList((prev) => {
-      prev[content.cardPostion].subTitle = e.target.value
+      prev[content.cardPosition].subTitle = e.target.value
       return [...prev]
     })
   }
 
   const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     content.setCardList((prev) => {
-      prev[content.cardPostion].content = e.target.value
+      prev[content.cardPosition].content = e.target.value
       return [...prev]
     })
   }
@@ -53,7 +68,7 @@ export const Card: FC<CardProps> = ({ content }) => {
           type='text'
           id='title'
           onChange={(e) => handleTitleChange(e)}
-          value={content.cardList[content.cardPostion].subTitle}
+          value={content.cardList[content.cardPosition].subTitle}
           placeholder='一言で'
           className={css({
             borderBottom: '4px solid',
@@ -64,9 +79,9 @@ export const Card: FC<CardProps> = ({ content }) => {
         />
       </label>
       <textarea
-        placeholder='どんなことをしていた？'
+        placeholder={`ヒント: ${content.placeholderText}`}
         onChange={(e) => handleContentChange(e)}
-        value={content.cardList[content.cardPostion].content}
+        value={content.cardList[content.cardPosition].content}
         className={css({
           width: '100%',
           height: '250px',
