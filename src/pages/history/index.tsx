@@ -34,14 +34,13 @@ export default function History() {
             </h2>
             <CardsContainer data={data ? data : []} />
           </div>
-          {store.isShow && (
-            <Toast
-              content={{
-                status: store.type,
-                message: store.message,
-              }}
-            />
-          )}
+          <Toast
+            content={{
+              status: store.type,
+              message: store.message,
+              isShow: store.isShow,
+            }}
+          />
         </FadeInWrapper>
       </MainLayout>
     </>
