@@ -34,6 +34,7 @@ export const CardCreateModal: FC<CardCreateModalProps> = ({ content }) => {
       title: d.title,
       content: d.content,
     })
+    handleOpen()
   }
 
   return (

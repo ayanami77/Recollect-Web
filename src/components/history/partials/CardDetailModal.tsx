@@ -12,6 +12,7 @@ import { Backdrop } from '@/components/common/partials/Backdrop'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CardValidationSchema, TCardValidationSchema } from '@/libs/validations/cardValidation'
 import { formatToDate } from '@/libs/dayjs'
+import { controlScreenScroll } from '@/utils/controlScreenScroll'
 
 type CardDetailModalProps = {
   content: {
@@ -65,6 +66,7 @@ export const CardDetailModal: FC<CardDetailModalProps> = ({ content }) => {
       id: id,
     })
     setIsConfirmModalOpen(false)
+    controlScreenScroll(true)
   }
 
   const handleConfirmModalCancel = () => {
