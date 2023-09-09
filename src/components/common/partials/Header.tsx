@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { css } from '../../../../styled-system/css'
 import { hstack } from '../../../../styled-system/patterns'
 
@@ -11,7 +12,7 @@ export const Header = () => {
           fontWeight: 'bold',
         })}
       >
-        <span className={css({ color: 'cinnabar' })}>Re</span>collect
+        <Image src={'/logo.png'} alt={'Recollectのロゴ'} width={200} height={60} priority />
       </div>
     </header>
   )
