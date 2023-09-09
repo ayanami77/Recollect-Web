@@ -1,4 +1,4 @@
-import { Card as TCard } from '@/api/models'
+import { Card as TCard, Period as TPeriod } from '@/api/models'
 import { vstack } from '../../../../styled-system/patterns'
 import { CardsSection } from './CardsSection'
 import { CardNotRegistered } from './CardNotRegistered'
@@ -43,7 +43,7 @@ export const CardsContainer = (props: { data: TCard[] }) => {
         })}
       >
         {allCards.map((cards, index) => {
-          const period = Object.keys(period_with_number)[index]
+          const period = Object.keys(period_with_number)[index] as TPeriod
           return (
             <CardsSection key={index} period={period}>
               {cards.length ? (
