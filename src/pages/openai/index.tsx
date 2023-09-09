@@ -16,7 +16,7 @@ export default function OpenAi() {
   const { openaiResponseMutation } = useMutateOpenAIResponse()
 
   const onSubmitOpenAi = () => {
-    openaiResponseMutation.mutate({ prompt })
+    openaiResponseMutation.mutate({ id: 0, prompt })
   }
 
   return (

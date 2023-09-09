@@ -1,6 +1,7 @@
 import { openaiRepository } from '../repositories/openai.repository'
 
 export type OpenAICredential = {
+  id: number
   prompt: string
 }
 
