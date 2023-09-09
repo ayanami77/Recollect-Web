@@ -97,6 +97,7 @@ export default function Tutorial() {
         <div className={center()}>
           <Button
             content={{
+              cardList: cardList,
               cardPosition: cardPosition,
               setCurrentValue: setCurrentValue,
               progressStepSize: progressStepSize,
