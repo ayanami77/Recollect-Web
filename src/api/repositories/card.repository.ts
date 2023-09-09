@@ -20,7 +20,6 @@ const getJsonListSize = () => {
 
 const createCard = async (cardData: Pick<Card, 'title' | 'content' | 'period'>): Promise<Card> => {
   const index = (await getJsonListSize()) + 1
-
   const { data } = await apiClient.post(`/card`, {
     id: index.toString(10),
     period: cardData.period,

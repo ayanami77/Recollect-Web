@@ -1,10 +1,12 @@
 import { css } from '../../../styled-system/css'
 import MainLayout from '@/components/layouts/MainLayout'
-import { FadeInWrapper, CommonMeta } from '@/components/common'
+import { FadeInWrapper, CommonMeta, Toast } from '@/components/common'
 import { CardsContainer } from '@/components/history'
 import { useQueryCard } from '@/api/hooks/card/useQueryCard'
+import useStore from '@/store'
 
 export default function History() {
+  const store = useStore()
   const { listCardsQuery } = useQueryCard()
   const { data } = listCardsQuery
 
@@ -32,6 +34,14 @@ export default function History() {
             </h2>
             <CardsContainer data={data ? data : []} />
           </div>
+          {store.isShow && (
+            <Toast
+              content={{
+                status: store.type,
+                message: store.message,
+              }}
+            />
+          )}
         </FadeInWrapper>
       </MainLayout>
     </>

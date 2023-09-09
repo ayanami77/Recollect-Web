@@ -1,5 +1,20 @@
-// import { create } from 'zustand'
+import { create } from 'zustand'
 
-// type State = {}
+// Toastの表示に関するState
+type State = {
+  isShow: boolean
+  message: string
+  type: 'success' | 'error'
+  show: (message: string, type: 'success' | 'error') => void
+  hide: () => void
+}
 
-// export const useStore = create((set) => ({}))
+const useStore = create<State>((set) => ({
+  isShow: false,
+  message: '',
+  type: 'success',
+  show: (message, type) => set({ isShow: true, message, type }),
+  hide: () => set({ isShow: false, message: '', type: 'success' }),
+}))
+
+export default useStore
