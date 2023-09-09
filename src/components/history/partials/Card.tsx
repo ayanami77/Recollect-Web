@@ -10,7 +10,7 @@ import { controlScreenScroll } from '@/utils/controlScreenScroll'
 
 type CardProps = {
   data: {
-    id: number
+    id: string
     period: TPeriod
     title: string
     content: string

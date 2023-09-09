@@ -1,80 +1,95 @@
 import { useState } from 'react'
-import {
-  Button,
-  Card,
-  LeavingButton,
-  ProgressBar,
-  TransitionButton,
-  Assistant,
-} from '@/components/tutorial'
+import { Button, Card, LeavingButton, ProgressBar, TransitionButton } from '@/components/tutorial'
 import { center, hstack } from '../../../styled-system/patterns'
 import { FadeInWrapper } from '@/components/common'
 import { CommonMeta } from '@/components/common/meta'
-
-type Period = '幼少期' | '小学生' | '中学生' | '高校生' | '大学生'
+import { Period as TPeriod } from '@/api/models'
 
 type Card = {
-  period: Period
-  subTitle: string
+  period: TPeriod
+  title: string
   content: string
 }
 
 export default function Tutorial() {
   const progressStepSize = 100 / 6
-  const [curretValue, setCurrentValue] = useState<number>(progressStepSize)
-  const [cardPosition, setCardProsition] = useState<number>(0)
+  const [currentValue, setCurrentValue] = useState<number>(progressStepSize)
+  const [cardPosition, setCardPosition] = useState<number>(0)
   const [cardList, setCardList] = useState<Card[]>([
     {
       period: '幼少期',
-      subTitle: '',
+      title: '',
       content: '',
     },
     {
       period: '小学生',
-      subTitle: '',
+      title: '',
       content: '',
     },
     {
       period: '中学生',
-      subTitle: '',
+      title: '',
       content: '',
     },
     {
       period: '高校生',
-      subTitle: '',
+      title: '',
       content: '',
     },
     {
-      period: '大学生',
-      subTitle: '',
+      period: '現在まで',
+      title: '',
       content: '',
     },
   ])
 
+  const questions = [
+    '周りにはどんな人がいた？',
+    'どんなことをしてあそんでいた？',
+    '夢中になったものは？',
+    'どんなことに悩んでいた？',
+    '熱中したことは？',
+  ]
+
+  const [isValidated, setIsValidated] = useState(false)
+
+  const handleValidate = () => {
+    if (cardList[cardPosition].title) return false
+    setIsValidated(true)
+    return true
+  }
+
   const handleNext = () => {
-    if (curretValue >= 100) return
-    setCardProsition((prevValue) => Math.min(prevValue + 1, 4))
+    if (handleValidate()) return
+    setCardPosition((prevValue) => Math.min(prevValue + 1, 4))
     setCurrentValue((prevValue) => Math.min(prevValue + progressStepSize, 100))
+    setIsValidated(false)
   }
 
   const handlePrev = () => {
-    if (curretValue <= 0) return
-    setCardProsition((prevValue) => Math.max(prevValue - 1, 0))
+    setCardPosition((prevValue) => Math.max(prevValue - 1, 0))
     setCurrentValue((prevValue) => Math.max(prevValue - progressStepSize, progressStepSize))
+    setIsValidated(false)
   }
 
   return (
     <>
       <CommonMeta title={'Recollect - チュートリアル'} description={'チュートリアルページです。'} />
       <div>
-        <ProgressBar currentValue={curretValue} />
+        <ProgressBar currentValue={currentValue} />
         <FadeInWrapper>
           <div className={hstack({ justifyContent: 'center', mt: '30px', gap: '20' })}>
             <TransitionButton
               content={{ movement: 'prev', onClick: handlePrev, cardPosition: cardPosition }}
             />
             <Card
-              content={{ cardPostion: cardPosition, setCardList: setCardList, cardList: cardList }}
+              content={{
+                cardPosition: cardPosition,
+                setCardList: setCardList,
+                cardList: cardList,
+                placeholderText: questions[cardPosition],
+                isValidated: isValidated,
+              }}
             />
             <TransitionButton content={{ movement: 'next', onClick: handleNext, cardPosition }} />
           </div>
@@ -89,7 +104,6 @@ export default function Tutorial() {
           />
         </div>
         <LeavingButton />
-        <Assistant content={{ cardPosition: cardPosition }} />
       </div>
     </>
   )
