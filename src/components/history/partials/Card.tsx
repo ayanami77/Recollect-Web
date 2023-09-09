@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { Tag } from '@/components/common'
 import { Period as TPeriod } from '@/api/models'
 import { CardDetailModal } from './CardDetailModal'
-import { controlScroll } from '@/utils/controlScroll'
+import { controlScreenScroll } from '@/utils/controlScreenScroll'
 
 type CardProps = {
   data: {
@@ -24,7 +24,7 @@ export const Card: FC<CardProps> = (props) => {
   const { data } = props
   const [isOpen, setIsOpen] = useState(false)
   const handleOpen = () => {
-    controlScroll(isOpen)
+    controlScreenScroll(isOpen)
     setIsOpen((prev) => !prev)
   }
 
