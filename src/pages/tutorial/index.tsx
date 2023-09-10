@@ -101,6 +101,7 @@ export default function Tutorial() {
               cardPosition: cardPosition,
               setCurrentValue: setCurrentValue,
               progressStepSize: progressStepSize,
+              handleValidate: handleValidate,
             }}
           />
         </div>
