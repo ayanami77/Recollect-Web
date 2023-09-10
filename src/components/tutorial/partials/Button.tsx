@@ -17,6 +17,7 @@ type ButtonProps = {
     cardPosition: number
     progressStepSize: number
     setCurrentValue: Dispatch<SetStateAction<number>>
+    handleValidate: () => boolean
   }
 }
 export const Button: FC<ButtonProps> = ({ content }) => {
@@ -25,6 +26,7 @@ export const Button: FC<ButtonProps> = ({ content }) => {
   const { createCardMutation } = useMutateCard()
 
   const handleClick = () => {
+    if (content.handleValidate()) return
     content.setCurrentValue((prevValue) => Math.min(prevValue + content.progressStepSize, 100))
     setIsLoading(true)
     content.cardList.forEach((card) => {

@@ -1,6 +1,6 @@
 import { css } from '../../../styled-system/css'
 import MainLayout from '@/components/layouts/MainLayout'
-import { FadeInWrapper, CommonMeta, Toast } from '@/components/common'
+import { FadeInWrapper, CommonMeta, Toast, FlowTutorial } from '@/components/common'
 import { CardsContainer } from '@/components/history'
 import { useQueryCard } from '@/api/hooks/card/useQueryCard'
 import useStore from '@/store'
@@ -43,6 +43,7 @@ export default function History() {
           />
         </FadeInWrapper>
       </MainLayout>
+      {data?.length === 0 && <FlowTutorial />}
     </>
   )
 }
