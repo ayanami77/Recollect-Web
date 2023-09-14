@@ -1,17 +1,33 @@
 import { apiClient } from '../clients/apiClient.app'
-import { Card } from '../models'
+import { Card, Period } from '../models'
 import { v4 as uuidv4 } from 'uuid'
 
+// TODO
+type CardResponse = {
+  analysis_result: string
+  card_id: string
+  content: string
+  created_at: string
+  deleted_at: string
+  period: Period
+  tags: string[] | null
+  title: string
+  updated_at: string
+  user_id: string
+}
+
 export interface CardRepository {
-  listCards: () => Promise<Card[]>
+  listCards: () => Promise<{ data: CardResponse[] }>
   createCard: (cardData: Pick<Card, 'title' | 'content' | 'period'>) => Promise<Card>
   updateCard: (cardData: Pick<Card, 'id' | 'title' | 'content' | 'period'>) => Promise<Card>
   deleteCard: (cardData: Pick<Card, 'id'>) => void
   updateAnalysisResult: (cardData: Pick<Card, 'id' | 'analysisResult' | 'tags'>) => Promise<Card>
 }
 
-const listCards: CardRepository['listCards'] = async (): Promise<Card[]> => {
-  const { data } = await apiClient.get(`/card`)
+const listCards: CardRepository['listCards'] = async (): Promise<{ data: CardResponse[] }> => {
+  const { data } = await apiClient.get(`/card`, {
+    withCredentials: true,
+  })
   return data
 }
 
