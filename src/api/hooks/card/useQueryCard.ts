@@ -2,10 +2,10 @@ import { Card, cardFactory } from '../../models'
 import { useQuery } from '@tanstack/react-query'
 import { useError } from '../utils/useError'
 
-export const useQueryCard = () => {
+export const useQueryCards = () => {
   const { switchErrorHandling } = useError()
 
-  const listCardsQuery = useQuery<Card[], Error>({
+  return useQuery<Card[], Error>({
     queryKey: ['cards'],
     queryFn: () => cardFactory().list(),
     staleTime: Infinity,
@@ -18,8 +18,4 @@ export const useQueryCard = () => {
       }
     },
   })
-
-  return {
-    listCardsQuery,
-  }
 }

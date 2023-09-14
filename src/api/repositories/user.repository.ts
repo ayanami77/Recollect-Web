@@ -16,15 +16,27 @@ const signUp: UserRepository['signUp'] = async (userCredential): Promise<User> =
 }
 
 const login: UserRepository['login'] = async (userCredential): Promise<User> => {
-  const { data } = await apiClient.post(`/user/login`, {
-    user_id: userCredential.userId,
-    password: userCredential.password,
-  })
+  const { data } = await apiClient.post(
+    `/user/login`,
+    {
+      user_id: userCredential.userId,
+      password: userCredential.password,
+    },
+    {
+      withCredentials: true,
+    },
+  )
   return data
 }
 
-const logout = async () => {
-  const {} = await apiClient.post(`/user/logout`)
+const logout: UserRepository['logout'] = async () => {
+  const {} = await apiClient.post(
+    `/user/logout`,
+    {},
+    {
+      withCredentials: true,
+    },
+  )
 }
 
 export const userRepository: UserRepository = {

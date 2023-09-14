@@ -2,15 +2,12 @@ import { css } from '../../../styled-system/css'
 import MainLayout from '@/components/layouts/MainLayout'
 import { FadeInWrapper, CommonMeta, Toast, FlowTutorial } from '@/components/common'
 import { CardsContainer } from '@/components/history'
-import { useQueryCard } from '@/api/hooks/card/useQueryCard'
+import { useQueryCards } from '@/api/hooks/card/useQueryCard'
 import useStore from '@/store'
 
 export default function History() {
   const store = useStore()
-  const { listCardsQuery } = useQueryCard()
-  const { data } = listCardsQuery
-
-  const userName = 'naruto8864'
+  const { data } = useQueryCards()
 
   return (
     <>
@@ -30,7 +27,7 @@ export default function History() {
                 px: '16px',
               })}
             >
-              {userName}さんの自分史
+              {'naruto8864'}さんの自分史
             </h2>
             <CardsContainer data={data ? data : []} />
           </div>

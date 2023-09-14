@@ -16,10 +16,23 @@ export type Card = {
 
 export const cardFactory = () => {
   const repository = cardRepository
+
   return {
     list: async (): Promise<Card[]> => {
       const response = await repository.listCards()
-      return response
+      const data = response.data.map((card) => {
+        return {
+          id: card.card_id,
+          title: card.title,
+          period: card.period,
+          content: card.content,
+          tags: card.tags ?? [],
+          analysisResult: card.analysis_result,
+          createdAt: card.created_at,
+          updatedAt: card.updated_at,
+        }
+      })
+      return data
     },
     post: async (cardData: Pick<Card, 'title' | 'content' | 'period'>): Promise<Card> => {
       const response = await repository.createCard(cardData)

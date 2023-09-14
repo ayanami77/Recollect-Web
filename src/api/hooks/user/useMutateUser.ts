@@ -10,10 +10,11 @@ export const useMutateUser = () => {
   const signUpMutation = useMutation(
     async (userCredential: UserCredential) => await userFactory().signUp(userCredential),
     {
-      onSuccess: (res) => {
+      onSuccess: () => {
+        // TODO: 今は一旦やめる
         // サインアップ成功時、そのままログインする。
-        const userCredential = { userId: res.user_id, password: res.password }
-        loginMutation.mutate(userCredential)
+        // const userCredential = { userId: res.user_id, password: res.password }
+        // loginMutation.mutate(userCredential)
       },
       onError: (err: any) => {
         if (err.response.data.message) {
