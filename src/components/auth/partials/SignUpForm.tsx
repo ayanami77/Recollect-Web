@@ -6,7 +6,7 @@ import { AuthValidationSchema, TAuthValidationSchema } from '@/libs/validations/
 import { useMutateUser } from '@/api/hooks/user/useMutateUser'
 
 export const SignUpForm = () => {
-  const { signUpMutation } = useMutateUser()
+  const { signUpMutation, loginMutation } = useMutateUser()
   const {
     register,
     handleSubmit,
@@ -16,8 +16,18 @@ export const SignUpForm = () => {
     resolver: zodResolver(AuthValidationSchema as any),
   })
 
-  const onSubmitSignUp = (userCredential: TAuthValidationSchema) => {
-    signUpMutation.mutate(userCredential)
+  const onSubmitSignUp = async (userCredential: TAuthValidationSchema) => {
+    try {
+      const res = await signUpMutation.mutateAsync(userCredential)
+      if (res) {
+        // サインアップ成功時、そのままログインする。
+        loginMutation.mutate(userCredential)
+      } else {
+        throw new Error()
+      }
+    } catch (error) {
+      alert(error)
+    }
   }
 
   return (

@@ -19,8 +19,8 @@ export const cardFactory = () => {
 
   return {
     list: async (): Promise<Card[]> => {
-      const response = await repository.listCards()
-      const data = response.data.map((card) => {
+      const { data } = await repository.listCards()
+      const cards = data.map((card) => {
         return {
           id: card.card_id,
           title: card.title,
@@ -32,15 +32,35 @@ export const cardFactory = () => {
           updatedAt: card.updated_at,
         }
       })
-      return data
+      return cards
     },
     post: async (cardData: Pick<Card, 'title' | 'content' | 'period'>): Promise<Card> => {
-      const response = await repository.createCard(cardData)
-      return response
+      const { data } = await repository.createCard(cardData)
+      const card = {
+        id: data.card_id,
+        title: data.title,
+        period: data.period,
+        content: data.content,
+        tags: data.tags ?? [],
+        analysisResult: data.analysis_result,
+        createdAt: data.created_at,
+        updatedAt: data.updated_at,
+      }
+      return card
     },
     update: async (cardData: Pick<Card, 'id' | 'title' | 'content' | 'period'>): Promise<Card> => {
-      const response = await repository.updateCard(cardData)
-      return response
+      const { data } = await repository.updateCard(cardData)
+      const card = {
+        id: data.card_id,
+        title: data.title,
+        period: data.period,
+        content: data.content,
+        tags: data.tags ?? [],
+        analysisResult: data.analysis_result,
+        createdAt: data.created_at,
+        updatedAt: data.updated_at,
+      }
+      return card
     },
     delete: async (cardData: Pick<Card, 'id'>): Promise<void> => {
       repository.deleteCard(cardData)
@@ -48,8 +68,18 @@ export const cardFactory = () => {
     updateAnalysisResult: async (
       cardData: Pick<Card, 'id' | 'analysisResult' | 'tags'>,
     ): Promise<Card> => {
-      const response = await repository.updateAnalysisResult(cardData)
-      return response
+      const { data } = await repository.updateAnalysisResult(cardData)
+      const card = {
+        id: data.card_id,
+        title: data.title,
+        period: data.period,
+        content: data.content,
+        tags: data.tags ?? [],
+        analysisResult: data.analysis_result,
+        createdAt: data.created_at,
+        updatedAt: data.updated_at,
+      }
+      return card
     },
   }
 }

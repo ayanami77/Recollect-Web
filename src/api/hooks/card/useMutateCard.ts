@@ -33,7 +33,15 @@ export const useMutateCard = () => {
         if (previousCards) {
           queryClient.setQueryData<Card[]>(
             ['cards'],
-            previousCards.map((card) => (card.id === variables.id ? res : card)),
+            previousCards.map((card) =>
+              card.id === variables.id
+                ? {
+                    ...card,
+                    title: res.title,
+                    content: res.content,
+                  }
+                : card,
+            ),
           )
         }
       },
@@ -78,7 +86,15 @@ export const useMutateCard = () => {
         if (previousCards) {
           queryClient.setQueryData<Card[]>(
             ['cards'],
-            previousCards.map((card) => (card.id === variables.id ? res : card)),
+            previousCards.map((card) =>
+              card.id === variables.id
+                ? {
+                    ...card,
+                    analysisResult: variables.analysisResult,
+                    tags: variables.tags,
+                  }
+                : card,
+            ),
           )
         }
       },
