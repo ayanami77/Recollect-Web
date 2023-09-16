@@ -1,4 +1,4 @@
-import { apiClient } from '../clients/apiClient.app'
+import { apiClient } from '../clients/apiClient'
 import { Card, Period } from '../models'
 
 // TODO

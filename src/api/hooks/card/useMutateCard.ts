@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import { useError } from '../utils/useError'
 import { Card, cardFactory } from '@/api/models'
-import { queryClient } from '@/api/clients/tanstackQueryClient'
+import { queryClient } from '@/api/clients/queryClient'
 
 export const useMutateCard = () => {
   const { switchErrorHandling } = useError()
