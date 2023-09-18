@@ -3,7 +3,7 @@ import { Analyzing } from '.'
 import { css } from '../../../../styled-system/css'
 import { center, hstack, vstack } from '../../../../styled-system/patterns'
 import ReactMarkdown from 'react-markdown'
-import { useMutateOpenAIResponse } from '@/api/hooks/open_ai/useMutateOpenAi'
+import { useMutateOpenAIResponse } from '@/api/hooks/openai/useMutateOpenAi'
 
 type BoardProps = {
   content: {

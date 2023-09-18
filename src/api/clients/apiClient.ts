@@ -1,10 +1,13 @@
-import axios from "axios";
+import axios from 'axios'
 
-const baseURL = process.env.NEXT_PUBLIC_MOCKING === 'enabled' ? process.env.NEXT_PUBLIC_API_MOCK_ENDPOINT : process.env.NEXT_PUBLIC_API_ENDPOINT;
+const baseURL =
+  process.env.NEXT_PUBLIC_MOCKING === 'enabled'
+    ? process.env.NEXT_PUBLIC_API_MOCK_ENDPOINT
+    : process.env.NEXT_PUBLIC_API_ENDPOINT
 const headers = {
-  "Content-Type": "application/json",
-};
-const apiClient = axios.create({ baseURL, headers });
+  'Content-Type': 'application/json',
+}
+const apiClient = axios.create({ baseURL, headers })
 // apiClient.interceptors.response.use(
 //   (response) => {
 //     return response;
@@ -25,6 +28,4 @@ const apiClient = axios.create({ baseURL, headers });
 //   }
 // )
 
-export {
-  apiClient
-}
+export { apiClient }

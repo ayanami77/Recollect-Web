@@ -1,6 +1,5 @@
-import { apiClient } from '../clients/apiClient.app'
+import { apiClient } from '../clients/apiClient'
 import { Card, Period } from '../models'
-import { v4 as uuidv4 } from 'uuid'
 
 // TODO
 type CardResponse = {
@@ -18,41 +17,72 @@ type CardResponse = {
 
 export interface CardRepository {
   listCards: () => Promise<{ data: CardResponse[] }>
-  createCard: (cardData: Pick<Card, 'title' | 'content' | 'period'>) => Promise<Card>
-  updateCard: (cardData: Pick<Card, 'id' | 'title' | 'content' | 'period'>) => Promise<Card>
+  createCard: (
+    cardData: Pick<Card, 'title' | 'content' | 'period'>,
+  ) => Promise<{ data: CardResponse }>
+  updateCard: (
+    cardData: Pick<Card, 'id' | 'title' | 'content' | 'period'>,
+  ) => Promise<{ data: CardResponse }>
+  updateAnalysisResult: (
+    cardData: Pick<Card, 'id' | 'analysisResult' | 'tags'>,
+  ) => Promise<{ data: CardResponse }>
   deleteCard: (cardData: Pick<Card, 'id'>) => void
-  updateAnalysisResult: (cardData: Pick<Card, 'id' | 'analysisResult' | 'tags'>) => Promise<Card>
 }
 
 const listCards: CardRepository['listCards'] = async (): Promise<{ data: CardResponse[] }> => {
-  const { data } = await apiClient.get(`/card`, {
+  const { data } = await apiClient.get(`/card/list`, {
     withCredentials: true,
   })
   return data
 }
 
-const createCard = async (cardData: Pick<Card, 'title' | 'content' | 'period'>): Promise<Card> => {
-  const { data } = await apiClient.post(`/card`, {
-    id: uuidv4(),
-    period: cardData.period,
-    title: cardData.title,
-    content: cardData.content,
-    tags: [],
-    analysisResult: '',
-    createdAt: '2023-09-01T12:14:57.548Z',
-    updatedAt: '2023-09-01T12:14:57.548Z',
-  })
+const createCard = async (
+  cardData: Pick<Card, 'title' | 'content' | 'period'>,
+): Promise<{ data: CardResponse }> => {
+  const { data } = await apiClient.post(
+    `/card/new`,
+    {
+      period: cardData.period,
+      title: cardData.title,
+      content: cardData.content,
+    },
+    {
+      withCredentials: true,
+    },
+  )
   return data
 }
 
 const updateCard = async (
   cardData: Pick<Card, 'id' | 'title' | 'content' | 'period'>,
-): Promise<Card> => {
-  const { data } = await apiClient.patch(`/card/${cardData.id}`, {
-    period: cardData.period,
-    title: cardData.title,
-    content: cardData.content,
-  })
+): Promise<{ data: CardResponse }> => {
+  const { data } = await apiClient.patch(
+    `/card/${cardData.id}`,
+    {
+      period: cardData.period,
+      title: cardData.title,
+      content: cardData.content,
+    },
+    {
+      withCredentials: true,
+    },
+  )
+  return data
+}
+
+const updateAnalysisResult = async (
+  cardData: Pick<Card, 'id' | 'analysisResult' | 'tags'>,
+): Promise<{ data: CardResponse }> => {
+  const { data } = await apiClient.patch(
+    `/card/${cardData.id}`,
+    {
+      analysisResult: cardData.analysisResult,
+      tags: cardData.tags,
+    },
+    {
+      withCredentials: true,
+    },
+  )
   return data
 }
 
@@ -60,20 +90,10 @@ const deleteCard: CardRepository['deleteCard'] = async (cardData: Pick<Card, 'id
   await apiClient.delete(`/card/${cardData.id}`)
 }
 
-const updateAnalysisResult = async (
-  cardData: Pick<Card, 'id' | 'analysisResult' | 'tags'>,
-): Promise<Card> => {
-  const { data } = await apiClient.patch(`/card/${cardData.id}`, {
-    analysisResult: cardData.analysisResult,
-    tags: cardData.tags,
-  })
-  return data
-}
-
 export const cardRepository: CardRepository = {
   listCards,
   createCard,
   updateCard,
-  deleteCard,
   updateAnalysisResult,
+  deleteCard,
 }

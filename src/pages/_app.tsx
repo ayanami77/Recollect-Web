@@ -1,6 +1,6 @@
 import './index.css'
 import type { AppProps } from 'next/app'
-import { queryClient } from '@/api/clients/tanstackQueryClient'
+import { queryClient } from '@/api/clients/queryClient'
 import { QueryClientProvider } from '@tanstack/react-query'
 import GlobalLayout from '@/components/layouts/GlobalLayout'
 import { LazyMotion, domAnimation } from 'framer-motion'

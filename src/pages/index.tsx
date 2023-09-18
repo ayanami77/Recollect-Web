@@ -5,7 +5,7 @@ import { CommonMeta } from '@/components/common/meta'
 export default function Home() {
   return (
     <>
-      <CommonMeta title={'Recollect '} description={'Recollectというサービスの紹介ページです。'} />
+      <CommonMeta title={'Recollect'} description={'Recollectというサービスの紹介ページです。'} />
       <div>
         <Hero />
         <SignUp />

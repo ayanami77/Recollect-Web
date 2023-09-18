@@ -1,5 +1,5 @@
 import { ChatCompletion } from 'openai/resources/chat/index.mjs'
-import { openai } from '../clients/openaiClient'
+import { openaiClient } from '../clients/openaiClient'
 import { OpenAICredential } from '../models/openai.model'
 
 export interface OpenAIRepository {
@@ -7,7 +7,7 @@ export interface OpenAIRepository {
 }
 
 const getOpenAIResponse = async (prompt: OpenAICredential['prompt']) => {
-  const completion = await openai.chat.completions.create({
+  const completion = await openaiClient.chat.completions.create({
     messages: [{ role: 'user', content: prompt }],
     model: 'gpt-3.5-turbo',
   })

@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import { useError } from '../utils/useError'
 import { Card, cardFactory } from '@/api/models'
-import { queryClient } from '@/api/clients/tanstackQueryClient'
+import { queryClient } from '@/api/clients/queryClient'
 
 export const useMutateCard = () => {
   const { switchErrorHandling } = useError()
@@ -33,7 +33,15 @@ export const useMutateCard = () => {
         if (previousCards) {
           queryClient.setQueryData<Card[]>(
             ['cards'],
-            previousCards.map((card) => (card.id === variables.id ? res : card)),
+            previousCards.map((card) =>
+              card.id === variables.id
+                ? {
+                    ...card,
+                    title: res.title,
+                    content: res.content,
+                  }
+                : card,
+            ),
           )
         }
       },
@@ -78,7 +86,15 @@ export const useMutateCard = () => {
         if (previousCards) {
           queryClient.setQueryData<Card[]>(
             ['cards'],
-            previousCards.map((card) => (card.id === variables.id ? res : card)),
+            previousCards.map((card) =>
+              card.id === variables.id
+                ? {
+                    ...card,
+                    analysisResult: variables.analysisResult,
+                    tags: variables.tags,
+                  }
+                : card,
+            ),
           )
         }
       },

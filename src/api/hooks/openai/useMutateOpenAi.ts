@@ -17,12 +17,11 @@ const generateNewTags = (markdownString: string): string[] => {
 
 export const useMutateOpenAIResponse = () => {
   const { switchErrorHandling } = useError()
-  const { updateAnalysisResultMutation: updateAnalysisResultMutation } = useMutateCard()
+  const { updateAnalysisResultMutation } = useMutateCard()
   const openaiResponseMutation = useMutation(
     async (credential: OpenAICredential) => await openAiFactory().getOpenAIResponse(credential),
     {
       onSuccess: (res, variables: OpenAICredential) => {
-        // TODO: GoのAPIをたたく
         if (res) {
           const newTags = generateNewTags(res)
           updateAnalysisResultMutation.mutate({

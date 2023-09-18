@@ -1,4 +1,4 @@
-import { apiClient } from '../clients/apiClient.app'
+import { apiClient } from '../clients/apiClient'
 import { UserCredential, User } from '../models/user.model'
 
 export interface UserRepository {
