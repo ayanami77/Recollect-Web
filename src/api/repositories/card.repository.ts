@@ -30,7 +30,7 @@ export interface CardRepository {
 }
 
 const listCards: CardRepository['listCards'] = async (): Promise<{ data: CardResponse[] }> => {
-  const { data } = await apiClient.get(`/card`, {
+  const { data } = await apiClient.get(`/card/list`, {
     withCredentials: true,
   })
   return data
