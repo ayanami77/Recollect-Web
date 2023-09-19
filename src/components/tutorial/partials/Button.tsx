@@ -4,6 +4,7 @@ import { css } from '../../../../styled-system/css'
 import { useRouter } from 'next/router'
 import { Period as TPeriod } from '@/api/models'
 import { useMutateCard } from '@/api/hooks/card/useMutateCard'
+import useStore from '@/store'
 
 type Card = {
   period: TPeriod
@@ -22,24 +23,31 @@ type ButtonProps = {
 }
 export const Button: FC<ButtonProps> = ({ content }) => {
   const router = useRouter()
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const { createCardMutation } = useMutateCard()
+  const store = useStore()
+  const [isLoading, setIsLoading] = useState(false)
+  const { createMultiCardMutation } = useMutateCard()
 
-  const handleClick = () => {
+  const handleSubmit = async () => {
     if (content.handleValidate()) return
     content.setCurrentValue((prevValue) => Math.min(prevValue + content.progressStepSize, 100))
     setIsLoading(true)
-    content.cardList.forEach((card) => {
-      createCardMutation.mutate({
-        period: card.period,
-        title: card.title,
-        content: card.content,
-      })
-    })
-    // TODO: 本当は全部レスポンスが成功した時にpushするようにしたいが、妥協
-    setTimeout(() => {
-      router.push('/history')
-    }, 1500)
+    try {
+      const res = await createMultiCardMutation.mutateAsync(content.cardList)
+      if (res) {
+        store.show('カードを作成しました', 'success')
+        setTimeout(() => {
+          store.hide()
+        }, 2000)
+      }
+    } catch (error) {
+      store.show('カードの作成に失敗しました', 'error')
+      setTimeout(() => {
+        store.hide()
+      }, 2000)
+    } finally {
+      setIsLoading(false)
+      router.push('/history') // 成功失敗関わらず、historyへ送るようにしておく。
+    }
   }
 
   return (
@@ -57,7 +65,7 @@ export const Button: FC<ButtonProps> = ({ content }) => {
         visibility: content.cardPosition === 4 ? 'visible' : 'hidden',
       })}
       disabled={isLoading}
-      onClick={() => handleClick()}
+      onClick={() => handleSubmit()}
       whileTap={{ scale: isLoading ? 1 : 0.9 }}
     >
       {isLoading ? '読み込み中...' : '自分史を見る！'}
