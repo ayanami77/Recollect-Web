@@ -2,7 +2,6 @@ import { FC, useEffect, useState } from 'react'
 import { css } from '../../../../styled-system/css'
 import { flex, hstack } from '../../../../styled-system/patterns'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { useMutateCard } from '@/api/hooks/card/useMutateCard'
@@ -214,9 +213,9 @@ export const CardDetailModal: FC<CardDetailModalProps> = ({ content }) => {
                     ))}
                   </div>
                 ) : (
-                  <Link href={'/analysis'}>
-                    <Tag content={{ name: '今すぐAI分析する' }} />
-                  </Link>
+                  <span className={css({ color: 'lightGreen' })}>
+                    分析するとあなたの特性が表示されます。
+                  </span>
                 )}
               </div>
             )}
