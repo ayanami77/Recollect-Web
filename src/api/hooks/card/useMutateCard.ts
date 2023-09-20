@@ -25,6 +25,25 @@ export const useMutateCard = () => {
     },
   )
 
+  const createMultiCardMutation = useMutation(
+    (cardData: Pick<Card, 'title' | 'content' | 'period'>[]) => cardFactory().batchPost(cardData),
+    {
+      onSuccess: (res) => {
+        const previousCards = queryClient.getQueryData<Card[]>(['cards'])
+        if (previousCards) {
+          queryClient.setQueryData(['cards'], [...previousCards, ...res])
+        }
+      },
+      onError: (err: any) => {
+        if (err.response.data.message) {
+          switchErrorHandling(err.response.data.message)
+        } else {
+          switchErrorHandling(err.response.data)
+        }
+      },
+    },
+  )
+
   const updateCardMutation = useMutation(
     (cardData: Pick<Card, 'id' | 'title' | 'content' | 'period'>) => cardFactory().update(cardData),
     {
@@ -110,6 +129,7 @@ export const useMutateCard = () => {
 
   return {
     createCardMutation,
+    createMultiCardMutation,
     updateCardMutation,
     deleteUserMutation,
     updateAnalysisResultMutation,
