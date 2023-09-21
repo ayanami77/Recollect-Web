@@ -27,7 +27,7 @@ export const CardCreateModal: FC<CardCreateModalProps> = ({ content }) => {
     formState: { errors },
   } = useForm<TCardValidationSchema>({
     mode: 'onBlur',
-    resolver: zodResolver(CardValidationSchema as any),
+    resolver: zodResolver(CardValidationSchema),
   })
 
   const onSubmitCreate: SubmitHandler<TCardValidationSchema> = async (d) => {
