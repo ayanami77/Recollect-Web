@@ -39,7 +39,7 @@ export const CardDetailModal: FC<CardDetailModalProps> = ({ content }) => {
     formState: { errors },
   } = useForm<TCardValidationSchema>({
     mode: 'onBlur',
-    resolver: zodResolver(CardValidationSchema as any),
+    resolver: zodResolver(CardValidationSchema),
   })
   const watchedTitle = watch('title')
   const watchedContent = watch('content')
