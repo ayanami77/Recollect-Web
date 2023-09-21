@@ -2,6 +2,7 @@ import { useError } from '../utils/useError'
 import { useMutation } from '@tanstack/react-query'
 import { UserCredential, userFactory } from '@/api/models/user.model'
 import { useRouter } from 'next/router'
+import { clearCache } from '../utils/clearCache'
 
 export const useMutateUser = () => {
   const router = useRouter()
@@ -45,6 +46,7 @@ export const useMutateUser = () => {
     },
     {
       onSuccess: () => {
+        clearCache()
         router.push('/')
       },
       onError: (err: any) => {
