@@ -15,7 +15,7 @@ export const LoginForm = () => {
     formState: { errors },
   } = useForm<TAuthValidationSchema>({
     mode: 'onBlur',
-    resolver: zodResolver(AuthValidationSchema as any),
+    resolver: zodResolver(AuthValidationSchema),
   })
 
   const onSubmitLogin = (userCredential: TAuthValidationSchema) => {

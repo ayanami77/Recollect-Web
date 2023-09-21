@@ -13,7 +13,7 @@ export const SignUpForm = () => {
     formState: { errors },
   } = useForm<TAuthValidationSchema>({
     mode: 'onBlur',
-    resolver: zodResolver(AuthValidationSchema as any),
+    resolver: zodResolver(AuthValidationSchema),
   })
 
   const onSubmitSignUp = async (userCredential: TAuthValidationSchema) => {
