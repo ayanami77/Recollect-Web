@@ -76,7 +76,7 @@ const updateAnalysisResult = async (
   const { data } = await apiClient.patch(
     `/card/${cardData.id}`,
     {
-      analysisResult: cardData.analysisResult,
+      analysis_result: cardData.analysisResult,
       tags: cardData.tags,
     },
     {
