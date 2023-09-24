@@ -4,6 +4,7 @@ import { hstack, vstack } from '../../../../styled-system/patterns'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { AuthValidationSchema, TAuthValidationSchema } from '@/libs/validations/authValidation'
 import { useMutateUser } from '@/api/hooks/user/useMutateUser'
+import Link from 'next/link'
 
 export const SignUpForm = () => {
   const { signUpMutation, loginMutation } = useMutateUser()
@@ -109,6 +110,13 @@ export const SignUpForm = () => {
             )}
           </div>
         </div>
+        <p className={css({ fontSize: '14px' })}>
+          アカウントをお持ちの方は
+          <Link href={'/login'}>
+            <span className={css({ color: 'blue.400' })}>こちら</span>
+          </Link>
+          から
+        </p>
         <button
           className={css({
             w: 'full',
