@@ -20,6 +20,9 @@ export interface CardRepository {
   createCard: (
     cardData: Pick<Card, 'title' | 'content' | 'period'>,
   ) => Promise<{ data: CardResponse }>
+  createCards: (
+    cardListData: Pick<Card, 'title' | 'content' | 'period'>[],
+  ) => Promise<{ data: CardResponse[] }>
   updateCard: (
     cardData: Pick<Card, 'id' | 'title' | 'content' | 'period'>,
   ) => Promise<{ data: CardResponse }>
@@ -45,6 +48,21 @@ const createCard = async (
       period: cardData.period,
       title: cardData.title,
       content: cardData.content,
+    },
+    {
+      withCredentials: true,
+    },
+  )
+  return data
+}
+
+const createCards = async (
+  cardData: Pick<Card, 'title' | 'content' | 'period'>[],
+): Promise<{ data: CardResponse[] }> => {
+  const { data } = await apiClient.post(
+    `/card/new/batch`,
+    {
+      cards: cardData,
     },
     {
       withCredentials: true,
@@ -93,6 +111,7 @@ const deleteCard: CardRepository['deleteCard'] = async (cardData: Pick<Card, 'id
 export const cardRepository: CardRepository = {
   listCards,
   createCard,
+  createCards,
   updateCard,
   updateAnalysisResult,
   deleteCard,
