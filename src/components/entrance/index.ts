@@ -1,1 +1,2 @@
-export * from './partials'
+export * from './Hero'
+export * from './SignUp'
