@@ -1,16 +1,18 @@
 import { Hero, SignUp } from '@/components/entrance'
-import { Footer } from '@/components/common'
-import { CommonMeta } from '@/components/common/meta'
+import { Footer, CommonMeta } from '@/components/common'
+import { ContentsWrapper } from '@/components/common/utils'
 
-export default function Home() {
+const Entrance = () => {
   return (
     <>
       <CommonMeta title={'Recollect'} description={'Recollectというサービスの紹介ページです。'} />
-      <div>
+      <ContentsWrapper>
         <Hero />
         <SignUp />
         <Footer />
-      </div>
+      </ContentsWrapper>
     </>
   )
 }
+
+export default Entrance
