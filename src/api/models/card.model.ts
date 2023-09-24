@@ -51,28 +51,17 @@ export const cardFactory = () => {
     batchPost: async (
       cardListData: Pick<Card, 'title' | 'content' | 'period'>[],
     ): Promise<Card[]> => {
-      const result = await Promise.all(
-        cardListData.map(async (cardData) => {
-          try {
-            const { data } = await repository.createCard(cardData)
-            return data
-          } catch (err) {
-            console.log(err)
-          }
-        }),
-      )
-
-      const cards = result.map((data) => {
-        if (!data) throw new Error('処理に失敗しました。')
+      const { data } = await repository.createCards(cardListData)
+      const cards = data.map((card) => {
         return {
-          id: data.card_id,
-          title: data.title,
-          period: data.period,
-          content: data.content,
-          tags: data.tags ?? [],
-          analysisResult: data.analysis_result,
-          createdAt: data.created_at,
-          updatedAt: data.updated_at,
+          id: card.card_id,
+          title: card.title,
+          period: card.period,
+          content: card.content,
+          tags: card.tags ?? [],
+          analysisResult: card.analysis_result,
+          createdAt: card.created_at,
+          updatedAt: card.updated_at,
         }
       })
 
