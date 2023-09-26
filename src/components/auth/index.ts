@@ -1,1 +1,2 @@
-export * from './partials'
+export * from './SignupForm'
+export * from './LoginForm'
