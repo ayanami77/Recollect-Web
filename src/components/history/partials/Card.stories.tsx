@@ -2,11 +2,11 @@
 
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Card } from '../components/history';
+import { Card } from './Card';
 
 //👇 This default export determines where your story goes in the story list
 const meta: Meta<typeof Card> = {
-  title: 'Compor/Card',
+  title: 'Compornent/Card',
   component: Card,
 };
 
