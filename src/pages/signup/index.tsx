@@ -1,11 +1,16 @@
 import { CommonMeta } from '@/components/common/meta'
-import { SignUpForm } from '@/components/auth'
+import { ContentsWrapper } from '@/components/common'
+import { SignupForm } from '@/components/auth/SignupForm'
 
-export default function Signup() {
+const Signup = () => {
   return (
     <>
       <CommonMeta title={'Recollect - サインアップ'} description={'サインアップページです。'} />
-      <SignUpForm />
+      <ContentsWrapper>
+        <SignupForm />
+      </ContentsWrapper>
     </>
   )
 }
+
+export default Signup

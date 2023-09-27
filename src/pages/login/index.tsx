@@ -1,11 +1,16 @@
 import { LoginForm } from '@/components/auth'
+import { ContentsWrapper } from '@/components/common'
 import { CommonMeta } from '@/components/common/meta'
 
-export default function Login() {
+const Login = () => {
   return (
     <>
       <CommonMeta title={'Recollect - ログイン'} description={'ログインページです。'} />
-      <LoginForm />
+      <ContentsWrapper>
+        <LoginForm />
+      </ContentsWrapper>
     </>
   )
 }
+
+export default Login
