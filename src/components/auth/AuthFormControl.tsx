@@ -22,6 +22,7 @@ const makeFormControl = (props: AuthFormControlProps) => {
     case 'userId':
       return {
         label: 'ユーザ―ID',
+        type: 'text',
         register: register(usage),
         errorMessage: errors.userId?.message && (
           <p className={css({ fontSize: 'xs', color: 'cinnabar' })}>{errors.userId.message}</p>
@@ -30,6 +31,7 @@ const makeFormControl = (props: AuthFormControlProps) => {
     case 'password':
       return {
         label: 'パスワード',
+        type: 'password',
         register: register(usage),
         errorMessage: errors.password?.message && (
           <p className={css({ fontSize: 'xs', color: 'cinnabar' })}>{errors.password.message}</p>
@@ -39,7 +41,7 @@ const makeFormControl = (props: AuthFormControlProps) => {
 }
 
 export const AuthFormControl: FC<AuthFormControlProps> = (props) => {
-  const { label, errorMessage, register } = makeFormControl(props)
+  const { label, errorMessage, register, type } = makeFormControl(props)
   return (
     <div className={vstack({ alignItems: 'start', w: 'full' })}>
       <label className={hstack({ fontSize: '14px' })}>
@@ -47,7 +49,7 @@ export const AuthFormControl: FC<AuthFormControlProps> = (props) => {
         <span className={css({ color: 'cinnabar' })}>必須</span>
       </label>
       <input
-        type='text'
+        type={type}
         className={css({
           w: 'full',
           p: '6px',
