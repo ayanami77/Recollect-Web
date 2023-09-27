@@ -22,6 +22,7 @@
 - eslint
 - Jest
 - React Testing Library
+- Storybook
 - Playwright (e2eまでできたらしゅごい...)
 - json-server
 
@@ -59,6 +60,14 @@ pnpx husky install
 
 ```sh
 pnpm prepare
+```
+
+## Storybook
+
+Storybookは以下のコマンドで立ち上がります。
+
+```sh
+pnpm storybook
 ```
 
 ## 作業時の注意
