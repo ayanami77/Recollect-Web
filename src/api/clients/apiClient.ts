@@ -1,31 +1,65 @@
-import axios from 'axios'
-
 const baseURL =
   process.env.NEXT_PUBLIC_MOCKING === 'enabled'
     ? process.env.NEXT_PUBLIC_API_MOCK_ENDPOINT
     : process.env.NEXT_PUBLIC_API_ENDPOINT
-const headers = {
-  'Content-Type': 'application/json',
+
+const makeRequestBody = <T = object>(body: T) => {
+  // bodyがundefined, nullの場合はnullを返す
+  if (!body) return null
+  return JSON.stringify(body)
 }
-const apiClient = axios.create({ baseURL, headers })
-// apiClient.interceptors.response.use(
-//   (response) => {
-//     return response;
-//   },
-//   (error) => {
-//     console.log(error);
-//     switch (error?.response?.status) {
-//       case 401:
-//         break;
-//       case 404:
-//         break;
-//       default:
-//         console.log("== internal server error");
-//     }
 
-//     const errorMessage = (error.response?.data?.message || "").split(",");
-//     throw new Error(errorMessage);
-//   }
-// )
+type TMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE'
 
-export { apiClient }
+const http = async (path: string, method: TMethod, body?: any) => {
+  const res = await fetch(`${baseURL}${path}`, {
+    method: method,
+    mode: 'cors',
+    body: makeRequestBody(body),
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+
+  // TODO: エラーハンドリングをAPI定義後に考える
+  if (!res.ok) {
+    // const error = new FetchError("エラーが発生しました", { status: res.status })
+    // const data = await res.json();
+    // error.message = data.message
+    // throw error
+  }
+
+  // 204 no contentの時、空のオブジェクトを返す
+  if (res.status === 204) return {}
+
+  return res.json()
+}
+
+const get = async (path: string) => {
+  const data = await http(path, 'GET')
+  return data
+}
+
+const post = async (path: string, body?: any) => {
+  const data = await http(path, 'POST', body)
+  return data
+}
+
+const patch = async (path: string, body: any) => {
+  const data = await http(path, 'PATCH', body)
+  return data
+}
+
+// destroyは予約語なため、destroyをdeleteとする
+const destroy = async (path: string) => {
+  const data = await http(path, 'DELETE')
+  return data
+}
+
+export const apiClient = {
+  get,
+  post,
+  patch,
+  destroy,
+}

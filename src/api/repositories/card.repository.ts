@@ -1,5 +1,5 @@
-import { apiClient } from '../clients/apiClient'
 import { Card, Period } from '../models'
+import { apiClient } from '../clients/apiClient'
 
 // TODO
 type CardResponse = {
@@ -33,79 +33,53 @@ export interface CardRepository {
 }
 
 const listCards: CardRepository['listCards'] = async (): Promise<{ data: CardResponse[] }> => {
-  const { data } = await apiClient.get(`/card/list`, {
-    withCredentials: true,
-  })
+  const data = await apiClient.get('/card/list')
   return data
 }
 
 const createCard = async (
   cardData: Pick<Card, 'title' | 'content' | 'period'>,
 ): Promise<{ data: CardResponse }> => {
-  const { data } = await apiClient.post(
-    `/card/new`,
-    {
-      period: cardData.period,
-      title: cardData.title,
-      content: cardData.content,
-    },
-    {
-      withCredentials: true,
-    },
-  )
+  const data = await apiClient.post('/card/new', {
+    period: cardData.period,
+    title: cardData.title,
+    content: cardData.content,
+  })
   return data
 }
 
 const createCards = async (
   cardData: Pick<Card, 'title' | 'content' | 'period'>[],
 ): Promise<{ data: CardResponse[] }> => {
-  const { data } = await apiClient.post(
-    `/card/new/batch`,
-    {
-      cards: cardData,
-    },
-    {
-      withCredentials: true,
-    },
-  )
+  const data = await apiClient.post(`/card/new/batch`, {
+    cards: cardData,
+  })
   return data
 }
 
 const updateCard = async (
   cardData: Pick<Card, 'id' | 'title' | 'content' | 'period'>,
 ): Promise<{ data: CardResponse }> => {
-  const { data } = await apiClient.patch(
-    `/card/${cardData.id}`,
-    {
-      period: cardData.period,
-      title: cardData.title,
-      content: cardData.content,
-    },
-    {
-      withCredentials: true,
-    },
-  )
+  const data = await apiClient.patch(`/card/${cardData.id}`, {
+    period: cardData.period,
+    title: cardData.title,
+    content: cardData.content,
+  })
   return data
 }
 
 const updateAnalysisResult = async (
   cardData: Pick<Card, 'id' | 'analysisResult' | 'tags'>,
 ): Promise<{ data: CardResponse }> => {
-  const { data } = await apiClient.patch(
-    `/card/${cardData.id}`,
-    {
-      analysis_result: cardData.analysisResult,
-      tags: cardData.tags,
-    },
-    {
-      withCredentials: true,
-    },
-  )
+  const data = await apiClient.patch(`/card/${cardData.id}`, {
+    analysis_result: cardData.analysisResult,
+    tags: cardData.tags,
+  })
   return data
 }
 
 const deleteCard: CardRepository['deleteCard'] = async (cardData: Pick<Card, 'id'>) => {
-  await apiClient.delete(`/card/${cardData.id}`)
+  await apiClient.destroy(`/card/${cardData.id}`)
 }
 
 export const cardRepository: CardRepository = {
