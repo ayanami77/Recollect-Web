@@ -1,5 +1,5 @@
 const baseURL =
-  process.env.NEXT_PUBLIC_MOCKING === 'enabled'
+  process.env.NEXT_PUBLIC_API_MOCKING === 'enabled'
     ? process.env.NEXT_PUBLIC_API_MOCK_ENDPOINT
     : process.env.NEXT_PUBLIC_API_ENDPOINT
 
