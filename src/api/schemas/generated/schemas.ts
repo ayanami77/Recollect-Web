@@ -33,7 +33,7 @@ export interface Cards {
 }
 
 export interface User {
-  /** @example "user1123" */
+  /** @example "user8864" */
   user_id: string
   /** @example "reco_user" */
   user_name: string
@@ -369,14 +369,49 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags users
-     * @name UsersList
-     * @summary 自分史一覧の取得
-     * @request GET:/users
+     * @name LoginCreate
+     * @summary ログイン
+     * @request POST:/users/login
      */
-    usersList: (params: RequestParams = {}) =>
+    loginCreate: (
+      data: {
+        /** @example "user8864" */
+        user_id?: string
+        /** @example "password" */
+        password?: string
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<void, any>({
+        path: `/users/login`,
+        method: 'POST',
+        body: data,
+        type: ContentType.Json,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags users
+     * @name SignupCreate
+     * @summary サインアップ
+     * @request POST:/users/signup
+     */
+    signupCreate: (
+      data: {
+        /** @example "user8864" */
+        user_id?: string
+        /** @example "password" */
+        password?: string
+      },
+      params: RequestParams = {},
+    ) =>
       this.request<User, any>({
-        path: `/users`,
-        method: 'GET',
+        path: `/users/signup`,
+        method: 'POST',
+        body: data,
+        type: ContentType.Json,
         format: 'json',
         ...params,
       }),
@@ -385,15 +420,14 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags users
-     * @name UsersCreate
-     * @summary 自分史の作成
-     * @request POST:/users
+     * @name LogoutCreate
+     * @summary ログアウト
+     * @request POST:/users/logout
      */
-    usersCreate: (params: RequestParams = {}) =>
-      this.request<User, any>({
-        path: `/users`,
+    logoutCreate: (params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/users/logout`,
         method: 'POST',
-        format: 'json',
         ...params,
       }),
 
@@ -402,29 +436,14 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags users
      * @name UsersPartialUpdate
-     * @summary 自分史の更新
-     * @request PATCH:/users
+     * @summary ユーザ―情報の更新
+     * @request PATCH:/users/{userId}
      */
-    usersPartialUpdate: (params: RequestParams = {}) =>
+    usersPartialUpdate: (userId: string, params: RequestParams = {}) =>
       this.request<User, any>({
-        path: `/users`,
+        path: `/users/${userId}`,
         method: 'PATCH',
         format: 'json',
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags users
-     * @name UsersDelete
-     * @summary 自分史の削除
-     * @request DELETE:/users
-     */
-    usersDelete: (params: RequestParams = {}) =>
-      this.request<void, any>({
-        path: `/users`,
-        method: 'DELETE',
         ...params,
       }),
   }

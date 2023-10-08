@@ -107,22 +107,39 @@ paths:
         '204':
           description: '成功'
 
-  '/users':
-    get:
-      summary: '自分史一覧の取得'
-      tags: ['users']
-      deprecated: false
-      responses:
-        '200':
-          description: '成功'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
+  '/users/login':
     post:
-      summary: '自分史の作成'
+      summary: 'ログイン'
       tags: ['users']
       deprecated: false
+      requestBody:
+        description: 'ログイン情報'
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id: { type: string, example: 'user8864' }
+                password: { type: string, example: 'password' }
+      responses:
+        '204':
+          description: '成功'
+  '/users/signup':
+    post:
+      summary: 'サインアップ'
+      tags: ['users']
+      deprecated: false
+      requestBody:
+        description: 'サインアップ情報'
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id: { type: string, example: 'user8864' }
+                password: { type: string, example: 'password' }
       responses:
         '200':
           description: '成功'
@@ -130,24 +147,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-    patch:
-      summary: '自分史の更新'
-      tags: ['users']
-      deprecated: false
-      responses:
-        '200':
-          description: '成功'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-    delete:
-      summary: '自分史の削除'
+  '/users/logout':
+    post:
+      summary: 'ログアウト'
       tags: ['users']
       deprecated: false
       responses:
         '204':
           description: '成功'
+  '/users/{userId}':
+    patch:
+      summary: 'ユーザ―情報の更新'
+      tags: ['users']
+      deprecated: false
+      responses:
+        '200':
+          description: '成功'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
 
 components:
   schemas:
@@ -189,7 +208,7 @@ components:
     User:
       type: object
       properties:
-        user_id: { type: string, example: 'user1123' }
+        user_id: { type: string, example: 'user8864' }
         user_name: { type: string, example: 'reco_user' }
         created_at: { type: string, example: '2023-09-01T12:14:57.548Z' }
         updated_at: { type: string, example: '2023-09-01T12:14:57.548Z' }
