@@ -33,14 +33,14 @@ export interface CardRepository {
 }
 
 const listCards: CardRepository['listCards'] = async (): Promise<{ data: CardResponse[] }> => {
-  const data = await apiClient.get('/card/list')
+  const data = await apiClient.get('/cards')
   return data
 }
 
 const createCard = async (
   cardData: Pick<Card, 'title' | 'content' | 'period'>,
 ): Promise<{ data: CardResponse }> => {
-  const data = await apiClient.post('/card/new', {
+  const data = await apiClient.post('/cards', {
     period: cardData.period,
     title: cardData.title,
     content: cardData.content,
@@ -51,7 +51,7 @@ const createCard = async (
 const createCards = async (
   cardData: Pick<Card, 'title' | 'content' | 'period'>[],
 ): Promise<{ data: CardResponse[] }> => {
-  const data = await apiClient.post(`/card/new/batch`, {
+  const data = await apiClient.post(`/cards/batch`, {
     cards: cardData,
   })
   return data
@@ -60,7 +60,7 @@ const createCards = async (
 const updateCard = async (
   cardData: Pick<Card, 'id' | 'title' | 'content' | 'period'>,
 ): Promise<{ data: CardResponse }> => {
-  const data = await apiClient.patch(`/card/${cardData.id}`, {
+  const data = await apiClient.patch(`/cards/${cardData.id}`, {
     period: cardData.period,
     title: cardData.title,
     content: cardData.content,
@@ -71,7 +71,7 @@ const updateCard = async (
 const updateAnalysisResult = async (
   cardData: Pick<Card, 'id' | 'analysisResult' | 'tags'>,
 ): Promise<{ data: CardResponse }> => {
-  const data = await apiClient.patch(`/card/${cardData.id}`, {
+  const data = await apiClient.patch(`/cards/${cardData.id}`, {
     analysis_result: cardData.analysisResult,
     tags: cardData.tags,
   })
@@ -79,7 +79,7 @@ const updateAnalysisResult = async (
 }
 
 const deleteCard: CardRepository['deleteCard'] = async (cardData: Pick<Card, 'id'>) => {
-  await apiClient.destroy(`/card/${cardData.id}`)
+  await apiClient.destroy(`/cards/${cardData.id}`)
 }
 
 export const cardRepository: CardRepository = {

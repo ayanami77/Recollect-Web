@@ -13,8 +13,8 @@
 - react-hook-form
 - zod
 - TanStack Query
-- axios (Fetch APIにリプレースするかも)
 - zustand
+- swagger-typescript-api
 - OpenAI API
 
 また、テストライブラリとして次のものを利用しています。
@@ -24,7 +24,7 @@
 - React Testing Library
 - Storybook
 - Playwright (e2eまでできたらしゅごい...)
-- json-server
+- msw
 
 ## CI/CD
 
@@ -60,6 +60,14 @@ pnpx husky install
 
 ```sh
 pnpm prepare
+```
+
+## openapi.yamlからTSの型を生成する
+
+次のコマンドを打ってください。
+
+```sh
+pnpm generate:client
 ```
 
 ## Storybook
