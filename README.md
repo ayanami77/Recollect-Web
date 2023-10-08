@@ -14,6 +14,7 @@
 - zod
 - TanStack Query
 - zustand
+- swagger-typescript-api
 - OpenAI API
 
 また、テストライブラリとして次のものを利用しています。
@@ -59,6 +60,14 @@ pnpx husky install
 
 ```sh
 pnpm prepare
+```
+
+## openapi.yamlからTSの型を生成する
+
+次のコマンドを打ってください。
+
+```sh
+pnpx swagger-typescript-api -p src/api/schemas/openapi.yaml -o src/api/schemas/generated -n schemas.ts
 ```
 
 ## Storybook
