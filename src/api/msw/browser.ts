@@ -1,4 +1,5 @@
 import { setupWorker } from 'msw'
-import { historyHandler } from './handlers/history/handler'
+import { cardHandler } from './handlers/card/handler'
+import { userHandler } from './handlers/user/handler'
 
-export const worker = setupWorker(...historyHandler)
+export const worker = setupWorker(...cardHandler, ...userHandler)

@@ -1,4 +1,4 @@
 import { setupServer } from 'msw/node'
-import { historyHandler } from './handlers/history/handler'
+import { cardHandler } from './handlers/card/handler'
 
-export const server = setupServer(...historyHandler)
+export const server = setupServer(...cardHandler)
