@@ -8,7 +8,7 @@ export interface UserRepository {
 }
 
 const signUp: UserRepository['signUp'] = async (userCredential): Promise<User> => {
-  const data = await apiClient.post(`/user/signup`, {
+  const data = await apiClient.post(`/users/signup`, {
     user_id: userCredential.userId,
     password: userCredential.password,
   })
@@ -16,7 +16,7 @@ const signUp: UserRepository['signUp'] = async (userCredential): Promise<User> =
 }
 
 const login: UserRepository['login'] = async (userCredential): Promise<User> => {
-  const data = await apiClient.post(`/user/login`, {
+  const data = await apiClient.post(`/users/login`, {
     user_id: userCredential.userId,
     password: userCredential.password,
   })
@@ -25,7 +25,7 @@ const login: UserRepository['login'] = async (userCredential): Promise<User> => 
 }
 
 const logout: UserRepository['logout'] = async () => {
-  await apiClient.post(`/user/logout`)
+  await apiClient.post(`/users/logout`)
 }
 
 export const userRepository: UserRepository = {
