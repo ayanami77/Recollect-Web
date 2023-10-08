@@ -13,7 +13,6 @@
 - react-hook-form
 - zod
 - TanStack Query
-- axios (Fetch APIにリプレースするかも)
 - zustand
 - OpenAI API
 
@@ -24,7 +23,7 @@
 - React Testing Library
 - Storybook
 - Playwright (e2eまでできたらしゅごい...)
-- json-server
+- msw
 
 ## CI/CD
 
