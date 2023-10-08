@@ -67,7 +67,7 @@ pnpm prepare
 次のコマンドを打ってください。
 
 ```sh
-pnpx swagger-typescript-api -p src/api/schemas/openapi.yaml -o src/api/schemas/generated -n schemas.ts
+pnpm generate:client
 ```
 
 ## Storybook

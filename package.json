@@ -12,7 +12,8 @@
     "lint": "next lint",
     "test": "jest",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "generate:client": "swagger-typescript-api -p src/api/schemas/openapi.yaml -o src/api/schemas/generated -n schemas.ts"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
