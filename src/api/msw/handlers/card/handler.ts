@@ -25,8 +25,8 @@ type ReqBody = {
 // TODO: 型アサーションだめ、ぜったい
 const now = new Date() as unknown as string
 
-export const historyHandler = [
-  rest.get('/card/list', (req, res, ctx) => {
+export const cardHandler = [
+  rest.get('/cards', (req, res, ctx) => {
     return res(
       ctx.json<{ data: CardResponse[] }>({
         data: mockData,
@@ -34,7 +34,7 @@ export const historyHandler = [
     )
   }),
 
-  rest.post<ReqBody, any>('/card/new', async (req, res, ctx) => {
+  rest.post<ReqBody, any>('/cards', async (req, res, ctx) => {
     const { content, title, period } = await req.json()
 
     const newCard = {
@@ -59,7 +59,7 @@ export const historyHandler = [
     )
   }),
 
-  rest.patch('/card/:cardId', async (req, res, ctx) => {
+  rest.patch('/cards/:cardId', async (req, res, ctx) => {
     const { content, title, period } = await req.json()
     const { cardId } = req.params
     const targetIndex = mockData.findIndex((d) => d.card_id === cardId)
@@ -89,7 +89,7 @@ export const historyHandler = [
 
   // TODO: またanalysisのpatchのところは後ほど
 
-  rest.delete('/card/:cardId', async (req, res, ctx) => {
+  rest.delete('/cards/:cardId', async (req, res, ctx) => {
     const { cardId } = req.params
 
     const targetIndex = mockData.findIndex((d) => d.card_id === cardId)
