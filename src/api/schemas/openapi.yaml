@@ -115,10 +115,10 @@ paths:
       responses:
         '200':
           description: '成功'
-          # content:
-          #   application/json:
-          #     schema:
-          #       $ref: '#/components/schemas/User'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
     post:
       summary: '自分史の作成'
       tags: ['users']
@@ -126,10 +126,10 @@ paths:
       responses:
         '200':
           description: '成功'
-          # content:
-          #   application/json:
-          #     schema:
-          #       $ref: '#/components/schemas/User'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
     patch:
       summary: '自分史の更新'
       tags: ['users']
@@ -137,10 +137,10 @@ paths:
       responses:
         '200':
           description: '成功'
-          # content:
-          #   application/json:
-          #     schema:
-          #       $ref: '#/components/schemas/User'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
     delete:
       summary: '自分史の削除'
       tags: ['users']
@@ -162,14 +162,21 @@ components:
             type: string,
             example: '毎週、教科書で出てくるような有名な実験から面白い実験まで色々なことをしていました。etc ...',
           }
-        tags: { type: array, example: ['実験好き', '好奇心'] }
+        tags: { type: array, items: { type: string }, example: ['実験好き', '好奇心'] }
         analysis_result:
           {
             type: array,
+            items: { type: string },
             example: '- **実験好き**: 文章の中で毎週実験をしていたことや実験を通じてわくわく感を感じていたことから、実験に対する興味や好奇心があることが分かります。 etc ...',
           }
         created_at: { type: string, example: '2023-09-01T12:14:57.548Z' }
         updated_at: { type: string, example: '2023-09-01T12:14:57.548Z' }
+      required:
+        - card_id
+        - period
+        - title
+        - created_at
+        - updated_at
     Cards:
       type: object
       properties:
@@ -177,3 +184,18 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Card'
+      required:
+        - cards
+    User:
+      type: object
+      properties:
+        user_id: { type: string, example: 'user1123' }
+        user_name: { type: string, example: 'reco_user' }
+        created_at: { type: string, example: '2023-09-01T12:14:57.548Z' }
+        updated_at: { type: string, example: '2023-09-01T12:14:57.548Z' }
+        deleted_at: { type: string, example: '2023-09-01T12:14:57.548Z' }
+      required:
+        - user_id
+        - user_name
+        - created_at
+        - updated_at
