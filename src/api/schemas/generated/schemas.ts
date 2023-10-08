@@ -41,8 +41,6 @@ export interface User {
   created_at: string
   /** @example "2023-09-01T12:14:57.548Z" */
   updated_at: string
-  /** @example "2023-09-01T12:14:57.548Z" */
-  deleted_at?: string
 }
 
 export type QueryParamsType = Record<string | number, any>
