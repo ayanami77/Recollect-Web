@@ -1,16 +1,4 @@
-export type Period = '現在まで' | '高校生' | '中学生' | '小学生' | '幼少期'
-type CardResponse = {
-  analysis_result: string
-  card_id: string
-  content: string
-  created_at: string
-  deleted_at: string
-  period: Period
-  tags: string[] | null
-  title: string
-  updated_at: string
-  user_id: string
-}
+import { CardResponse } from '@/api/repositories'
 
 export const mockData: CardResponse[] = [
   {

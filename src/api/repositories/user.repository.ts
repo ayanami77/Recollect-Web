@@ -2,12 +2,12 @@ import { apiClient } from '../clients/apiClient'
 import { UserCredential, User } from '../models/user.model'
 
 export interface UserRepository {
-  signUp: (userCredential: UserCredential) => Promise<User>
-  login: (userCredential: UserCredential) => Promise<User>
-  logout: () => Promise<void>
+  signup: (userCredential: UserCredential) => Promise<User>
+  login: (userCredential: UserCredential) => void
+  logout: () => void
 }
 
-const signUp: UserRepository['signUp'] = async (userCredential): Promise<User> => {
+const signup: UserRepository['signup'] = async (userCredential): Promise<User> => {
   const data = await apiClient.post(`/users/signup`, {
     user_id: userCredential.userId,
     password: userCredential.password,
@@ -15,13 +15,11 @@ const signUp: UserRepository['signUp'] = async (userCredential): Promise<User> =
   return data
 }
 
-const login: UserRepository['login'] = async (userCredential): Promise<User> => {
-  const data = await apiClient.post(`/users/login`, {
+const login: UserRepository['login'] = async (userCredential) => {
+  await apiClient.post(`/users/login`, {
     user_id: userCredential.userId,
     password: userCredential.password,
   })
-  console.log(data)
-  return data
 }
 
 const logout: UserRepository['logout'] = async () => {
@@ -29,7 +27,7 @@ const logout: UserRepository['logout'] = async () => {
 }
 
 export const userRepository: UserRepository = {
-  signUp,
+  signup,
   login,
   logout,
 }

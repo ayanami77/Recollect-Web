@@ -25,14 +25,14 @@ export const Button: FC<ButtonProps> = ({ content }) => {
   const router = useRouter()
   const store = useStore()
   const [isLoading, setIsLoading] = useState(false)
-  const { createMultiCardMutation } = useMutateCard()
+  const { createCardsMutation } = useMutateCard()
 
   const handleSubmit = async () => {
     if (content.handleValidate()) return
     content.setCurrentValue((prevValue) => Math.min(prevValue + content.progressStepSize, 100))
     setIsLoading(true)
     try {
-      const res = await createMultiCardMutation.mutateAsync(content.cardList)
+      const res = await createCardsMutation.mutateAsync(content.cardList)
       if (res) {
         store.show('カードを作成しました', 'success')
         setTimeout(() => {

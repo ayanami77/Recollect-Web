@@ -51,7 +51,7 @@ const patch = async (path: string, body: any) => {
   return data
 }
 
-// destroyは予約語なため、destroyをdeleteとする
+// deleteは予約語なため、destroyをdeleteとみなす(;´･ω･)
 const destroy = async (path: string) => {
   const data = await http(path, 'DELETE')
   return data
