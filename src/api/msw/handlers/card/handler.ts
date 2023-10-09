@@ -1,8 +1,8 @@
 import { rest } from 'msw'
 import { mockData } from './data'
 import { v4 as uuid } from 'uuid'
-import { CardResponse } from '@/api/repositories'
-import { Card } from '@/api/models'
+import { CardResponse } from '@/api/repositories/card.repository'
+import { Card } from '@/api/models/card.model'
 
 // TODO: 型アサーションだめ、ぜったい
 const now = new Date() as unknown as string

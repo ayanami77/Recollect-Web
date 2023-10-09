@@ -4,7 +4,7 @@ import { flex, hstack } from '../../../../styled-system/patterns'
 import { m } from 'framer-motion'
 import Link from 'next/link'
 import { Tag } from '@/components/common'
-import { Period as TPeriod } from '@/api/models'
+import { Period as TPeriod } from '@/api/models/card.model'
 import { CardDetailModal } from './CardDetailModal'
 import { controlScreenScroll } from '@/utils/controlScreenScroll'
 

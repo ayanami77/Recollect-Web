@@ -1,4 +1,4 @@
-import { UserCredential } from '@/api/models'
+import { UserCredential } from '@/api/models/user.model'
 import { rest } from 'msw'
 
 const now = new Date()

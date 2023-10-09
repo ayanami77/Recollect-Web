@@ -1,4 +1,4 @@
-import { CardResponse } from '@/api/repositories'
+import { CardResponse } from '@/api/repositories/card.repository'
 
 export const mockData: CardResponse[] = [
   {

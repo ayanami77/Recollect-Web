@@ -2,7 +2,7 @@ import { m } from 'framer-motion'
 import { Dispatch, FC, SetStateAction, useState } from 'react'
 import { css } from '../../../../styled-system/css'
 import { useRouter } from 'next/router'
-import { Period as TPeriod } from '@/api/models'
+import { Period as TPeriod } from '@/api/models/card.model'
 import { useMutateCard } from '@/api/hooks/card/useMutateCard'
 import useStore from '@/store'
 

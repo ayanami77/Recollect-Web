@@ -6,7 +6,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 import { controlScreenScroll } from '@/utils/controlScreenScroll'
 import { CardCreateModal } from '.'
-import { Period as TPeriod } from '@/api/models'
+import { Period as TPeriod } from '@/api/models/card.model'
 
 type CardBoxProps = {
   children: ReactNode

@@ -1,4 +1,4 @@
-import { Card as TCard, Period as TPeriod } from '@/api/models'
+import { Card as TCard, Period as TPeriod } from '@/api/models/card.model'
 import { vstack } from '../../../../styled-system/patterns'
 import { CardsSection } from './CardsSection'
 import { CardNotRegistered } from './CardNotRegistered'
