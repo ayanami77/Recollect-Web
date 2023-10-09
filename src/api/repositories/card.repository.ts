@@ -1,4 +1,4 @@
-import { Card, Period } from '../models'
+import { Card, Period } from '../models/card.model'
 import { apiClient } from '../clients/apiClient'
 
 // TODO

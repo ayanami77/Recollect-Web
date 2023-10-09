@@ -1,4 +1,4 @@
-import { cardRepository } from '../repositories'
+import { cardRepository } from '../repositories/card.repository'
 
 export type Period = '現在まで' | '高校生' | '中学生' | '小学生' | '幼少期'
 export type Card = {

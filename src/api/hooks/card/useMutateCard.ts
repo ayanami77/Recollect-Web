@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { useError } from '../utils/useError'
-import { Card, cardFactory } from '@/api/models'
+import { Card, cardFactory } from '@/api/models/card.model'
 import { queryClient } from '@/api/clients/queryClient'
 
 export const useMutateCard = () => {

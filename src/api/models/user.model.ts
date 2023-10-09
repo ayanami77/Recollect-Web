@@ -1,4 +1,4 @@
-import { userRepository } from '../repositories'
+import { userRepository } from '../repositories/user.repository'
 
 export type User = {
   user_id: string
