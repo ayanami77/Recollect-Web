@@ -3,8 +3,8 @@ import { UserCredential, User } from '../models/user.model'
 
 export interface UserRepository {
   signup: (userCredential: UserCredential) => Promise<User>
-  login: (userCredential: UserCredential) => void
-  logout: () => void
+  login: (userCredential: UserCredential) => Promise<void>
+  logout: () => Promise<void>
 }
 
 const signup: UserRepository['signup'] = async (userCredential): Promise<User> => {

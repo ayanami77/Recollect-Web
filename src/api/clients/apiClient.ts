@@ -1,3 +1,5 @@
+import { snakeCase } from 'lodash'
+
 const baseURL =
   process.env.NEXT_PUBLIC_API_MOCKING === 'enabled'
     ? process.env.NEXT_PUBLIC_API_MOCK_ENDPOINT
@@ -6,7 +8,16 @@ const baseURL =
 const makeRequestBody = <T = object>(body: T) => {
   // bodyがundefined, nullの場合はnullを返す
   if (!body) return null
-  return JSON.stringify(body)
+  return JSON.stringify(toJSONFormat(body))
+}
+
+function toJSONFormat(obj: Record<string, any>): Record<string, any> {
+  return Object.fromEntries(
+    Object.entries(obj).map(([key, value]) => {
+      const newKey = snakeCase(key)
+      return [newKey, value]
+    }),
+  )
 }
 
 type TMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE'

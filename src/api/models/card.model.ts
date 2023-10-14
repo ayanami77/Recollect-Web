@@ -65,12 +65,7 @@ export const cardFactory = () => {
       return cards
     },
     update: async (cardData: Partial<Card>): Promise<Card> => {
-      const { analysisResult, ...rest } = cardData
-      const updatedCardData = {
-        ...rest,
-        ...(analysisResult && { analysis_result: analysisResult }),
-      }
-      const { data } = await repository.updateCard(updatedCardData)
+      const { data } = await repository.updateCard(cardData)
       const card = {
         id: data.card_id,
         title: data.title,
