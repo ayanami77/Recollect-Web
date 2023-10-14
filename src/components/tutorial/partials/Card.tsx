@@ -1,6 +1,6 @@
 import { ChangeEvent, Dispatch, FC, SetStateAction } from 'react'
 import { css } from '../../../../styled-system/css'
-import { Period as TPeriod } from '@/api/models'
+import { Period as TPeriod } from '@/api/models/card.model'
 
 type Card = {
   period: TPeriod

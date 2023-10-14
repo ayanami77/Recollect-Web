@@ -1,8 +1,6 @@
-import { cardRepository } from '../repositories'
+import { cardRepository } from '../repositories/card.repository'
 
-//TODO: 適宜修正
 export type Period = '現在まで' | '高校生' | '中学生' | '小学生' | '幼少期'
-
 export type Card = {
   id: string
   period: Period
@@ -64,10 +62,9 @@ export const cardFactory = () => {
           updatedAt: card.updated_at,
         }
       })
-
       return cards
     },
-    update: async (cardData: Pick<Card, 'id' | 'title' | 'content' | 'period'>): Promise<Card> => {
+    update: async (cardData: Partial<Card>): Promise<Card> => {
       const { data } = await repository.updateCard(cardData)
       const card = {
         id: data.card_id,
@@ -81,24 +78,6 @@ export const cardFactory = () => {
       }
       return card
     },
-    delete: async (cardData: Pick<Card, 'id'>): Promise<void> => {
-      repository.deleteCard(cardData)
-    },
-    updateAnalysisResult: async (
-      cardData: Pick<Card, 'id' | 'analysisResult' | 'tags'>,
-    ): Promise<Card> => {
-      const { data } = await repository.updateAnalysisResult(cardData)
-      const card = {
-        id: data.card_id,
-        title: data.title,
-        period: data.period,
-        content: data.content,
-        tags: data.tags ?? [],
-        analysisResult: data.analysis_result,
-        createdAt: data.created_at,
-        updatedAt: data.updated_at,
-      }
-      return card
-    },
+    delete: async (cardData: Pick<Card, 'id'>) => repository.deleteCard(cardData),
   }
 }

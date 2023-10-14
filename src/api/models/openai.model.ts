@@ -5,12 +5,14 @@ export type OpenAICredential = {
   prompt: string
 }
 
-export const openAiFactory = () => {
+export const openaiFactory = () => {
   const repository = openaiRepository
   return {
-    getOpenAIResponse: async (credential: OpenAICredential): Promise<string | null> => {
+    getOpenAIResponse: async (credential: OpenAICredential): Promise<string> => {
       const response = await repository.getOpenAIResponse(credential.prompt)
-      return response.choices[0].message.content
+      const content = response.choices[0].message.content
+      if (!content) return ''
+      return content
     },
   }
 }

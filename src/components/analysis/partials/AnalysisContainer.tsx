@@ -1,4 +1,4 @@
-import { Card as TCard } from '@/api/models'
+import { Card as TCard } from '@/api/models/card.model'
 import { FC, useState } from 'react'
 import { hstack } from '../../../../styled-system/patterns'
 import { AnalysisDataNotRegistered, Board, Button } from '.'

@@ -3,7 +3,7 @@ import { Button, Card, LeavingButton, ProgressBar, TransitionButton } from '@/co
 import { center, hstack } from '../../../styled-system/patterns'
 import { FadeInWrapper } from '@/components/common'
 import { CommonMeta } from '@/components/common/meta'
-import { Period as TPeriod } from '@/api/models'
+import { Period as TPeriod } from '@/api/models/card.model'
 
 type Card = {
   period: TPeriod

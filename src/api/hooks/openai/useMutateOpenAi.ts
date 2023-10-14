@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { useError } from '../utils/useError'
-import { OpenAICredential, openAiFactory } from '@/api/models/openai.model'
+import { OpenAICredential, openaiFactory } from '@/api/models/openai.model'
 import { useMutateCard } from '../card/useMutateCard'
 
 /**
@@ -9,22 +9,20 @@ import { useMutateCard } from '../card/useMutateCard'
 const generateNewTags = (markdownString: string): string[] => {
   const regex = /\*\*(.*?)\*\*/g
   const newTags = markdownString.match(regex)?.map((v) => v.slice(2, v.length - 2))
-  if (newTags === undefined) {
-    return ['']
-  }
+  if (newTags === undefined) return []
   return newTags
 }
 
 export const useMutateOpenAIResponse = () => {
   const { switchErrorHandling } = useError()
-  const { updateAnalysisResultMutation } = useMutateCard()
+  const { updateCardMutation } = useMutateCard()
   const openaiResponseMutation = useMutation(
-    async (credential: OpenAICredential) => await openAiFactory().getOpenAIResponse(credential),
+    async (credential: OpenAICredential) => await openaiFactory().getOpenAIResponse(credential),
     {
       onSuccess: (res, variables: OpenAICredential) => {
         if (res) {
           const newTags = generateNewTags(res)
-          updateAnalysisResultMutation.mutate({
+          updateCardMutation.mutate({
             id: variables.id,
             analysisResult: res,
             tags: newTags,

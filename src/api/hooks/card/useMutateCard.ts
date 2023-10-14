@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { useError } from '../utils/useError'
-import { Card, cardFactory } from '@/api/models'
+import { Card, cardFactory } from '@/api/models/card.model'
 import { queryClient } from '@/api/clients/queryClient'
 
 export const useMutateCard = () => {
@@ -25,7 +25,7 @@ export const useMutateCard = () => {
     },
   )
 
-  const createMultiCardMutation = useMutation(
+  const createCardsMutation = useMutation(
     (cardData: Pick<Card, 'title' | 'content' | 'period'>[]) => cardFactory().batchPost(cardData),
     {
       onSuccess: (res) => {
@@ -45,9 +45,9 @@ export const useMutateCard = () => {
   )
 
   const updateCardMutation = useMutation(
-    (cardData: Pick<Card, 'id' | 'title' | 'content' | 'period'>) => cardFactory().update(cardData),
+    (cardData: Partial<Card>) => cardFactory().update(cardData),
     {
-      onSuccess: (res, variables) => {
+      onSuccess: (_, variables) => {
         const previousCards = queryClient.getQueryData<Card[]>(['cards'])
         if (previousCards) {
           queryClient.setQueryData<Card[]>(
@@ -56,8 +56,7 @@ export const useMutateCard = () => {
               card.id === variables.id
                 ? {
                     ...card,
-                    title: res.title,
-                    content: res.content,
+                    ...variables,
                   }
                 : card,
             ),
@@ -96,42 +95,10 @@ export const useMutateCard = () => {
     },
   )
 
-  const updateAnalysisResultMutation = useMutation(
-    (cardData: Pick<Card, 'id' | 'analysisResult' | 'tags'>) =>
-      cardFactory().updateAnalysisResult(cardData),
-    {
-      onSuccess: (res, variables) => {
-        const previousCards = queryClient.getQueryData<Card[]>(['cards'])
-        if (previousCards) {
-          queryClient.setQueryData<Card[]>(
-            ['cards'],
-            previousCards.map((card) =>
-              card.id === variables.id
-                ? {
-                    ...card,
-                    analysisResult: variables.analysisResult,
-                    tags: variables.tags,
-                  }
-                : card,
-            ),
-          )
-        }
-      },
-      onError: (err: any) => {
-        if (err.response.data.message) {
-          switchErrorHandling(err.response.data.message)
-        } else {
-          switchErrorHandling(err.response.data)
-        }
-      },
-    },
-  )
-
   return {
     createCardMutation,
-    createMultiCardMutation,
+    createCardsMutation,
     updateCardMutation,
     deleteUserMutation,
-    updateAnalysisResultMutation,
   }
 }

@@ -1,4 +1,4 @@
-import { Card, cardFactory } from '../../models'
+import { Card, cardFactory } from '../../models/card.model'
 import { useQuery } from '@tanstack/react-query'
 import { useError } from '../utils/useError'
 

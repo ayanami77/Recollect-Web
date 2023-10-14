@@ -2,7 +2,7 @@ import { m } from 'framer-motion'
 import { Dispatch, FC, SetStateAction, useState } from 'react'
 import { css } from '../../../../styled-system/css'
 import { useRouter } from 'next/router'
-import { Period as TPeriod } from '@/api/models'
+import { Period as TPeriod } from '@/api/models/card.model'
 import { useMutateCard } from '@/api/hooks/card/useMutateCard'
 import useStore from '@/store'
 
@@ -25,14 +25,14 @@ export const Button: FC<ButtonProps> = ({ content }) => {
   const router = useRouter()
   const store = useStore()
   const [isLoading, setIsLoading] = useState(false)
-  const { createMultiCardMutation } = useMutateCard()
+  const { createCardsMutation } = useMutateCard()
 
   const handleSubmit = async () => {
     if (content.handleValidate()) return
     content.setCurrentValue((prevValue) => Math.min(prevValue + content.progressStepSize, 100))
     setIsLoading(true)
     try {
-      const res = await createMultiCardMutation.mutateAsync(content.cardList)
+      const res = await createCardsMutation.mutateAsync(content.cardList)
       if (res) {
         store.show('カードを作成しました', 'success')
         setTimeout(() => {
