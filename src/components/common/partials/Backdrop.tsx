@@ -4,7 +4,7 @@ import { css } from '../../../../styled-system/css'
 
 type BackdropProps = {
   children: ReactNode
-  onClick: () => void
+  onClick?: () => void
 }
 
 export const Backdrop: FC<BackdropProps> = (props) => {
