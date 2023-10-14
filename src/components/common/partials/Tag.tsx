@@ -14,9 +14,9 @@ export const Tag: FC<TagProps> = ({ content }) => {
     <div
       className={css({
         display: 'inline-block',
-        borderRadius: name === '今すぐ分析する' ? 'lg' : 'full',
+        borderRadius: 'full',
         color: 'white',
-        backgroundColor: name === '今すぐ分析する' ? 'dimBlue' : 'lightGreen',
+        backgroundColor: 'lightGreen',
         p: '2px 10px',
         fontSize: 'sm',
         fontWeight: 'bold',

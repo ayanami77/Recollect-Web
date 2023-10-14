@@ -1,1 +1,1 @@
-export * from './partials'
+export * from './HistoryContainer'

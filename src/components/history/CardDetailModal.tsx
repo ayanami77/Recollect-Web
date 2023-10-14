@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react'
-import { css } from '../../../../styled-system/css'
-import { flex, hstack } from '../../../../styled-system/patterns'
+import { css } from '../../../styled-system/css'
+import { flex, hstack } from '../../../styled-system/patterns'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons'
