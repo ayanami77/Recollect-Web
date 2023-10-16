@@ -32,8 +32,12 @@ export const Menu: FC = () => {
       <div
         className={css({
           pos: 'fixed',
-          right: '70px',
-          bottom: '70px',
+          right: '50px',
+          bottom: '50px',
+          md: {
+            right: '70px',
+            bottom: '70px'
+          }
         })}
       >
         <div
@@ -79,13 +83,13 @@ export const Menu: FC = () => {
               animate={
                 active
                   ? {
-                      x: -0,
-                      y: -140,
-                    }
+                    x: -0,
+                    y: -140,
+                  }
                   : {
-                      x: 0,
-                      y: 0,
-                    }
+                    x: 0,
+                    y: 0,
+                  }
               }
             >
               <FontAwesomeIcon
@@ -111,13 +115,13 @@ export const Menu: FC = () => {
               animate={
                 active
                   ? {
-                      x: -100,
-                      y: -100,
-                    }
+                    x: -100,
+                    y: -100,
+                  }
                   : {
-                      x: 0,
-                      y: 0,
-                    }
+                    x: 0,
+                    y: 0,
+                  }
               }
             >
               <FontAwesomeIcon
@@ -147,11 +151,11 @@ export const Menu: FC = () => {
               animate={
                 active
                   ? {
-                      x: -140,
-                    }
+                    x: -140,
+                  }
                   : {
-                      x: 0,
-                    }
+                    x: 0,
+                  }
               }
             >
               <FontAwesomeIcon
