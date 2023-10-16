@@ -80,14 +80,14 @@ export const CardMenu: FC<CardMenuProps> = (props) => {
       >
         <FontAwesomeIcon
           icon={faEllipsis}
-          className={css({ w: '32px', h: '32px', color: 'dimBlue', cursor: 'pointer' })}
+          className={css({ w: '24px', h: '24px', color: 'dimBlue', cursor: 'pointer', md: { w: '32px', h: '32px' } })}
         />
       </button>
 
       {isOpen && (
         <ul
           className={css({
-            w: '172px',
+            w: '160px',
             bg: 'white',
             pos: 'absolute',
             top: '48px',
@@ -96,6 +96,9 @@ export const CardMenu: FC<CardMenuProps> = (props) => {
             shadow: '2xl',
             border: '1px solid',
             borderColor: 'gray',
+            md: {
+              w: '172px',
+            }
           })}
           onClick={(e) => e.stopPropagation()}
         >

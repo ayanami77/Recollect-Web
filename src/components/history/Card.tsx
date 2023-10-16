@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import { css } from '../../../styled-system/css'
 import { hstack } from '../../../styled-system/patterns'
-import { Tag } from '@/components/common'
+import { FeatureTag } from '@/components/common'
 import { Period as TPeriod } from '@/api/models/card.model'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
@@ -32,17 +32,23 @@ export const Card: FC<CardProps> = (props) => {
       className={css({
         width: 'full',
         bg: 'white',
-        px: '36px',
+        px: '20px',
         py: '32px',
         shadow: 'md',
         rounded: '2xl',
         pos: 'relative',
+        md: {
+          px: '36px'
+        }
       })}
     >
       <h3
         className={css({
-          fontSize: '2xl',
+          fontSize: 'xl',
           fontWeight: 'bold',
+          md: {
+            fontSize: '2xl'
+          }
         })}
       >
         {data.title}
@@ -51,13 +57,15 @@ export const Card: FC<CardProps> = (props) => {
       <div className={css({ mt: '8px' })}>
         <div className={hstack({ gap: '24px' })}>
           {data.tags.length > 0 ? (
-            <div className={hstack({})}>
+            <div className={hstack({ flexWrap: 'wrap' })}>
               {data.tags.map((tag, index) => (
-                <Tag key={index} content={{ name: tag }} />
+                <FeatureTag key={index} name={tag} />
               ))}
             </div>
           ) : (
-            <p className={css({ color: 'dimBlue' })}>分析をするとあなたの特性が表示されます。</p>
+            <p className={css({ color: 'dimBlue' })}>
+              分析をするとあなたの特性が表示されます。
+            </p>
           )}
         </div>
       </div>
@@ -67,9 +75,13 @@ export const Card: FC<CardProps> = (props) => {
           overflow: isExpanded ? 'auto' : 'hidden',
           textOverflow: isExpanded ? '' : 'ellipsis',
           whiteSpace: isExpanded ? 'normal' : 'nowrap',
+          fontSize: 'sm',
           color: 'dimGray',
           mt: '16px',
           transition: '.3s',
+          md: {
+            fontSize: 'md'
+          }
         })}
       >
         {data.content}

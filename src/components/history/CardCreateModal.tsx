@@ -57,68 +57,80 @@ export const CardCreateModal: FC<CardCreateModalProps> = ({ content }) => {
       <div
         onClick={(e) => e.stopPropagation()}
         className={css({
-          width: '600px',
-          minH: '540px',
+          width: '560px',
+          height: '600px',
           bg: 'white',
           rounded: '3xl',
-          padding: '32px',
-          shadow: 'xl',
+          px: '32px',
+          pt: '24px',
+          pb: '12px'
         })}
       >
+        <h2 className={css({ fontSize: '3xl', fontWeight: 'bold' })}>
+          自分史を作成
+        </h2>
         <form onSubmit={handleSubmit(onSubmitCreate)}>
-          <div className={flex({})}>
-            <input
-              type='text'
-              id='title'
-              placeholder='一言で'
+          <div>
+            <div className={hstack({ justify: 'space-between' })}>
+              <label
+                htmlFor="title"
+                className={css({ fontSize: 'md' })}>
+                タイトル
+              </label>
+              <input
+                type='text'
+                id='title'
+                className={css({
+                  width: '320px',
+                  height: '36px',
+                  outline: 'none',
+                  rounded: 'md',
+                  p: '8px',
+                  fontSize: 'xl',
+                  borderWidth: '1px',
+                  borderColor: 'slate.500',
+                  _focus: {
+                    borderWidth: '2px',
+                    borderColor: 'blue.400',
+                  },
+                })}
+                {...register('title')}
+              />
+            </div>
+            {errors.title?.message && (
+              <p className={css({ color: 'cinnabar', mt: '4px' })}>{errors.title.message}</p>
+            )}
+          </div>
+          <div>
+            <label
+              htmlFor=""
+              className={css({ fontSize: 'md' })}
+            >
+              内容
+            </label>
+            <textarea
+              placeholder='どんなことをしていた？'
               className={css({
-                width: '360px',
-                height: '40px',
-                outline: 'none',
-                fontWeight: 'bold',
-                backgroundColor: 'slate.50',
-                rounded: 'md',
+                width: '100%',
+                minH: '320px',
                 p: '8px',
-                fontSize: '2xl',
+                mt: '8px',
                 borderWidth: '1px',
                 borderColor: 'slate.500',
+                outline: 'none',
+                resize: 'none',
+                rounded: 'md',
                 _focus: {
                   borderWidth: '2px',
                   borderColor: 'blue.400',
                 },
               })}
-              {...register('title')}
+              {...register('content')}
             />
+            {errors.content?.message && (
+              <p className={css({ color: 'cinnabar' })}>{errors.content.message}</p>
+            )}
           </div>
-          {errors.title?.message && (
-            <p className={css({ color: 'cinnabar', mt: '4px' })}>{errors.title.message}</p>
-          )}
-          <div className={hstack({ color: 'GrayText', mt: '8px', px: '8px', gap: '24px' })}>
-            <span>時期: {data.period}</span>
-          </div>
-          <textarea
-            placeholder='どんなことをしていた？'
-            className={css({
-              width: '100%',
-              minH: '340px',
-              p: '8px',
-              mt: '8px',
-              backgroundColor: 'slate.50',
-              borderWidth: '1px',
-              borderColor: 'slate.500',
-              outline: 'none',
-              resize: 'none',
-              rounded: 'md',
-              _focus: {
-                borderWidth: '2px',
-                borderColor: 'blue.400',
-              },
-            })}
-            {...register('content')}
-          />
-          {errors.content?.message && (
-            <p className={css({ color: 'cinnabar' })}>{errors.content.message}</p>
-          )}
           <div className={flex({ justifyContent: 'end', gap: '10px' })}>
             <button
               type='button'

@@ -3,15 +3,14 @@ import { css } from '../../../styled-system/css'
 import { flex, hstack } from '../../../styled-system/patterns'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import { useMutateCard } from '@/api/hooks/card/useMutateCard'
 import { Period as TPeriod } from '@/api/models/card.model'
-import { ConfirmModal, Tag } from '@/components/common'
+import { ConfirmModal, FeatureTag } from '@/components/common'
 import { Backdrop } from '@/components/common/partials/Backdrop'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CardValidationSchema, TCardValidationSchema } from '@/libs/validations/cardValidation'
 import { formatToDate } from '@/libs/dayjs'
-import { controlScreenScroll } from '@/utils/controlScreenScroll'
 import useStore from '@/store'
 
 type CardDetailModalProps = {
@@ -30,7 +29,7 @@ type CardDetailModalProps = {
 }
 export const CardDetailModal: FC<CardDetailModalProps> = ({ content }) => {
   const { handleOpen, data } = content
-  const { updateCardMutation, deleteUserMutation } = useMutateCard()
+  const { updateCardMutation } = useMutateCard()
   const {
     register,
     handleSubmit,
@@ -47,7 +46,6 @@ export const CardDetailModal: FC<CardDetailModalProps> = ({ content }) => {
   const [isEditMode, setIsEditMode] = useState(false)
   const [isEdited, setIsEdited] = useState(false)
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false)
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
   const store = useStore()
 
@@ -72,27 +70,6 @@ export const CardDetailModal: FC<CardDetailModalProps> = ({ content }) => {
       }, 2000)
     }
     setIsEditMode(false)
-  }
-
-  const handleDeleteModalOpen = () => setIsDeleteModalOpen((prev) => !prev)
-
-  const handleDeleteModalProceed = async (id: string) => {
-    try {
-      await deleteUserMutation.mutateAsync({
-        id: id,
-      })
-      store.show('カードを削除しました', 'success')
-      setTimeout(() => {
-        store.hide()
-      }, 2000)
-    } catch (error) {
-      store.show('カードの削除に失敗しました', 'error')
-      setTimeout(() => {
-        store.hide()
-      }, 2000)
-    }
-    setIsConfirmModalOpen(false)
-    controlScreenScroll(true)
   }
 
   const handleConfirmModalCancel = () => {
@@ -184,17 +161,6 @@ export const CardDetailModal: FC<CardDetailModalProps> = ({ content }) => {
                     style={{ width: '20px', color: isEditMode ? '#F5F5F5' : '#0c4c97' }}
                   />
                 </button>
-                <button
-                  type='button'
-                  className={css({ cursor: isEditMode ? '' : 'pointer' })}
-                  onClick={isEditMode ? () => false : handleDeleteModalOpen}
-                  title='削除'
-                >
-                  <FontAwesomeIcon
-                    icon={faTrash}
-                    style={{ width: '20px', color: isEditMode ? '#F5F5F5' : '#FD4444' }}
-                  />
-                </button>
               </div>
             </div>
             {errors.title?.message && (
@@ -209,7 +175,7 @@ export const CardDetailModal: FC<CardDetailModalProps> = ({ content }) => {
                 {data.tags.length > 0 ? (
                   <div className={hstack({})}>
                     {data.tags.map((tag, index) => (
-                      <Tag key={index} content={{ name: tag }} />
+                      <FeatureTag key={index} name={tag} />
                     ))}
                   </div>
                 ) : (
@@ -285,17 +251,6 @@ export const CardDetailModal: FC<CardDetailModalProps> = ({ content }) => {
           </form>
         </div>
       </Backdrop>
-      {isDeleteModalOpen && (
-        <ConfirmModal
-          content={{
-            onCancel: handleDeleteModalOpen,
-            onConfirm: () => handleDeleteModalProceed(content.data.id),
-            cancelMessage: 'キャンセル',
-            confirmMessage: '削除',
-            message: `本当にこの自分史を削除しますか？`,
-          }}
-        />
-      )}
       {isConfirmModalOpen && (
         <ConfirmModal
           content={{
