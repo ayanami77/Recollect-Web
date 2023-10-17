@@ -1,16 +1,16 @@
 import Image from 'next/image'
 import { m } from 'framer-motion'
-import { center, vstack } from '../../../../styled-system/patterns'
-import { css } from '../../../../styled-system/css'
+import { css } from '../../../styled-system/css'
+import { center, vstack } from '../../../styled-system/patterns'
 
-export const Analyzing = () => {
+export const IsAnalyzingIcon = () => {
   return (
-    <div className={center({ w: 'full', h: '280px' })}>
+    <div className={center({ w: 'full', h: 'full' })}>
       <m.div
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className={vstack({ bg: 'blue.100', p: '12px', rounded: '3xl' })}
+        className={vstack({ bg: 'blue.200', p: '12px', rounded: '3xl' })}
       >
         <p
           className={css({

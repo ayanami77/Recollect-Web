@@ -1,6 +1,6 @@
 import { Hero, SignUp } from '@/components/entrance'
-import { Footer, CommonMeta } from '@/components/common'
-import { ContentsWrapper } from '@/components/common/utils'
+import { CommonMeta } from '@/components/common'
+import { ContentsWrapper } from '@/components/common'
 
 const Entrance = () => {
   return (
@@ -9,7 +9,6 @@ const Entrance = () => {
       <ContentsWrapper>
         <Hero />
         <SignUp />
-        <Footer />
       </ContentsWrapper>
     </>
   )

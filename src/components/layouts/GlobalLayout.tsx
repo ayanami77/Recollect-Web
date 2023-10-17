@@ -1,4 +1,4 @@
-import { Header } from '@/components/common'
+import { Footer, Header } from '@/components/common'
 import { Inter } from 'next/font/google'
 import { FC, ReactNode } from 'react'
 
@@ -9,6 +9,7 @@ const GlobalLayout: FC<{ children: ReactNode }> = ({ children }) => {
     <div className={inter.className}>
       <Header />
       <main>{children}</main>
+      <Footer />
     </div>
   )
 }
