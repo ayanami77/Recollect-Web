@@ -14,13 +14,16 @@ export const SwitchButton2: FC<SwitchButton2Props> = (props) => {
     <m.button
       onClick={onClick}
       className={center({
-        p: '12px',
+        p: '8px',
         cursor: 'pointer',
         bg: 'dimBlue',
         color: 'white',
         rounded: 'xl',
         _hover: {
           opacity: 0.9,
+        },
+        md: {
+          p: '12px',
         },
       })}
       whileTap={{ scale: 0.9 }}

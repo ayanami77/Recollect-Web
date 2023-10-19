@@ -21,7 +21,6 @@ const fadeIn = {
   },
 }
 
-// TODO: 必要なpropsは後で追加
 type ConfirmModalProps = {
   content: {
     onCancel: () => void

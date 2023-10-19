@@ -14,7 +14,7 @@ export const IsAnalyzingIcon = () => {
       >
         <p
           className={css({
-            minW: '140px',
+            minW: '132px',
             fontSize: '2xl',
             fontWeight: 'bold',
             textAlign: 'center',

@@ -1,12 +1,14 @@
 import { Footer, Header } from '@/components/common'
-import { Inter } from 'next/font/google'
+import { Noto_Sans_JP } from 'next/font/google'
 import { FC, ReactNode } from 'react'
 
-const inter = Inter({ subsets: ['latin'] })
+// TODO: フォント変えてみたいかもだけど、大丈夫なんかなこれ？next/fontきついかも
+// const inter = Inter({ subsets: ['latin'] })
+const notesansjp = Noto_Sans_JP({ subsets: ['latin'] })
 
 const GlobalLayout: FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <div className={inter.className}>
+    <div className={notesansjp.className}>
       <Header />
       <main>{children}</main>
       <Footer />

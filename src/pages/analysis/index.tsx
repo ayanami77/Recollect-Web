@@ -28,7 +28,7 @@ export default function Analysis() {
                 mt: '24px',
               })}
             >
-              <PageTitle title={'分析をする'} icon={faMagnifyingGlassChart} />
+              <PageTitle title={'AI分析をする'} icon={faMagnifyingGlassChart} />
               <AnalysisContainer data={data ?? []} cardId={router.query.card_id} />
             </div>
           </ContentsWrapper>

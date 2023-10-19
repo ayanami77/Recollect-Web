@@ -5,7 +5,6 @@ import { css } from '../../../../styled-system/css'
 import { m, AnimatePresence } from 'framer-motion'
 import { FC } from 'react'
 
-//TODO: 自動で消滅するようにする。
 type ToastProps = {
   content: {
     status: string
@@ -23,7 +22,7 @@ export const Toast: FC<ToastProps> = (props) => {
             className={css({
               position: 'relative',
               bg: content.status === 'success' ? 'green.100' : 'red.100',
-              minW: '320px',
+              w: '320px',
               rounded: '16px',
               shadow: '2xl',
             })}

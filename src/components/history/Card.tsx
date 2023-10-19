@@ -38,8 +38,8 @@ export const Card: FC<CardProps> = (props) => {
         rounded: '2xl',
         pos: 'relative',
         md: {
-          px: '36px'
-        }
+          px: '36px',
+        },
       })}
     >
       <h3
@@ -47,8 +47,8 @@ export const Card: FC<CardProps> = (props) => {
           fontSize: 'xl',
           fontWeight: 'bold',
           md: {
-            fontSize: '2xl'
-          }
+            fontSize: '2xl',
+          },
         })}
       >
         {data.title}
@@ -63,7 +63,7 @@ export const Card: FC<CardProps> = (props) => {
               ))}
             </div>
           ) : (
-            <p className={css({ color: 'dimBlue' })}>
+            <p className={css({ color: 'dimBlue', fontSize: 'sm', md: { fontSize: 'md' } })}>
               分析をするとあなたの特性が表示されます。
             </p>
           )}
@@ -80,8 +80,8 @@ export const Card: FC<CardProps> = (props) => {
           mt: '16px',
           transition: '.3s',
           md: {
-            fontSize: 'md'
-          }
+            fontSize: 'md',
+          },
         })}
       >
         {data.content}

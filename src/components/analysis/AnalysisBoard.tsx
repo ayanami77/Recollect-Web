@@ -59,10 +59,11 @@ export const AnalysisBoard: FC<AnalysisBoardProps> = (props) => {
         p: '14px',
         bg: 'blue.200',
         rounded: '3xl',
+        shadow: 'xl',
         md: { p: '24px' },
       })}
     >
-      <div className={hstack({ justify: 'space-between' })}>
+      <div className={hstack({ justify: 'space-between', minH: '48px' })}>
         <h2
           className={css({
             fontSize: '2xl',
@@ -72,7 +73,12 @@ export const AnalysisBoard: FC<AnalysisBoardProps> = (props) => {
         >
           {content.period}
         </h2>
-        <div className={hstack({ px: '20px' })}>
+        <div
+          className={hstack({
+            px: '20px',
+            display: openaiResponseMutation.isLoading ? 'none' : 'flex',
+          })}
+        >
           <SwitchButton2 icon={faChevronLeft} onClick={prev} />
           <SwitchButton2 icon={faChevronRight} onClick={next} />
         </div>
@@ -82,7 +88,8 @@ export const AnalysisBoard: FC<AnalysisBoardProps> = (props) => {
           w: 'full',
           maxW: '780px',
           mt: '12px',
-          p: '20px',
+          px: '16px',
+          py: '20px',
           bg: 'white',
           rounded: '14px',
           shadow: 'xl',
@@ -151,6 +158,7 @@ export const AnalysisBoard: FC<AnalysisBoardProps> = (props) => {
             justify: 'center',
             _disabled: {
               opacity: '0.8',
+              cursor: 'default',
             },
             md: {
               fontSize: 'lg',

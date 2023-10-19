@@ -58,78 +58,90 @@ export const CardCreateModal: FC<CardCreateModalProps> = ({ content }) => {
         onClick={(e) => e.stopPropagation()}
         className={css({
           width: '560px',
-          height: '600px',
           bg: 'white',
           rounded: '3xl',
-          px: '32px',
-          pt: '24px',
-          pb: '12px'
+          px: '20px',
+          py: '24px',
+          md: {
+            px: '32px',
+          },
         })}
       >
-        <h2 className={css({ fontSize: '3xl', fontWeight: 'bold' })}>
-          自分史を作成
+        <h2
+          className={css({
+            fontSize: '2xl',
+            fontWeight: 'bold',
+            md: {
+              fontSize: '3xl',
+            },
+          })}
+        >
+          自分史を追加する
         </h2>
-        <form onSubmit={handleSubmit(onSubmitCreate)}>
-          <div>
-            <div className={hstack({ justify: 'space-between' })}>
-              <label
-                htmlFor="title"
-                className={css({ fontSize: 'md' })}>
-                タイトル
-              </label>
-              <input
-                type='text'
-                id='title'
-                className={css({
-                  width: '320px',
-                  height: '36px',
-                  outline: 'none',
-                  rounded: 'md',
-                  p: '8px',
-                  fontSize: 'xl',
-                  borderWidth: '1px',
-                  borderColor: 'slate.500',
-                  _focus: {
+        <form onSubmit={handleSubmit(onSubmitCreate)} className={css({ mt: '8px' })}>
+          <div className={flex({ direction: 'column', gap: '6px' })}>
+            <div>
+              <div className={hstack({ justify: 'space-between' })}>
+                <label
+                  htmlFor='title'
+                  className={css({ fontSize: 'md', fontWeight: 'bold', minW: '72px' })}
+                >
+                  タイトル
+                </label>
+                <input
+                  type='text'
+                  id='title'
+                  className={css({
+                    maxW: '320px',
+                    w: 'full',
+                    height: '36px',
+                    outline: 'none',
+                    rounded: 'md',
+                    p: '8px',
+                    fontSize: 'md',
                     borderWidth: '2px',
-                    borderColor: 'blue.400',
+                    borderColor: 'slate.400',
+                    _focus: {
+                      borderColor: 'blue.500',
+                    },
+                    md: { fontSize: 'xl' },
+                  })}
+                  {...register('title')}
+                />
+              </div>
+              {errors.title?.message && (
+                <p className={css({ color: 'cinnabar', mt: '4px' })}>{errors.title.message}</p>
+              )}
+            </div>
+            <div>
+              <label
+                htmlFor=''
+                className={css({ fontSize: 'md', fontWeight: 'bold', minW: '60px' })}
+              >
+                内容
+              </label>
+              <textarea
+                placeholder='どんなことをしていた？'
+                className={css({
+                  width: '100%',
+                  minH: '320px',
+                  p: '8px',
+                  mt: '8px',
+                  borderWidth: '2px',
+                  borderColor: 'slate.400',
+                  outline: 'none',
+                  resize: 'none',
+                  rounded: 'md',
+                  _focus: {
+                    borderColor: 'blue.500',
                   },
                 })}
-                {...register('title')}
+                {...register('content')}
               />
+              {errors.content?.message && (
+                <p className={css({ color: 'cinnabar' })}>{errors.content.message}</p>
+              )}
             </div>
-            {errors.title?.message && (
-              <p className={css({ color: 'cinnabar', mt: '4px' })}>{errors.title.message}</p>
-            )}
-          </div>
-          <div>
-            <label
-              htmlFor=""
-              className={css({ fontSize: 'md' })}
-            >
-              内容
-            </label>
-            <textarea
-              placeholder='どんなことをしていた？'
-              className={css({
-                width: '100%',
-                minH: '320px',
-                p: '8px',
-                mt: '8px',
-                borderWidth: '1px',
-                borderColor: 'slate.500',
-                outline: 'none',
-                resize: 'none',
-                rounded: 'md',
-                _focus: {
-                  borderWidth: '2px',
-                  borderColor: 'blue.400',
-                },
-              })}
-              {...register('content')}
-            />
-            {errors.content?.message && (
-              <p className={css({ color: 'cinnabar' })}>{errors.content.message}</p>
-            )}
           </div>
           <div className={flex({ justifyContent: 'end', gap: '10px' })}>
             <button
