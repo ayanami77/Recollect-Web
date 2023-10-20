@@ -203,6 +203,7 @@ export const CardEditModal: FC<CardEditModalProps> = ({ content }) => {
                   bg: 'slate.200',
                   px: '18px',
                   py: '14px',
+                  color: 'black',
                   fontWeight: 'bold',
                   rounded: 'xl',
                   cursor: 'pointer',

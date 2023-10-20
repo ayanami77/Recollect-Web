@@ -151,6 +151,7 @@ export const CardCreateModal: FC<CardCreateModalProps> = ({ content }) => {
                 px: '18px',
                 py: '14px',
                 fontWeight: 'bold',
+                color: 'black',
                 rounded: 'xl',
                 cursor: 'pointer',
                 _hover: { bg: 'slate.300', transition: 'all 0.15s' },

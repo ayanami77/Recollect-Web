@@ -96,8 +96,8 @@ export const CardMenu: FC<CardMenuProps> = (props) => {
         <FontAwesomeIcon
           icon={faEllipsis}
           className={css({
-            w: '24px',
-            h: '24px',
+            w: '26px',
+            h: '26px',
             color: 'dimBlue',
             cursor: 'pointer',
             md: { w: '32px', h: '32px' },

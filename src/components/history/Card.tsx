@@ -42,6 +42,7 @@ export const Card: FC<CardProps> = (props) => {
         },
       })}
     >
+      <CardMenu data={data} />
       <h3
         className={css({
           fontSize: 'xl',
@@ -53,7 +54,6 @@ export const Card: FC<CardProps> = (props) => {
       >
         {data.title}
       </h3>
-      <CardMenu data={data} />
       <div className={css({ mt: '8px' })}>
         <div className={hstack({ gap: '24px' })}>
           {data.tags.length > 0 ? (
@@ -87,13 +87,19 @@ export const Card: FC<CardProps> = (props) => {
         {data.content}
       </div>
       <button
-        className={hstack({ fontSize: 'md', mt: '12px', mx: 'auto', cursor: 'pointer' })}
+        className={hstack({
+          mt: '12px',
+          mx: 'auto',
+          fontSize: 'md',
+          color: 'black',
+          cursor: 'pointer',
+        })}
         onClick={handleExpand}
       >
         {isExpanded ? '詳細をとじる' : '詳細をみる'}
         <FontAwesomeIcon
           icon={isExpanded ? faChevronUp : faChevronDown}
-          className={css({ w: '20px', h: '20px' })}
+          className={css({ w: '20px', h: '20px', color: 'black' })}
         />
       </button>
     </div>
