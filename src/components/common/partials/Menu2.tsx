@@ -11,12 +11,26 @@ import {
   faMapLocationDot,
   faUserGear,
 } from '@fortawesome/free-solid-svg-icons'
-import { MenuItem } from './MenuItem'
+import { MenuItemLink } from './MenuItemLink'
+import { MenuItemButton } from './MenuItemButton'
+import { useMutateUser } from '@/api/hooks/user/useMutateUser'
+import { ConfirmModal } from '.'
 
 export const Menu2: FC = () => {
+  const [isOpen, setIsOpen] = useState(false)
   const [active, setActive] = useState(false)
+  const { logoutMutation } = useMutateUser()
+
   const handleMenu = () => {
     setActive((prev) => !prev)
+  }
+
+  // ログアウト処理
+  const handleConfirmModal = () => {
+    setIsOpen((prev) => !prev)
+  }
+  const onSubmitLogout = async () => {
+    logoutMutation.mutate()
   }
 
   // メニューの開閉についての処理
@@ -58,28 +72,39 @@ export const Menu2: FC = () => {
             style={{ width: '32px', height: '32px', color: '0C4C97' }}
           />
         </m.div>
-        <MenuItem
+        <MenuItemLink
           title={'自分史を見る'}
           active={active}
           path={'/history'}
           icon={faMapLocationDot}
           yPos={100}
         />
-        <MenuItem
+        <MenuItemLink
           title={'自分史を分析する'}
           active={active}
           path={'/analysis'}
           icon={faMagnifyingGlassChart}
           yPos={200}
         />
-        <MenuItem
-          title={'ユーザ―情報'}
+        <MenuItemButton
+          title={'ログアウト'}
           active={active}
-          path={'/user'}
           icon={faUserGear}
           yPos={300}
+          onClick={handleConfirmModal}
         />
       </div>
+      {isOpen && (
+        <ConfirmModal
+          content={{
+            onCancel: handleConfirmModal,
+            onConfirm: onSubmitLogout,
+            cancelMessage: 'キャンセル',
+            confirmMessage: 'ログアウト',
+            message: 'ログアウトしますか？',
+          }}
+        />
+      )}
     </>
   )
 }

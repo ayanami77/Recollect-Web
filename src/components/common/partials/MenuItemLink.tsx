@@ -7,14 +7,14 @@ import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-type MenuItemProps = {
+type MenuItemLinkProps = {
   title: string
   path: string
   active: boolean
   yPos: number
   icon: IconDefinition
 }
-export const MenuItem: FC<MenuItemProps> = (props) => {
+export const MenuItemLink: FC<MenuItemLinkProps> = (props) => {
   const router = useRouter()
   const { title, path, active, icon, yPos } = props
 
