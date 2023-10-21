@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import { css } from '../../../../styled-system/css'
 import { center } from '../../../../styled-system/patterns'
 import { m } from 'framer-motion'
@@ -18,6 +18,26 @@ export const Menu2: FC = () => {
   const handleMenu = () => {
     setActive((prev) => !prev)
   }
+
+  // メニューの開閉についての処理
+  const insideRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const el = insideRef.current
+    if (!el) return
+    const handleClickOutside = (e: MouseEvent) => {
+      // メニューの外側をクリックした際の処理
+      if (!el?.contains(e.target as Node)) {
+        setActive(false)
+      }
+    }
+
+    document.addEventListener('click', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [insideRef])
+
   return (
     <>
       <div
@@ -25,6 +45,7 @@ export const Menu2: FC = () => {
           pos: 'relative',
           zIndex: 1000,
         })}
+        ref={insideRef}
       >
         <m.div
           className={center({
