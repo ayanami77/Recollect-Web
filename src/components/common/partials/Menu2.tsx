@@ -5,6 +5,7 @@ import { m } from 'framer-motion'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
+  faArrowRightFromBracket,
   faBars,
   faClose,
   faMagnifyingGlassChart,
@@ -86,11 +87,18 @@ export const Menu2: FC = () => {
           icon={faMagnifyingGlassChart}
           yPos={200}
         />
+        <MenuItemLink
+          title={'ユーザ―情報'}
+          active={active}
+          path={'/user'}
+          icon={faUserGear}
+          yPos={300}
+        />
         <MenuItemButton
           title={'ログアウト'}
           active={active}
-          icon={faUserGear}
-          yPos={300}
+          icon={faArrowRightFromBracket}
+          yPos={400}
           onClick={handleConfirmModal}
         />
       </div>
