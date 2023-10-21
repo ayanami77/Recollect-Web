@@ -1,5 +1,4 @@
 import { ContentsWrapper, FadeInWrapper, PageTitle } from '@/components/common'
-import MainLayout from '@/components/layouts/MainLayout'
 import { CommonMeta } from '@/components/common/meta/CommonMeta'
 import { useQueryCards } from '@/api/hooks/card/useQueryCard'
 import { AnalysisContainer } from '@/components/analysis'
@@ -17,23 +16,21 @@ export default function Analysis() {
         title={'Recollect - AI分析'}
         description={'Aiを利用することで、自分史カードから自分の特性を知ることができます。'}
       />
-      <MainLayout>
-        <FadeInWrapper>
-          <ContentsWrapper>
-            <div
-              className={css({
-                w: 'full',
-                maxW: '780px',
-                mx: 'auto',
-                mt: '24px',
-              })}
-            >
-              <PageTitle title={'AI分析をする'} icon={faMagnifyingGlassChart} />
-              <AnalysisContainer data={data ?? []} cardId={router.query.card_id} />
-            </div>
-          </ContentsWrapper>
-        </FadeInWrapper>
-      </MainLayout>
+      <FadeInWrapper>
+        <ContentsWrapper>
+          <div
+            className={css({
+              w: 'full',
+              maxW: '780px',
+              mx: 'auto',
+              mt: '24px',
+            })}
+          >
+            <PageTitle title={'AI分析をする'} icon={faMagnifyingGlassChart} />
+            <AnalysisContainer data={data ?? []} cardId={router.query.card_id} />
+          </div>
+        </ContentsWrapper>
+      </FadeInWrapper>
     </>
   )
 }
