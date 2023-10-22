@@ -10,7 +10,7 @@ import { HistoryContainer } from '@/components/history'
 import { useQueryCards } from '@/api/hooks/card/useQueryCard'
 import { faMapLocationDot } from '@fortawesome/free-solid-svg-icons'
 
-export default function History() {
+const History = () => {
   const { data } = useQueryCards()
 
   return (
@@ -39,3 +39,5 @@ export default function History() {
     </>
   )
 }
+
+export default History

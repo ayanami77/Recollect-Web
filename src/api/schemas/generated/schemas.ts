@@ -12,8 +12,7 @@
 export interface Card {
   /** @example "0" */
   card_id: string
-  /** @example "高校生" */
-  period: string
+  period: '現在まで' | '高校生' | '中学生' | '小学生' | '幼少期'
   /** @example "文系でも化学部が楽しかった話!" */
   title: string
   /** @example "毎週、教科書で出てくるような有名な実験から面白い実験まで色々なことをしていました。etc ..." */

@@ -3,7 +3,7 @@ import { CommonMeta, ContentsWrapper, FadeInWrapper, PageTitle } from '@/compone
 import { faUserGear } from '@fortawesome/free-solid-svg-icons'
 
 // TODO: あとで考える
-export default function User() {
+const User = () => {
   return (
     <>
       <CommonMeta title={'Recollect - ユーザ―情報'} description={'ユーザ―情報を表示します。'} />
@@ -24,3 +24,5 @@ export default function User() {
     </>
   )
 }
+
+export default User
