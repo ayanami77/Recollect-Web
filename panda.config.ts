@@ -6,9 +6,9 @@ export default defineConfig({
 
   // Where to look for your css declarations
   include: [
-    './src/**/*.{js,jsx,ts,tsx}', 
+    './src/**/*.{js,jsx,ts,tsx}',
     './pages/**/*.{js,jsx,ts,tsx}',
-    "./stories/**/*.{js,jsx,ts,tsx}",
+    './stories/**/*.{js,jsx,ts,tsx}',
   ],
 
   // Files to exclude
@@ -34,9 +34,6 @@ export default defineConfig({
           dimGray: {
             value: '#0000009c',
           },
-          modestGray: {
-            value: '#A0A0A0',
-          },
           cinnabar: {
             value: '#FD4444',
           },
@@ -48,12 +45,6 @@ export default defineConfig({
           },
           lightGreen: {
             value: '#0C976D',
-          },
-          dullBlue: {
-            value: '#0c4c9742',
-          },
-          logoRed: {
-            value: '#FD4444',
           },
         },
       },
