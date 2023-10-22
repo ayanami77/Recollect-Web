@@ -2,16 +2,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useError } from '../utils/useError'
 import { OpenAICredential, openaiFactory } from '@/api/models/openai.model'
 import { useMutateCard } from '../card/useMutateCard'
-
-/**
- * 正規表現を使って、マークダウンからタグを抽出する処理
- */
-export const generateNewTags = (markdownString: string): string[] => {
-  const regex = /\*\*(.*?)\*\*/g
-  const newTags = markdownString.match(regex)?.map((v) => v.slice(2, v.length - 2))
-  if (newTags === undefined) return []
-  return newTags
-}
+import { generateTagsFromAnalysisResult } from '@/utils/generateTagsFromAnalysisResults'
 
 export const useMutateOpenAIResponse = () => {
   const { switchErrorHandling } = useError()
@@ -21,7 +12,7 @@ export const useMutateOpenAIResponse = () => {
     {
       onSuccess: (res, variables: OpenAICredential) => {
         if (res) {
-          const newTags = generateNewTags(res)
+          const newTags = generateTagsFromAnalysisResult(res)
           updateCardMutation.mutate({
             id: variables.id,
             analysisResult: res,
