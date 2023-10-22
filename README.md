@@ -91,3 +91,7 @@ pnpm storybook
 - PR作成時
   - 基本、PRのテンプレートに沿って記入してください。（場合によっては内容の省略ok）
   - また、本プロジェクトではgithub projectsを利用してタスク管理を行っているので、それをもとにissueを立ててくれると嬉しいです。
+
+## ユースケース図
+
+![image](https://github.com/Seiya-Tagami/Recollect-Web/assets/125894090/9f1815e8-0c8b-46cd-8b2b-8d5992109832)
