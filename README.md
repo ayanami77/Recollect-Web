@@ -95,3 +95,7 @@ pnpm storybook
 ## ユースケース図
 
 ![image](https://github.com/Seiya-Tagami/Recollect-Web/assets/125894090/9f1815e8-0c8b-46cd-8b2b-8d5992109832)
+
+## ドメインモデル図
+
+![image](https://github.com/Seiya-Tagami/Recollect-Web/assets/125894090/c94d009a-f24e-437e-8b39-14e70ac19691)
