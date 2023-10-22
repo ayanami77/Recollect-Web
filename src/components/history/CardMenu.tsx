@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import { css } from '../../../styled-system/css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -13,13 +13,13 @@ import { ConfirmModal } from '../common'
 import { useMutateCard } from '@/api/hooks/card/useMutateCard'
 import useStore from '@/store'
 import { controlScreenScroll } from '@/utils/controlScreenScroll'
-import { CardDetailModal } from './CardDetailModal'
-import { Period } from '@/api/models/card.model'
+import { CardEditModal } from './CardEditModal'
+import { Period as TPeriod } from '@/api/models/card.model'
 
 type CardMenuProps = {
   data: {
     id: string
-    period: Period
+    period: TPeriod
     title: string
     content: string
     tags: string[]
@@ -42,6 +42,7 @@ export const CardMenu: FC<CardMenuProps> = (props) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const handleEditModal = () => {
     setIsEditModalOpen((prev) => !prev)
+    controlScreenScroll(isEditModalOpen)
   }
 
   // カード削除処理
@@ -67,27 +68,47 @@ export const CardMenu: FC<CardMenuProps> = (props) => {
     controlScreenScroll(true)
   }
 
+  // メニューの開閉についての処理
+  const insideRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const el = insideRef.current
+    if (!el) return
+    const handleClickOutside = (e: MouseEvent) => {
+      // メニューの外側をクリックした際の処理
+      if (!el?.contains(e.target as Node)) {
+        setIsOpen(false)
+      }
+    }
+
+    document.addEventListener('click', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [insideRef])
+
   return (
-    <div
-    // onClick={() => setIsOpen(!isOpen)}
-    // TODO: メニューの周囲をクリックした時に閉じる処理は後でやる
-    // onBlur={() => setIsOpen(false)}
-    // tabIndex={0}
-    >
+    <div ref={insideRef}>
       <button
         className={css({ pos: 'absolute', top: '16px', right: '24px' })}
         onClick={() => setIsOpen(!isOpen)}
       >
         <FontAwesomeIcon
           icon={faEllipsis}
-          className={css({ w: '32px', h: '32px', color: 'dimBlue', cursor: 'pointer' })}
+          className={css({
+            w: '26px',
+            h: '26px',
+            color: 'dimBlue',
+            cursor: 'pointer',
+            md: { w: '32px', h: '32px' },
+          })}
         />
       </button>
 
       {isOpen && (
         <ul
           className={css({
-            w: '172px',
+            w: '160px',
             bg: 'white',
             pos: 'absolute',
             top: '48px',
@@ -96,6 +117,9 @@ export const CardMenu: FC<CardMenuProps> = (props) => {
             shadow: '2xl',
             border: '1px solid',
             borderColor: 'gray',
+            md: {
+              w: '172px',
+            },
           })}
           onClick={(e) => e.stopPropagation()}
         >
@@ -120,7 +144,7 @@ export const CardMenu: FC<CardMenuProps> = (props) => {
         </ul>
       )}
       {isEditModalOpen && (
-        <CardDetailModal
+        <CardEditModal
           content={{
             handleOpen: handleEditModal,
             data,

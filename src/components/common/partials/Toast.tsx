@@ -5,7 +5,6 @@ import { css } from '../../../../styled-system/css'
 import { m, AnimatePresence } from 'framer-motion'
 import { FC } from 'react'
 
-//TODO: 自動で消滅するようにする。
 type ToastProps = {
   content: {
     status: string
@@ -18,12 +17,12 @@ export const Toast: FC<ToastProps> = (props) => {
   return (
     <AnimatePresence>
       {content.isShow && (
-        <div className={css({ position: 'fixed', top: '24px', right: '24px' })}>
+        <div className={css({ position: 'fixed', top: '24px', right: '24px', zIndex: 100 })}>
           <m.div
             className={css({
               position: 'relative',
               bg: content.status === 'success' ? 'green.100' : 'red.100',
-              minW: '320px',
+              w: '320px',
               rounded: '16px',
               shadow: '2xl',
             })}

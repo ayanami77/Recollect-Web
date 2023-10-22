@@ -5,7 +5,7 @@
   "scripts": {
     "prepare": "panda codegen",
     "json-server": "json-server --watch src/api/mocks/index.json --port 4000 --routes src/api/mocks/routes.json",
-    "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}'",
+    "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx}'",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -13,7 +13,7 @@
     "test": "jest",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "generate:client": "swagger-typescript-api -p src/api/schemas/openapi.yaml -o src/api/schemas/generated -n schemas.ts"
+    "codegen": "swagger-typescript-api -p src/api/schemas/openapi.yaml -o src/api/schemas/generated -n schemas.ts"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.2",

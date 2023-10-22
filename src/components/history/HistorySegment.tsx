@@ -24,7 +24,16 @@ export const HistorySegment: FC<HistorySegmentProps> = (props) => {
 
   return (
     <>
-      <div className={css({ w: 'full', p: '24px', bg: 'blue.200', rounded: '3xl', md: {} })}>
+      <div
+        className={css({
+          w: 'full',
+          p: '14px',
+          bg: 'blue.200',
+          rounded: '3xl',
+          shadow: 'xl',
+          md: { p: '24px' },
+        })}
+      >
         <div className={hstack({ justify: 'space-between' })}>
           <h2 className={css({ fontSize: '2xl', w: 'fit', fontWeight: 'bold', pl: '12px' })}>
             {period}
@@ -38,12 +47,15 @@ export const HistorySegment: FC<HistorySegmentProps> = (props) => {
             p: '8px',
             mx: 'auto',
             mt: '16px',
-            fontSize: '18px',
+            fontSize: 'sm',
             fontWeight: 'bold',
             color: 'white',
             bg: 'dimBlue',
             rounded: 'full',
             cursor: 'pointer',
+            md: {
+              fontSize: 'md',
+            },
           })}
           onClick={handleOpen}
           whileHover={{ scale: 1.02 }}

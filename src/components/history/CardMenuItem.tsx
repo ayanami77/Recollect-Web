@@ -16,7 +16,7 @@ export const CardMenuItem: FC<CardMenuItemProps> = (props) => {
       className={hstack({
         w: 'full',
         p: '10px',
-        fontSize: 'lg',
+        fontSize: 'md',
         cursor: 'pointer',
         justify: 'center',
         gap: '20px',
@@ -24,6 +24,9 @@ export const CardMenuItem: FC<CardMenuItemProps> = (props) => {
           bg: 'gray',
           rounded: 'xl',
         },
+        md: {
+          fontSize: 'lg'
+        }
       })}
       onClick={onClickFunc}
     >

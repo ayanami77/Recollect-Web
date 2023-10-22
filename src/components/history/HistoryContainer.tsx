@@ -3,6 +3,8 @@ import { vstack } from '../../../styled-system/patterns'
 import { Card } from './Card'
 import { HistorySegment } from './HistorySegment'
 import { FC } from 'react'
+import { Toast } from '../common'
+import useStore from '@/store'
 
 const period_with_number = {
   現在まで: 0,
@@ -33,6 +35,8 @@ type HistoryContainerProps = {
 export const HistoryContainer: FC<HistoryContainerProps> = (props) => {
   const { data } = props
   const allCards = sortCardsByPeriod(data)
+  const store = useStore()
+
   return (
     <div
       className={vstack({
@@ -65,6 +69,14 @@ export const HistoryContainer: FC<HistoryContainerProps> = (props) => {
           </HistorySegment>
         )
       })}
+
+      <Toast
+        content={{
+          status: store.type,
+          message: store.message,
+          isShow: store.isShow,
+        }}
+      />
     </div>
   )
 }

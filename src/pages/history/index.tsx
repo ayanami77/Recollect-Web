@@ -3,18 +3,15 @@ import MainLayout from '@/components/layouts/MainLayout'
 import {
   FadeInWrapper,
   CommonMeta,
-  Toast,
   FlowTutorial,
   PageTitle,
   ContentsWrapper,
 } from '@/components/common'
 import { HistoryContainer } from '@/components/history'
 import { useQueryCards } from '@/api/hooks/card/useQueryCard'
-import useStore from '@/store'
 import { faMapLocationDot } from '@fortawesome/free-solid-svg-icons'
 
 export default function History() {
-  const store = useStore()
   const { data } = useQueryCards()
 
   return (
@@ -26,7 +23,6 @@ export default function History() {
       <MainLayout>
         <FadeInWrapper>
           <ContentsWrapper>
-            {/* TODO: responsive layout */}
             <div
               className={css({
                 w: 'full',
@@ -36,18 +32,12 @@ export default function History() {
               })}
             >
               <PageTitle title={'自分史をみる'} icon={faMapLocationDot} />
-              <HistoryContainer data={data ? data : []} />
+              <HistoryContainer data={data ?? []} />
             </div>
-            <Toast
-              content={{
-                status: store.type,
-                message: store.message,
-                isShow: store.isShow,
-              }}
-            />
           </ContentsWrapper>
         </FadeInWrapper>
       </MainLayout>
+      {/* TODO: チュートリアルの状態をどう持つか再検討したい */}
       {data?.length === 0 && <FlowTutorial />}
     </>
   )
