@@ -23,12 +23,11 @@
 - Jest
 - React Testing Library
 - Storybook
-- Playwright (e2eまでできたらしゅごい...)
 - msw
 
 ## CI/CD
 
-検討中(今のところ、Github ActionsでCIを回そうと思ってます)
+現在、Github Actionsでテストを回しています。
 
 ## 環境構築
 
@@ -67,7 +66,7 @@ pnpm prepare
 次のコマンドを打ってください。
 
 ```sh
-pnpm generate:client
+pnpm codegen
 ```
 
 ## Storybook
