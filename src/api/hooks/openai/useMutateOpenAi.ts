@@ -6,7 +6,7 @@ import { useMutateCard } from '../card/useMutateCard'
 /**
  * 正規表現を使って、マークダウンからタグを抽出する処理
  */
-const generateNewTags = (markdownString: string): string[] => {
+export const generateNewTags = (markdownString: string): string[] => {
   const regex = /\*\*(.*?)\*\*/g
   const newTags = markdownString.match(regex)?.map((v) => v.slice(2, v.length - 2))
   if (newTags === undefined) return []

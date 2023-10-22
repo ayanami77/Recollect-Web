@@ -25,7 +25,6 @@ export const sortCardsByPeriod = (data: TCard[]) => {
     }
     result.push(arr)
   }
-
   return result
 }
 

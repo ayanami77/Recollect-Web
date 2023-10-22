@@ -24,7 +24,7 @@ export const AnalysisContainer: FC<AnalysisContainerProps> = (props) => {
     return sortedCards
   }
 
-  const allCards = data ? makeAllCards(data) : []
+  const allCards = makeAllCards(data)
 
   const prev = () => {
     const prevPos = index - 1
@@ -53,13 +53,7 @@ export const AnalysisContainer: FC<AnalysisContainerProps> = (props) => {
         })}
       >
         {allCards.length ? (
-          <>
-            <AnalysisBoard content={allCards[index]} next={next} prev={prev} />
-            {/* <div className={vstack({ p: '10px', gap: '24px', bg: 'blue.200', rounded: '3xl' })}>
-              <SwitchButton icon={faChevronUp} onClick={prev} />
-              <SwitchButton icon={faChevronDown} onClick={next} />
-            </div> */}
-          </>
+          <AnalysisBoard content={allCards[index]} next={next} prev={prev} />
         ) : (
           <div>
             自分史が作成されていません。

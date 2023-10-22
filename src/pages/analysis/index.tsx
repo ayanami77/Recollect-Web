@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import { css } from '../../../styled-system/css'
 import { faMagnifyingGlassChart } from '@fortawesome/free-solid-svg-icons'
 
-export default function Analysis() {
+const Analysis = () => {
   const router = useRouter()
   const { data } = useQueryCards()
 
@@ -34,3 +34,5 @@ export default function Analysis() {
     </>
   )
 }
+
+export default Analysis
