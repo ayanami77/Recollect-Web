@@ -20,7 +20,7 @@ export interface Card {
   /** @example ["実験好き","好奇心"] */
   tags?: string[]
   /** @example "- **実験好き**: 文章の中で毎週実験をしていたことや実験を通じてわくわく感を感じていたことから、実験に対する興味や好奇心があることが分かります。 etc ..." */
-  analysis_result?: string[]
+  analysis_result?: string
   /** @example "2023-09-01T12:14:57.548Z" */
   created_at: string
   /** @example "2023-09-01T12:14:57.548Z" */
