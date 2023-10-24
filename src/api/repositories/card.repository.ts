@@ -1,19 +1,6 @@
-import { Card, Period } from '../models/card.model'
+import { Card } from '../models/card.model'
 import { apiClient } from '../clients/apiClient'
-
-// TODO
-export type CardResponse = {
-  analysis_result: string
-  card_id: string
-  content: string
-  created_at: string
-  deleted_at: string
-  period: Period
-  tags: string[] | null
-  title: string
-  updated_at: string
-  user_id: string
-}
+import { Card as CardResponse } from '../schemas/generated/schemas'
 
 export interface CardRepository {
   listCards: () => Promise<{ data: CardResponse[] }>
@@ -32,7 +19,7 @@ const listCards: CardRepository['listCards'] = async (): Promise<{ data: CardRes
   return data
 }
 
-const createCard = async (
+const createCard: CardRepository['createCard'] = async (
   cardData: Pick<Card, 'title' | 'content' | 'period'>,
 ): Promise<{ data: CardResponse }> => {
   const data = await apiClient.post('/cards', {
@@ -43,7 +30,7 @@ const createCard = async (
   return data
 }
 
-const createCards = async (
+const createCards: CardRepository['createCards'] = async (
   cardData: Pick<Card, 'title' | 'content' | 'period'>[],
 ): Promise<{ data: CardResponse[] }> => {
   const data = await apiClient.post(`/cards/batch`, {
@@ -52,7 +39,9 @@ const createCards = async (
   return data
 }
 
-const updateCard = async (cardData: Partial<Card>): Promise<{ data: CardResponse }> => {
+const updateCard: CardRepository['updateCard'] = async (
+  cardData: Partial<Card>,
+): Promise<{ data: CardResponse }> => {
   const data = await apiClient.patch(`/cards/${cardData.id}`, {
     // cardDataに保持している値を展開してしまう。
     ...cardData,
