@@ -2,8 +2,7 @@ name: recollect-web-ci
 
 on:
   push:
-    branches:
-      - '*'
+    branches: ['develop']
   pull_request:
     branches: ['develop']
 
@@ -24,7 +23,7 @@ jobs:
         with:
           version: 8
 
-      - name: Instal dependencies
+      - name: Install dependencies
         run: pnpm i --frozen-lockfile
 
       - name: Run test
