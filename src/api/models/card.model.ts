@@ -17,7 +17,7 @@ export const cardFactory = () => {
 
   return {
     list: async (): Promise<Card[]> => {
-      const { data } = await repository.listCards()
+      const data = await repository.listCards()
       const cards = data.map((card) => {
         return {
           id: card.card_id,
@@ -33,7 +33,7 @@ export const cardFactory = () => {
       return cards
     },
     post: async (cardData: Pick<Card, 'title' | 'content' | 'period'>): Promise<Card> => {
-      const { data } = await repository.createCard(cardData)
+      const data = await repository.createCard(cardData)
       const card = {
         id: data.card_id,
         title: data.title,
@@ -49,7 +49,7 @@ export const cardFactory = () => {
     batchPost: async (
       cardListData: Pick<Card, 'title' | 'content' | 'period'>[],
     ): Promise<Card[]> => {
-      const { data } = await repository.createCards(cardListData)
+      const data = await repository.createCards(cardListData)
       const cards = data.map((card) => {
         return {
           id: card.card_id,
@@ -65,7 +65,7 @@ export const cardFactory = () => {
       return cards
     },
     update: async (cardData: Partial<Card>): Promise<Card> => {
-      const { data } = await repository.updateCard(cardData)
+      const data = await repository.updateCard(cardData)
       const card = {
         id: data.card_id,
         title: data.title,

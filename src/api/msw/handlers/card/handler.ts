@@ -1,7 +1,7 @@
 import { rest } from 'msw'
 import { mockData } from './data'
 import { v4 as uuid } from 'uuid'
-import { CardResponse } from '@/api/repositories/card.repository'
+import { Card as CardResponse } from '@/api/schemas/generated/schemas'
 import { Card } from '@/api/models/card.model'
 
 // TODO: 型アサーションだめ、ぜったい
@@ -9,11 +9,7 @@ const now = new Date() as unknown as string
 
 export const cardHandler = [
   rest.get('/cards', (req, res, ctx) => {
-    return res(
-      ctx.json<{ data: CardResponse[] }>({
-        data: mockData,
-      }),
-    )
+    return res(ctx.json<CardResponse[]>(mockData))
   }),
 
   rest.post<Pick<Card, 'title' | 'content' | 'period'>, any>('/cards', async (req, res, ctx) => {
@@ -35,9 +31,11 @@ export const cardHandler = [
     mockData.push(newCard)
 
     return res(
-      ctx.json<{ data: CardResponse }>({
-        data: newCard,
-      }),
+      ctx.json<CardResponse>(newCard),
+      // ctx.status(500),
+      // ctx.json({
+      //   "error": "internal server error"
+      // })
     )
   }),
 
@@ -57,22 +55,14 @@ export const cardHandler = [
         tags: mockData[targetIndex].tags,
         created_at: mockData[targetIndex].created_at,
         updated_at: mockData[targetIndex].updated_at,
-        deleted_at: mockData[targetIndex].deleted_at,
-        user_id: mockData[targetIndex].user_id,
       }
 
       if (targetIndex > -1) mockData.splice(targetIndex, 1)
       mockData.push(updatedCard)
 
-      return res(
-        ctx.json<{ data: CardResponse }>({
-          data: updatedCard,
-        }),
-      )
+      return res(ctx.json<CardResponse>(updatedCard))
     },
   ),
-
-  // TODO: またanalysisのpatchのところは後ほど
 
   rest.delete('/cards/:cardId', async (req, res, ctx) => {
     const { cardId } = req.params

@@ -1,23 +1,18 @@
-import { useError } from '../utils/useError'
 import { useMutation } from '@tanstack/react-query'
 import { UserCredential, userFactory } from '@/api/models/user.model'
 import { useRouter } from 'next/router'
-import { clearCache } from '../utils/clearCache'
+import { queryClient } from '@/api/clients/queryClient'
+import { FetchError } from '@/api/clients/utils/fetchError'
 
 export const useMutateUser = () => {
   const router = useRouter()
-  const { switchErrorHandling } = useError()
 
   const signUpMutation = useMutation(
     async (userCredential: UserCredential) => await userFactory().signUp(userCredential),
     {
       onSuccess: () => {},
-      onError: (err: any) => {
-        if (err.response.data.message) {
-          switchErrorHandling(err.response.data.message)
-        } else {
-          switchErrorHandling(err.response.data)
-        }
+      onError: (err: FetchError) => {
+        console.log(err)
       },
     },
   )
@@ -30,12 +25,8 @@ export const useMutateUser = () => {
       onSuccess: () => {
         router.push('/history')
       },
-      onError: (err: any) => {
-        if (err.response.data.message) {
-          switchErrorHandling(err.response.data.message)
-        } else {
-          switchErrorHandling(err.response.data)
-        }
+      onError: (err: FetchError) => {
+        console.log(err)
       },
     },
   )
@@ -46,15 +37,11 @@ export const useMutateUser = () => {
     },
     {
       onSuccess: () => {
-        clearCache()
+        queryClient.clear() // 全てのcacheを削除する。
         router.push('/')
       },
-      onError: (err: any) => {
-        if (err.response.data.message) {
-          switchErrorHandling(err.response.data.message)
-        } else {
-          switchErrorHandling(err.response.data)
-        }
+      onError: (err: FetchError) => {
+        console.log(err)
       },
     },
   )

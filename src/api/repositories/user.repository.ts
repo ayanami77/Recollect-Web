@@ -1,13 +1,14 @@
 import { apiClient } from '../clients/apiClient'
-import { UserCredential, User } from '../models/user.model'
+import { UserCredential } from '../models/user.model'
+import { User as UserResponse } from '../schemas/generated/schemas'
 
 export interface UserRepository {
-  signup: (userCredential: UserCredential) => Promise<User>
+  signup: (userCredential: UserCredential) => Promise<UserResponse>
   login: (userCredential: UserCredential) => Promise<void>
   logout: () => Promise<void>
 }
 
-const signup: UserRepository['signup'] = async (userCredential): Promise<User> => {
+const signup: UserRepository['signup'] = async (userCredential): Promise<UserResponse> => {
   const data = await apiClient.post(`/users/signup`, {
     user_id: userCredential.userId,
     password: userCredential.password,

@@ -1,4 +1,5 @@
-import { snakeCase } from 'lodash'
+import { FetchError } from './utils/fetchError'
+import { toJSONFormat } from './utils/toJSONFormat'
 
 const baseURL =
   process.env.NEXT_PUBLIC_API_MOCKING === 'enabled'
@@ -9,15 +10,6 @@ const makeRequestBody = <T = object>(body: T) => {
   // bodyがundefined, nullの場合はnullを返す
   if (!body) return null
   return JSON.stringify(toJSONFormat(body))
-}
-
-function toJSONFormat(obj: Record<string, any>): Record<string, any> {
-  return Object.fromEntries(
-    Object.entries(obj).map(([key, value]) => {
-      const newKey = snakeCase(key)
-      return [newKey, value]
-    }),
-  )
 }
 
 type TMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE'
@@ -33,12 +25,10 @@ const http = async (path: string, method: TMethod, body?: any) => {
     },
   })
 
-  // TODO: エラーハンドリングをAPI定義後に考える
   if (!res.ok) {
-    // const error = new FetchError("エラーが発生しました", { status: res.status })
-    // const data = await res.json();
-    // error.message = data.message
-    // throw error
+    const data = await res.json()
+    const error = new FetchError(data.error, res.status)
+    throw error
   }
 
   // 204 no contentの時、空のオブジェクトを返す
