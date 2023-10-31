@@ -1,11 +1,9 @@
 import { useMutation } from '@tanstack/react-query'
-import { useError } from '../utils/useError'
 import { Card, cardFactory } from '@/api/models/card.model'
 import { queryClient } from '@/api/clients/queryClient'
+import { FetchError } from '@/api/clients/utils/fetchError'
 
 export const useMutateCard = () => {
-  const { switchErrorHandling } = useError()
-
   const createCardMutation = useMutation(
     (cardData: Pick<Card, 'title' | 'content' | 'period'>) => cardFactory().post(cardData),
     {
@@ -15,12 +13,8 @@ export const useMutateCard = () => {
           queryClient.setQueryData(['cards'], [...previousCards, res])
         }
       },
-      onError: (err: any) => {
-        if (err.response.data.message) {
-          switchErrorHandling(err.response.data.message)
-        } else {
-          switchErrorHandling(err.response.data)
-        }
+      onError: (err: FetchError) => {
+        console.log(err)
       },
     },
   )
@@ -34,12 +28,8 @@ export const useMutateCard = () => {
           queryClient.setQueryData(['cards'], [...previousCards, ...res])
         }
       },
-      onError: (err: any) => {
-        if (err.response.data.message) {
-          switchErrorHandling(err.response.data.message)
-        } else {
-          switchErrorHandling(err.response.data)
-        }
+      onError: (err: FetchError) => {
+        console.log(err)
       },
     },
   )
@@ -63,12 +53,8 @@ export const useMutateCard = () => {
           )
         }
       },
-      onError: (err: any) => {
-        if (err.response.data.message) {
-          switchErrorHandling(err.response.data.message)
-        } else {
-          switchErrorHandling(err.response.data)
-        }
+      onError: (err: FetchError) => {
+        console.log(err)
       },
     },
   )
@@ -85,12 +71,8 @@ export const useMutateCard = () => {
           )
         }
       },
-      onError: (err: any) => {
-        if (err.response.data.message) {
-          switchErrorHandling(err.response.data.message)
-        } else {
-          switchErrorHandling(err.response.data)
-        }
+      onError: (err: FetchError) => {
+        console.log(err)
       },
     },
   )

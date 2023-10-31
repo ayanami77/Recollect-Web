@@ -1,11 +1,10 @@
 import { useMutation } from '@tanstack/react-query'
-import { useError } from '../utils/useError'
 import { OpenAICredential, openaiFactory } from '@/api/models/openai.model'
 import { useMutateCard } from '../card/useMutateCard'
 import { generateTagsFromAnalysisResult } from '@/utils/generateTagsFromAnalysisResults'
+import { FetchError } from '@/api/clients/utils/fetchError'
 
 export const useMutateOpenAIResponse = () => {
-  const { switchErrorHandling } = useError()
   const { updateCardMutation } = useMutateCard()
   const openaiResponseMutation = useMutation(
     async (credential: OpenAICredential) => await openaiFactory().getOpenAIResponse(credential),
@@ -20,12 +19,8 @@ export const useMutateOpenAIResponse = () => {
           })
         }
       },
-      onError: (err: any) => {
-        if (err.response.data.message) {
-          switchErrorHandling(err.response.data.message)
-        } else {
-          switchErrorHandling(err.response.data)
-        }
+      onError: (err: FetchError) => {
+        console.log(err)
       },
     },
   )

@@ -1,21 +1,15 @@
+import { FetchError } from '@/api/clients/utils/fetchError'
 import { Card, cardFactory } from '../../models/card.model'
 import { useQuery } from '@tanstack/react-query'
-import { useError } from '../utils/useError'
 
 export const useQueryCards = () => {
-  const { switchErrorHandling } = useError()
-
-  return useQuery<Card[], Error>({
+  return useQuery<Card[], FetchError>({
     queryKey: ['cards'],
     queryFn: () => cardFactory().list(),
     staleTime: Infinity,
     onSuccess: () => {},
-    onError: (err: any) => {
-      if (err.response.data.message) {
-        switchErrorHandling(err.response.data.message)
-      } else {
-        switchErrorHandling(err.response.data)
-      }
+    onError: (err: FetchError) => {
+      console.log(err)
     },
   })
 }
