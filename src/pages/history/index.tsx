@@ -2,7 +2,7 @@ import { css } from '../../../styled-system/css'
 import {
   FadeInWrapper,
   CommonMeta,
-  FlowTutorial,
+  ToTutorialButton,
   PageTitle,
   ContentsWrapper,
 } from '@/components/common'
@@ -35,7 +35,7 @@ const History = () => {
         </ContentsWrapper>
       </FadeInWrapper>
       {/* TODO: チュートリアルの状態をどう持つか再検討したい */}
-      {data?.length === 0 && <FlowTutorial />}
+      {data?.length === 0 && <ToTutorialButton />}
     </>
   )
 }
