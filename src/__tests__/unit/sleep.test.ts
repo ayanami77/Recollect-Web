@@ -1,4 +1,4 @@
-import { sleep } from '@/api/utils/sleep'
+import { sleep } from '@/utils/sleep'
 
 describe('sleep', () => {
   test('指定時間待つと、経過時間をもってresolveされる', async () => {

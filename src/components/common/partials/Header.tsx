@@ -10,11 +10,10 @@ export const Header = () => {
   return (
     <header
       className={hstack({
-        md: { height: '80px', padding: '24px' },
-        height: '60px',
-        padding: '12px',
-        backgroundColor: 'white',
+        md: { h: '80px', p: '24px' },
         justify: 'space-between',
+        h: '60px',
+        p: '12px',
         pos: 'fixed',
         top: 0,
         left: 0,
@@ -37,12 +36,12 @@ export const Header = () => {
         <Link href={'/login'}>
           <span
             className={css({
+              p: '8px',
               fontWeight: 'bold',
               fontSize: 'sm',
               border: 'solid',
               borderColor: 'skyBlue',
               color: 'skyBlue',
-              p: '8px',
               rounded: 'lg',
               cursor: 'pointer',
               md: {

@@ -63,7 +63,7 @@ export const Toast: FC<ToastProps> = (props) => {
                   }}
                 />
               )}
-              <p className={css({ fontSize: 'md' })}>{content.message}</p>
+              <p className={css({ fontSize: 'lg', fontWeight: 'bold' })}>{content.message}</p>
             </div>
           </m.div>
         </div>
