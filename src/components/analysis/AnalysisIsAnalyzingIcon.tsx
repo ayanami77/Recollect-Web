@@ -3,7 +3,7 @@ import { m } from 'framer-motion'
 import { css } from '../../../styled-system/css'
 import { center, vstack } from '../../../styled-system/patterns'
 
-export const IsAnalyzingIcon = () => {
+export const AnalysisIsAnalyzingIcon = () => {
   return (
     <div className={center({ w: 'full', h: 'full' })}>
       <m.div
