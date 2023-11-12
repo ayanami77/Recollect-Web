@@ -1,5 +1,4 @@
-import Link from 'next/link'
-import { FC, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import { css } from '../../../../styled-system/css'
 import { center } from '../../../../styled-system/patterns'
 import { m } from 'framer-motion'
@@ -7,164 +6,101 @@ import { m } from 'framer-motion'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faArrowRightFromBracket,
-  faCompass,
+  faBars,
+  faClose,
   faMagnifyingGlassChart,
   faMapLocationDot,
+  faUserGear,
 } from '@fortawesome/free-solid-svg-icons'
-import { ConfirmModal } from '.'
+import { MenuItemLink } from './MenuItemLink'
+import { MenuItemButton } from './MenuItemButton'
 import { useMutateUser } from '@/api/hooks/user/useMutateUser'
+import { ConfirmModal } from '.'
 
 export const Menu: FC = () => {
-  const { logoutMutation } = useMutateUser()
-  const [active, setActive] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+  const [active, setActive] = useState(false)
+  const { logoutMutation } = useMutateUser()
+
   const handleMenu = () => {
     setActive((prev) => !prev)
   }
+
+  // ログアウト処理
   const handleConfirmModal = () => {
     setIsOpen((prev) => !prev)
   }
   const onSubmitLogout = async () => {
     logoutMutation.mutate()
   }
+
+  // メニューの開閉についての処理
+  const insideRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const el = insideRef.current
+    if (!el) return
+    const handleClickOutside = (e: MouseEvent) => {
+      // メニューの外側をクリックした際の処理
+      if (!el?.contains(e.target as Node)) {
+        setActive(false)
+      }
+    }
+
+    document.addEventListener('click', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [insideRef])
+
   return (
     <>
       <div
         className={css({
-          pos: 'fixed',
-          right: '50px',
-          bottom: '50px',
-          md: {
-            right: '70px',
-            bottom: '70px'
-          }
+          pos: 'relative',
+          zIndex: 1000,
         })}
+        ref={insideRef}
       >
-        <div
-          className={css({
-            pos: 'relative',
-            w: '80px',
-            h: '80px',
+        <m.div
+          className={center({
+            cursor: 'pointer',
           })}
+          onClick={handleMenu}
         >
-          <m.div
-            className={center({
-              pos: 'absolute',
-              zIndex: 1000,
-              w: '80px',
-              h: '80px',
-              bg: 'dimBlue',
-              rounded: 'full',
-              shadow: 'xl',
-              cursor: 'pointer',
-            })}
-            whileTap={{ scale: 0.9 }}
-            onClick={handleMenu}
-          >
-            <FontAwesomeIcon
-              icon={faCompass}
-              style={{ width: '42px', height: '42px', color: 'white' }}
-            />
-          </m.div>
-          <Link href={'/analysis'} title='自分史を分析する'>
-            <m.li
-              className={center({
-                pos: 'absolute',
-                top: 1,
-                left: 1,
-                w: '72px',
-                h: '72px',
-                bg: 'white',
-                rounded: 'full',
-                listStyle: 'none',
-                shadow: 'xl',
-              })}
-              whileTap={{ scale: 0.9 }}
-              animate={
-                active
-                  ? {
-                    x: -0,
-                    y: -140,
-                  }
-                  : {
-                    x: 0,
-                    y: 0,
-                  }
-              }
-            >
-              <FontAwesomeIcon
-                icon={faMagnifyingGlassChart}
-                style={{ width: '32px', height: '32px', color: '#0C4C97' }}
-              />
-            </m.li>
-          </Link>
-          <Link href={'/history'} title='自分史を見る'>
-            <m.li
-              className={center({
-                pos: 'absolute',
-                top: 1,
-                left: 1,
-                w: '72px',
-                h: '72px',
-                bg: 'white',
-                rounded: 'full',
-                listStyle: 'none',
-                shadow: 'xl',
-              })}
-              whileTap={{ scale: 0.9 }}
-              animate={
-                active
-                  ? {
-                    x: -100,
-                    y: -100,
-                  }
-                  : {
-                    x: 0,
-                    y: 0,
-                  }
-              }
-            >
-              <FontAwesomeIcon
-                icon={faMapLocationDot}
-                style={{ width: '32px', height: '32px', color: '#0C4C97' }}
-              />
-            </m.li>
-          </Link>
-          <button
-            title='ログアウト'
-            className={css({ cursor: 'pointer' })}
-            onClick={handleConfirmModal}
-          >
-            <m.li
-              className={center({
-                pos: 'absolute',
-                top: 1,
-                left: 1,
-                w: '72px',
-                h: '72px',
-                bg: 'white',
-                rounded: 'full',
-                listStyle: 'none',
-                shadow: 'xl',
-              })}
-              whileTap={{ scale: 0.9 }}
-              animate={
-                active
-                  ? {
-                    x: -140,
-                  }
-                  : {
-                    x: 0,
-                  }
-              }
-            >
-              <FontAwesomeIcon
-                icon={faArrowRightFromBracket}
-                style={{ width: '32px', height: '32px', color: '#0C4C97' }}
-              />
-            </m.li>
-          </button>
-        </div>
+          <FontAwesomeIcon
+            icon={active ? faClose : faBars}
+            style={{ width: '32px', height: '32px', color: '0C4C97' }}
+          />
+        </m.div>
+        <MenuItemLink
+          title={'自分史を見る'}
+          active={active}
+          path={'/history'}
+          icon={faMapLocationDot}
+          yPos={100}
+        />
+        <MenuItemLink
+          title={'自分史を分析する'}
+          active={active}
+          path={'/analysis'}
+          icon={faMagnifyingGlassChart}
+          yPos={200}
+        />
+        <MenuItemLink
+          title={'ユーザ―情報'}
+          active={active}
+          path={'/user'}
+          icon={faUserGear}
+          yPos={300}
+        />
+        <MenuItemButton
+          title={'ログアウト'}
+          active={active}
+          icon={faArrowRightFromBracket}
+          yPos={400}
+          onClick={handleConfirmModal}
+        />
       </div>
       {isOpen && (
         <ConfirmModal
