@@ -1,17 +1,20 @@
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { m } from 'framer-motion'
+import { FC } from 'react'
 import { css } from '../../../styled-system/css'
+import { useRouter } from 'next/router'
 import { hstack } from '../../../styled-system/patterns'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useRouter } from 'next/router'
+import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 
-export const HistoryToTutorialButton = () => {
+export const TutorialLeaveButton: FC = () => {
   const router = useRouter()
-
   const handleClick = () => {
-    router.push('/tutorial')
+    if (window.confirm('チュートリアルを終了しますか？')) {
+      router.push('/history')
+    }
   }
   return (
-    <button
+    <m.button
       className={css({
         position: 'fixed',
         bottom: '20px',
@@ -22,6 +25,7 @@ export const HistoryToTutorialButton = () => {
         shadow: 'xl',
       })}
       onClick={handleClick}
+      whileTap={{ scale: 0.9 }}
     >
       <div
         className={css({
@@ -29,10 +33,13 @@ export const HistoryToTutorialButton = () => {
         })}
       >
         <div className={hstack({ gap: '24px', p: '20px' })}>
-          <p className={css({ fontSize: 'md', fontWeight: 'bold' })}>チュートリアルに進む</p>
-          <FontAwesomeIcon icon={faArrowRight} style={{ width: '26px', color: '#0C4C97' }} />
+          <p className={css({ fontSize: 'md', fontWeight: 'bold' })}> チュートリアルを退出する</p>
+          <FontAwesomeIcon
+            icon={faArrowRightFromBracket}
+            style={{ width: '26px', color: '#0C4C97' }}
+          />
         </div>
       </div>
-    </button>
+    </m.button>
   )
 }

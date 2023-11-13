@@ -1,24 +1,24 @@
 import { ChangeEvent, Dispatch, FC, SetStateAction } from 'react'
-import { css } from '../../../../styled-system/css'
+import { css } from '../../../styled-system/css'
 import { Period as TPeriod } from '@/api/models/card.model'
 
-type Card = {
+type TutorialCard = {
   period: TPeriod
   title: string
   content: string
 }
 
-type CardProps = {
+type TutorialCardProps = {
   content: {
     cardPosition: number
     placeholderText: string
-    setCardList: Dispatch<SetStateAction<Card[]>>
-    cardList: Card[]
+    setCardList: Dispatch<SetStateAction<TutorialCard[]>>
+    cardList: TutorialCard[]
     isValidated: boolean
   }
 }
 
-export const Card: FC<CardProps> = ({ content }) => {
+export const TutorialCard: FC<TutorialCardProps> = ({ content }) => {
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     content.setCardList((prev) => {
       prev[content.cardPosition].title = e.target.value
@@ -36,12 +36,13 @@ export const Card: FC<CardProps> = ({ content }) => {
   return (
     <div
       className={css({
-        width: '600px',
-        minH: '370px',
+        w: '640px',
+        h: '440px',
         backgroundColor: 'white',
         borderRadius: '10px',
         padding: '38px',
         shadow: 'xl',
+        rounded: '2xl',
       })}
     >
       <label
@@ -60,10 +61,12 @@ export const Card: FC<CardProps> = ({ content }) => {
           value={content.cardList[content.cardPosition].title}
           placeholder='一言で'
           className={css({
-            borderBottom: '4px solid',
+            borderBottom: '2px solid',
             borderColor: 'gray',
             outline: 'none',
-            fontWeight: 'bold',
+            _focus: {
+              borderColor: 'blue.500',
+            },
           })}
         />
         {content.isValidated && (
@@ -78,11 +81,17 @@ export const Card: FC<CardProps> = ({ content }) => {
         value={content.cardList[content.cardPosition].content}
         className={css({
           width: '100%',
-          height: '250px',
-          borderColor: 'gray',
+          height: '270px',
+          p: '8px',
           mt: '20px',
+          borderWidth: '2px',
+          borderColor: 'gray',
           outline: 'none',
           resize: 'none',
+          rounded: 'md',
+          _focus: {
+            borderColor: 'blue.500',
+          },
         })}
       ></textarea>
     </div>

@@ -1,6 +1,6 @@
 import { m } from 'framer-motion'
 import { Dispatch, FC, SetStateAction, useState } from 'react'
-import { css } from '../../../../styled-system/css'
+import { css } from '../../../styled-system/css'
 import { useRouter } from 'next/router'
 import { Period as TPeriod } from '@/api/models/card.model'
 import { useMutateCard } from '@/api/hooks/card/useMutateCard'
@@ -12,7 +12,7 @@ type Card = {
   content: string
 }
 
-type ButtonProps = {
+type TutorialToHistoryButtonProps = {
   content: {
     cardList: Card[]
     cardPosition: number
@@ -21,7 +21,7 @@ type ButtonProps = {
     handleValidate: () => boolean
   }
 }
-export const Button: FC<ButtonProps> = ({ content }) => {
+export const TutorialToHistoryButton: FC<TutorialToHistoryButtonProps> = ({ content }) => {
   const router = useRouter()
   const store = useStore()
   const [isLoading, setIsLoading] = useState(false)
@@ -46,7 +46,7 @@ export const Button: FC<ButtonProps> = ({ content }) => {
       }, 2000)
     } finally {
       setIsLoading(false)
-      router.push('/history') // 成功失敗関わらず、historyへ送るようにしておく。
+      router.push('/history') // TODO:成功失敗関わらず、historyへ送るようにしておく。
     }
   }
 

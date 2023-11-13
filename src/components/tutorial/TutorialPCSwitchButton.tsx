@@ -1,37 +1,34 @@
 import { m } from 'framer-motion'
 import { FC } from 'react'
+import { center } from '../../../styled-system/patterns'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
-import { center } from '../../../../styled-system/patterns'
 
-type TransitionButtonProps = {
-  content: {
-    movement: 'prev' | 'next'
-    onClick: () => void
-    cardPosition: number
-  }
+type TutorialPCSwitchButtonProps = {
+  movement: 'prev' | 'next'
+  onClick: () => void
+  cardPosition: number
 }
-
-export const TransitionButton: FC<TransitionButtonProps> = ({ content }) => {
+export const TutorialPCSwitchButton: FC<TutorialPCSwitchButtonProps> = (props) => {
+  const { onClick, movement, cardPosition } = props
   return (
     <m.button
-      onClick={content.onClick}
+      onClick={onClick}
       className={center({
         w: '70px',
         h: '70px',
         bg: 'dimBlue',
-        rounded: 'full',
+        rounded: '3xl',
         color: 'white',
         cursor: 'pointer',
         visibility:
-          (content.cardPosition === 0 && content.movement === 'prev') ||
-          (content.cardPosition === 4 && content.movement === 'next')
+          (cardPosition === 0 && movement === 'prev') || (cardPosition === 4 && movement === 'next')
             ? 'hidden'
             : 'visible',
       })}
       whileTap={{ scale: 0.9 }}
     >
-      {content.movement === 'prev' ? (
+      {movement === 'prev' ? (
         <FontAwesomeIcon icon={faChevronLeft} style={{ width: '30px', height: '30px' }} />
       ) : (
         <FontAwesomeIcon icon={faChevronRight} style={{ width: '30px', height: '30px' }} />
