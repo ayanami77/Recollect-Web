@@ -1,10 +1,10 @@
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
-import { css } from '../../../../styled-system/css'
-import { hstack } from '../../../../styled-system/patterns'
+import { css } from '../../../styled-system/css'
+import { hstack } from '../../../styled-system/patterns'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useRouter } from 'next/router'
 
-export const ToTutorialButton = () => {
+export const HistoryToTutorialButton = () => {
   const router = useRouter()
 
   const handleClick = () => {
