@@ -1,12 +1,6 @@
 import { css } from '../../../styled-system/css'
-import {
-  FadeInWrapper,
-  CommonMeta,
-  ToTutorialButton,
-  PageTitle,
-  ContentsWrapper,
-} from '@/components/common'
-import { HistoryContainer } from '@/components/history'
+import { FadeInWrapper, CommonMeta, PageTitle, ContentsWrapper } from '@/components/common'
+import { HistoryContainer, HistoryToTutorialButton } from '@/components/history'
 import { useQueryCards } from '@/api/hooks/card/useQueryCard'
 import { faMapLocationDot } from '@fortawesome/free-solid-svg-icons'
 
@@ -35,7 +29,7 @@ const History = () => {
         </ContentsWrapper>
       </FadeInWrapper>
       {/* TODO: チュートリアルの状態をどう持つか再検討したい */}
-      {data?.length === 0 && <ToTutorialButton />}
+      {data?.length === 0 && <HistoryToTutorialButton />}
     </>
   )
 }

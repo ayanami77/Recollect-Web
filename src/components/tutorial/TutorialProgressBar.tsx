@@ -1,12 +1,12 @@
 import { FC } from 'react'
-import { css } from '../../../../styled-system/css'
-import { hstack, vstack } from '../../../../styled-system/patterns'
+import { css } from '../../../styled-system/css'
+import { hstack, vstack } from '../../../styled-system/patterns'
 
-type ProgressBarProps = {
+type TutorialProgressBarProps = {
   currentValue: number
 }
 
-export const ProgressBar: FC<ProgressBarProps> = ({ currentValue }) => {
+export const TutorialProgressBar: FC<TutorialProgressBarProps> = ({ currentValue }) => {
   const progressValue = `${currentValue}%`
   return (
     <div className={vstack({ mt: '30px' })}>
