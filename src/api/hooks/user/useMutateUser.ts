@@ -1,3 +1,4 @@
+import { IdDuplicateCheckResponse } from './../../repositories/user.repository';
 import { useMutation } from '@tanstack/react-query'
 import { UserCredential, userFactory } from '@/api/models/user.model'
 import { useRouter } from 'next/router'
@@ -45,6 +46,23 @@ export const useMutateUser = () => {
       },
     },
   )
-
-  return { signUpMutation, loginMutation, logoutMutation }
+  const IdDuplicateMutation = useMutation(
+    async (userId: string) => await userFactory().idDuplicateCheck(userId),
+    {
+      onSuccess: () => {},
+      onError: (err: FetchError) => {
+        console.log(err)
+      },
+    }
+  )
+  const EmailDuplicateMutation = useMutation(
+    async (email: string) => await userFactory().emailDuplicateCheck(email),
+    {
+      onSuccess: () => {},
+      onError: (err: FetchError) => {
+        console.log(err)
+      },
+    }
+  )
+  return { signUpMutation, loginMutation, logoutMutation, IdDuplicateMutation, EmailDuplicateMutation }
 }

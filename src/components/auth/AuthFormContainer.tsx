@@ -3,7 +3,7 @@ import { css } from '../../../styled-system/css'
 import { vstack } from '../../../styled-system/patterns'
 import { BaseSyntheticEvent, FC, ReactNode } from 'react'
 
-type TFormType = 'signup' | 'login'
+type TFormType = 'signup' | 'login' | 'oauth'
 type AuthFormContainerProps = {
   children: ReactNode
   formType: TFormType
@@ -38,6 +38,10 @@ const makeFormContainer = (props: AuthFormContainerProps) => {
             から
           </p>
         ),
+      }
+    case 'oauth':
+      return {
+        title: 'アカウント登録',
       }
   }
 }

@@ -1,5 +1,7 @@
+import { getServerSession } from 'next-auth'
 import { FetchError } from './utils/fetchError'
 import { toJSONFormat } from './utils/toJSONFormat'
+import { authOptions } from '@/pages/api/auth/[...nextauth]'
 
 const baseURL =
   process.env.NEXT_PUBLIC_API_MOCKING === 'enabled'
@@ -14,7 +16,7 @@ const makeRequestBody = <T = object>(body: T) => {
 
 type TMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE'
 
-const http = async (path: string, method: TMethod, body?: any) => {
+const http = async (path: string, method: TMethod, header: {accessToken: string}, body?: any) => {
   const res = await fetch(`${baseURL}${path}`, {
     method: method,
     mode: 'cors',
@@ -22,6 +24,7 @@ const http = async (path: string, method: TMethod, body?: any) => {
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': `Bearer ${header.accessToken}`,
     },
   })
 
@@ -37,24 +40,24 @@ const http = async (path: string, method: TMethod, body?: any) => {
   return res.json()
 }
 
-const get = async (path: string) => {
-  const data = await http(path, 'GET')
+const get = async (path: string, header: {accessToken: string}) => {
+  const data = await http(path, 'GET', header)
   return data
 }
 
-const post = async (path: string, body?: any) => {
-  const data = await http(path, 'POST', body)
+const post = async (path: string, header: {accessToken: string}, body?: any) => {
+  const data = await http(path, 'POST', body, header)
   return data
 }
 
-const patch = async (path: string, body: any) => {
-  const data = await http(path, 'PATCH', body)
+const patch = async (path: string, header: {accessToken: string}, body: any) => {
+  const data = await http(path, 'PATCH', body, header)
   return data
 }
 
 // deleteは予約語なため、destroyをdeleteとみなす(;´･ω･)
-const destroy = async (path: string) => {
-  const data = await http(path, 'DELETE')
+const destroy = async (path: string, header: {accessToken: string}) => {
+  const data = await http(path, 'DELETE', header)
   return data
 }
 
