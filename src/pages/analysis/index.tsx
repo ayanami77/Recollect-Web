@@ -13,7 +13,7 @@ const Analysis = () => {
   return (
     <>
       <CommonMeta
-        title={'Recollect - AI分析'}
+        title={'Recollect - 分析'}
         description={'Aiを利用することで、自分史カードから自分の特性を知ることができます。'}
       />
       <FadeInWrapper>
@@ -26,7 +26,7 @@ const Analysis = () => {
               mt: '24px',
             })}
           >
-            <PageTitle title={'AI分析をする'} icon={faMagnifyingGlassChart} />
+            <PageTitle title={'自分史を分析をする'} icon={faMagnifyingGlassChart} />
             <AnalysisContainer data={data ?? []} cardId={router.query.card_id} />
           </div>
         </ContentsWrapper>

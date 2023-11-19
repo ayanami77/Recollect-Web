@@ -12,15 +12,14 @@ export const FeatureTag: FC<FeatureTagProps> = (props) => {
     <div
       className={css({
         display: 'inline-block',
-        borderRadius: 'full',
+        rounded: 'lg',
         color: 'white',
         backgroundColor: 'lightGreen',
         p: '2px 10px',
         fontSize: 'xs',
-        fontWeight: 'bold',
         md: {
-          fontSize: 'sm'
-        }
+          fontSize: 'sm',
+        },
       })}
     >
       {name}

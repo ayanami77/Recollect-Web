@@ -45,25 +45,23 @@ export const AnalysisContainer: FC<AnalysisContainerProps> = (props) => {
   }
 
   return (
-    <>
-      <div
-        className={hstack({
-          w: 'full',
-          my: '24px',
-        })}
-      >
-        {allCards.length ? (
-          <AnalysisBoard content={allCards[index]} next={next} prev={prev} />
-        ) : (
-          <div>
-            自分史が作成されていません。
-            <Link href={'/history'}>
-              <span className={css({ color: 'blue.400' })}>自分史ページ</span>
-            </Link>
-            からデータを登録することができます。
-          </div>
-        )}
-      </div>
-    </>
+    <div
+      className={hstack({
+        w: 'full',
+        mt: '24px',
+      })}
+    >
+      {allCards.length ? (
+        <AnalysisBoard content={allCards[index]} next={next} prev={prev} />
+      ) : (
+        <div className={css({ px: '20px', py: '16px' })}>
+          自分史が作成されていません。
+          <Link href={'/history'}>
+            <span className={css({ color: 'blue.400' })}>自分史をみる</span>
+          </Link>
+          からデータを登録することができます。
+        </div>
+      )}
+    </div>
   )
 }

@@ -12,7 +12,7 @@ export const AnalysisIsAnalyzingIcon = () => {
         transition={{ duration: 0.5 }}
         className={vstack({ bg: 'blue.200', p: '12px', rounded: '3xl' })}
       >
-        <p
+        <span
           className={css({
             minW: '132px',
             fontSize: '2xl',
@@ -21,7 +21,7 @@ export const AnalysisIsAnalyzingIcon = () => {
           })}
         >
           分析中...
-        </p>
+        </span>
         <m.div
           animate={{ rotate: 360 }}
           transition={{ repeat: Infinity, repeatDelay: 1, duration: 0.5 }}

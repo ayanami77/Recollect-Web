@@ -104,7 +104,6 @@ export const AnalysisBoard: FC<AnalysisBoardProps> = (props) => {
         <div
           className={hstack({
             px: '20px',
-            display: 'flex',
             lg: { display: 'none' },
           })}
         >
@@ -147,9 +146,11 @@ export const AnalysisBoard: FC<AnalysisBoardProps> = (props) => {
                 ))}
               </div>
             ) : (
-              <p className={css({ fontSize: 'sm', color: 'dimBlue', md: { fontSize: 'md' } })}>
+              <span
+                className={css({ fontSize: 'sm', color: 'lightGreen', md: { fontSize: 'md' } })}
+              >
                 分析をするとあなたの特性が表示されます。
-              </p>
+              </span>
             )}
           </div>
         </div>
