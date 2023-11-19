@@ -9,23 +9,25 @@ export type User = {
 
 export type UserCredential = {
   userId: string
+  sub: string
+  email: string
 }
 
 export const userFactory = () => {
   const repository = userRepository
   return {
-    signUp: async (userCredential: UserCredential): Promise<User> => {
-      const response = await repository.signup(userCredential)
+    signUp: async (userCredential: UserCredential, accessToken: string): Promise<User> => {
+      const response = await repository.signup(userCredential, accessToken)
       return response
     },
-    login: async (userCredential: UserCredential) => repository.login(userCredential),
-    logout: async () => repository.logout(),
-    idDuplicateCheck: async (userId: string): Promise<boolean> => {
-      const response = await repository.idDuplicateCheck(userId)
+    login: async (userCredential: UserCredential, accessToken: string) => repository.login(userCredential, accessToken),
+    logout: async (accessToken: string) => repository.logout(accessToken),
+    idDuplicateCheck: async (userId: string, accessToken: string): Promise<boolean> => {
+      const response = await repository.idDuplicateCheck(userId, accessToken)
       return response.isDuplicate
     },
-    emailDuplicateCheck: async (email: string): Promise<boolean> => {
-      const response = await repository.emailDuplicateCheck(email)
+    emailDuplicateCheck: async (email: string, accessToken: string): Promise<boolean> => {
+      const response = await repository.emailDuplicateCheck(email, accessToken)
       return response.isDuplicate
     } 
   }

@@ -1,7 +1,5 @@
-import { getServerSession } from 'next-auth'
 import { FetchError } from './utils/fetchError'
 import { toJSONFormat } from './utils/toJSONFormat'
-import { authOptions } from '@/pages/api/auth/[...nextauth]'
 
 const baseURL =
   process.env.NEXT_PUBLIC_API_MOCKING === 'enabled'
