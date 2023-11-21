@@ -13,7 +13,7 @@ interface Props {
   user: any
 }
 
-export default function Welcome({ user }: Props) {
+export default function Signup({ user }: Props) {
   const { signUpMutation, idDuplicateMutation } = useMutateUser()
   const {
     register,
@@ -35,7 +35,7 @@ export default function Welcome({ user }: Props) {
         return
       }
 
-      const res = await signUpMutation.mutateAsync({
+      await signUpMutation.mutateAsync({
         userCredential: {
           userId: userCredential.userId,
           sub: user.sub || '',
@@ -43,8 +43,6 @@ export default function Welcome({ user }: Props) {
         },
         accessToken: user.access_token || '',
       })
-
-      if (!res) throw new Error()
     } catch (error) {
       alert(error)
     }
@@ -68,7 +66,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   if (!session) {
     return {
       redirect: {
-        destination: '/auth',
+        destination: '/signin',
         permanent: false,
       },
     }
