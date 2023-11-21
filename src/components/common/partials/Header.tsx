@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import Link from 'next/link'
 import { Menu } from './Menu'
 import { useRouter } from 'next/router'
 import { hstack } from '../../../../styled-system/patterns'
@@ -43,34 +42,6 @@ export const Header = () => {
             <Menu />
           </div>
         </>
-      )}
-      {router.pathname === '/' && (
-        <Link href={'/login'}>
-          <span
-            className={css({
-              p: '8px',
-              fontWeight: 'bold',
-              fontSize: 'sm',
-              border: 'solid',
-              borderColor: 'skyBlue',
-              color: 'skyBlue',
-              rounded: 'lg',
-              cursor: 'pointer',
-              md: {
-                fontSize: 'md',
-                p: '12px',
-              },
-              _hover: {
-                bg: 'skyBlue',
-                color: 'white',
-                borderColor: 'skyBlue',
-                transition: 'all 0.15s',
-              },
-            })}
-          >
-            ログイン
-          </span>
-        </Link>
       )}
     </header>
   )
