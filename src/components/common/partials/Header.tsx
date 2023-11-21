@@ -1,9 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { Menu } from './Menu'
 import { useRouter } from 'next/router'
 import { hstack } from '../../../../styled-system/patterns'
 import { css } from '../../../../styled-system/css'
-import { Menu2 } from './Menu2'
+import { NavigationMenu } from './NavigationMenu'
 
 export const Header = () => {
   const router = useRouter()
@@ -31,7 +32,18 @@ export const Header = () => {
           className={css({ objectFit: 'contain' })}
         />
       </div>
-      {['/history', '/analysis', '/user'].includes(router.pathname) && <Menu2 />}
+      {['/history', '/analysis', '/user'].includes(router.pathname) && (
+        <>
+          {/* ナビゲーションメニュー */}
+          <div className={css({ display: 'none', md: { display: 'block' } })}>
+            <NavigationMenu />
+          </div>
+          {/* ハンバーガーメニュー */}
+          <div className={css({ display: 'block', md: { display: 'none' } })}>
+            <Menu />
+          </div>
+        </>
+      )}
       {router.pathname === '/' && (
         <Link href={'/login'}>
           <span

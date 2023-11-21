@@ -4,12 +4,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { FC } from 'react'
 
-type SwitchButton2Props = {
+type AnalysisMobileSwitchButtonProps = {
   icon: IconDefinition
+  isDisabled: boolean
   onClick: () => void
 }
-export const SwitchButton2: FC<SwitchButton2Props> = (props) => {
-  const { icon, onClick } = props
+export const AnalysisMobileSwitchButton: FC<AnalysisMobileSwitchButtonProps> = (props) => {
+  const { icon, isDisabled, onClick } = props
   return (
     <m.button
       onClick={onClick}
@@ -22,10 +23,15 @@ export const SwitchButton2: FC<SwitchButton2Props> = (props) => {
         _hover: {
           opacity: 0.9,
         },
+        _disabled: {
+          opacity: '0.8',
+          cursor: 'default',
+        },
         md: {
           p: '12px',
         },
       })}
+      disabled={isDisabled}
       whileTap={{ scale: 0.9 }}
     >
       <FontAwesomeIcon icon={icon} style={{ width: '24px', height: '24px' }} />

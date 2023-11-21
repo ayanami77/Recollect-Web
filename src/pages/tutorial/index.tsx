@@ -1,9 +1,15 @@
 import { useState } from 'react'
-import { Button, Card, LeavingButton, ProgressBar, TransitionButton } from '@/components/tutorial'
 import { center, hstack } from '../../../styled-system/patterns'
 import { FadeInWrapper } from '@/components/common'
 import { CommonMeta } from '@/components/common/meta'
 import { Period as TPeriod } from '@/api/models/card.model'
+import {
+  TutorialLeaveButton,
+  TutorialPCSwitchButton,
+  TutorialToHistoryButton,
+  TutorialCard,
+  TutorialProgressBar,
+} from '@/components/tutorial'
 
 type Card = {
   period: TPeriod
@@ -76,13 +82,15 @@ export default function Tutorial() {
     <>
       <CommonMeta title={'Recollect - チュートリアル'} description={'チュートリアルページです。'} />
       <div>
-        <ProgressBar currentValue={currentValue} />
+        <TutorialProgressBar currentValue={currentValue} />
         <FadeInWrapper>
           <div className={hstack({ justifyContent: 'center', mt: '30px', gap: '20' })}>
-            <TransitionButton
-              content={{ movement: 'prev', onClick: handlePrev, cardPosition: cardPosition }}
+            <TutorialPCSwitchButton
+              movement='prev'
+              onClick={handlePrev}
+              cardPosition={cardPosition}
             />
-            <Card
+            <TutorialCard
               content={{
                 cardPosition: cardPosition,
                 setCardList: setCardList,
@@ -91,11 +99,15 @@ export default function Tutorial() {
                 isValidated: isValidated,
               }}
             />
-            <TransitionButton content={{ movement: 'next', onClick: handleNext, cardPosition }} />
+            <TutorialPCSwitchButton
+              movement='next'
+              onClick={handleNext}
+              cardPosition={cardPosition}
+            />
           </div>
         </FadeInWrapper>
         <div className={center()}>
-          <Button
+          <TutorialToHistoryButton
             content={{
               cardList: cardList,
               cardPosition: cardPosition,
@@ -105,7 +117,7 @@ export default function Tutorial() {
             }}
           />
         </div>
-        <LeavingButton />
+        <TutorialLeaveButton />
       </div>
     </>
   )

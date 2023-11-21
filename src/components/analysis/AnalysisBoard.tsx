@@ -11,8 +11,9 @@ import {
   faChevronRight,
   faMagnifyingGlassChart,
 } from '@fortawesome/free-solid-svg-icons'
-import { IsAnalyzingIcon } from './IsAnalyzingIcon'
-import { SwitchButton2 } from './SwitchButton2'
+import { AnalysisIsAnalyzingIcon } from './AnalysisIsAnalyzingIcon'
+import { AnalysisMobileSwitchButton } from './AnalysisMobileSwitchButton'
+import { AnalysisPCSwitchButton } from './AnalysisPCSwitchButton'
 
 type AnalysisBoardProps = {
   content: {
@@ -55,14 +56,40 @@ export const AnalysisBoard: FC<AnalysisBoardProps> = (props) => {
     <div
       className={css({
         w: 'full',
-        maxW: '780px',
         p: '14px',
         bg: 'blue.200',
         rounded: '3xl',
         shadow: 'xl',
-        md: { p: '24px' },
+        md: { w: '780px', p: '24px' },
+        pos: 'relative',
       })}
     >
+      {/* PC表示でのボタン */}
+      <div
+        className={css({
+          display: 'none',
+          lg: { display: 'block', pos: 'absolute', top: '240px', left: '-120px' },
+        })}
+      >
+        <AnalysisPCSwitchButton
+          icon={faChevronLeft}
+          isDisabled={openaiResponseMutation.isLoading}
+          onClick={prev}
+        />
+      </div>
+      <div
+        className={css({
+          display: 'none',
+          lg: { display: 'block', pos: 'absolute', top: '240px', right: '-120px' },
+        })}
+      >
+        <AnalysisPCSwitchButton
+          icon={faChevronRight}
+          isDisabled={openaiResponseMutation.isLoading}
+          onClick={next}
+        />
+      </div>
+
       <div className={hstack({ justify: 'space-between', minH: '48px' })}>
         <h2
           className={css({
@@ -73,14 +100,23 @@ export const AnalysisBoard: FC<AnalysisBoardProps> = (props) => {
         >
           {content.period}
         </h2>
+        {/* モバイル表示でのボタン */}
         <div
           className={hstack({
             px: '20px',
-            display: openaiResponseMutation.isLoading ? 'none' : 'flex',
+            lg: { display: 'none' },
           })}
         >
-          <SwitchButton2 icon={faChevronLeft} onClick={prev} />
-          <SwitchButton2 icon={faChevronRight} onClick={next} />
+          <AnalysisMobileSwitchButton
+            icon={faChevronLeft}
+            isDisabled={openaiResponseMutation.isLoading}
+            onClick={prev}
+          />
+          <AnalysisMobileSwitchButton
+            icon={faChevronRight}
+            isDisabled={openaiResponseMutation.isLoading}
+            onClick={next}
+          />
         </div>
       </div>
       <div
@@ -110,9 +146,11 @@ export const AnalysisBoard: FC<AnalysisBoardProps> = (props) => {
                 ))}
               </div>
             ) : (
-              <p className={css({ fontSize: 'sm', color: 'dimBlue', md: { fontSize: 'md' } })}>
+              <span
+                className={css({ fontSize: 'sm', color: 'lightGreen', md: { fontSize: 'md' } })}
+              >
                 分析をするとあなたの特性が表示されます。
-              </p>
+              </span>
             )}
           </div>
         </div>
@@ -127,7 +165,7 @@ export const AnalysisBoard: FC<AnalysisBoardProps> = (props) => {
           })}
         >
           {openaiResponseMutation.isLoading ? (
-            <IsAnalyzingIcon />
+            <AnalysisIsAnalyzingIcon />
           ) : content.analysisResult ? (
             <ReactMarkdown className={css({ p: '16px', fontSize: 'sm', md: { fontSize: 'md' } })}>
               {content.analysisResult}

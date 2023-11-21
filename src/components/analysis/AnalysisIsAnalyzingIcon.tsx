@@ -3,7 +3,7 @@ import { m } from 'framer-motion'
 import { css } from '../../../styled-system/css'
 import { center, vstack } from '../../../styled-system/patterns'
 
-export const IsAnalyzingIcon = () => {
+export const AnalysisIsAnalyzingIcon = () => {
   return (
     <div className={center({ w: 'full', h: 'full' })}>
       <m.div
@@ -12,7 +12,7 @@ export const IsAnalyzingIcon = () => {
         transition={{ duration: 0.5 }}
         className={vstack({ bg: 'blue.200', p: '12px', rounded: '3xl' })}
       >
-        <p
+        <span
           className={css({
             minW: '132px',
             fontSize: '2xl',
@@ -21,7 +21,7 @@ export const IsAnalyzingIcon = () => {
           })}
         >
           分析中...
-        </p>
+        </span>
         <m.div
           animate={{ rotate: 360 }}
           transition={{ repeat: Infinity, repeatDelay: 1, duration: 0.5 }}
