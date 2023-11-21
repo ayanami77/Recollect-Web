@@ -18,40 +18,55 @@ export interface UserRepository {
   emailDuplicateCheck: (email: string, accessToken: string) => Promise<EmailDuplicateCheckResponse>
 }
 
-const signup: UserRepository['signup'] = async (userCredential, accessToken): Promise<UserResponse> => {
-  console.log(userCredential, accessToken)
-  const data = await apiClient.post(`/users/signup`, 
-    {accessToken: accessToken || ""},
+const signup: UserRepository['signup'] = async (
+  userCredential,
+  accessToken,
+): Promise<UserResponse> => {
+  const data = await apiClient.post(
+    `/users/signup`,
+    { accessToken: accessToken || '' },
     {
       user_id: userCredential.userId,
       sub: userCredential.sub,
       email: userCredential.email,
-    }
+    },
   )
   return data
 }
 
 const login: UserRepository['login'] = async (userCredential, accessToken) => {
-  await apiClient.post(`/users/login`,{accessToken: accessToken}, {
-    user_id: userCredential.userId,
-  })
+  await apiClient.post(
+    `/users/login`,
+    { accessToken: accessToken },
+    {
+      user_id: userCredential.userId,
+    },
+  )
 }
 
 const logout: UserRepository['logout'] = async (accessToken) => {
-  await apiClient.post(`/users/logout`, {accessToken: accessToken},)
+  await apiClient.post(`/users/logout`, { accessToken: accessToken })
 }
 
 const idDuplicateCheck: UserRepository['idDuplicateCheck'] = async (userId, accessToken) => {
-  const data = await apiClient.post('/users/id_duplicate_check', {accessToken: accessToken}, {
-    userId: userId,
-  })
+  const data = await apiClient.post(
+    '/users/id_duplicate_check',
+    { accessToken: accessToken },
+    {
+      userId: userId,
+    },
+  )
   return data
 }
 
 const emailDuplicateCheck: UserRepository['emailDuplicateCheck'] = async (email, accessToken) => {
-  const data = await apiClient.post('/users/email_duplicate_check', {accessToken: accessToken}, {
-    email: email,
-  })
+  const data = await apiClient.post(
+    '/users/email_duplicate_check',
+    { accessToken: accessToken },
+    {
+      email: email,
+    },
+  )
   return data
 }
 

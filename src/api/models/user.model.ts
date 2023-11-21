@@ -1,4 +1,4 @@
-import { EmailDuplicateCheckResponse, IdDuplicateCheckResponse, userRepository } from '../repositories/user.repository'
+import { userRepository } from '../repositories/user.repository'
 
 export type User = {
   user_id: string
@@ -20,7 +20,8 @@ export const userFactory = () => {
       const response = await repository.signup(userCredential, accessToken)
       return response
     },
-    login: async (userCredential: UserCredential, accessToken: string) => repository.login(userCredential, accessToken),
+    login: async (userCredential: UserCredential, accessToken: string) =>
+      repository.login(userCredential, accessToken),
     logout: async (accessToken: string) => repository.logout(accessToken),
     idDuplicateCheck: async (userId: string, accessToken: string): Promise<boolean> => {
       const response = await repository.idDuplicateCheck(userId, accessToken)
@@ -29,6 +30,6 @@ export const userFactory = () => {
     emailDuplicateCheck: async (email: string, accessToken: string): Promise<boolean> => {
       const response = await repository.emailDuplicateCheck(email, accessToken)
       return response.isDuplicate
-    } 
+    },
   }
 }

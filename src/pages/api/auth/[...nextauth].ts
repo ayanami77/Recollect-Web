@@ -1,4 +1,4 @@
-import NextAuth, { getServerSession } from 'next-auth'
+import NextAuth from 'next-auth'
 import type { DefaultSession, NextAuthOptions } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import jwt from 'jsonwebtoken'
@@ -13,9 +13,9 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        const jwtSeacret = process.env.NEXT_PUBLIC_MY_JWT_SECRET
+        const jwtSecret = process.env.NEXT_PUBLIC_MY_JWT_SECRET
 
-        if (!jwtSeacret) {
+        if (!jwtSecret) {
           throw new Error('MY_JWT_SECRET is not defined')
         }
 
@@ -24,11 +24,11 @@ export const authOptions: NextAuthOptions = {
           name: user.name,
           email: user.email,
         }
-
-        const myToken = jwt.sign(jwtClaims, jwtSeacret, {
+        const myToken = jwt.sign(jwtClaims, jwtSecret, {
           algorithm: 'HS256',
           expiresIn: '365d',
         })
+
         token.access_token = myToken
       }
       return { ...token }
@@ -38,8 +38,8 @@ export const authOptions: NextAuthOptions = {
       return session
     },
     async redirect() {
-      return "/signup/welcome"
-    }
+      return '/signup'
+    },
   },
 }
 

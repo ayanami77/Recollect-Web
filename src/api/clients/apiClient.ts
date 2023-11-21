@@ -13,8 +13,11 @@ const makeRequestBody = <T = object>(body: T) => {
 }
 
 type TMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE'
+type THeader = {
+  accessToken: string
+}
 
-const http = async (path: string, method: TMethod, header: {accessToken: string}, body?: any) => {
+const http = async (path: string, method: TMethod, header: THeader, body?: any) => {
   const res = await fetch(`${baseURL}${path}`, {
     method: method,
     mode: 'cors',
@@ -22,7 +25,7 @@ const http = async (path: string, method: TMethod, header: {accessToken: string}
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${header.accessToken}`,
+      Authorization: `Bearer ${header.accessToken}`,
     },
   })
 
@@ -38,23 +41,23 @@ const http = async (path: string, method: TMethod, header: {accessToken: string}
   return res.json()
 }
 
-const get = async (path: string, header: {accessToken: string}) => {
+const get = async (path: string, header: THeader) => {
   const data = await http(path, 'GET', header)
   return data
 }
 
-const post = async (path: string, header: {accessToken: string}, body?: any) => {
+const post = async (path: string, header: THeader, body?: any) => {
   const data = await http(path, 'POST', body, header)
   return data
 }
 
-const patch = async (path: string, header: {accessToken: string}, body: any) => {
+const patch = async (path: string, header: THeader, body: any) => {
   const data = await http(path, 'PATCH', body, header)
   return data
 }
 
 // deleteは予約語なため、destroyをdeleteとみなす(;´･ω･)
-const destroy = async (path: string, header: {accessToken: string}) => {
+const destroy = async (path: string, header: THeader) => {
   const data = await http(path, 'DELETE', header)
   return data
 }
