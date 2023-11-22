@@ -47,12 +47,12 @@ const get = async (path: string, header: THeader) => {
 }
 
 const post = async (path: string, header: THeader, body?: any) => {
-  const data = await http(path, 'POST', body, header)
+  const data = await http(path, 'POST', header, body)
   return data
 }
 
 const patch = async (path: string, header: THeader, body: any) => {
-  const data = await http(path, 'PATCH', body, header)
+  const data = await http(path, 'PATCH', header, body)
   return data
 }
 

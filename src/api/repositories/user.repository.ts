@@ -50,7 +50,7 @@ const logout: UserRepository['logout'] = async (accessToken) => {
 
 const idDuplicateCheck: UserRepository['idDuplicateCheck'] = async (userId, accessToken) => {
   const data = await apiClient.post(
-    '/users/id_duplicate_check',
+    '/users/id-duplicate-check',
     { accessToken: accessToken },
     {
       userId: userId,
@@ -61,7 +61,7 @@ const idDuplicateCheck: UserRepository['idDuplicateCheck'] = async (userId, acce
 
 const emailDuplicateCheck: UserRepository['emailDuplicateCheck'] = async (email, accessToken) => {
   const data = await apiClient.post(
-    '/users/email_duplicate_check',
+    '/users/email-duplicate-check',
     { accessToken: accessToken },
     {
       email: email,

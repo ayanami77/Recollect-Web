@@ -1,3 +1,4 @@
+import { apiClient } from '@/api/clients/apiClient'
 import { useMutateUser } from '@/api/hooks/user/useMutateUser'
 import { AuthFormContainer } from '@/components/auth/AuthFormContainer'
 import { AuthFormControl } from '@/components/auth/AuthFormControl'
@@ -72,15 +73,15 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     }
   }
 
-  // const isExistUser = await apiClient.post('/users/email_duplicate_check',
-  //   {
-  //     accessToken: session.user.access_token || ""
-  //   },
-  //   {
-  //     email: session?.user.email,
-  //   })
-
-  const isExistUser = false
+  const isExistUser = await apiClient.post(
+    '/users/email-duplicate-check',
+    {
+      accessToken: session.user.access_token || '',
+    },
+    {
+      email: session?.user.email,
+    },
+  )
   if (isExistUser) {
     return {
       redirect: {
