@@ -3,9 +3,17 @@ import { FadeInWrapper, CommonMeta, PageTitle, ContentsWrapper } from '@/compone
 import { HistoryContainer, HistoryToTutorialButton } from '@/components/history'
 import { useQueryCards } from '@/api/hooks/card/useQueryCard'
 import { faMapLocationDot } from '@fortawesome/free-solid-svg-icons'
+import { GetServerSideProps } from 'next'
+import { Session, getServerSession } from 'next-auth'
+import { authOptions } from '../api/auth/[...nextauth]'
 
-const History = () => {
-  const { data } = useQueryCards()
+
+type TutorialProps = {
+  user: Session['user']
+}
+
+const History = ({ user }: TutorialProps) => {
+  const { data } = useQueryCards(user.access_token || '')
 
   return (
     <>
@@ -24,7 +32,7 @@ const History = () => {
             })}
           >
             <PageTitle title={'自分史をみる'} icon={faMapLocationDot} />
-            <HistoryContainer data={data ?? []} />
+            <HistoryContainer data={data ?? []} user={user}/>
           </div>
         </ContentsWrapper>
       </FadeInWrapper>
@@ -35,3 +43,22 @@ const History = () => {
 }
 
 export default History
+
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getServerSession(req, res, authOptions)
+  const user = session?.user
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: { user },
+  }
+}

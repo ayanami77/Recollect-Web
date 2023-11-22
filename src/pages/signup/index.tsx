@@ -7,11 +7,11 @@ import { TAuthValidationSchema, AuthValidationSchema } from '@/libs/validations/
 import { authOptions } from '@/pages/api/auth/[...nextauth]'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { GetServerSideProps } from 'next'
-import { getServerSession } from 'next-auth'
+import { Session, getServerSession } from 'next-auth'
 import { useForm } from 'react-hook-form'
 
 interface Props {
-  user: any
+  user: Session['user']
 }
 
 export default function Signup({ user }: Props) {

@@ -10,6 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { CardValidationSchema, TCardValidationSchema } from '@/libs/validations/cardValidation'
 import { formatToDate } from '@/libs/dayjs'
 import useStore from '@/store'
+import { Session } from 'next-auth'
 
 type CardEditModalProps = {
   content: {
@@ -23,9 +24,10 @@ type CardEditModalProps = {
       createdAt: string
       updatedAt: string
     }
-  }
+  },
+  user: Session['user']
 }
-export const CardEditModal: FC<CardEditModalProps> = ({ content }) => {
+export const CardEditModal: FC<CardEditModalProps> = ({ content, user }) => {
   const { handleOpen, data } = content
   const { updateCardMutation } = useMutateCard()
   const {
@@ -49,16 +51,19 @@ export const CardEditModal: FC<CardEditModalProps> = ({ content }) => {
   const onSubmitUpdate: SubmitHandler<TCardValidationSchema> = async (d) => {
     try {
       const res = await updateCardMutation.mutateAsync({
-        id: data.id,
-        period: data.period,
-        title: d.title,
-        content: d.content,
-      })
+        cardData: {
+          id: data.id,
+          period: data.period,
+          title: d.title,
+          content: d.content,
+        },
+        accessToken: user.access_token || '', 
+      });
       if (res) {
-        store.show('カードを更新しました', 'success')
+        store.show('カードを更新しました', 'success');
         setTimeout(() => {
-          store.hide()
-        }, 2000)
+          store.hide();
+        }, 2000);
       }
     } catch (error) {
       store.show('カードの更新に失敗しました', 'error')

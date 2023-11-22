@@ -5,6 +5,9 @@ import { useRouter } from 'next/router'
 import { Period as TPeriod } from '@/api/models/card.model'
 import { useMutateCard } from '@/api/hooks/card/useMutateCard'
 import useStore from '@/store'
+import { authOptions } from '@/pages/api/auth/[...nextauth]'
+import { GetServerSideProps } from 'next'
+import { Session, getServerSession } from 'next-auth'
 
 type Card = {
   period: TPeriod
@@ -19,9 +22,10 @@ type TutorialToHistoryButtonProps = {
     progressStepSize: number
     setCurrentValue: Dispatch<SetStateAction<number>>
     handleValidate: () => boolean
-  }
+  },
+  user: Session['user']
 }
-export const TutorialToHistoryButton: FC<TutorialToHistoryButtonProps> = ({ content }) => {
+export const TutorialToHistoryButton: FC<TutorialToHistoryButtonProps> = ({ content, user }) => {
   const router = useRouter()
   const store = useStore()
   const [isLoading, setIsLoading] = useState(false)
@@ -32,7 +36,10 @@ export const TutorialToHistoryButton: FC<TutorialToHistoryButtonProps> = ({ cont
     content.setCurrentValue((prevValue) => Math.min(prevValue + content.progressStepSize, 100))
     setIsLoading(true)
     try {
-      const res = await createCardsMutation.mutateAsync(content.cardList)
+      const res = await createCardsMutation.mutateAsync({
+        cardData: content.cardList,
+        accessToken: user.access_token || '',
+      })
       if (res) {
         store.show('カードを作成しました', 'success')
         setTimeout(() => {

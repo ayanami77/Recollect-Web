@@ -5,10 +5,17 @@ import { AnalysisContainer } from '@/components/analysis'
 import { useRouter } from 'next/router'
 import { css } from '../../../styled-system/css'
 import { faMagnifyingGlassChart } from '@fortawesome/free-solid-svg-icons'
+import { GetServerSideProps } from 'next'
+import { Session, getServerSession } from 'next-auth'
+import { authOptions } from '../api/auth/[...nextauth]'
 
-const Analysis = () => {
+type TutorialProps = {
+  user: Session['user']
+}
+
+const Analysis = ({ user }: TutorialProps) => {
   const router = useRouter()
-  const { data } = useQueryCards()
+  const { data } = useQueryCards(user.access_token || '')
 
   return (
     <>
@@ -36,3 +43,21 @@ const Analysis = () => {
 }
 
 export default Analysis
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getServerSession(req, res, authOptions)
+  const user = session?.user
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: { user },
+  }
+}

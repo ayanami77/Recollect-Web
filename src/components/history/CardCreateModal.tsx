@@ -8,6 +8,7 @@ import { Backdrop } from '@/components/common/partials/Backdrop'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CardValidationSchema, TCardValidationSchema } from '@/libs/validations/cardValidation'
 import useStore from '@/store'
+import { Session } from 'next-auth'
 
 type CardCreateModalProps = {
   content: {
@@ -15,9 +16,10 @@ type CardCreateModalProps = {
     data: {
       period: TPeriod
     }
-  }
+  },
+  user: Session['user']
 }
-export const CardCreateModal: FC<CardCreateModalProps> = ({ content }) => {
+export const CardCreateModal: FC<CardCreateModalProps> = ({ content, user }) => {
   const { handleOpen, data } = content
   const { createCardMutation } = useMutateCard()
   const store = useStore()
@@ -32,16 +34,20 @@ export const CardCreateModal: FC<CardCreateModalProps> = ({ content }) => {
 
   const onSubmitCreate: SubmitHandler<TCardValidationSchema> = async (d) => {
     try {
+      debugger;
       const res = await createCardMutation.mutateAsync({
-        period: data.period,
-        title: d.title,
-        content: d.content,
-      })
+        cardData: {
+          period: data.period,
+          title: d.title,
+          content: d.content,
+        },
+        accessToken: user.access_token || '', 
+      });
       if (res) {
-        store.show('カードを作成しました', 'success')
+        store.show('カードを作成しました', 'success');
         setTimeout(() => {
-          store.hide()
-        }, 2000)
+          store.hide();
+        }, 2000);
       }
     } catch (error) {
       store.show('カードの作成に失敗しました', 'error')

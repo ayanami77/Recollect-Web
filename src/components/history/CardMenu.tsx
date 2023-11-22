@@ -15,6 +15,9 @@ import useStore from '@/store'
 import { controlScreenScroll } from '@/utils/controlScreenScroll'
 import { CardEditModal } from './CardEditModal'
 import { Period as TPeriod } from '@/api/models/card.model'
+import { GetServerSideProps } from 'next'
+import { authOptions } from '@/pages/api/auth/[...nextauth]'
+import { Session, getServerSession } from 'next-auth'
 
 type CardMenuProps = {
   data: {
@@ -26,9 +29,10 @@ type CardMenuProps = {
     createdAt: string
     updatedAt: string
   }
+  user: Session['user']
 }
 export const CardMenu: FC<CardMenuProps> = (props) => {
-  const { data } = props
+  const { data, user } = props
   const router = useRouter()
   const store = useStore()
   const [isOpen, setIsOpen] = useState(false)
@@ -52,7 +56,8 @@ export const CardMenu: FC<CardMenuProps> = (props) => {
   const deleteCardByCardId = async (cardId: string) => {
     try {
       await deleteUserMutation.mutateAsync({
-        id: cardId,
+        cardData: { id: cardId },
+        accessToken: user.access_token || '',
       })
       store.show('カードを削除しました', 'success')
       setTimeout(() => {
@@ -149,6 +154,7 @@ export const CardMenu: FC<CardMenuProps> = (props) => {
             handleOpen: handleEditModal,
             data,
           }}
+          user={user}
         />
       )}
       {isConfirmModalOpen && (
@@ -164,4 +170,22 @@ export const CardMenu: FC<CardMenuProps> = (props) => {
       )}
     </div>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getServerSession(req, res, authOptions)
+  const user = session?.user
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: { user },
+  }
 }

@@ -5,6 +5,7 @@ import { HistorySegment } from './HistorySegment'
 import { FC } from 'react'
 import { Toast } from '../common'
 import useStore from '@/store'
+import { Session } from 'next-auth'
 
 const period_with_number = {
   現在まで: 0,
@@ -30,9 +31,10 @@ export const sortCardsByPeriod = (data: TCard[]) => {
 
 type HistoryContainerProps = {
   data: TCard[]
+  user: Session['user']
 }
 export const HistoryContainer: FC<HistoryContainerProps> = (props) => {
-  const { data } = props
+  const { data, user } = props
   const allCards = sortCardsByPeriod(data)
   const store = useStore()
 
@@ -47,10 +49,10 @@ export const HistoryContainer: FC<HistoryContainerProps> = (props) => {
       {allCards.map((cards, index) => {
         const period = Object.keys(period_with_number)[index] as TPeriod
         return (
-          <HistorySegment key={index} period={period}>
+          <HistorySegment key={index} period={period} user={user}>
             {cards.length ? (
               cards.map((card) => {
-                return <Card data={card} key={card.id} />
+                return <Card data={card} key={card.id} user={user} />
               })
             ) : (
               <p
