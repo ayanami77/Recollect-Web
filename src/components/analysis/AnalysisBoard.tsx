@@ -14,6 +14,7 @@ import {
 import { AnalysisIsAnalyzingIcon } from './AnalysisIsAnalyzingIcon'
 import { AnalysisMobileSwitchButton } from './AnalysisMobileSwitchButton'
 import { AnalysisPCSwitchButton } from './AnalysisPCSwitchButton'
+import { Session } from 'next-auth'
 
 type AnalysisBoardProps = {
   content: {
@@ -26,6 +27,7 @@ type AnalysisBoardProps = {
     createdAt: string
     updatedAt: string
   }
+  user: Session['user']
   next: () => void
   prev: () => void
 }
@@ -46,11 +48,14 @@ const makePrompt = (content: string): string => {
 }
 
 export const AnalysisBoard: FC<AnalysisBoardProps> = (props) => {
-  const { content, next, prev } = props
+  const { content, user, next, prev } = props
   const { openaiResponseMutation } = useMutateOpenAIResponse()
 
   const handleAnalyze = () =>
-    openaiResponseMutation.mutate({ id: content.id, prompt: makePrompt(content.content) })
+    openaiResponseMutation.mutate({
+      credential: { id: content.id, prompt: makePrompt(content.content) },
+      accessToken: user.access_token || '',
+    })
 
   return (
     <div

@@ -5,8 +5,8 @@ import { FetchError } from '@/api/clients/utils/fetchError'
 
 export const useMutateCard = () => {
   const createCardMutation = useMutation(
-    (prams:{cardData: Pick<Card, 'title' | 'content' | 'period'>, accessToken: string}) => {
-      const {cardData, accessToken} = prams
+    (params: { cardData: Pick<Card, 'title' | 'content' | 'period'>; accessToken: string }) => {
+      const { cardData, accessToken } = params
       return cardFactory().post(cardData, accessToken)
     },
     {
@@ -23,8 +23,8 @@ export const useMutateCard = () => {
   )
 
   const createCardsMutation = useMutation(
-    (params: {cardData: Pick<Card, 'title' | 'content' | 'period'>[], accessToken: string}) => {
-      const {cardData, accessToken} = params
+    (params: { cardData: Pick<Card, 'title' | 'content' | 'period'>[]; accessToken: string }) => {
+      const { cardData, accessToken } = params
       return cardFactory().batchPost(cardData, accessToken)
     },
     {
@@ -41,8 +41,8 @@ export const useMutateCard = () => {
   )
 
   const updateCardMutation = useMutation(
-    (params: {cardData: Partial<Card>, accessToken: string}) => {
-      const {cardData, accessToken} = params
+    (params: { cardData: Partial<Card>; accessToken: string }) => {
+      const { cardData, accessToken } = params
       return cardFactory().update(cardData, accessToken)
     },
     {
@@ -69,12 +69,10 @@ export const useMutateCard = () => {
   )
 
   const deleteUserMutation = useMutation(
-    (params: {
-      cardData: Pick<Card, 'id'>
-      accessToken: string
-    }) =>{
-      const {cardData, accessToken} = params
-      return cardFactory().delete(cardData, accessToken)},
+    (params: { cardData: Pick<Card, 'id'>; accessToken: string }) => {
+      const { cardData, accessToken } = params
+      return cardFactory().delete(cardData, accessToken)
+    },
     {
       onSuccess: (_, variables) => {
         const previousCards = queryClient.getQueryData<Card[]>(['cards'])

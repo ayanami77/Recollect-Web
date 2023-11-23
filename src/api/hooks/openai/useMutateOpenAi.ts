@@ -6,14 +6,18 @@ import { FetchError } from '@/api/clients/utils/fetchError'
 export const useMutateOpenAIResponse = () => {
   const { updateCardMutation } = useMutateCard()
   const openaiResponseMutation = useMutation(
-    async (credential: OpenAICredential) => await openaiFactory().getOpenAIResponse(credential),
+    async (params: { credential: OpenAICredential; accessToken: string }) =>
+      await openaiFactory().getOpenAIResponse(params.credential),
     {
-      onSuccess: (res, variables: OpenAICredential) => {
+      onSuccess: (res, variables: { credential: OpenAICredential; accessToken: string }) => {
         if (res) {
           updateCardMutation.mutate({
-            id: variables.id,
-            analysisResult: res.analysisResult,
-            tags: res.tags,
+            cardData: {
+              id: variables.credential.id,
+              analysisResult: res.analysisResult,
+              tags: res.tags,
+            },
+            accessToken: variables.accessToken,
           })
         }
       },

@@ -16,7 +16,7 @@ type CardCreateModalProps = {
     data: {
       period: TPeriod
     }
-  },
+  }
   user: Session['user']
 }
 export const CardCreateModal: FC<CardCreateModalProps> = ({ content, user }) => {
@@ -34,20 +34,19 @@ export const CardCreateModal: FC<CardCreateModalProps> = ({ content, user }) => 
 
   const onSubmitCreate: SubmitHandler<TCardValidationSchema> = async (d) => {
     try {
-      debugger;
       const res = await createCardMutation.mutateAsync({
         cardData: {
           period: data.period,
           title: d.title,
           content: d.content,
         },
-        accessToken: user.access_token || '', 
-      });
+        accessToken: user.access_token || '',
+      })
       if (res) {
-        store.show('カードを作成しました', 'success');
+        store.show('カードを作成しました', 'success')
         setTimeout(() => {
-          store.hide();
-        }, 2000);
+          store.hide()
+        }, 2000)
       }
     } catch (error) {
       store.show('カードの作成に失敗しました', 'error')

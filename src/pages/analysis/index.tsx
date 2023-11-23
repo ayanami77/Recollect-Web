@@ -34,7 +34,7 @@ const Analysis = ({ user }: TutorialProps) => {
             })}
           >
             <PageTitle title={'自分史を分析をする'} icon={faMagnifyingGlassChart} />
-            <AnalysisContainer data={data ?? []} cardId={router.query.card_id} />
+            <AnalysisContainer data={data ?? []} cardId={router.query.card_id} user={user} />
           </div>
         </ContentsWrapper>
       </FadeInWrapper>
