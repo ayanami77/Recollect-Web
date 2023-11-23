@@ -1,9 +1,9 @@
 import Image from 'next/image'
-import { Menu } from './Menu'
 import { useRouter } from 'next/router'
 import { hstack } from '../../../../styled-system/patterns'
 import { css } from '../../../../styled-system/css'
-import { NavigationMenu } from './NavigationMenu'
+import { HamburgerMenu } from './HamburgerMenu/HamburgerMenu'
+import { NavigationMenu } from './NavigationMenu/NavigationMenu'
 
 export const Header = () => {
   const router = useRouter()
@@ -39,7 +39,7 @@ export const Header = () => {
           </div>
           {/* ハンバーガーメニュー */}
           <div className={css({ display: 'block', md: { display: 'none' } })}>
-            <Menu />
+            <HamburgerMenu />
           </div>
         </>
       )}
