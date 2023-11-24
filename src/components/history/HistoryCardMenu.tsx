@@ -7,19 +7,19 @@ import {
   faMagnifyingGlassChart,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons'
-import { CardMenuItem } from './CardMenuItem'
+import { HistoryCardMenuItem } from './HistoryCardMenuItem'
 import { useRouter } from 'next/router'
 import { ConfirmModal } from '../common'
 import { useMutateCard } from '@/api/hooks/card/useMutateCard'
 import useStore from '@/store'
 import { controlScreenScroll } from '@/utils/controlScreenScroll'
-import { CardEditModal } from './CardEditModal'
+import { HistoryCardEditModal } from './HistoryCardEditModal'
 import { Period as TPeriod } from '@/api/models/card.model'
 import { GetServerSideProps } from 'next'
 import { authOptions } from '@/pages/api/auth/[...nextauth]'
 import { Session, getServerSession } from 'next-auth'
 
-type CardMenuProps = {
+type HistoryCardMenuProps = {
   data: {
     id: string
     period: TPeriod
@@ -31,7 +31,7 @@ type CardMenuProps = {
   }
   user: Session['user']
 }
-export const CardMenu: FC<CardMenuProps> = (props) => {
+export const HistoryCardMenu: FC<HistoryCardMenuProps> = (props) => {
   const { data, user } = props
   const router = useRouter()
   const store = useStore()
@@ -60,14 +60,10 @@ export const CardMenu: FC<CardMenuProps> = (props) => {
         accessToken: user.access_token || '',
       })
       store.show('カードを削除しました', 'success')
-      setTimeout(() => {
-        store.hide()
-      }, 2000)
+      store.hide()
     } catch (error) {
       store.show('カードの削除に失敗しました', 'error')
-      setTimeout(() => {
-        store.hide()
-      }, 2000)
+      store.hide()
     }
     setIsConfirmModalOpen(false)
     controlScreenScroll(true)
@@ -128,19 +124,19 @@ export const CardMenu: FC<CardMenuProps> = (props) => {
           })}
           onClick={(e) => e.stopPropagation()}
         >
-          <CardMenuItem
+          <HistoryCardMenuItem
             icon={faMagnifyingGlassChart}
             color='#0C4C97'
             title={'分析する'}
             onClickFunc={navigateToAnalysis}
           />
-          <CardMenuItem
+          <HistoryCardMenuItem
             icon={faEdit}
             color='green'
             title={'編集する'}
             onClickFunc={handleEditModal}
           />
-          <CardMenuItem
+          <HistoryCardMenuItem
             icon={faTrash}
             color='red'
             title={'削除する'}
@@ -149,7 +145,7 @@ export const CardMenu: FC<CardMenuProps> = (props) => {
         </ul>
       )}
       {isEditModalOpen && (
-        <CardEditModal
+        <HistoryCardEditModal
           content={{
             handleOpen: handleEditModal,
             data,

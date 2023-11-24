@@ -9,7 +9,7 @@ import { GetServerSideProps } from 'next'
 import { Session, getServerSession } from 'next-auth'
 import { useForm } from 'react-hook-form'
 
-interface Props {
+type Props = {
   user: Session['user']
 }
 

@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { css } from '../../../styled-system/css'
 import { vstack } from '../../../styled-system/patterns'
 
-export const Signin = () => {
+export const EntranceSigninButton = () => {
   return (
     <div className={vstack({ w: 'fit', mx: 'auto', mt: '24px', gap: '24px' })}>
       <Link href={'/signin'}>

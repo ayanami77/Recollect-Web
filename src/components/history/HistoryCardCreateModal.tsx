@@ -10,7 +10,7 @@ import { CardValidationSchema, TCardValidationSchema } from '@/libs/validations/
 import useStore from '@/store'
 import { Session } from 'next-auth'
 
-type CardCreateModalProps = {
+type HistoryCardCreateModalProps = {
   content: {
     handleOpen: () => void
     data: {
@@ -19,7 +19,7 @@ type CardCreateModalProps = {
   }
   user: Session['user']
 }
-export const CardCreateModal: FC<CardCreateModalProps> = ({ content, user }) => {
+export const HistoryCardCreateModal: FC<HistoryCardCreateModalProps> = ({ content, user }) => {
   const { handleOpen, data } = content
   const { createCardMutation } = useMutateCard()
   const store = useStore()
@@ -44,15 +44,11 @@ export const CardCreateModal: FC<CardCreateModalProps> = ({ content, user }) => 
       })
       if (res) {
         store.show('カードを作成しました', 'success')
-        setTimeout(() => {
-          store.hide()
-        }, 2000)
+        store.hide()
       }
     } catch (error) {
       store.show('カードの作成に失敗しました', 'error')
-      setTimeout(() => {
-        store.hide()
-      }, 2000)
+      store.hide()
     }
     handleOpen()
   }

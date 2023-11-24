@@ -1,6 +1,6 @@
 import { Card as TCard, Period as TPeriod } from '@/api/models/card.model'
 import { vstack } from '../../../styled-system/patterns'
-import { Card } from './Card'
+import { HistoryCard } from './HistoryCard'
 import { HistorySegment } from './HistorySegment'
 import { FC } from 'react'
 import { Toast } from '../common'
@@ -52,7 +52,7 @@ export const HistoryContainer: FC<HistoryContainerProps> = (props) => {
           <HistorySegment key={index} period={period} user={user}>
             {cards.length ? (
               cards.map((card) => {
-                return <Card data={card} key={card.id} user={user} />
+                return <HistoryCard data={card} key={card.id} user={user} />
               })
             ) : (
               <p

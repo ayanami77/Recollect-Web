@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { css } from '../../../styled-system/css'
 import { vstack } from '../../../styled-system/patterns'
 
-export const Hero = () => {
+export const EntranceHero = () => {
   return (
     <div className={vstack({ gap: '48px', justifyContent: 'center', mt: '40px' })}>
       <div className={vstack({ gap: '16px', alignItems: 'start' })}>

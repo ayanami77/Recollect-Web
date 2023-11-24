@@ -12,7 +12,7 @@ import { formatToDate } from '@/libs/dayjs'
 import useStore from '@/store'
 import { Session } from 'next-auth'
 
-type CardEditModalProps = {
+type HistoryCardEditModalProps = {
   content: {
     handleOpen: () => void
     data: {
@@ -24,10 +24,10 @@ type CardEditModalProps = {
       createdAt: string
       updatedAt: string
     }
-  },
+  }
   user: Session['user']
 }
-export const CardEditModal: FC<CardEditModalProps> = ({ content, user }) => {
+export const HistoryCardEditModal: FC<HistoryCardEditModalProps> = ({ content, user }) => {
   const { handleOpen, data } = content
   const { updateCardMutation } = useMutateCard()
   const {
@@ -57,19 +57,15 @@ export const CardEditModal: FC<CardEditModalProps> = ({ content, user }) => {
           title: d.title,
           content: d.content,
         },
-        accessToken: user.access_token || '', 
-      });
+        accessToken: user.access_token || '',
+      })
       if (res) {
-        store.show('カードを更新しました', 'success');
-        setTimeout(() => {
-          store.hide();
-        }, 2000);
+        store.show('カードを更新しました', 'success')
+        store.hide()
       }
     } catch (error) {
       store.show('カードの更新に失敗しました', 'error')
-      setTimeout(() => {
-        store.hide()
-      }, 2000)
+      store.hide()
     }
   }
 

@@ -14,7 +14,11 @@ const useStore = create<State>((set) => ({
   message: '',
   type: 'success',
   show: (message, type) => set({ isShow: true, message, type }),
-  hide: () => set({ isShow: false, message: '', type: 'success' }),
+  hide: () => {
+    setTimeout(() => {
+      set({ isShow: false, message: '', type: 'success' })
+    }, 2000)
+  },
 }))
 
 export default useStore

@@ -35,7 +35,6 @@ const History = ({ user }: Props) => {
           </div>
         </ContentsWrapper>
       </FadeInWrapper>
-      {/* TODO: チュートリアルの状態をどう持つか再検討したい */}
       {data?.length === 0 && <HistoryToTutorialButton />}
     </>
   )

@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 import { controlScreenScroll } from '@/utils/controlScreenScroll'
-import { CardCreateModal } from './CardCreateModal'
+import { HistoryCardCreateModal } from './HistoryCardCreateModal'
 import { Period as TPeriod } from '@/api/models/card.model'
 import { Session } from 'next-auth'
 
@@ -69,7 +69,7 @@ export const HistorySegment: FC<HistorySegmentProps> = (props) => {
           自分史を追加する
         </m.button>
       </div>
-      {isOpen && <CardCreateModal content={{ handleOpen, data: { period } }} user={user} />}
+      {isOpen && <HistoryCardCreateModal content={{ handleOpen, data: { period } }} user={user} />}
     </>
   )
 }
