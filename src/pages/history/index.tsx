@@ -7,12 +7,11 @@ import { GetServerSideProps } from 'next'
 import { Session, getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]'
 
-
-type TutorialProps = {
+type Props = {
   user: Session['user']
 }
 
-const History = ({ user }: TutorialProps) => {
+const History = ({ user }: Props) => {
   const { data } = useQueryCards(user.access_token || '')
 
   return (
@@ -32,7 +31,7 @@ const History = ({ user }: TutorialProps) => {
             })}
           >
             <PageTitle title={'自分史をみる'} icon={faMapLocationDot} />
-            <HistoryContainer data={data ?? []} user={user}/>
+            <HistoryContainer data={data ?? []} user={user} />
           </div>
         </ContentsWrapper>
       </FadeInWrapper>
@@ -43,7 +42,6 @@ const History = ({ user }: TutorialProps) => {
 }
 
 export default History
-
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getServerSession(req, res, authOptions)

@@ -3,7 +3,7 @@ import { css } from '../../../styled-system/css'
 import { vstack } from '../../../styled-system/patterns'
 import { BaseSyntheticEvent, FC, ReactNode } from 'react'
 
-type TFormType = 'signup' | 'login' | 'oauth'
+type TFormType = 'signup' | 'login'
 type AuthFormContainerProps = {
   children: ReactNode
   formType: TFormType
@@ -16,15 +16,6 @@ const makeFormContainer = (props: AuthFormContainerProps) => {
     case 'signup':
       return {
         title: 'アカウント登録',
-        link: (
-          <p className={css({ fontSize: '14px' })}>
-            既にアカウントをお持ちの方は
-            <Link href={'/login'}>
-              <span className={css({ color: 'blue.400' })}>こちら</span>
-            </Link>
-            から
-          </p>
-        ),
       }
     case 'login':
       return {
@@ -38,10 +29,6 @@ const makeFormContainer = (props: AuthFormContainerProps) => {
             から
           </p>
         ),
-      }
-    case 'oauth':
-      return {
-        title: 'アカウント登録',
       }
   }
 }

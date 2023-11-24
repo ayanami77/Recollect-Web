@@ -1,2 +1,2 @@
-export * from './SignupForm'
-export * from './LoginForm'
+export * from './AuthFormContainer'
+export * from './AuthFormControl'

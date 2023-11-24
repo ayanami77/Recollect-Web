@@ -9,11 +9,11 @@ import { GetServerSideProps } from 'next'
 import { Session, getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]'
 
-type TutorialProps = {
+type Props = {
   user: Session['user']
 }
 
-const Analysis = ({ user }: TutorialProps) => {
+const Analysis = ({ user }: Props) => {
   const router = useRouter()
   const { data } = useQueryCards(user.access_token || '')
 

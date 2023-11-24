@@ -20,11 +20,11 @@ type Card = {
   content: string
 }
 
-type TutorialProps = {
+type Props = {
   user: Session['user']
 }
 
-export default function Tutorial({ user }: TutorialProps) {
+export default function Tutorial({ user }: Props) {
   const progressStepSize = 100 / 6
   const [currentValue, setCurrentValue] = useState<number>(progressStepSize)
   const [cardPosition, setCardPosition] = useState<number>(0)
@@ -121,7 +121,9 @@ export default function Tutorial({ user }: TutorialProps) {
               setCurrentValue: setCurrentValue,
               progressStepSize: progressStepSize,
               handleValidate: handleValidate,
-            }} user={user}/>
+            }}
+            user={user}
+          />
         </div>
         <TutorialLeaveButton />
       </div>

@@ -1,7 +1,6 @@
 import { apiClient } from '@/api/clients/apiClient'
 import { useMutateUser } from '@/api/hooks/user/useMutateUser'
-import { AuthFormContainer } from '@/components/auth/AuthFormContainer'
-import { AuthFormControl } from '@/components/auth/AuthFormControl'
+import { AuthFormContainer, AuthFormControl } from '@/components/auth'
 import { CommonMeta, ContentsWrapper } from '@/components/common'
 import { TAuthValidationSchema, AuthValidationSchema } from '@/libs/validations/authValidation'
 import { authOptions } from '@/pages/api/auth/[...nextauth]'
@@ -52,7 +51,7 @@ export default function Signup({ user }: Props) {
     <>
       <CommonMeta title={'Recollect - アカウント登録'} description={'アカウント登録ページです。'} />
       <ContentsWrapper>
-        <AuthFormContainer formType={'oauth'} onSubmit={handleSubmit(onSubmitSignUp)}>
+        <AuthFormContainer formType={'signup'} onSubmit={handleSubmit(onSubmitSignUp)}>
           <AuthFormControl errors={errors} register={register} usage={'userId'} />
         </AuthFormContainer>
       </ContentsWrapper>

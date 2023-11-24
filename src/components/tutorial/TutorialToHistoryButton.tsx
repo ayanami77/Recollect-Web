@@ -5,9 +5,7 @@ import { useRouter } from 'next/router'
 import { Period as TPeriod } from '@/api/models/card.model'
 import { useMutateCard } from '@/api/hooks/card/useMutateCard'
 import useStore from '@/store'
-import { authOptions } from '@/pages/api/auth/[...nextauth]'
-import { GetServerSideProps } from 'next'
-import { Session, getServerSession } from 'next-auth'
+import { Session } from 'next-auth'
 
 type Card = {
   period: TPeriod
@@ -22,7 +20,7 @@ type TutorialToHistoryButtonProps = {
     progressStepSize: number
     setCurrentValue: Dispatch<SetStateAction<number>>
     handleValidate: () => boolean
-  },
+  }
   user: Session['user']
 }
 export const TutorialToHistoryButton: FC<TutorialToHistoryButtonProps> = ({ content, user }) => {
