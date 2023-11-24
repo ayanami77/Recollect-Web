@@ -4,7 +4,7 @@ import { HistoryCard } from './HistoryCard'
 import { HistorySegment } from './HistorySegment'
 import { FC } from 'react'
 import { Toast } from '../common'
-import useStore from '@/store'
+import { useToastStore } from '@/store/useToastStore'
 import { Session } from 'next-auth'
 
 const period_with_number = {
@@ -36,7 +36,7 @@ type HistoryContainerProps = {
 export const HistoryContainer: FC<HistoryContainerProps> = (props) => {
   const { data, user } = props
   const allCards = sortCardsByPeriod(data)
-  const store = useStore()
+  const toastStore = useToastStore()
 
   return (
     <div
@@ -73,9 +73,9 @@ export const HistoryContainer: FC<HistoryContainerProps> = (props) => {
 
       <Toast
         content={{
-          status: store.type,
-          message: store.message,
-          isShow: store.isShow,
+          status: toastStore.type,
+          message: toastStore.message,
+          isShow: toastStore.isShow,
         }}
       />
     </div>

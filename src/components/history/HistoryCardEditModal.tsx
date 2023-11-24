@@ -9,7 +9,7 @@ import { Backdrop } from '@/components/common/partials/Backdrop'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CardValidationSchema, TCardValidationSchema } from '@/libs/validations/cardValidation'
 import { formatToDate } from '@/libs/dayjs'
-import useStore from '@/store'
+import { useToastStore } from '@/store/useToastStore'
 import { Session } from 'next-auth'
 
 type HistoryCardEditModalProps = {
@@ -46,7 +46,7 @@ export const HistoryCardEditModal: FC<HistoryCardEditModalProps> = ({ content, u
   const [isEdited, setIsEdited] = useState(false)
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false)
 
-  const store = useStore()
+  const toastStore = useToastStore()
 
   const onSubmitUpdate: SubmitHandler<TCardValidationSchema> = async (d) => {
     try {
@@ -60,12 +60,12 @@ export const HistoryCardEditModal: FC<HistoryCardEditModalProps> = ({ content, u
         accessToken: user.access_token || '',
       })
       if (res) {
-        store.show('カードを更新しました', 'success')
-        store.hide()
+        toastStore.show('カードを更新しました', 'success')
+        toastStore.hide()
       }
     } catch (error) {
-      store.show('カードの更新に失敗しました', 'error')
-      store.hide()
+      toastStore.show('カードの更新に失敗しました', 'error')
+      toastStore.hide()
     }
   }
 

@@ -1,6 +1,5 @@
 import { create } from 'zustand'
 
-// Toastの表示に関するState
 type State = {
   isShow: boolean
   message: string
@@ -9,7 +8,7 @@ type State = {
   hide: () => void
 }
 
-const useStore = create<State>((set) => ({
+export const useToastStore = create<State>((set) => ({
   isShow: false,
   message: '',
   type: 'success',
@@ -20,5 +19,3 @@ const useStore = create<State>((set) => ({
     }, 2000)
   },
 }))
-
-export default useStore

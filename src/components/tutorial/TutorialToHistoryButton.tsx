@@ -4,7 +4,7 @@ import { css } from '../../../styled-system/css'
 import { useRouter } from 'next/router'
 import { Period as TPeriod } from '@/api/models/card.model'
 import { useMutateCard } from '@/api/hooks/card/useMutateCard'
-import useStore from '@/store'
+import { useToastStore } from '@/store/useToastStore'
 import { Session } from 'next-auth'
 
 type Card = {
@@ -25,7 +25,7 @@ type TutorialToHistoryButtonProps = {
 }
 export const TutorialToHistoryButton: FC<TutorialToHistoryButtonProps> = ({ content, user }) => {
   const router = useRouter()
-  const store = useStore()
+  const toastStore = useToastStore()
   const [isLoading, setIsLoading] = useState(false)
   const { createCardsMutation } = useMutateCard()
 
@@ -39,15 +39,15 @@ export const TutorialToHistoryButton: FC<TutorialToHistoryButtonProps> = ({ cont
         accessToken: user.access_token || '',
       })
       if (res) {
-        store.show('カードを作成しました', 'success')
+        toastStore.show('カードを作成しました', 'success')
         setTimeout(() => {
-          store.hide()
+          toastStore.hide()
         }, 2000)
       }
     } catch (error) {
-      store.show('カードの作成に失敗しました', 'error')
+      toastStore.show('カードの作成に失敗しました', 'error')
       setTimeout(() => {
-        store.hide()
+        toastStore.hide()
       }, 2000)
     } finally {
       setIsLoading(false)

@@ -11,7 +11,7 @@ import { HistoryCardMenuItem } from './HistoryCardMenuItem'
 import { useRouter } from 'next/router'
 import { ConfirmModal } from '../common'
 import { useMutateCard } from '@/api/hooks/card/useMutateCard'
-import useStore from '@/store'
+import { useToastStore } from '@/store/useToastStore'
 import { controlScreenScroll } from '@/utils/controlScreenScroll'
 import { HistoryCardEditModal } from './HistoryCardEditModal'
 import { Period as TPeriod } from '@/api/models/card.model'
@@ -34,7 +34,7 @@ type HistoryCardMenuProps = {
 export const HistoryCardMenu: FC<HistoryCardMenuProps> = (props) => {
   const { data, user } = props
   const router = useRouter()
-  const store = useStore()
+  const toastStore = useToastStore()
   const [isOpen, setIsOpen] = useState(false)
 
   // 分析ページへ飛ばす処理
@@ -59,11 +59,11 @@ export const HistoryCardMenu: FC<HistoryCardMenuProps> = (props) => {
         cardData: { id: cardId },
         accessToken: user.access_token || '',
       })
-      store.show('カードを削除しました', 'success')
-      store.hide()
+      toastStore.show('カードを削除しました', 'success')
+      toastStore.hide()
     } catch (error) {
-      store.show('カードの削除に失敗しました', 'error')
-      store.hide()
+      toastStore.show('カードの削除に失敗しました', 'error')
+      toastStore.hide()
     }
     setIsConfirmModalOpen(false)
     controlScreenScroll(true)
