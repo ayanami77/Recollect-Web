@@ -19,7 +19,7 @@ type HistorySegmentProps = {
 export const HistorySegment: FC<HistorySegmentProps> = (props) => {
   const { children, period, user } = props
   const [isOpen, setIsOpen] = useState(false)
-  const handleOpen = () => {
+  const handleCreateModal = () => {
     controlScreenScroll(isOpen)
     setIsOpen((prev) => !prev)
   }
@@ -59,7 +59,7 @@ export const HistorySegment: FC<HistorySegmentProps> = (props) => {
               fontSize: 'md',
             },
           })}
-          onClick={handleOpen}
+          onClick={handleCreateModal}
           whileHover={{ scale: 1.02 }}
         >
           <FontAwesomeIcon
@@ -69,7 +69,9 @@ export const HistorySegment: FC<HistorySegmentProps> = (props) => {
           自分史を追加する
         </m.button>
       </div>
-      {isOpen && <HistoryCardCreateModal content={{ handleOpen, data: { period } }} user={user} />}
+      {isOpen && (
+        <HistoryCardCreateModal data={{ period }} handleModal={handleCreateModal} user={user} />
+      )}
     </>
   )
 }

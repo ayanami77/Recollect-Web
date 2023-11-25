@@ -145,13 +145,7 @@ export const HistoryCardMenu: FC<HistoryCardMenuProps> = (props) => {
         </ul>
       )}
       {isEditModalOpen && (
-        <HistoryCardEditModal
-          content={{
-            handleOpen: handleEditModal,
-            data,
-          }}
-          user={user}
-        />
+        <HistoryCardEditModal handleModal={handleEditModal} data={data} user={user} />
       )}
       {isConfirmModalOpen && (
         <ConfirmModal

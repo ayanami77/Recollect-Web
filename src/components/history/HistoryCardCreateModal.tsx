@@ -11,16 +11,15 @@ import { useToastStore } from '@/store/useToastStore'
 import { Session } from 'next-auth'
 
 type HistoryCardCreateModalProps = {
-  content: {
-    handleOpen: () => void
-    data: {
-      period: TPeriod
-    }
+  handleModal: () => void
+  data: {
+    period: TPeriod
   }
   user: Session['user']
 }
-export const HistoryCardCreateModal: FC<HistoryCardCreateModalProps> = ({ content, user }) => {
-  const { handleOpen, data } = content
+
+export const HistoryCardCreateModal: FC<HistoryCardCreateModalProps> = (props) => {
+  const { handleModal, data, user } = props
   const { createCardMutation } = useMutateCard()
   const toastStore = useToastStore()
   const {
@@ -49,8 +48,9 @@ export const HistoryCardCreateModal: FC<HistoryCardCreateModalProps> = ({ conten
     } catch (error) {
       toastStore.show('カードの作成に失敗しました', 'error')
       toastStore.hide()
+    } finally {
+      handleModal()
     }
-    handleOpen()
   }
 
   return (
@@ -157,7 +157,7 @@ export const HistoryCardCreateModal: FC<HistoryCardCreateModalProps> = ({ conten
                 cursor: 'pointer',
                 _hover: { bg: 'slate.300', transition: 'all 0.15s' },
               })}
-              onClick={handleOpen}
+              onClick={handleModal}
             >
               キャンセル
             </button>

@@ -13,22 +13,21 @@ import { useToastStore } from '@/store/useToastStore'
 import { Session } from 'next-auth'
 
 type HistoryCardEditModalProps = {
-  content: {
-    handleOpen: () => void
-    data: {
-      id: string
-      period: TPeriod
-      title: string
-      content: string
-      tags: string[]
-      createdAt: string
-      updatedAt: string
-    }
+  handleModal: () => void
+  data: {
+    id: string
+    period: TPeriod
+    title: string
+    content: string
+    tags: string[]
+    createdAt: string
+    updatedAt: string
   }
   user: Session['user']
 }
-export const HistoryCardEditModal: FC<HistoryCardEditModalProps> = ({ content, user }) => {
-  const { handleOpen, data } = content
+
+export const HistoryCardEditModal: FC<HistoryCardEditModalProps> = (props) => {
+  const { handleModal, data, user } = props
   const { updateCardMutation } = useMutateCard()
   const {
     register,
@@ -66,6 +65,8 @@ export const HistoryCardEditModal: FC<HistoryCardEditModalProps> = ({ content, u
     } catch (error) {
       toastStore.show('カードの更新に失敗しました', 'error')
       toastStore.hide()
+    } finally {
+      handleModal()
     }
   }
 
@@ -73,7 +74,7 @@ export const HistoryCardEditModal: FC<HistoryCardEditModalProps> = ({ content, u
     if (isEdited) {
       setIsConfirmModalOpen(true)
     } else {
-      handleOpen()
+      handleModal()
     }
   }
 
@@ -127,7 +128,7 @@ export const HistoryCardEditModal: FC<HistoryCardEditModalProps> = ({ content, u
               自分史を編集する
             </h2>
             <div className={vstack({ color: 'GrayText', mt: '8px', gap: '6px' })}>
-              <span>更新: {formatToDate(content.data.updatedAt)}</span>
+              <span>更新: {formatToDate(data.updatedAt)}</span>
             </div>
           </div>
           <form onSubmit={handleSubmit(onSubmitUpdate)} className={css({ mt: '8px' })}>
