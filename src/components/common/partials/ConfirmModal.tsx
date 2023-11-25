@@ -65,7 +65,7 @@ export const ConfirmModal: FC<ConfirmModalProps> = (props) => {
             justifyContent: 'space-between',
           })}
         >
-          <div className={css({ mt: '4px', color: 'dimGray' })}>
+          <div className={css({ mt: '4px' })}>
             <p>{content.message}</p>
           </div>
           <div className={hstack({ gap: '24px', fontSize: 'md', fontWeight: 'bold', ml: 'auto' })}>

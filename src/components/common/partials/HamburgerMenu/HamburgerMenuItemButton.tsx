@@ -4,39 +4,35 @@ import { css } from '../../../../../styled-system/css'
 import { hstack } from '../../../../../styled-system/patterns'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
 
-type HamburgerMenuItemProps = {
+type HamburgerMenuItemButtonProps = {
   title: string
-  path: string
   active: boolean
   yPos: number
   icon: IconDefinition
+  onClickFunc: () => void
 }
-export const HamburgerMenuItem: FC<HamburgerMenuItemProps> = (props) => {
-  const router = useRouter()
-  const { title, path, active, icon, yPos } = props
+export const HamburgerMenuItemButton: FC<HamburgerMenuItemButtonProps> = (props) => {
+  const { title, active, icon, yPos, onClickFunc } = props
 
   return (
-    <Link href={path}>
-      <m.li
+    <li
+      className={css({
+        listStyle: 'none',
+      })}
+    >
+      <m.button
         className={hstack({
           pos: 'absolute',
           top: 1,
           right: 0,
           w: '280px',
-          bg: router.pathname === path ? 'gray' : 'white',
+          bg: 'lightGray',
           p: '20px',
-          listStyle: 'none',
-          shadow: 'xl',
+          shadow: '2xl',
           rounded: 'xl',
           gap: '20px',
           visibility: active ? 'visible' : 'hidden',
-          _hover: {
-            bg: 'gray',
-            rounded: 'xl',
-          },
           md: {
             p: '20px',
           },
@@ -53,12 +49,13 @@ export const HamburgerMenuItem: FC<HamburgerMenuItemProps> = (props) => {
                 y: 0,
               }
         }
+        onClick={onClickFunc}
       >
         <FontAwesomeIcon icon={icon} style={{ width: '32px', height: '32px', color: '#0C4C97' }} />
         <span className={css({ fontWeight: 'bold', fontSize: 'xl', color: 'black ' })}>
           {title}
         </span>
-      </m.li>
-    </Link>
+      </m.button>
+    </li>
   )
 }

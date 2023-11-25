@@ -9,11 +9,17 @@ import {
   faClose,
   faMagnifyingGlassChart,
   faMapLocationDot,
+  faRightFromBracket,
   faUserGear,
 } from '@fortawesome/free-solid-svg-icons'
-import { HamburgerMenuItem } from './HamburgerMenuItem'
+import { HamburgerMenuItemLink } from './HamburgerMenuItemLink'
+import { HamburgerMenuItemButton } from './HamburgerMenuItemButton'
 
-export const HamburgerMenu: FC = () => {
+type HamburgerMenuProps = {
+  onClickFunc: () => void
+}
+export const HamburgerMenu: FC<HamburgerMenuProps> = (props) => {
+  const { onClickFunc } = props
   const [active, setActive] = useState(false)
 
   const handleMenu = () => {
@@ -59,26 +65,33 @@ export const HamburgerMenu: FC = () => {
             style={{ width: '32px', height: '32px', color: '0C4C97' }}
           />
         </m.div>
-        <HamburgerMenuItem
+        <HamburgerMenuItemLink
           title={'自分史を見る'}
           active={active}
           path={'/history'}
           icon={faMapLocationDot}
-          yPos={100}
+          yPos={90}
         />
-        <HamburgerMenuItem
+        <HamburgerMenuItemLink
           title={'自分史を分析する'}
           active={active}
           path={'/analysis'}
           icon={faMagnifyingGlassChart}
-          yPos={200}
+          yPos={180}
         />
-        <HamburgerMenuItem
+        <HamburgerMenuItemLink
           title={'ユーザ―情報'}
           active={active}
           path={'/user'}
           icon={faUserGear}
-          yPos={300}
+          yPos={270}
+        />
+        <HamburgerMenuItemButton
+          title={'ログアウト'}
+          active={active}
+          icon={faRightFromBracket}
+          yPos={360}
+          onClickFunc={onClickFunc}
         />
       </div>
     </>

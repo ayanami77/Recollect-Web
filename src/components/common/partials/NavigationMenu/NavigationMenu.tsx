@@ -1,22 +1,35 @@
 import { hstack } from '../../../../../styled-system/patterns'
 import {
+  faArrowRightFromBracket,
   faMagnifyingGlassChart,
   faMapLocationDot,
   faUserGear,
 } from '@fortawesome/free-solid-svg-icons'
-import { NavigationMenuItem } from './NavigationMenuItem'
+import { NavigationMenuItemLink } from './NavigationMenuItemLink'
+import { NavigationMenuItemButton } from './NavigationMenuItemButton'
+import { FC } from 'react'
 
-export const NavigationMenu = () => {
+type NavigationMenuProps = {
+  onClickFunc: () => void
+}
+
+export const NavigationMenu: FC<NavigationMenuProps> = (props) => {
+  const { onClickFunc } = props
   return (
     <nav>
       <ul className={hstack({ gap: '32px' })}>
-        <NavigationMenuItem title={'自分史をみる'} link={'/history'} icon={faMapLocationDot} />
-        <NavigationMenuItem
+        <NavigationMenuItemLink title={'自分史をみる'} link={'/history'} icon={faMapLocationDot} />
+        <NavigationMenuItemLink
           title={'自分史を分析する'}
           link={'/analysis'}
           icon={faMagnifyingGlassChart}
         />
-        <NavigationMenuItem title={'ユーザ―情報'} link={'/user'} icon={faUserGear} />
+        <NavigationMenuItemLink title={'ユーザ―情報'} link={'/user'} icon={faUserGear} />
+        <NavigationMenuItemButton
+          title={'ログアウト'}
+          icon={faArrowRightFromBracket}
+          onClickFunc={onClickFunc}
+        />
       </ul>
     </nav>
   )
