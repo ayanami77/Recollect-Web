@@ -64,7 +64,7 @@ export const HistoryContainer: FC<HistoryContainerProps> = (props) => {
                   rounded: '2xl',
                 })}
               >
-                自分史が登録されていません。
+                自分史が登録されていません
               </p>
             )}
           </HistorySegment>

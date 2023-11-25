@@ -153,7 +153,7 @@ export const HistoryCardCreateModal: FC<HistoryCardCreateModalProps> = ({ conten
                 py: '14px',
                 fontWeight: 'bold',
                 color: 'black',
-                rounded: 'xl',
+                rounded: 'lg',
                 cursor: 'pointer',
                 _hover: { bg: 'slate.300', transition: 'all 0.15s' },
               })}
@@ -168,8 +168,8 @@ export const HistoryCardCreateModal: FC<HistoryCardCreateModalProps> = ({ conten
                 backgroundColor: 'dimBlue',
                 fontWeight: 'bold',
                 padding: '10px 20px',
-                borderRadius: '10px',
                 color: 'white',
+                rounded: 'lg',
                 cursor: 'pointer',
                 _disabled: {
                   opacity: 0.8,
@@ -177,7 +177,7 @@ export const HistoryCardCreateModal: FC<HistoryCardCreateModalProps> = ({ conten
                 },
               })}
             >
-              作成
+              作成する
             </button>
           </div>
         </form>

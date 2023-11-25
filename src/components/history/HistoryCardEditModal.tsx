@@ -206,7 +206,7 @@ export const HistoryCardEditModal: FC<HistoryCardEditModalProps> = ({ content, u
                   py: '14px',
                   color: 'black',
                   fontWeight: 'bold',
-                  rounded: 'xl',
+                  rounded: 'lg',
                   cursor: 'pointer',
                   _hover: { bg: 'slate.300', transition: 'all 0.15s' },
                 })}
@@ -221,8 +221,8 @@ export const HistoryCardEditModal: FC<HistoryCardEditModalProps> = ({ content, u
                   backgroundColor: 'dimBlue',
                   fontWeight: 'bold',
                   padding: '10px 20px',
-                  borderRadius: '10px',
                   color: 'white',
+                  rounded: 'lg',
                   cursor: 'pointer',
                   _disabled: {
                     opacity: 0.8,
@@ -231,7 +231,7 @@ export const HistoryCardEditModal: FC<HistoryCardEditModalProps> = ({ content, u
                 })}
                 disabled={!isEdited}
               >
-                保存
+                保存する
               </button>
             </div>
           </form>

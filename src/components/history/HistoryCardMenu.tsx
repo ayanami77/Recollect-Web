@@ -159,7 +159,7 @@ export const HistoryCardMenu: FC<HistoryCardMenuProps> = (props) => {
             onCancel: handleConfirmModal,
             onConfirm: () => deleteCardByCardId(data.id),
             cancelMessage: 'キャンセル',
-            confirmMessage: '削除',
+            confirmMessage: '削除する',
             message: `本当にこの自分史を削除しますか？`,
           }}
         />
