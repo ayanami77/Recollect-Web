@@ -6,6 +6,7 @@ import { Period as TPeriod } from '@/api/models/card.model'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { CardMenu } from './CardMenu'
+import { Session } from 'next-auth'
 
 type CardProps = {
   data: {
@@ -17,10 +18,11 @@ type CardProps = {
     createdAt: string
     updatedAt: string
   }
+  user: Session['user']
 }
 
 export const Card: FC<CardProps> = (props) => {
-  const { data } = props
+  const { data, user } = props
   const [isExpanded, setIsExpanded] = useState(false)
 
   const handleExpand = () => {
@@ -42,7 +44,7 @@ export const Card: FC<CardProps> = (props) => {
         },
       })}
     >
-      <CardMenu data={data} />
+      <CardMenu data={data} user={user} />
       <h3
         className={css({
           fontSize: 'xl',

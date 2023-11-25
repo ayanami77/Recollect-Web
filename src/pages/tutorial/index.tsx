@@ -10,6 +10,9 @@ import {
   TutorialCard,
   TutorialProgressBar,
 } from '@/components/tutorial'
+import { GetServerSideProps } from 'next'
+import { Session, getServerSession } from 'next-auth'
+import { authOptions } from '../api/auth/[...nextauth]'
 
 type Card = {
   period: TPeriod
@@ -17,7 +20,11 @@ type Card = {
   content: string
 }
 
-export default function Tutorial() {
+type Props = {
+  user: Session['user']
+}
+
+export default function Tutorial({ user }: Props) {
   const progressStepSize = 100 / 6
   const [currentValue, setCurrentValue] = useState<number>(progressStepSize)
   const [cardPosition, setCardPosition] = useState<number>(0)
@@ -115,10 +122,29 @@ export default function Tutorial() {
               progressStepSize: progressStepSize,
               handleValidate: handleValidate,
             }}
+            user={user}
           />
         </div>
         <TutorialLeaveButton />
       </div>
     </>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getServerSession(req, res, authOptions)
+  const user = session?.user
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: { user },
+  }
 }

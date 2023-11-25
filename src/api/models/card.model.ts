@@ -16,8 +16,8 @@ export const cardFactory = () => {
   const repository = cardRepository
 
   return {
-    list: async (): Promise<Card[]> => {
-      const data = await repository.listCards()
+    list: async (accessToken: string): Promise<Card[]> => {
+      const data = await repository.listCards(accessToken)
       const cards = data.map((card) => {
         return {
           id: card.card_id,
@@ -32,8 +32,11 @@ export const cardFactory = () => {
       })
       return cards
     },
-    post: async (cardData: Pick<Card, 'title' | 'content' | 'period'>): Promise<Card> => {
-      const data = await repository.createCard(cardData)
+    post: async (
+      cardData: Pick<Card, 'title' | 'content' | 'period'>,
+      accessToken: string,
+    ): Promise<Card> => {
+      const data = await repository.createCard(cardData, accessToken)
       const card = {
         id: data.card_id,
         title: data.title,
@@ -48,8 +51,9 @@ export const cardFactory = () => {
     },
     batchPost: async (
       cardListData: Pick<Card, 'title' | 'content' | 'period'>[],
+      accessToken: string,
     ): Promise<Card[]> => {
-      const data = await repository.createCards(cardListData)
+      const data = await repository.createCards(cardListData, accessToken)
       const cards = data.map((card) => {
         return {
           id: card.card_id,
@@ -64,8 +68,8 @@ export const cardFactory = () => {
       })
       return cards
     },
-    update: async (cardData: Partial<Card>): Promise<Card> => {
-      const data = await repository.updateCard(cardData)
+    update: async (cardData: Partial<Card>, accessToken: string): Promise<Card> => {
+      const data = await repository.updateCard(cardData, accessToken)
       const card = {
         id: data.card_id,
         title: data.title,
@@ -78,6 +82,6 @@ export const cardFactory = () => {
       }
       return card
     },
-    delete: async (cardData: Pick<Card, 'id'>) => repository.deleteCard(cardData),
+    delete: async (cardData: Pick<Card, 'id'>, accessToken: string) => repository.deleteCard(cardData, accessToken)
   }
 }

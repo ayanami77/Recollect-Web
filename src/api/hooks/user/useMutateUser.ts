@@ -8,9 +8,14 @@ export const useMutateUser = () => {
   const router = useRouter()
 
   const signUpMutation = useMutation(
-    async (userCredential: UserCredential) => await userFactory().signUp(userCredential),
+    async (params: { userCredential: UserCredential; accessToken: string }) => {
+      const { userCredential, accessToken } = params
+      return await userFactory().signUp(userCredential, accessToken)
+    },
     {
-      onSuccess: () => {},
+      onSuccess: () => {
+        router.push('/history')
+      },
       onError: (err: FetchError) => {
         console.log(err)
       },
@@ -18,8 +23,9 @@ export const useMutateUser = () => {
   )
 
   const loginMutation = useMutation(
-    async (userCredential: UserCredential) => {
-      await userFactory().login(userCredential)
+    async (params: { userCredential: UserCredential; accessToken: string }) => {
+      const { userCredential, accessToken } = params
+      return await userFactory().login(userCredential, accessToken)
     },
     {
       onSuccess: () => {
@@ -32,12 +38,13 @@ export const useMutateUser = () => {
   )
 
   const logoutMutation = useMutation(
-    async () => {
-      await userFactory().logout()
+    async (params: { accessToken: string }) => {
+      const { accessToken } = params
+      return await userFactory().logout(accessToken)
     },
     {
       onSuccess: () => {
-        queryClient.clear() // 全てのcacheを削除する。
+        queryClient.clear() // Clear all cache
         router.push('/')
       },
       onError: (err: FetchError) => {
@@ -46,5 +53,34 @@ export const useMutateUser = () => {
     },
   )
 
-  return { signUpMutation, loginMutation, logoutMutation }
+  const idDuplicateMutation = useMutation(
+    async (params: { userId: string; accessToken: string }) => {
+      const { userId, accessToken } = params
+      return await userFactory().idDuplicateCheck(userId, accessToken)
+    },
+    {
+      onError: (err: FetchError) => {
+        console.log(err)
+      },
+    },
+  )
+
+  const emailDuplicateMutation = useMutation(
+    async (params: { email: string; accessToken: string }) => {
+      const { email, accessToken } = params
+      return await userFactory().emailDuplicateCheck(email, accessToken)
+    },
+    {
+      onError: (err: FetchError) => {
+        console.log(err)
+      },
+    },
+  )
+  return {
+    signUpMutation,
+    loginMutation,
+    logoutMutation,
+    idDuplicateMutation,
+    emailDuplicateMutation,
+  }
 }

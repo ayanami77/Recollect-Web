@@ -26,4 +26,16 @@ export const userHandler = [
   rest.post<UserCredential, any>('/users/logout', async (req, res, ctx) => {
     return res(ctx.status(204), ctx.cookie('mock_user_token', ''))
   }),
+
+  rest.post<UserCredential, any>('/users/id_duplicate_check', async (req, res, ctx) => {
+    const { userId } = await req.json()
+    console.log({ userId })
+    return res(ctx.json({ isDuplicate: false }))
+  }),
+
+  rest.post<UserCredential, any>('/users/email_duplicate_check', async (req, res, ctx) => {
+    const { email } = await req.json()
+    console.log({ email })
+    return res(ctx.json({ isDuplicate: false }))
+  }),
 ]

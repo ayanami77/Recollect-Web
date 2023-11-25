@@ -5,7 +5,10 @@ import { FetchError } from '@/api/clients/utils/fetchError'
 
 export const useMutateCard = () => {
   const createCardMutation = useMutation(
-    (cardData: Pick<Card, 'title' | 'content' | 'period'>) => cardFactory().post(cardData),
+    (params: { cardData: Pick<Card, 'title' | 'content' | 'period'>; accessToken: string }) => {
+      const { cardData, accessToken } = params
+      return cardFactory().post(cardData, accessToken)
+    },
     {
       onSuccess: (res) => {
         const previousCards = queryClient.getQueryData<Card[]>(['cards'])
@@ -20,7 +23,10 @@ export const useMutateCard = () => {
   )
 
   const createCardsMutation = useMutation(
-    (cardData: Pick<Card, 'title' | 'content' | 'period'>[]) => cardFactory().batchPost(cardData),
+    (params: { cardData: Pick<Card, 'title' | 'content' | 'period'>[]; accessToken: string }) => {
+      const { cardData, accessToken } = params
+      return cardFactory().batchPost(cardData, accessToken)
+    },
     {
       onSuccess: (res) => {
         const previousCards = queryClient.getQueryData<Card[]>(['cards'])
@@ -35,7 +41,10 @@ export const useMutateCard = () => {
   )
 
   const updateCardMutation = useMutation(
-    (cardData: Partial<Card>) => cardFactory().update(cardData),
+    (params: { cardData: Partial<Card>; accessToken: string }) => {
+      const { cardData, accessToken } = params
+      return cardFactory().update(cardData, accessToken)
+    },
     {
       onSuccess: (_, variables) => {
         const previousCards = queryClient.getQueryData<Card[]>(['cards'])
@@ -43,10 +52,10 @@ export const useMutateCard = () => {
           queryClient.setQueryData<Card[]>(
             ['cards'],
             previousCards.map((card) =>
-              card.id === variables.id
+              card.id === variables.cardData.id
                 ? {
                     ...card,
-                    ...variables,
+                    ...variables.cardData,
                   }
                 : card,
             ),
@@ -60,14 +69,17 @@ export const useMutateCard = () => {
   )
 
   const deleteUserMutation = useMutation(
-    (cardData: Pick<Card, 'id'>) => cardFactory().delete(cardData),
+    (params: { cardData: Pick<Card, 'id'>; accessToken: string }) => {
+      const { cardData, accessToken } = params
+      return cardFactory().delete(cardData, accessToken)
+    },
     {
       onSuccess: (_, variables) => {
         const previousCards = queryClient.getQueryData<Card[]>(['cards'])
         if (previousCards) {
           queryClient.setQueryData(
             ['cards'],
-            previousCards.filter((card) => card.id !== variables.id),
+            previousCards.filter((card) => card.id !== variables.cardData.id),
           )
         }
       },

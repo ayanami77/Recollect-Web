@@ -3,40 +3,26 @@ import { css } from '../../../styled-system/css'
 import { hstack, vstack } from '../../../styled-system/patterns'
 import { FC } from 'react'
 
-type TUsage = 'userId' | 'password'
+type TUsage = 'userId'
 type AuthFormControlProps = {
   errors: FieldErrors<{
     userId: string
-    password: string
   }>
   register: UseFormRegister<{
     userId: string
-    password: string
   }>
   usage: TUsage
 }
 
 const makeFormControl = (props: AuthFormControlProps) => {
   const { errors, register, usage } = props
-  switch (usage) {
-    case 'userId':
-      return {
-        label: 'ユーザ―ID',
-        type: 'text',
-        register: register(usage),
-        errorMessage: errors.userId?.message && (
-          <p className={css({ fontSize: 'xs', color: 'cinnabar' })}>{errors.userId.message}</p>
-        ),
-      }
-    case 'password':
-      return {
-        label: 'パスワード',
-        type: 'password',
-        register: register(usage),
-        errorMessage: errors.password?.message && (
-          <p className={css({ fontSize: 'xs', color: 'cinnabar' })}>{errors.password.message}</p>
-        ),
-      }
+    return {
+      label: 'ユーザ―ID',
+      type: 'text',
+      register: register(usage),
+      errorMessage: errors.userId?.message && (
+        <p className={css({ fontSize: 'xs', color: 'cinnabar' })}>{errors.userId.message}</p>
+      ),
   }
 }
 

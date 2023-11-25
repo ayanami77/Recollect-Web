@@ -1,20 +1,20 @@
 import { m } from 'framer-motion'
 import { FC } from 'react'
-import { css } from '../../../../styled-system/css'
-import { hstack } from '../../../../styled-system/patterns'
+import { css } from '../../../../../styled-system/css'
+import { hstack } from '../../../../../styled-system/patterns'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-type MenuItemLinkProps = {
+type HamburgerMenuItemProps = {
   title: string
   path: string
   active: boolean
   yPos: number
   icon: IconDefinition
 }
-export const MenuItemLink: FC<MenuItemLinkProps> = (props) => {
+export const HamburgerMenuItem: FC<HamburgerMenuItemProps> = (props) => {
   const router = useRouter()
   const { title, path, active, icon, yPos } = props
 

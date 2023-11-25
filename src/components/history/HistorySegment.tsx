@@ -8,14 +8,16 @@ import { useState } from 'react'
 import { controlScreenScroll } from '@/utils/controlScreenScroll'
 import { CardCreateModal } from './CardCreateModal'
 import { Period as TPeriod } from '@/api/models/card.model'
+import { Session } from 'next-auth'
 
 type HistorySegmentProps = {
   children: ReactNode
   period: TPeriod
+  user: Session['user']
 }
 
 export const HistorySegment: FC<HistorySegmentProps> = (props) => {
-  const { children, period } = props
+  const { children, period, user } = props
   const [isOpen, setIsOpen] = useState(false)
   const handleOpen = () => {
     controlScreenScroll(isOpen)
@@ -67,7 +69,7 @@ export const HistorySegment: FC<HistorySegmentProps> = (props) => {
           自分史を追加する
         </m.button>
       </div>
-      {isOpen && <CardCreateModal content={{ handleOpen, data: { period } }} />}
+      {isOpen && <CardCreateModal content={{ handleOpen, data: { period } }} user={user} />}
     </>
   )
 }

@@ -5,13 +5,15 @@ import { hstack } from '../../../styled-system/patterns'
 import { AnalysisBoard } from './AnalysisBoard'
 import { sortCardsByPeriod } from '@/components/history'
 import { Card as TCard } from '@/api/models/card.model'
+import { Session } from 'next-auth'
 
 type AnalysisContainerProps = {
   data: TCard[]
   cardId?: string | string[]
+  user: Session['user']
 }
 export const AnalysisContainer: FC<AnalysisContainerProps> = (props) => {
-  const { data, cardId } = props
+  const { data, cardId, user } = props
   const [index, setIndex] = useState(0)
 
   const makeAllCards = (data: TCard[]) => {
@@ -52,7 +54,7 @@ export const AnalysisContainer: FC<AnalysisContainerProps> = (props) => {
       })}
     >
       {allCards.length ? (
-        <AnalysisBoard content={allCards[index]} next={next} prev={prev} />
+        <AnalysisBoard content={allCards[index]} next={next} prev={prev} user={user} />
       ) : (
         <div className={css({ px: '20px', py: '16px' })}>
           自分史が作成されていません。

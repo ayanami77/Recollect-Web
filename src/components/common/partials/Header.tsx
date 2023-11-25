@@ -1,10 +1,9 @@
 import Image from 'next/image'
-import Link from 'next/link'
-import { Menu } from './Menu'
 import { useRouter } from 'next/router'
 import { hstack } from '../../../../styled-system/patterns'
 import { css } from '../../../../styled-system/css'
-import { NavigationMenu } from './NavigationMenu'
+import { HamburgerMenu } from './HamburgerMenu/HamburgerMenu'
+import { NavigationMenu } from './NavigationMenu/NavigationMenu'
 
 export const Header = () => {
   const router = useRouter()
@@ -40,37 +39,9 @@ export const Header = () => {
           </div>
           {/* ハンバーガーメニュー */}
           <div className={css({ display: 'block', md: { display: 'none' } })}>
-            <Menu />
+            <HamburgerMenu />
           </div>
         </>
-      )}
-      {router.pathname === '/' && (
-        <Link href={'/login'}>
-          <span
-            className={css({
-              p: '8px',
-              fontWeight: 'bold',
-              fontSize: 'sm',
-              border: 'solid',
-              borderColor: 'skyBlue',
-              color: 'skyBlue',
-              rounded: 'lg',
-              cursor: 'pointer',
-              md: {
-                fontSize: 'md',
-                p: '12px',
-              },
-              _hover: {
-                bg: 'skyBlue',
-                color: 'white',
-                borderColor: 'skyBlue',
-                transition: 'all 0.15s',
-              },
-            })}
-          >
-            ログイン
-          </span>
-        </Link>
       )}
     </header>
   )

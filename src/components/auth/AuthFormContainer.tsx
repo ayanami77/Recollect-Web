@@ -16,15 +16,6 @@ const makeFormContainer = (props: AuthFormContainerProps) => {
     case 'signup':
       return {
         title: 'アカウント登録',
-        link: (
-          <p className={css({ fontSize: '14px' })}>
-            既にアカウントをお持ちの方は
-            <Link href={'/login'}>
-              <span className={css({ color: 'blue.400' })}>こちら</span>
-            </Link>
-            から
-          </p>
-        ),
       }
     case 'login':
       return {

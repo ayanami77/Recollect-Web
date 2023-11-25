@@ -1,4 +1,4 @@
-import { Hero, SignUp } from '@/components/entrance'
+import { Hero, Signin } from '@/components/entrance'
 import { CommonMeta } from '@/components/common'
 import { ContentsWrapper } from '@/components/common'
 
@@ -8,7 +8,7 @@ const Entrance = () => {
       <CommonMeta title={'Recollect'} description={'Recollectというサービスの紹介ページです。'} />
       <ContentsWrapper>
         <Hero />
-        <SignUp />
+        <Signin />
       </ContentsWrapper>
     </>
   )
