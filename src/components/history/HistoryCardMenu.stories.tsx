@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { CardMenu } from './CardMenu'
+import { HistoryCardMenu } from './HistoryCardMenu'
 
 //👇 This default export determines where your story goes in the story list
-const meta: Meta<typeof CardMenu> = {
-  title: 'Compornent/History/CardMenu',
-  component: CardMenu,
+const meta: Meta<typeof HistoryCardMenu> = {
+  title: 'Compornent/History/HistoryCardMenu',
+  component: HistoryCardMenu,
 }
 
 export default meta
-type Story = StoryObj<typeof CardMenu>
+type Story = StoryObj<typeof HistoryCardMenu>
 
 export const Default: Story = {
   args: {

@@ -9,26 +9,25 @@ import { Backdrop } from '@/components/common/partials/Backdrop'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CardValidationSchema, TCardValidationSchema } from '@/libs/validations/cardValidation'
 import { formatToDate } from '@/libs/dayjs'
-import useStore from '@/store'
+import { useToastStore } from '@/store/useToastStore'
 import { Session } from 'next-auth'
 
-type CardEditModalProps = {
-  content: {
-    handleOpen: () => void
-    data: {
-      id: string
-      period: TPeriod
-      title: string
-      content: string
-      tags: string[]
-      createdAt: string
-      updatedAt: string
-    }
-  },
+type HistoryCardEditModalProps = {
+  handleModal: () => void
+  data: {
+    id: string
+    period: TPeriod
+    title: string
+    content: string
+    tags: string[]
+    createdAt: string
+    updatedAt: string
+  }
   user: Session['user']
 }
-export const CardEditModal: FC<CardEditModalProps> = ({ content, user }) => {
-  const { handleOpen, data } = content
+
+export const HistoryCardEditModal: FC<HistoryCardEditModalProps> = (props) => {
+  const { handleModal, data, user } = props
   const { updateCardMutation } = useMutateCard()
   const {
     register,
@@ -46,7 +45,7 @@ export const CardEditModal: FC<CardEditModalProps> = ({ content, user }) => {
   const [isEdited, setIsEdited] = useState(false)
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false)
 
-  const store = useStore()
+  const toastStore = useToastStore()
 
   const onSubmitUpdate: SubmitHandler<TCardValidationSchema> = async (d) => {
     try {
@@ -57,19 +56,17 @@ export const CardEditModal: FC<CardEditModalProps> = ({ content, user }) => {
           title: d.title,
           content: d.content,
         },
-        accessToken: user.access_token || '', 
-      });
+        accessToken: user.access_token || '',
+      })
       if (res) {
-        store.show('カードを更新しました', 'success');
-        setTimeout(() => {
-          store.hide();
-        }, 2000);
+        toastStore.show('カードを更新しました', 'success')
+        toastStore.hide()
       }
     } catch (error) {
-      store.show('カードの更新に失敗しました', 'error')
-      setTimeout(() => {
-        store.hide()
-      }, 2000)
+      toastStore.show('カードの更新に失敗しました', 'error')
+      toastStore.hide()
+    } finally {
+      handleModal()
     }
   }
 
@@ -77,7 +74,7 @@ export const CardEditModal: FC<CardEditModalProps> = ({ content, user }) => {
     if (isEdited) {
       setIsConfirmModalOpen(true)
     } else {
-      handleOpen()
+      handleModal()
     }
   }
 
@@ -131,7 +128,7 @@ export const CardEditModal: FC<CardEditModalProps> = ({ content, user }) => {
               自分史を編集する
             </h2>
             <div className={vstack({ color: 'GrayText', mt: '8px', gap: '6px' })}>
-              <span>更新: {formatToDate(content.data.updatedAt)}</span>
+              <span>更新: {formatToDate(data.updatedAt)}</span>
             </div>
           </div>
           <form onSubmit={handleSubmit(onSubmitUpdate)} className={css({ mt: '8px' })}>
@@ -210,7 +207,7 @@ export const CardEditModal: FC<CardEditModalProps> = ({ content, user }) => {
                   py: '14px',
                   color: 'black',
                   fontWeight: 'bold',
-                  rounded: 'xl',
+                  rounded: 'lg',
                   cursor: 'pointer',
                   _hover: { bg: 'slate.300', transition: 'all 0.15s' },
                 })}
@@ -225,8 +222,8 @@ export const CardEditModal: FC<CardEditModalProps> = ({ content, user }) => {
                   backgroundColor: 'dimBlue',
                   fontWeight: 'bold',
                   padding: '10px 20px',
-                  borderRadius: '10px',
                   color: 'white',
+                  rounded: 'lg',
                   cursor: 'pointer',
                   _disabled: {
                     opacity: 0.8,
@@ -235,7 +232,7 @@ export const CardEditModal: FC<CardEditModalProps> = ({ content, user }) => {
                 })}
                 disabled={!isEdited}
               >
-                保存
+                保存する
               </button>
             </div>
           </form>

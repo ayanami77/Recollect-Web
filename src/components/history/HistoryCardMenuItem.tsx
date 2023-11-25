@@ -3,13 +3,13 @@ import { hstack } from '../../../styled-system/patterns'
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { FC } from 'react'
 
-type CardMenuItemProps = {
+type HistoryCardMenuItemProps = {
   icon: IconDefinition
   color: string
   title: string
   onClickFunc: () => void
 }
-export const CardMenuItem: FC<CardMenuItemProps> = (props) => {
+export const HistoryCardMenuItem: FC<HistoryCardMenuItemProps> = (props) => {
   const { icon, color, title, onClickFunc } = props
   return (
     <li
@@ -25,8 +25,8 @@ export const CardMenuItem: FC<CardMenuItemProps> = (props) => {
           rounded: 'xl',
         },
         md: {
-          fontSize: 'lg'
-        }
+          fontSize: 'lg',
+        },
       })}
       onClick={onClickFunc}
     >

@@ -1,10 +1,10 @@
 import { Card as TCard, Period as TPeriod } from '@/api/models/card.model'
 import { vstack } from '../../../styled-system/patterns'
-import { Card } from './Card'
+import { HistoryCard } from './HistoryCard'
 import { HistorySegment } from './HistorySegment'
 import { FC } from 'react'
 import { Toast } from '../common'
-import useStore from '@/store'
+import { useToastStore } from '@/store/useToastStore'
 import { Session } from 'next-auth'
 
 const period_with_number = {
@@ -36,7 +36,7 @@ type HistoryContainerProps = {
 export const HistoryContainer: FC<HistoryContainerProps> = (props) => {
   const { data, user } = props
   const allCards = sortCardsByPeriod(data)
-  const store = useStore()
+  const toastStore = useToastStore()
 
   return (
     <div
@@ -52,7 +52,7 @@ export const HistoryContainer: FC<HistoryContainerProps> = (props) => {
           <HistorySegment key={index} period={period} user={user}>
             {cards.length ? (
               cards.map((card) => {
-                return <Card data={card} key={card.id} user={user} />
+                return <HistoryCard data={card} key={card.id} user={user} />
               })
             ) : (
               <p
@@ -64,7 +64,7 @@ export const HistoryContainer: FC<HistoryContainerProps> = (props) => {
                   rounded: '2xl',
                 })}
               >
-                自分史が登録されていません。
+                自分史が登録されていません
               </p>
             )}
           </HistorySegment>
@@ -73,9 +73,9 @@ export const HistoryContainer: FC<HistoryContainerProps> = (props) => {
 
       <Toast
         content={{
-          status: store.type,
-          message: store.message,
-          isShow: store.isShow,
+          status: toastStore.type,
+          message: toastStore.message,
+          isShow: toastStore.isShow,
         }}
       />
     </div>

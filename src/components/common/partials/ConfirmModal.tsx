@@ -40,8 +40,8 @@ export const ConfirmModal: FC<ConfirmModalProps> = (props) => {
           p: '24px',
           rounded: '3xl',
           alignItems: 'start',
-          w: '600px',
-          h: '280px',
+          w: '540px',
+          h: '240px',
           shadow: '2xl',
         })}
         onClick={(e) => e.stopPropagation()}
@@ -65,7 +65,7 @@ export const ConfirmModal: FC<ConfirmModalProps> = (props) => {
             justifyContent: 'space-between',
           })}
         >
-          <div className={css({ mt: '12px', color: 'dimGray' })}>
+          <div className={css({ mt: '4px' })}>
             <p>{content.message}</p>
           </div>
           <div className={hstack({ gap: '24px', fontSize: 'md', fontWeight: 'bold', ml: 'auto' })}>
@@ -74,7 +74,7 @@ export const ConfirmModal: FC<ConfirmModalProps> = (props) => {
                 bg: 'slate.100',
                 px: '18px',
                 py: '14px',
-                rounded: 'xl',
+                rounded: 'lg',
                 cursor: 'pointer',
                 _hover: { bg: 'slate.200', transition: 'all 0.15s' },
               })}
@@ -85,7 +85,7 @@ export const ConfirmModal: FC<ConfirmModalProps> = (props) => {
             <button
               className={hstack({
                 p: '16px',
-                rounded: '2xl',
+                rounded: 'lg',
                 color: 'cinnabar',
                 cursor: 'pointer',
               })}

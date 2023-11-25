@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Card } from './Card'
+import { HistoryCard } from './HistoryCard'
 
 //👇 This default export determines where your story goes in the story list
-const meta: Meta<typeof Card> = {
-  title: 'Compornent/History/Card',
-  component: Card,
+const meta: Meta<typeof HistoryCard> = {
+  title: 'Compornent/History/HistoryCard',
+  component: HistoryCard,
 }
 
 export default meta
-type Story = StoryObj<typeof Card>
+type Story = StoryObj<typeof HistoryCard>
 
 export const HasAnalysis: Story = {
   args: {

@@ -5,12 +5,12 @@ import { FC } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-type NavigationMenuItemProps = {
+type NavigationMenuItemLinkProps = {
   title: string
   link: string
   icon: IconDefinition
 }
-export const NavigationMenuItem: FC<NavigationMenuItemProps> = (props) => {
+export const NavigationMenuItemLink: FC<NavigationMenuItemLinkProps> = (props) => {
   const { title, link, icon } = props
   const router = useRouter()
 

@@ -7,22 +7,21 @@ import { Period as TPeriod } from '@/api/models/card.model'
 import { Backdrop } from '@/components/common/partials/Backdrop'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CardValidationSchema, TCardValidationSchema } from '@/libs/validations/cardValidation'
-import useStore from '@/store'
+import { useToastStore } from '@/store/useToastStore'
 import { Session } from 'next-auth'
 
-type CardCreateModalProps = {
-  content: {
-    handleOpen: () => void
-    data: {
-      period: TPeriod
-    }
+type HistoryCardCreateModalProps = {
+  handleModal: () => void
+  data: {
+    period: TPeriod
   }
   user: Session['user']
 }
-export const CardCreateModal: FC<CardCreateModalProps> = ({ content, user }) => {
-  const { handleOpen, data } = content
+
+export const HistoryCardCreateModal: FC<HistoryCardCreateModalProps> = (props) => {
+  const { handleModal, data, user } = props
   const { createCardMutation } = useMutateCard()
-  const store = useStore()
+  const toastStore = useToastStore()
   const {
     register,
     handleSubmit,
@@ -43,18 +42,15 @@ export const CardCreateModal: FC<CardCreateModalProps> = ({ content, user }) => 
         accessToken: user.access_token || '',
       })
       if (res) {
-        store.show('カードを作成しました', 'success')
-        setTimeout(() => {
-          store.hide()
-        }, 2000)
+        toastStore.show('カードを作成しました', 'success')
+        toastStore.hide()
       }
     } catch (error) {
-      store.show('カードの作成に失敗しました', 'error')
-      setTimeout(() => {
-        store.hide()
-      }, 2000)
+      toastStore.show('カードの作成に失敗しました', 'error')
+      toastStore.hide()
+    } finally {
+      handleModal()
     }
-    handleOpen()
   }
 
   return (
@@ -157,11 +153,11 @@ export const CardCreateModal: FC<CardCreateModalProps> = ({ content, user }) => 
                 py: '14px',
                 fontWeight: 'bold',
                 color: 'black',
-                rounded: 'xl',
+                rounded: 'lg',
                 cursor: 'pointer',
                 _hover: { bg: 'slate.300', transition: 'all 0.15s' },
               })}
-              onClick={handleOpen}
+              onClick={handleModal}
             >
               キャンセル
             </button>
@@ -172,8 +168,8 @@ export const CardCreateModal: FC<CardCreateModalProps> = ({ content, user }) => 
                 backgroundColor: 'dimBlue',
                 fontWeight: 'bold',
                 padding: '10px 20px',
-                borderRadius: '10px',
                 color: 'white',
+                rounded: 'lg',
                 cursor: 'pointer',
                 _disabled: {
                   opacity: 0.8,
@@ -181,7 +177,7 @@ export const CardCreateModal: FC<CardCreateModalProps> = ({ content, user }) => 
                 },
               })}
             >
-              作成
+              作成する
             </button>
           </div>
         </form>

@@ -1,2 +1,2 @@
-export * from './Hero'
-export * from './Signin'
+export * from './EntranceHero'
+export * from './EntranceSigninButton'
