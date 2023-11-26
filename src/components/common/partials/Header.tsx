@@ -17,10 +17,8 @@ export const Header = () => {
   }
 
   const onSubmitLogout = async () => {
-    // The session will be deleted, and the useSession hook is notified, so any indication about the user will be shown as logged out automatically.
-    await signOut({
-      callbackUrl: 'http://localhost:3000/signin',
-    })
+    // セッションが削除されるため、SSRによって/signinへリダイレクトされる。
+    await signOut()
   }
 
   return (
