@@ -9,6 +9,7 @@ import { controlScreenScroll } from '@/utils/controlScreenScroll'
 import { HistoryCardCreateModal } from './HistoryCardCreateModal'
 import { Period as TPeriod } from '@/api/models/card.model'
 import { Session } from 'next-auth'
+import { toPeriodStringFromNumber } from '@/utils/toPeriodStringFromNumber'
 
 type HistorySegmentProps = {
   children: ReactNode
@@ -38,7 +39,7 @@ export const HistorySegment: FC<HistorySegmentProps> = (props) => {
       >
         <div className={hstack({ justify: 'space-between' })}>
           <h2 className={css({ fontSize: '2xl', w: 'fit', fontWeight: 'bold', pl: '12px' })}>
-            {period}
+            {toPeriodStringFromNumber(period)}
           </h2>
         </div>
         <div className={vstack({ justify: 'start', gap: '24px', mt: '12px' })}>{children}</div>

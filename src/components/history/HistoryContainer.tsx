@@ -7,25 +7,15 @@ import { Toast } from '../common'
 import { useToastStore } from '@/store/useToastStore'
 import { Session } from 'next-auth'
 
-const period_with_number = {
-  現在まで: 0,
-  高校生: 1,
-  中学生: 2,
-  小学生: 3,
-  幼少期: 4,
-}
-
 export const sortCardsByPeriod = (data: TCard[]) => {
-  const result = []
-  for (let i = 0; i < Object.keys(period_with_number).length; i++) {
-    const arr = []
-    for (const d of data) {
-      if (period_with_number[d.period] === i) {
-        arr.push(d)
-      }
-    }
-    result.push(arr)
+  const result: { [key: string]: TCard[] } = {
+    '0': [],
+    '1': [],
+    '2': [],
+    '3': [],
+    '4': [],
   }
+  for (const d of data) result[d.period].push(d)
   return result
 }
 
@@ -46,12 +36,11 @@ export const HistoryContainer: FC<HistoryContainerProps> = (props) => {
         my: '24px',
       })}
     >
-      {allCards.map((cards, index) => {
-        const period = Object.keys(period_with_number)[index] as TPeriod
+      {Object.keys(allCards).map((period) => {
         return (
-          <HistorySegment key={index} period={period} user={user}>
-            {cards.length ? (
-              cards.map((card) => {
+          <HistorySegment key={period} period={period as TPeriod} user={user}>
+            {allCards[period].length ? (
+              allCards[period].map((card) => {
                 return <HistoryCard data={card} key={card.id} user={user} />
               })
             ) : (

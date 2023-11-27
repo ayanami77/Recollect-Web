@@ -17,13 +17,16 @@ export const AnalysisContainer: FC<AnalysisContainerProps> = (props) => {
   const [index, setIndex] = useState(0)
 
   const makeAllCards = (data: TCard[]) => {
-    const sortedCards = sortCardsByPeriod(data).flat()
+    const sortedCards = sortCardsByPeriod(data)
+    const allCards = Object.keys(sortedCards)
+      .map((period) => sortedCards[period])
+      .flat()
     if (cardId) {
-      const pos = sortedCards.findIndex((v) => v.id === cardId)
-      const newArr = [...sortedCards.splice(pos), ...sortedCards]
+      const pos = allCards.findIndex((v) => v.id === cardId)
+      const newArr = [...allCards.splice(pos), ...allCards]
       return newArr
     }
-    return sortedCards
+    return allCards
   }
 
   const allCards = makeAllCards(data)
