@@ -30,27 +30,27 @@ export default function Tutorial({ user }: Props) {
   const [cardPosition, setCardPosition] = useState<number>(0)
   const [cardList, setCardList] = useState<Card[]>([
     {
-      period: '幼少期',
+      period: '0',
       title: '',
       content: '',
     },
     {
-      period: '小学生',
+      period: '1',
       title: '',
       content: '',
     },
     {
-      period: '中学生',
+      period: '2',
       title: '',
       content: '',
     },
     {
-      period: '高校生',
+      period: '3',
       title: '',
       content: '',
     },
     {
-      period: '現在まで',
+      period: '4',
       title: '',
       content: '',
     },
