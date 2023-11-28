@@ -1,6 +1,6 @@
 import { cardRepository } from '../repositories/card.repository'
 
-export type Period = '現在まで' | '高校生' | '中学生' | '小学生' | '幼少期'
+export type Period = '0' | '1' | '2' | '3' | '4'
 export type Card = {
   id: string
   period: Period
@@ -82,6 +82,7 @@ export const cardFactory = () => {
       }
       return card
     },
-    delete: async (cardData: Pick<Card, 'id'>, accessToken: string) => repository.deleteCard(cardData, accessToken)
+    delete: async (cardData: Pick<Card, 'id'>, accessToken: string) =>
+      repository.deleteCard(cardData, accessToken),
   }
 }

@@ -12,6 +12,6 @@ type Story = StoryObj<typeof HistorySegment>
 
 export const Default: Story = {
   args: {
-    period: '高校生',
+    period: '1',
   },
 }

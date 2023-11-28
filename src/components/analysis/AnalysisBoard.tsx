@@ -15,18 +15,11 @@ import { AnalysisIsAnalyzingIcon } from './AnalysisIsAnalyzingIcon'
 import { AnalysisMobileSwitchButton } from './AnalysisMobileSwitchButton'
 import { AnalysisPCSwitchButton } from './AnalysisPCSwitchButton'
 import { Session } from 'next-auth'
+import { Card as TCard } from '@/api/models/card.model'
+import { toPeriodStringFromNumber } from '@/utils/toPeriodStringFromNumber'
 
 type AnalysisBoardProps = {
-  content: {
-    id: string
-    period: string
-    title: string
-    content: string
-    analysisResult: string
-    tags: string[]
-    createdAt: string
-    updatedAt: string
-  }
+  content: TCard
   user: Session['user']
   next: () => void
   prev: () => void
@@ -103,7 +96,7 @@ export const AnalysisBoard: FC<AnalysisBoardProps> = (props) => {
             px: '12px',
           })}
         >
-          {content.period}
+          {toPeriodStringFromNumber(content.period)}
         </h2>
         {/* モバイル表示でのボタン */}
         <div
