@@ -19,7 +19,7 @@ export const NavigationMenuItemButton: FC<NavigationMenuItemButtonProps> = (prop
           className={hstack({
             fontWeight: 'bold',
             p: '12px',
-            rounded: '2xl',
+            rounded: 'xl',
             bg: 'transparent',
             shadow: 'none',
           })}

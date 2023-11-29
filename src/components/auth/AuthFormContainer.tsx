@@ -62,7 +62,7 @@ export const AuthFormContainer: FC<AuthFormContainerProps> = (props) => {
             color: 'white',
             fontWeight: 'bold',
             rounded: 'xl',
-            mt: '20px',
+            mt: '32px',
             cursor: 'pointer',
           })}
         >

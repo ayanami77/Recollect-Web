@@ -4,7 +4,7 @@ import { css } from '../../../styled-system/css'
 import { center, hstack, vstack } from '../../../styled-system/patterns'
 import ReactMarkdown from 'react-markdown'
 import { useMutateOpenAIResponse } from '@/api/hooks/openai/useMutateOpenAi'
-import { FeatureTag } from '@/components/common'
+import { CharacteristicTag } from '@/components/common'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faChevronLeft,
@@ -57,7 +57,7 @@ export const AnalysisBoard: FC<AnalysisBoardProps> = (props) => {
         p: '14px',
         bg: 'blue.200',
         rounded: '3xl',
-        shadow: 'xl',
+        shadow: 'lg',
         md: { w: '780px', p: '24px' },
         pos: 'relative',
       })}
@@ -126,7 +126,7 @@ export const AnalysisBoard: FC<AnalysisBoardProps> = (props) => {
           py: '20px',
           bg: 'white',
           rounded: '14px',
-          shadow: 'xl',
+          shadow: 'md',
           md: {
             p: '24px',
           },
@@ -140,7 +140,7 @@ export const AnalysisBoard: FC<AnalysisBoardProps> = (props) => {
             {content.tags.length > 0 ? (
               <div className={hstack({ flexWrap: 'wrap' })}>
                 {content.tags.map((tag, index) => (
-                  <FeatureTag key={index} name={tag} />
+                  <CharacteristicTag key={index} name={tag} />
                 ))}
               </div>
             ) : (

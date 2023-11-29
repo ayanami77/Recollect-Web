@@ -1,11 +1,11 @@
 import { FC } from 'react'
 import { css } from '../../../../styled-system/css'
 
-type FeatureTagProps = {
+type CharacteristicTagProps = {
   name: string
 }
 
-export const FeatureTag: FC<FeatureTagProps> = (props) => {
+export const CharacteristicTag: FC<CharacteristicTagProps> = (props) => {
   const { name } = props
 
   return (

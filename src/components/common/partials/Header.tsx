@@ -40,9 +40,11 @@ export const Header = () => {
           className={css({ md: { w: '200px', h: '80px' }, w: '160px', h: '60px', pos: 'relative' })}
         >
           <Image
-            src={'/logo.png'}
+            src={'/img/logo.png'}
             alt={'Recollectのロゴ'}
             fill
+            sizes='100%'
+            priority
             className={css({ objectFit: 'contain' })}
           />
         </div>

@@ -33,7 +33,7 @@ export const HistoryContainer: FC<HistoryContainerProps> = (props) => {
       className={vstack({
         w: 'full',
         gap: '32px',
-        my: '24px',
+        mt: '40px',
       })}
     >
       {Object.keys(allCards).map((period) => {

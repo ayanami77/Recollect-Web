@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import { css } from '../../../styled-system/css'
 import { hstack } from '../../../styled-system/patterns'
-import { FeatureTag } from '@/components/common'
+import { CharacteristicTag } from '@/components/common'
 import { Period as TPeriod } from '@/api/models/card.model'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
@@ -61,12 +61,12 @@ export const HistoryCard: FC<HistoryCardProps> = (props) => {
           {data.tags.length > 0 ? (
             <div className={hstack({ flexWrap: 'wrap' })}>
               {data.tags.map((tag, index) => (
-                <FeatureTag key={index} name={tag} />
+                <CharacteristicTag key={index} name={tag} />
               ))}
             </div>
           ) : (
-            <p className={css({ color: 'dimBlue', fontSize: 'sm', md: { fontSize: 'md' } })}>
-              分析をするとあなたの特性が表示されます。
+            <p className={css({ color: 'lightGreen', fontSize: 'sm', md: { fontSize: 'md' } })}>
+              分析をするとあなたの特性が表示されます
             </p>
           )}
         </div>

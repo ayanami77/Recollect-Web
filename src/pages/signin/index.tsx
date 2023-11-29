@@ -8,7 +8,7 @@ import Image from 'next/image'
 const Signin = () => {
   return (
     <>
-      <CommonMeta title={'Recollect - サインイン'} description={'サインインページです。'} />
+      <CommonMeta title={'Recollect - サインイン'} description={'Recollectにサインインする'} />
       <ContentsWrapper>
         <div
           className={css({
@@ -23,24 +23,30 @@ const Signin = () => {
             <h2 className={css({ fontSize: '2xl', fontWeight: 'bold' })}>サインイン</h2>
             <div className={vstack({ alignItems: 'center', gap: '18px', w: 'full' })}>
               <p>サインインすることで、Recollectのサービスを利用することができます。</p>
-              <button
-                className={hstack({
-                  w: '320px',
-                  px: '18px',
-                  py: '16px',
-                  bg: 'white',
-                  fontWeight: 'bold',
-                  rounded: 'md',
-                  shadow: 'md',
-                  cursor: 'pointer',
-                  justify: 'center',
-                  gap: '16px',
+              <div
+                className={css({
+                  p: '24px',
                 })}
-                onClick={() => signIn('google')}
               >
-                <Image src='/google.png' width={20} height={20} alt='googleのアイコン' />
-                Googleでサインインする
-              </button>
+                <button
+                  className={hstack({
+                    w: '320px',
+                    px: '18px',
+                    py: '16px',
+                    bg: 'white',
+                    fontWeight: 'bold',
+                    rounded: 'md',
+                    shadow: 'md',
+                    cursor: 'pointer',
+                    justify: 'center',
+                    gap: '16px',
+                  })}
+                  onClick={() => signIn('google')}
+                >
+                  <Image src='/img/google.png' width={20} height={20} alt='googleのアイコン' />
+                  Googleでサインインする
+                </button>
+              </div>
             </div>
           </div>
         </div>

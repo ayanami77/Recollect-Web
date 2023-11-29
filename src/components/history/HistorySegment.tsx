@@ -33,7 +33,7 @@ export const HistorySegment: FC<HistorySegmentProps> = (props) => {
           p: '14px',
           bg: 'blue.200',
           rounded: '3xl',
-          shadow: 'xl',
+          shadow: 'lg',
           md: { p: '24px' },
         })}
       >

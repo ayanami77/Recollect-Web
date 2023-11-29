@@ -49,7 +49,10 @@ export default function Signup({ user }: Props) {
   }
   return (
     <>
-      <CommonMeta title={'Recollect - アカウント登録'} description={'アカウント登録ページです。'} />
+      <CommonMeta
+        title={'Recollect - アカウント登録'}
+        description={'Recollectの利用にあたって、アカウント登録をする。'}
+      />
       <ContentsWrapper>
         <AuthFormContainer formType={'signup'} onSubmit={handleSubmit(onSubmitSignUp)}>
           <AuthFormControl errors={errors} register={register} usage={'userId'} />
