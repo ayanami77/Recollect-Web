@@ -35,64 +35,75 @@ export const ConfirmModal: FC<ConfirmModalProps> = (props) => {
   return (
     <Backdrop onClick={() => false}>
       <m.div
-        className={vstack({
-          bg: 'white',
-          p: '24px',
-          rounded: '3xl',
-          alignItems: 'start',
+        className={css({
           w: '540px',
-          h: '240px',
-          shadow: '2xl',
+          px: '12px',
+          md: {
+            px: '0px',
+          },
         })}
         onClick={(e) => e.stopPropagation()}
         variants={fadeIn}
       >
-        <div className={hstack({ gap: '16px', pl: '8px' })}>
-          <div>
-            <FontAwesomeIcon
-              icon={faTriangleExclamation}
-              style={{ width: '42px', height: '42px', color: '#c2da3c' }}
-            />
-          </div>
-          <h2 className={css({ fontSize: '2xl', fontWeight: 'bold' })}>確認</h2>
-        </div>
-        <div className={css({ w: 'full', h: '4px', bg: 'lightgrey' })} />
         <div
           className={vstack({
-            w: 'full',
-            h: '180px',
             alignItems: 'start',
-            justifyContent: 'space-between',
+            h: '240px',
+            p: '24px',
+            bg: 'white',
+            rounded: '3xl',
+            shadow: '2xl',
           })}
         >
-          <div className={css({ mt: '4px' })}>
-            <p>{content.message}</p>
+          <div className={hstack({ gap: '16px', pl: '8px' })}>
+            <div>
+              <FontAwesomeIcon
+                icon={faTriangleExclamation}
+                style={{ width: '42px', height: '42px', color: '#c2da3c' }}
+              />
+            </div>
+            <h2 className={css({ fontSize: '2xl', fontWeight: 'bold' })}>確認</h2>
           </div>
-          <div className={hstack({ gap: '24px', fontSize: 'md', fontWeight: 'bold', ml: 'auto' })}>
-            <button
-              className={hstack({
-                bg: 'slate.100',
-                px: '18px',
-                py: '14px',
-                rounded: 'lg',
-                cursor: 'pointer',
-                _hover: { bg: 'slate.200', transition: 'all 0.15s' },
-              })}
-              onClick={content.onCancel}
+          <div className={css({ w: 'full', h: '4px', bg: 'lightgrey' })} />
+          <div
+            className={vstack({
+              w: 'full',
+              h: '180px',
+              alignItems: 'start',
+              justifyContent: 'space-between',
+            })}
+          >
+            <div className={css({ mt: '4px' })}>
+              <p>{content.message}</p>
+            </div>
+            <div
+              className={hstack({ gap: '24px', fontSize: 'md', fontWeight: 'bold', ml: 'auto' })}
             >
-              {content.cancelMessage}
-            </button>
-            <button
-              className={hstack({
-                p: '16px',
-                rounded: 'lg',
-                color: 'cinnabar',
-                cursor: 'pointer',
-              })}
-              onClick={content.onConfirm}
-            >
-              {content.confirmMessage}
-            </button>
+              <button
+                className={hstack({
+                  bg: 'slate.100',
+                  px: '18px',
+                  py: '14px',
+                  rounded: 'lg',
+                  cursor: 'pointer',
+                  _hover: { bg: 'slate.200', transition: 'all 0.15s' },
+                })}
+                onClick={content.onCancel}
+              >
+                {content.cancelMessage}
+              </button>
+              <button
+                className={hstack({
+                  p: '16px',
+                  rounded: 'lg',
+                  color: 'cinnabar',
+                  cursor: 'pointer',
+                })}
+                onClick={content.onConfirm}
+              >
+                {content.confirmMessage}
+              </button>
+            </div>
           </div>
         </div>
       </m.div>

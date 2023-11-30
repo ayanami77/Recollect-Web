@@ -17,8 +17,8 @@ const History = ({ user }: Props) => {
   return (
     <>
       <CommonMeta
-        title={'Recollect - 自分史'}
-        description={'自分史を時系列で見ることができます。'}
+        title={'Recollect - 自分史をみる'}
+        description={'自分史を整理し、時系列順で見ることができます。'}
       />
       <FadeInWrapper>
         <ContentsWrapper>
