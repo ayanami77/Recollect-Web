@@ -23,11 +23,7 @@ type HistoryCardProps = {
 
 export const HistoryCard: FC<HistoryCardProps> = (props) => {
   const { data, user } = props
-  const [isExpanded, setIsExpanded] = useState(false)
-
-  const handleExpand = () => {
-    setIsExpanded((prev) => !prev)
-  }
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
     <div
@@ -74,9 +70,9 @@ export const HistoryCard: FC<HistoryCardProps> = (props) => {
       <div
         className={css({
           borderColor: 'gray',
-          overflow: isExpanded ? 'auto' : 'hidden',
-          textOverflow: isExpanded ? '' : 'ellipsis',
-          whiteSpace: isExpanded ? 'normal' : 'nowrap',
+          overflow: isOpen ? 'auto' : 'hidden',
+          textOverflow: isOpen ? '' : 'ellipsis',
+          whiteSpace: isOpen ? 'normal' : 'nowrap',
           fontSize: 'sm',
           color: 'dimGray',
           mt: '16px',
@@ -96,11 +92,11 @@ export const HistoryCard: FC<HistoryCardProps> = (props) => {
           color: 'black',
           cursor: 'pointer',
         })}
-        onClick={handleExpand}
+        onClick={() => setIsOpen((prev) => !prev)}
       >
-        {isExpanded ? '詳細をとじる' : '詳細をみる'}
+        {isOpen ? '詳細をとじる' : '詳細をみる'}
         <FontAwesomeIcon
-          icon={isExpanded ? faChevronUp : faChevronDown}
+          icon={isOpen ? faChevronUp : faChevronDown}
           className={css({ w: '20px', h: '20px', color: 'black' })}
         />
       </button>

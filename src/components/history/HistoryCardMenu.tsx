@@ -116,7 +116,7 @@ export const HistoryCardMenu: FC<HistoryCardMenuProps> = (props) => {
             right: '24px',
             rounded: 'xl',
             shadow: '2xl',
-            border: '1px solid',
+            border: '2px solid',
             borderColor: 'gray',
             md: {
               w: '172px',
@@ -130,12 +130,14 @@ export const HistoryCardMenu: FC<HistoryCardMenuProps> = (props) => {
             title={'分析する'}
             onClickFunc={navigateToAnalysis}
           />
+          <div className={css({ w: 'full', h: '2px', bg: 'gray' })} />
           <HistoryCardMenuItem
             icon={faEdit}
             color='green'
             title={'編集する'}
             onClickFunc={handleEditModal}
           />
+          <div className={css({ w: 'full', h: '2px', bg: 'gray' })} />
           <HistoryCardMenuItem
             icon={faTrash}
             color='red'

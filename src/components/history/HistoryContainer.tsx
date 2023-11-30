@@ -1,7 +1,7 @@
 import { Card as TCard, Period as TPeriod } from '@/api/models/card.model'
 import { vstack } from '../../../styled-system/patterns'
 import { HistoryCard } from './HistoryCard'
-import { HistorySegment } from './HistorySegment'
+import { HistorySection } from './HistorySection'
 import { FC } from 'react'
 import { Toast } from '../common'
 import { useToastStore } from '@/store/useToastStore'
@@ -38,13 +38,13 @@ export const HistoryContainer: FC<HistoryContainerProps> = (props) => {
     >
       {Object.keys(allCards).map((period) => {
         return (
-          <HistorySegment key={period} period={period as TPeriod} user={user}>
+          <HistorySection key={period} period={period as TPeriod} user={user}>
             {allCards[period].length ? (
               allCards[period].map((card) => {
                 return <HistoryCard data={card} key={card.id} user={user} />
               })
             ) : (
-              <p
+              <span
                 className={vstack({
                   w: 'full',
                   p: '8px',
@@ -54,9 +54,9 @@ export const HistoryContainer: FC<HistoryContainerProps> = (props) => {
                 })}
               >
                 自分史が登録されていません
-              </p>
+              </span>
             )}
-          </HistorySegment>
+          </HistorySection>
         )
       })}
 

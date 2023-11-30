@@ -144,36 +144,40 @@ export const HistoryCardEditModal: FC<HistoryCardEditModalProps> = (props) => {
                   {...register('title')}
                 />
               </div>
+
+              {errors.title?.message && (
+                <p className={css({ color: 'cinnabar', fontSize: 'sm' })}>{errors.title.message}</p>
+              )}
             </div>
-            {errors.title?.message && (
-              <p className={css({ color: 'cinnabar', fontSize: 'sm' })}>{errors.title.message}</p>
-            )}
-          </div>
-          <div>
-            <label htmlFor='' className={css({ fontSize: 'md', fontWeight: 'bold', minW: '60px' })}>
-              内容
-            </label>
-            <textarea
-              defaultValue={data.content}
-              className={css({
-                width: '100%',
-                minH: '320px',
-                p: '8px',
-                mt: '8px',
-                borderWidth: '2px',
-                borderColor: 'slate.400',
-                outline: 'none',
-                resize: 'none',
-                rounded: 'md',
-                _focus: {
-                  borderColor: 'blue.500',
-                },
-              })}
-              {...register('content')}
-            />
-            {errors.content?.message && (
-              <p className={css({ color: 'cinnabar' })}>{errors.content.message}</p>
-            )}
+            <div>
+              <label
+                htmlFor=''
+                className={css({ fontSize: 'md', fontWeight: 'bold', minW: '60px' })}
+              >
+                内容
+              </label>
+              <textarea
+                defaultValue={data.content}
+                className={css({
+                  width: '100%',
+                  minH: '320px',
+                  p: '8px',
+                  mt: '8px',
+                  borderWidth: '2px',
+                  borderColor: 'slate.400',
+                  outline: 'none',
+                  resize: 'none',
+                  rounded: 'md',
+                  _focus: {
+                    borderColor: 'blue.500',
+                  },
+                })}
+                {...register('content')}
+              />
+              {errors.content?.message && (
+                <p className={css({ color: 'cinnabar' })}>{errors.content.message}</p>
+              )}
+            </div>
           </div>
           <div className={flex({ justifyContent: 'end', gap: '10px' })}>
             <button
