@@ -17,14 +17,28 @@ export const Toast: FC<ToastProps> = (props) => {
   return (
     <AnimatePresence>
       {content.isShow && (
-        <div className={css({ position: 'fixed', top: '24px', right: '24px', zIndex: 100 })}>
+        <div
+          className={css({
+            position: 'fixed',
+            top: '0',
+            right: '0',
+            zIndex: 100,
+            md: {
+              top: '24px',
+              right: '24px',
+            },
+          })}
+        >
           <m.div
             className={css({
               position: 'relative',
               bg: content.status === 'success' ? 'green.100' : 'red.100',
-              w: '320px',
-              rounded: '16px',
+              w: '100vw',
+              rounded: 'lg',
               shadow: '2xl',
+              md: {
+                w: '320px',
+              },
             })}
             initial={{
               y: -200,

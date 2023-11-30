@@ -58,11 +58,11 @@ export const HistoryCardEditModal: FC<HistoryCardEditModalProps> = (props) => {
         accessToken: user.access_token || '',
       })
       if (res) {
-        toastStore.show('カードを更新しました', 'success')
+        toastStore.show('自分史を更新しました', 'success')
         toastStore.hide()
       }
     } catch (error) {
-      toastStore.show('カードの更新に失敗しました', 'error')
+      toastStore.show('自分史を更新できませんでした', 'error')
       toastStore.hide()
     } finally {
       handleModal()

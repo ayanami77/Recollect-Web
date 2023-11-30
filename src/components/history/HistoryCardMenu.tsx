@@ -59,10 +59,10 @@ export const HistoryCardMenu: FC<HistoryCardMenuProps> = (props) => {
         cardData: { id: cardId },
         accessToken: user.access_token || '',
       })
-      toastStore.show('カードを削除しました', 'success')
+      toastStore.show('自分史を削除しました', 'success')
       toastStore.hide()
     } catch (error) {
-      toastStore.show('カードの削除に失敗しました', 'error')
+      toastStore.show('自分史を削除できませんでした', 'error')
       toastStore.hide()
     }
     setIsConfirmModalOpen(false)

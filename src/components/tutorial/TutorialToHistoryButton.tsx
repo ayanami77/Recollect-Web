@@ -39,13 +39,13 @@ export const TutorialToHistoryButton: FC<TutorialToHistoryButtonProps> = ({ cont
         accessToken: user.access_token || '',
       })
       if (res) {
-        toastStore.show('カードを作成しました', 'success')
+        toastStore.show('自分史を作成しました', 'success')
         setTimeout(() => {
           toastStore.hide()
         }, 2000)
       }
     } catch (error) {
-      toastStore.show('カードの作成に失敗しました', 'error')
+      toastStore.show('自分史を作成できませんでした', 'error')
       setTimeout(() => {
         toastStore.hide()
       }, 2000)

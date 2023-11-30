@@ -42,11 +42,11 @@ export const HistoryCardCreateModal: FC<HistoryCardCreateModalProps> = (props) =
         accessToken: user.access_token || '',
       })
       if (res) {
-        toastStore.show('カードを作成しました', 'success')
+        toastStore.show('自分史を作成しました', 'success')
         toastStore.hide()
       }
     } catch (error) {
-      toastStore.show('カードの作成に失敗しました', 'error')
+      toastStore.show('自分史を作成できませんでした', 'error')
       toastStore.hide()
     } finally {
       handleModal()
