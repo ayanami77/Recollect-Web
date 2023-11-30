@@ -88,7 +88,7 @@ export const AnalysisBoard: FC<AnalysisBoardProps> = (props) => {
         />
       </div>
 
-      <div className={hstack({ justify: 'space-between', minH: '48px' })}>
+      <div className={hstack({ justify: 'space-between' })}>
         <h2
           className={css({
             fontSize: '2xl',
