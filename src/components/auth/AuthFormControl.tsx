@@ -2,6 +2,7 @@ import { FieldErrors, UseFormRegister } from 'react-hook-form'
 import { css } from '../../../styled-system/css'
 import { hstack, vstack } from '../../../styled-system/patterns'
 import { FC } from 'react'
+import { ValidationMessage } from '../common/partials/ValidationMessage'
 
 type TUsage = 'userId'
 type AuthFormControlProps = {
@@ -16,13 +17,11 @@ type AuthFormControlProps = {
 
 const makeFormControl = (props: AuthFormControlProps) => {
   const { errors, register, usage } = props
-    return {
-      label: 'ユーザ―ID',
-      type: 'text',
-      register: register(usage),
-      errorMessage: errors.userId?.message && (
-        <p className={css({ fontSize: 'xs', color: 'cinnabar' })}>{errors.userId.message}</p>
-      ),
+  return {
+    label: 'ユーザ―ID',
+    type: 'text',
+    register: register(usage),
+    errorMessage: errors.userId?.message && <ValidationMessage message={errors.userId.message} />,
   }
 }
 

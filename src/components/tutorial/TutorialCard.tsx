@@ -5,6 +5,7 @@ import { flex, hstack, vstack } from '../../../styled-system/patterns'
 import { TutorialPCSwitchButton } from '.'
 import { TutorialMobileSwitchButton } from './TutorialMobileSwitchButton'
 import { toPeriodStringFromNumber } from '@/utils/toPeriodStringFromNumber'
+import { ValidationMessage } from '../common/partials/ValidationMessage'
 
 type TutorialCard = {
   period: TPeriod
@@ -130,6 +131,7 @@ export const TutorialCard: FC<TutorialCardProps> = (props) => {
           className={css({
             h: '40px',
             p: '8px',
+            mb: '4px',
             borderBottom: '2px solid',
             borderColor: 'slate.400',
             outline: 'none',
@@ -140,11 +142,7 @@ export const TutorialCard: FC<TutorialCardProps> = (props) => {
           })}
         />
       </div>
-      {isValidated && (
-        <span className={css({ color: 'cinnabar', mt: '4px', fontSize: 'sm' })}>
-          タイトルは必須です。
-        </span>
-      )}
+      {isValidated && <ValidationMessage message={'タイトルは必須です。'} />}
       <div
         className={vstack({
           mt: '12px',

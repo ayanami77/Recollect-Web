@@ -9,6 +9,7 @@ import { CardValidationSchema, TCardValidationSchema } from '@/libs/validations/
 import { useToastStore } from '@/store/useToastStore'
 import { Session } from 'next-auth'
 import { HistoryCardModalBase } from './base/HistoryCardModalBase'
+import { ValidationMessage } from '../common/partials/ValidationMessage'
 
 type HistoryCardCreateModalProps = {
   handleModal: () => void
@@ -122,9 +123,7 @@ export const HistoryCardCreateModal: FC<HistoryCardCreateModalProps> = (props) =
               })}
               {...register('content')}
             />
-            {errors.content?.message && (
-              <p className={css({ color: 'cinnabar' })}>{errors.content.message}</p>
-            )}
+            {errors.content?.message && <ValidationMessage message={errors.content.message} />}
           </div>
         </div>
         <div className={flex({ justifyContent: 'end', gap: '10px' })}>
