@@ -116,7 +116,7 @@ export const HistoryCardMenu: FC<HistoryCardMenuProps> = (props) => {
             right: '24px',
             rounded: 'xl',
             shadow: '2xl',
-            border: '2px solid',
+            borderWidth: '2px',
             borderColor: 'gray',
             md: {
               w: '172px',
