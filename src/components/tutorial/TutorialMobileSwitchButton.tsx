@@ -38,31 +38,6 @@ export const TutorialMobileSwitchButton: FC<TutorialMobileSwitchButtonProps> = (
       ) : (
         <FontAwesomeIcon icon={faChevronRight} style={{ width: '24px', height: '24px' }} />
       )}
-
-      {/* <m.button
-      onClick={onClick}
-      className={center({
-        p: '8px',
-        cursor: 'pointer',
-        bg: 'dimBlue',
-        color: 'white',
-        rounded: 'xl',
-        _hover: {
-          opacity: 0.9,
-        },
-        _disabled: {
-          opacity: '0.8',
-          cursor: 'default',
-        },
-        md: {
-          p: '12px',
-        },
-      })}
-      disabled={isDisabled}
-      whileTap={{ scale: 0.9 }}
-    >
-      <FontAwesomeIcon icon={icon} style={{ width: '24px', height: '24px' }} />
-    </m.button> */}
     </m.button>
   )
 }
