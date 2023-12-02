@@ -10,7 +10,14 @@ export const TutorialProgressBar: FC<TutorialProgressBarProps> = ({ currentValue
   const progressValue = `${currentValue}%`
   return (
     <div className={vstack({ mt: '30px' })}>
-      <div className={hstack({ gap: '28', fontWeight: 'bold' })}>
+      <div
+        className={hstack({
+          gap: '20',
+          fontWeight: 'bold',
+          display: 'none',
+          md: { display: 'flex' },
+        })}
+      >
         <p>幼少期</p>
         <p>小学生</p>
         <p>中学生</p>
@@ -19,7 +26,7 @@ export const TutorialProgressBar: FC<TutorialProgressBarProps> = ({ currentValue
       </div>
       <div
         className={css({
-          width: '900px',
+          width: 'full',
           border: 'solid 3px',
           borderColor: 'lightGreen',
           borderRadius: '20px',

@@ -1,5 +1,5 @@
 import { m } from 'framer-motion'
-import { Dispatch, FC, SetStateAction, useState } from 'react'
+import { Dispatch, FC, SetStateAction, useReducer } from 'react'
 import { css } from '../../../styled-system/css'
 import { useRouter } from 'next/router'
 import { Period as TPeriod } from '@/api/models/card.model'
@@ -14,44 +14,43 @@ type Card = {
 }
 
 type TutorialToHistoryButtonProps = {
-  content: {
-    cardList: Card[]
-    cardPosition: number
-    progressStepSize: number
-    setCurrentValue: Dispatch<SetStateAction<number>>
-    handleValidate: () => boolean
-  }
+  cardList: Card[]
+  cardPosition: number
+  progressStepSize: number
+  setCurrentValue: Dispatch<SetStateAction<number>>
+  handleValidate: () => boolean
   user: Session['user']
 }
-export const TutorialToHistoryButton: FC<TutorialToHistoryButtonProps> = ({ content, user }) => {
+export const TutorialToHistoryButton: FC<TutorialToHistoryButtonProps> = (props) => {
+  const { cardList, cardPosition, progressStepSize, setCurrentValue, handleValidate, user } = props
   const router = useRouter()
   const toastStore = useToastStore()
-  const [isLoading, setIsLoading] = useState(false)
+  const [submitted, updateSubmitted] = useReducer(() => true, false)
   const { createCardsMutation } = useMutateCard()
 
   const handleSubmit = async () => {
-    if (content.handleValidate()) return
-    content.setCurrentValue((prevValue) => Math.min(prevValue + content.progressStepSize, 100))
-    setIsLoading(true)
+    if (handleValidate()) {
+      return
+    }
+
+    setCurrentValue((prevValue) => Math.min(prevValue + progressStepSize, 100))
+    updateSubmitted()
+
     try {
       const res = await createCardsMutation.mutateAsync({
-        cardData: content.cardList,
+        cardData: cardList,
         accessToken: user.access_token || '',
       })
       if (res) {
         toastStore.show('自分史を作成しました', 'success')
-        setTimeout(() => {
-          toastStore.hide()
-        }, 2000)
+        toastStore.hide()
       }
     } catch (error) {
       toastStore.show('自分史を作成できませんでした', 'error')
-      setTimeout(() => {
-        toastStore.hide()
-      }, 2000)
+      toastStore.hide()
     } finally {
-      setIsLoading(false)
-      router.push('/history') // TODO:成功失敗関わらず、historyへ送るようにしておく。
+      // 成功失敗関わらず、historyへ送るようにしておく
+      router.push('/history')
     }
   }
 
@@ -60,20 +59,20 @@ export const TutorialToHistoryButton: FC<TutorialToHistoryButtonProps> = ({ cont
       className={css({
         w: '200px',
         color: 'white',
-        bg: isLoading ? 'dimGray' : 'dimBlue',
+        bg: submitted ? 'dimGray' : 'dimBlue',
         rounded: 'lg',
         p: '10px',
         cursor: 'pointer',
         fontSize: '20px',
         fontWeight: 'bold',
         mt: '20px',
-        visibility: content.cardPosition === 4 ? 'visible' : 'hidden',
+        visibility: cardPosition === 4 ? 'visible' : 'hidden',
       })}
-      disabled={isLoading}
+      disabled={submitted}
       onClick={() => handleSubmit()}
-      whileTap={{ scale: isLoading ? 1 : 0.9 }}
+      whileTap={{ scale: submitted ? 1 : 0.9 }}
     >
-      {isLoading ? '読み込み中...' : '自分史を見る！'}
+      {submitted ? '読み込み中...' : '自分史を見る！'}
     </m.button>
   )
 }
