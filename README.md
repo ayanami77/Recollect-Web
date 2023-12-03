@@ -1,31 +1,85 @@
 # Recollect-Web
 
-- vercel deploy  
-  https://recollect-web-ten.vercel.app/
+自分史作成アプリ「Recollect」のフロントエンドです。
 
-## セットアップ
+## 技術スタック
 
-1. モジュールをインストール
+**Recollect-Web**は主に以下の技術スタックで構成されています。
+
+- Next.js - Pages Router
+- TypeScript
+- Panda CSS
+- Framer Motion
+- react-hook-form
+- zod
+- TanStack Query
+- zustand
+- swagger-typescript-api
+- OpenAI API
+
+また、テストライブラリとして次のものを利用しています。
+
+- eslint
+- Jest
+- React Testing Library
+- Storybook
+- msw
+
+## CI/CD
+
+現在、Github Actionsでテストを回しています。
+
+## 環境構築
+
+1. `node_modules`をインストール
 
 ```sh
 pnpm i
 ```
 
-2. プロジェクトの起動
+2. `.env.example`をコピーして、`.env`をルート直下に置いてください。
+
+```sh
+cp .env.example .env
+```
+
+3. アプリケーションの起動
 
 ```sh
 pnpm run dev
 ```
 
-## 作業の流れ
+3. huskyの準備
 
-本プロジェクトでは、github projectsを使用しタスク管理を行いたいと思います。
+```sh
+pnpx husky install
+```
 
-1. まずprojectsにおいて、TableまたはBoardからタスクを切ります。その際、`convert to issue`を押してレポジトリを選択すると、自動的にissueが立ちます。
-2. develop からブランチを切ります。その際、ブランチ名は`feature/作業内容-名前`とします。例えば、`feature/create-card-component-seiya`みたいな感じ。
-3. 作業が終わったら、add, commit, push でリモートに送ります。
+4. Panda CSSの`styled-system`が無い場合
 
-- コミットメッセージに prefix を付けよう。
+```sh
+pnpm prepare
+```
+
+## openapi.yamlからTSの型を生成する
+
+次のコマンドを打ってください。
+
+```sh
+pnpm codegen
+```
+
+## Storybook
+
+Storybookは以下のコマンドで立ち上がります。
+
+```sh
+pnpm storybook
+```
+
+## 作業時の注意
+
+- コミットメッセージには prefix を付けよう。
   - `feat:` .. 何か機能を実装した時
   - `update:` .. 機能やスタイルは変わらず、実装を更新した時
   - `wip:` .. 作業は途中だが一旦 push しておきたい時
@@ -33,5 +87,14 @@ pnpm run dev
   - `fix:` .. 機能のバグの修正時
   - `chore:` .. ライブラリや補助ツールを導入したい時など
   - `docs:` .. ドキュメントの更新時
+- PR作成時
+  - 基本、PRのテンプレートに沿って記入してください。（場合によっては内容の省略ok）
+  - また、本プロジェクトではgithub projectsを利用してタスク管理を行っているので、それをもとにissueを立ててくれると嬉しいです。
 
-4. PR を作ります。その際、issueと結びつけることを忘れずに。
+## ユースケース図
+
+![image](https://github.com/Seiya-Tagami/Recollect-Web/assets/125894090/9f1815e8-0c8b-46cd-8b2b-8d5992109832)
+
+## ドメインモデル図
+
+![image](https://github.com/Seiya-Tagami/Recollect-Web/assets/125894090/c94d009a-f24e-437e-8b39-14e70ac19691)

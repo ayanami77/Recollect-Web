@@ -1,0 +1,29 @@
+@startuml
+left to right direction
+actor 利用者 as u
+package 自分史 {
+usecase "自分史を作成する" as UC001
+usecase "自分史を編集する" as UC002
+usecase "自分史を削除する" as UC003
+usecase "自分史一覧を見る" as UC004
+usecase "自分史を分析する" as UC005
+usecase "自分史の分析結果を見る" as UC006
+}
+package ユーザー管理 {
+usecase "ユーザー情報を見る" as UC101
+usecase "ユーザー情報を変更する" as UC102
+usecase "ログインする" as UC103
+usecase "ログアウトする" as UC104
+}
+
+u --> UC001
+u --> UC002
+u --> UC003
+u --> UC004
+u --> UC005
+u --> UC006
+u --> UC101
+u --> UC102
+u --> UC103
+u --> UC104
+@enduml

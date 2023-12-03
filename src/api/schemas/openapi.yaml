@@ -1,0 +1,218 @@
+openapi: '3.0.3'
+
+info:
+  title: 'Recollect API'
+  description: 'RecollectのサービスのAPIです。'
+  version: '1.0.0'
+
+servers:
+  - url: 'http://localhost:8080'
+    description: 'ローカル環境'
+  - url: 'http://example.com'
+    description: '本番環境'
+
+tags:
+  - name: 'cards'
+    description: '自分史の操作'
+  - name: 'users'
+    description: 'ユーザ―の操作'
+
+paths:
+  '/cards':
+    get:
+      summary: '自分史一覧の取得'
+      tags: ['cards']
+      deprecated: false
+      parameters:
+        - name: user_token
+          in: cookie
+          schema: { type: string }
+      responses:
+        '200':
+          description: '成功'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cards'
+    post:
+      summary: '自分史の作成'
+      tags: ['cards']
+      deprecated: false
+      parameters:
+        - name: user_token
+          in: cookie
+          schema: { type: string }
+      requestBody:
+        description: '作成内容'
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title: { type: string, example: '高校生' }
+                period: { type: string, example: '高校生' }
+                content:
+                  {
+                    type: string,
+                    example: '毎週、教科書で出てくるような有名な実験から面白い実験まで色々なことをしていました。etc ...',
+                  }
+      responses:
+        '200':
+          description: '成功'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+  '/cards/{cardId}':
+    patch:
+      summary: '自分史の更新'
+      tags: ['cards']
+      deprecated: false
+      parameters:
+        - name: user_token
+          in: cookie
+          schema: { type: string }
+      requestBody:
+        description: '更新内容'
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title: { type: string, example: '高校生' }
+                period: { type: string, example: '高校生' }
+                content:
+                  {
+                    type: string,
+                    example: '毎週、教科書で出てくるような有名な実験から面白い実験まで色々なことをしていました。etc ...',
+                  }
+      responses:
+        '200':
+          description: '成功'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+    delete:
+      summary: '自分史の削除'
+      tags: ['cards']
+      deprecated: false
+      parameters:
+        - name: user_token
+          in: cookie
+          schema: { type: string }
+      responses:
+        '204':
+          description: '成功'
+
+  '/users/login':
+    post:
+      summary: 'ログイン'
+      tags: ['users']
+      deprecated: false
+      requestBody:
+        description: 'ログイン情報'
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id: { type: string, example: 'user8864' }
+                password: { type: string, example: 'password' }
+      responses:
+        '204':
+          description: '成功'
+  '/users/signup':
+    post:
+      summary: 'サインアップ'
+      tags: ['users']
+      deprecated: false
+      requestBody:
+        description: 'サインアップ情報'
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id: { type: string, example: 'user8864' }
+                password: { type: string, example: 'password' }
+      responses:
+        '200':
+          description: '成功'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  '/users/logout':
+    post:
+      summary: 'ログアウト'
+      tags: ['users']
+      deprecated: false
+      responses:
+        '204':
+          description: '成功'
+  '/users/{userId}':
+    patch:
+      summary: 'ユーザ―情報の更新'
+      tags: ['users']
+      deprecated: false
+      responses:
+        '200':
+          description: '成功'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+
+components:
+  schemas:
+    Card:
+      type: object
+      properties:
+        card_id: { type: string, example: '0' }
+        period: { type: string, enum: ['0', '1', '2', '3', '4'] }
+        title: { type: string, example: '文系でも化学部が楽しかった話!' }
+        content:
+          {
+            type: string,
+            example: '毎週、教科書で出てくるような有名な実験から面白い実験まで色々なことをしていました。etc ...',
+          }
+        tags: { type: array, items: { type: string }, example: ['実験好き', '好奇心'] }
+        analysis_result:
+          {
+            type: string,
+            example: '- **実験好き**: 文章の中で毎週実験をしていたことや実験を通じてわくわく感を感じていたことから、実験に対する興味や好奇心があることが分かります。 etc ...',
+          }
+        created_at: { type: string, example: '2023-09-01T12:14:57.548Z' }
+        updated_at: { type: string, example: '2023-09-01T12:14:57.548Z' }
+      required:
+        - card_id
+        - period
+        - title
+        - created_at
+        - updated_at
+    Cards:
+      type: object
+      properties:
+        cards:
+          type: array
+          items:
+            $ref: '#/components/schemas/Card'
+      required:
+        - cards
+    User:
+      type: object
+      properties:
+        user_id: { type: string, example: 'user8864' }
+        user_name: { type: string, example: 'reco_user' }
+        created_at: { type: string, example: '2023-09-01T12:14:57.548Z' }
+        updated_at: { type: string, example: '2023-09-01T12:14:57.548Z' }
+      required:
+        - user_id
+        - user_name
+        - created_at
+        - updated_at
