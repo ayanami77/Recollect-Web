@@ -45,7 +45,7 @@ export const HamburgerMenuItemLink: FC<HamburgerMenuItemLinkProps> = (props) => 
           animate={
             active
               ? {
-                  x: -0,
+                  x: 0,
                   y: yPos,
                 }
               : {

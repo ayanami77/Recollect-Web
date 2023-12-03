@@ -65,35 +65,35 @@ export const HamburgerMenu: FC<HamburgerMenuProps> = (props) => {
             style={{ width: '32px', height: '32px', color: '0C4C97' }}
           />
         </m.div>
-        <HamburgerMenuItemLink
-          title={'自分史を見る'}
-          active={active}
-          path={'/history'}
-          icon={faMapLocationDot}
-          yPos={90}
-        />
-        <HamburgerMenuItemLink
-          title={'自分史を分析する'}
-          active={active}
-          path={'/analysis'}
-          icon={faMagnifyingGlassChart}
-          yPos={180}
-        />
-        <HamburgerMenuItemLink
-          title={'ユーザ―情報'}
-          active={active}
-          path={'/user'}
-          icon={faUserGear}
-          yPos={270}
-        />
-        <HamburgerMenuItemButton
-          title={'ログアウト'}
-          active={active}
-          icon={faRightFromBracket}
-          yPos={360}
-          onClickFunc={onClickFunc}
-        />
       </div>
+      <HamburgerMenuItemLink
+        title={'自分史を見る'}
+        active={active}
+        path={'/history'}
+        icon={faMapLocationDot}
+        yPos={90}
+      />
+      <HamburgerMenuItemLink
+        title={'自分史を分析する'}
+        active={active}
+        path={'/analysis'}
+        icon={faMagnifyingGlassChart}
+        yPos={180}
+      />
+      <HamburgerMenuItemLink
+        title={'ユーザ―情報'}
+        active={active}
+        path={'/user'}
+        icon={faUserGear}
+        yPos={270}
+      />
+      <HamburgerMenuItemButton
+        title={'ログアウト'}
+        active={active}
+        icon={faRightFromBracket}
+        yPos={360}
+        onClickFunc={onClickFunc}
+      />
     </>
   )
 }

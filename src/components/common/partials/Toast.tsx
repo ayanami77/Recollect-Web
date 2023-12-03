@@ -20,11 +20,11 @@ export const Toast: FC<ToastProps> = (props) => {
         <div
           className={css({
             position: 'fixed',
-            top: '0',
+            bottom: '0',
             right: '0',
             zIndex: 100,
             md: {
-              top: '24px',
+              bottom: '24px',
               right: '24px',
             },
           })}
@@ -41,7 +41,7 @@ export const Toast: FC<ToastProps> = (props) => {
               },
             })}
             initial={{
-              y: -200,
+              y: 200,
               opacity: 0,
             }}
             animate={{
@@ -49,7 +49,7 @@ export const Toast: FC<ToastProps> = (props) => {
               opacity: 1,
             }}
             exit={{
-              y: -200,
+              y: 200,
               opacity: 0,
             }}
           >
