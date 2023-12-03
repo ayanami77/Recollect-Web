@@ -25,11 +25,12 @@ export const Header = () => {
     <>
       <header
         className={hstack({
-          md: { h: '80px', p: '24px' },
+          md: { h: '80px', p: '24px', bg: 'transparent' },
           justify: 'space-between',
           h: '60px',
           p: '12px',
           pos: 'fixed',
+          bg: 'white',
           top: 0,
           left: 0,
           right: 0,
