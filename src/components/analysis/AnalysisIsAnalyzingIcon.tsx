@@ -26,7 +26,7 @@ export const AnalysisIsAnalyzingIcon = () => {
           animate={{ rotate: 360 }}
           transition={{ repeat: Infinity, repeatDelay: 1, duration: 0.5 }}
         >
-          <Image src={'/bookshelf.png'} alt={'マスコットキャラクター'} width={75} height={75} />
+          <Image src={'/img/bookshelf.png'} alt={'マスコットキャラクター'} width={75} height={75} />
         </m.div>
       </m.div>
     </div>

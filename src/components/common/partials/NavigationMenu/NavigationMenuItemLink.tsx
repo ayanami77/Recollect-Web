@@ -21,7 +21,7 @@ export const NavigationMenuItemLink: FC<NavigationMenuItemLinkProps> = (props) =
           className={hstack({
             fontWeight: 'bold',
             p: '12px',
-            rounded: '2xl',
+            rounded: 'xl',
             bg: router.pathname === link ? 'white' : 'transparent',
             shadow: router.pathname === link ? 'lg' : 'none',
           })}

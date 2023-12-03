@@ -4,11 +4,12 @@ import { flex, hstack } from '../../../styled-system/patterns'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useMutateCard } from '@/api/hooks/card/useMutateCard'
 import { Period as TPeriod } from '@/api/models/card.model'
-import { Backdrop } from '@/components/common/partials/Backdrop'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CardValidationSchema, TCardValidationSchema } from '@/libs/validations/cardValidation'
 import { useToastStore } from '@/store/useToastStore'
 import { Session } from 'next-auth'
+import { HistoryCardModalBase } from './base/HistoryCardModalBase'
+import { ValidationMessage } from '../common/partials/ValidationMessage'
 
 type HistoryCardCreateModalProps = {
   handleModal: () => void
@@ -42,11 +43,11 @@ export const HistoryCardCreateModal: FC<HistoryCardCreateModalProps> = (props) =
         accessToken: user.access_token || '',
       })
       if (res) {
-        toastStore.show('カードを作成しました', 'success')
+        toastStore.show('自分史を作成しました', 'success')
         toastStore.hide()
       }
     } catch (error) {
-      toastStore.show('カードの作成に失敗しました', 'error')
+      toastStore.show('自分史を作成できませんでした', 'error')
       toastStore.hide()
     } finally {
       handleModal()
@@ -54,134 +55,114 @@ export const HistoryCardCreateModal: FC<HistoryCardCreateModalProps> = (props) =
   }
 
   return (
-    <Backdrop>
-      <div
-        onClick={(e) => e.stopPropagation()}
+    <HistoryCardModalBase>
+      <h2
         className={css({
-          width: '560px',
-          bg: 'white',
-          rounded: '3xl',
-          px: '20px',
-          py: '24px',
+          fontSize: '2xl',
+          fontWeight: 'bold',
           md: {
-            px: '32px',
+            fontSize: '3xl',
           },
         })}
       >
-        <h2
-          className={css({
-            fontSize: '2xl',
-            fontWeight: 'bold',
-            md: {
-              fontSize: '3xl',
-            },
-          })}
-        >
-          自分史を追加する
-        </h2>
-        <form onSubmit={handleSubmit(onSubmitCreate)} className={css({ mt: '8px' })}>
-          <div className={flex({ direction: 'column', gap: '6px' })}>
-            <div>
-              <div className={hstack({ justify: 'space-between' })}>
-                <label
-                  htmlFor='title'
-                  className={css({ fontSize: 'md', fontWeight: 'bold', minW: '72px' })}
-                >
-                  タイトル
-                </label>
-                <input
-                  type='text'
-                  id='title'
-                  className={css({
-                    maxW: '320px',
-                    w: 'full',
-                    height: '36px',
-                    outline: 'none',
-                    rounded: 'md',
-                    p: '8px',
-                    fontSize: 'md',
-                    borderWidth: '2px',
-                    borderColor: 'slate.400',
-                    _focus: {
-                      borderColor: 'blue.500',
-                    },
-                    md: { fontSize: 'xl' },
-                  })}
-                  {...register('title')}
-                />
-              </div>
-              {errors.title?.message && (
-                <p className={css({ color: 'cinnabar', mt: '4px' })}>{errors.title.message}</p>
-              )}
-            </div>
-            <div>
+        自分史を追加する
+      </h2>
+      <form onSubmit={handleSubmit(onSubmitCreate)} className={css({ mt: '12px' })}>
+        <div className={flex({ direction: 'column', gap: '12px' })}>
+          <div>
+            <div className={hstack({ justify: 'space-between' })}>
               <label
-                htmlFor=''
-                className={css({ fontSize: 'md', fontWeight: 'bold', minW: '60px' })}
+                htmlFor='title'
+                className={css({ fontSize: 'md', fontWeight: 'bold', minW: '72px' })}
               >
-                内容
+                タイトル
               </label>
-              <textarea
-                placeholder='どんなことをしていた？'
+              <input
+                type='text'
+                id='title'
                 className={css({
-                  width: '100%',
-                  minH: '320px',
+                  maxW: '320px',
+                  w: 'full',
+                  height: '36px',
+                  outline: 'none',
+                  rounded: 'md',
                   p: '8px',
-                  mt: '8px',
+                  fontSize: 'md',
                   borderWidth: '2px',
                   borderColor: 'slate.400',
-                  outline: 'none',
-                  resize: 'none',
-                  rounded: 'md',
                   _focus: {
                     borderColor: 'blue.500',
                   },
+                  md: { fontSize: 'xl' },
                 })}
-                {...register('content')}
+                {...register('title')}
               />
-              {errors.content?.message && (
-                <p className={css({ color: 'cinnabar' })}>{errors.content.message}</p>
-              )}
             </div>
+            {errors.title?.message && (
+              <p className={css({ color: 'cinnabar', fontSize: 'sm' })}>{errors.title.message}</p>
+            )}
           </div>
-          <div className={flex({ justifyContent: 'end', gap: '10px' })}>
-            <button
-              type='button'
-              className={hstack({
-                bg: 'slate.200',
-                px: '18px',
-                py: '14px',
-                fontWeight: 'bold',
-                color: 'black',
-                rounded: 'lg',
-                cursor: 'pointer',
-                _hover: { bg: 'slate.300', transition: 'all 0.15s' },
-              })}
-              onClick={handleModal}
-            >
-              キャンセル
-            </button>
-            <button
-              type='submit'
+          <div>
+            <label htmlFor='' className={css({ fontSize: 'md', fontWeight: 'bold', minW: '60px' })}>
+              内容
+            </label>
+            <textarea
               className={css({
-                border: 'none',
-                backgroundColor: 'dimBlue',
-                fontWeight: 'bold',
-                padding: '10px 20px',
-                color: 'white',
-                rounded: 'lg',
-                cursor: 'pointer',
-                _disabled: {
-                  opacity: 0.8,
-                  cursor: 'default',
+                width: '100%',
+                minH: '320px',
+                p: '8px',
+                mt: '8px',
+                borderWidth: '2px',
+                borderColor: 'slate.400',
+                outline: 'none',
+                resize: 'none',
+                rounded: 'md',
+                _focus: {
+                  borderColor: 'blue.500',
                 },
               })}
-            >
-              作成する
-            </button>
+              {...register('content')}
+            />
+            {errors.content?.message && <ValidationMessage message={errors.content.message} />}
           </div>
-        </form>
-      </div>
-    </Backdrop>
+        </div>
+        <div className={flex({ justifyContent: 'end', gap: '10px' })}>
+          <button
+            type='button'
+            className={hstack({
+              bg: 'slate.200',
+              px: '18px',
+              py: '14px',
+              fontWeight: 'bold',
+              color: 'black',
+              rounded: 'lg',
+              cursor: 'pointer',
+              _hover: { bg: 'slate.300', transition: 'all 0.15s' },
+            })}
+            onClick={handleModal}
+          >
+            キャンセル
+          </button>
+          <button
+            type='submit'
+            className={css({
+              border: 'none',
+              backgroundColor: 'dimBlue',
+              fontWeight: 'bold',
+              padding: '10px 20px',
+              color: 'white',
+              rounded: 'lg',
+              cursor: 'pointer',
+              _disabled: {
+                opacity: 0.8,
+                cursor: 'default',
+              },
+            })}
+          >
+            作成する
+          </button>
+        </div>
+      </form>
+    </HistoryCardModalBase>
   )
 }

@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import { css } from '../../../styled-system/css'
 import { hstack } from '../../../styled-system/patterns'
-import { FeatureTag } from '@/components/common'
+import { CharacteristicTag } from '@/components/common'
 import { Period as TPeriod } from '@/api/models/card.model'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
@@ -23,11 +23,7 @@ type HistoryCardProps = {
 
 export const HistoryCard: FC<HistoryCardProps> = (props) => {
   const { data, user } = props
-  const [isExpanded, setIsExpanded] = useState(false)
-
-  const handleExpand = () => {
-    setIsExpanded((prev) => !prev)
-  }
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
     <div
@@ -61,12 +57,12 @@ export const HistoryCard: FC<HistoryCardProps> = (props) => {
           {data.tags.length > 0 ? (
             <div className={hstack({ flexWrap: 'wrap' })}>
               {data.tags.map((tag, index) => (
-                <FeatureTag key={index} name={tag} />
+                <CharacteristicTag key={index} name={tag} />
               ))}
             </div>
           ) : (
-            <p className={css({ color: 'dimBlue', fontSize: 'sm', md: { fontSize: 'md' } })}>
-              分析をするとあなたの特性が表示されます。
+            <p className={css({ color: 'lightGreen', fontSize: 'sm', md: { fontSize: 'md' } })}>
+              分析をするとあなたの特性が表示されます
             </p>
           )}
         </div>
@@ -74,9 +70,9 @@ export const HistoryCard: FC<HistoryCardProps> = (props) => {
       <div
         className={css({
           borderColor: 'gray',
-          overflow: isExpanded ? 'auto' : 'hidden',
-          textOverflow: isExpanded ? '' : 'ellipsis',
-          whiteSpace: isExpanded ? 'normal' : 'nowrap',
+          overflow: isOpen ? 'auto' : 'hidden',
+          textOverflow: isOpen ? '' : 'ellipsis',
+          whiteSpace: isOpen ? 'normal' : 'nowrap',
           fontSize: 'sm',
           color: 'dimGray',
           mt: '16px',
@@ -96,11 +92,11 @@ export const HistoryCard: FC<HistoryCardProps> = (props) => {
           color: 'black',
           cursor: 'pointer',
         })}
-        onClick={handleExpand}
+        onClick={() => setIsOpen((prev) => !prev)}
       >
-        {isExpanded ? '詳細をとじる' : '詳細をみる'}
+        {isOpen ? '詳細をとじる' : '詳細をみる'}
         <FontAwesomeIcon
-          icon={isExpanded ? faChevronUp : faChevronDown}
+          icon={isOpen ? faChevronUp : faChevronDown}
           className={css({ w: '20px', h: '20px', color: 'black' })}
         />
       </button>

@@ -1,4 +1,3 @@
-import { m } from 'framer-motion'
 import { FC } from 'react'
 import { css } from '../../../styled-system/css'
 import { useRouter } from 'next/router'
@@ -9,12 +8,12 @@ import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 export const TutorialLeaveButton: FC = () => {
   const router = useRouter()
   const handleClick = () => {
-    if (window.confirm('チュートリアルを終了しますか？')) {
+    if (window.confirm('チュートリアルを終了しますか？\n内容は保存されません。')) {
       router.push('/history')
     }
   }
   return (
-    <m.button
+    <button
       className={css({
         position: 'fixed',
         bottom: '20px',
@@ -25,7 +24,6 @@ export const TutorialLeaveButton: FC = () => {
         shadow: 'xl',
       })}
       onClick={handleClick}
-      whileTap={{ scale: 0.9 }}
     >
       <div
         className={css({
@@ -33,13 +31,13 @@ export const TutorialLeaveButton: FC = () => {
         })}
       >
         <div className={hstack({ gap: '24px', p: '20px' })}>
-          <p className={css({ fontSize: 'md', fontWeight: 'bold' })}> チュートリアルを退出する</p>
+          <p className={css({ fontSize: 'md', fontWeight: 'bold' })}>チュートリアルを退出する</p>
           <FontAwesomeIcon
             icon={faArrowRightFromBracket}
             style={{ width: '26px', color: '#0C4C97' }}
           />
         </div>
       </div>
-    </m.button>
+    </button>
   )
 }

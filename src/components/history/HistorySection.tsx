@@ -11,13 +11,13 @@ import { Period as TPeriod } from '@/api/models/card.model'
 import { Session } from 'next-auth'
 import { toPeriodStringFromNumber } from '@/utils/toPeriodStringFromNumber'
 
-type HistorySegmentProps = {
+type HistorySectionProps = {
   children: ReactNode
   period: TPeriod
   user: Session['user']
 }
 
-export const HistorySegment: FC<HistorySegmentProps> = (props) => {
+export const HistorySection: FC<HistorySectionProps> = (props) => {
   const { children, period, user } = props
   const [isOpen, setIsOpen] = useState(false)
   const handleCreateModal = () => {
@@ -33,7 +33,7 @@ export const HistorySegment: FC<HistorySegmentProps> = (props) => {
           p: '14px',
           bg: 'blue.200',
           rounded: '3xl',
-          shadow: 'xl',
+          shadow: 'lg',
           md: { p: '24px' },
         })}
       >

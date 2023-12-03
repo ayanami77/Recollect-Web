@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { hstack } from '../../../styled-system/patterns'
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { FC } from 'react'
+import { css } from '../../../styled-system/css'
 
 type HistoryCardMenuItemProps = {
   icon: IconDefinition
@@ -13,16 +14,15 @@ export const HistoryCardMenuItem: FC<HistoryCardMenuItemProps> = (props) => {
   const { icon, color, title, onClickFunc } = props
   return (
     <li
-      className={hstack({
+      className={css({
         w: 'full',
-        p: '10px',
+        px: '20px',
+        py: '10px',
         fontSize: 'md',
         cursor: 'pointer',
-        justify: 'center',
-        gap: '20px',
         _hover: {
           bg: 'gray',
-          rounded: 'xl',
+          rounded: 'lg',
         },
         md: {
           fontSize: 'lg',
@@ -30,8 +30,15 @@ export const HistoryCardMenuItem: FC<HistoryCardMenuItemProps> = (props) => {
       })}
       onClick={onClickFunc}
     >
-      <FontAwesomeIcon icon={icon} style={{ width: '22px', height: '22px', color: color }} />
-      {title}
+      <div
+        className={hstack({
+          justify: 'stretch',
+          gap: '20px',
+        })}
+      >
+        <FontAwesomeIcon icon={icon} style={{ width: '22px', height: '22px', color: color }} />
+        {title}
+      </div>
     </li>
   )
 }

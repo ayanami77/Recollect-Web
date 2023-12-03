@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { HistorySegment } from './HistorySegment'
+import { HistorySection } from './HistorySection'
 
 //👇 This default export determines where your story goes in the story list
-const meta: Meta<typeof HistorySegment> = {
-  title: 'Compornent/History/HistorySegment',
-  component: HistorySegment,
+const meta: Meta<typeof HistorySection> = {
+  title: 'Compornent/History/HistorySection',
+  component: HistorySection,
 }
 
 export default meta
-type Story = StoryObj<typeof HistorySegment>
+type Story = StoryObj<typeof HistorySection>
 
 export const Default: Story = {
   args: {

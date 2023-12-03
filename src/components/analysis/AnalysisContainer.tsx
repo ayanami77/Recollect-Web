@@ -51,7 +51,7 @@ export const AnalysisContainer: FC<AnalysisContainerProps> = (props) => {
     <div
       className={hstack({
         w: 'full',
-        mt: '24px',
+        mt: '40px',
       })}
     >
       {allCards.length ? (

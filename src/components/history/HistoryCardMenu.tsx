@@ -59,10 +59,10 @@ export const HistoryCardMenu: FC<HistoryCardMenuProps> = (props) => {
         cardData: { id: cardId },
         accessToken: user.access_token || '',
       })
-      toastStore.show('カードを削除しました', 'success')
+      toastStore.show('自分史を削除しました', 'success')
       toastStore.hide()
     } catch (error) {
-      toastStore.show('カードの削除に失敗しました', 'error')
+      toastStore.show('自分史を削除できませんでした', 'error')
       toastStore.hide()
     }
     setIsConfirmModalOpen(false)
@@ -116,7 +116,7 @@ export const HistoryCardMenu: FC<HistoryCardMenuProps> = (props) => {
             right: '24px',
             rounded: 'xl',
             shadow: '2xl',
-            border: '1px solid',
+            borderWidth: '2px',
             borderColor: 'gray',
             md: {
               w: '172px',
@@ -130,12 +130,14 @@ export const HistoryCardMenu: FC<HistoryCardMenuProps> = (props) => {
             title={'分析する'}
             onClickFunc={navigateToAnalysis}
           />
+          <div className={css({ w: 'full', h: '2px', bg: 'gray' })} />
           <HistoryCardMenuItem
             icon={faEdit}
             color='green'
             title={'編集する'}
             onClickFunc={handleEditModal}
           />
+          <div className={css({ w: 'full', h: '2px', bg: 'gray' })} />
           <HistoryCardMenuItem
             icon={faTrash}
             color='red'
