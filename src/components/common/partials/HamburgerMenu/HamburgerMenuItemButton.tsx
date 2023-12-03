@@ -52,9 +52,7 @@ export const HamburgerMenuItemButton: FC<HamburgerMenuItemButtonProps> = (props)
         onClick={onClickFunc}
       >
         <FontAwesomeIcon icon={icon} style={{ width: '32px', height: '32px', color: '#0C4C97' }} />
-        <span className={css({ fontWeight: 'bold', fontSize: 'xl', color: 'black ' })}>
-          {title}
-        </span>
+        <span className={css({ fontWeight: 'bold', fontSize: 'xl', color: 'black' })}>{title}</span>
       </m.button>
     </li>
   )

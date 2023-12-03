@@ -48,7 +48,6 @@ export const ConfirmModal: FC<ConfirmModalProps> = (props) => {
         <div
           className={vstack({
             alignItems: 'start',
-            h: '240px',
             p: '24px',
             bg: 'white',
             rounded: '3xl',
@@ -68,7 +67,7 @@ export const ConfirmModal: FC<ConfirmModalProps> = (props) => {
           <div
             className={vstack({
               w: 'full',
-              h: '180px',
+              h: '140px',
               alignItems: 'start',
               justifyContent: 'space-between',
             })}
@@ -84,6 +83,7 @@ export const ConfirmModal: FC<ConfirmModalProps> = (props) => {
                   bg: 'slate.100',
                   px: '18px',
                   py: '14px',
+                  color: 'black',
                   rounded: 'lg',
                   cursor: 'pointer',
                   _hover: { bg: 'slate.200', transition: 'all 0.15s' },

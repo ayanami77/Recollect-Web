@@ -35,6 +35,7 @@ const Signin = () => {
                     py: '16px',
                     bg: 'white',
                     fontWeight: 'bold',
+                    color: 'black',
                     rounded: 'md',
                     shadow: 'md',
                     cursor: 'pointer',
