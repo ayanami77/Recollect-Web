@@ -14,6 +14,7 @@ export interface CardRepository {
   ) => Promise<CardResponse[]>
   updateCard: (cardData: Partial<Card>, accessToken: string) => Promise<CardResponse>
   deleteCard: (cardData: Pick<Card, 'id'>, accessToken: string) => void
+  analyzeCard: (cardData: Partial<Card>, accessToken: string) => Promise<CardResponse>
 }
 
 const listCards: CardRepository['listCards'] = async (accessToken): Promise<CardResponse[]> => {
@@ -73,10 +74,26 @@ const deleteCard: CardRepository['deleteCard'] = async (
   await apiClient.destroy(`/cards/${cardData.id}`, { accessToken: accessToken || '' })
 }
 
+const analyzeCard: CardRepository['analyzeCard'] = async (
+  cardData: Partial<Card>,
+  accessToken,
+): Promise<CardResponse> => {
+  const data = await apiClient.patch(
+    `/cards/analysis/${cardData.id}`,
+    { accessToken: accessToken || '' },
+    {
+      // cardDataに保持している値を展開してしまう。
+      ...cardData,
+    },
+  )
+  return data
+}
+
 export const cardRepository: CardRepository = {
   listCards,
   createCard,
   createCards,
   updateCard,
   deleteCard,
+  analyzeCard,
 }

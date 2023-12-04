@@ -89,10 +89,39 @@ export const useMutateCard = () => {
     },
   )
 
+  const analyzeCardMutation = useMutation(
+    (params: { cardData: Partial<Card>; accessToken: string }) => {
+      const { cardData, accessToken } = params
+      return cardFactory().analyze(cardData, accessToken)
+    },
+    {
+      onSuccess: (_, variables) => {
+        const previousCards = queryClient.getQueryData<Card[]>(['cards'])
+        if (previousCards) {
+          queryClient.setQueryData<Card[]>(
+            ['cards'],
+            previousCards.map((card) =>
+              card.id === variables.cardData.id
+                ? {
+                    ...card,
+                    ...variables.cardData,
+                  }
+                : card,
+            ),
+          )
+        }
+      },
+      onError: (err: FetchError) => {
+        console.log(err)
+      },
+    },
+  )
+
   return {
     createCardMutation,
     createCardsMutation,
     updateCardMutation,
     deleteUserMutation,
+    analyzeCardMutation,
   }
 }

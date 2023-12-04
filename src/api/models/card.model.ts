@@ -84,5 +84,19 @@ export const cardFactory = () => {
     },
     delete: async (cardData: Pick<Card, 'id'>, accessToken: string) =>
       repository.deleteCard(cardData, accessToken),
+    analyze: async (cardData: Partial<Card>, accessToken: string): Promise<Card> => {
+      const data = await repository.analyzeCard(cardData, accessToken)
+      const card = {
+        id: data.card_id,
+        title: data.title,
+        period: data.period,
+        content: data.content ? data.content : '',
+        tags: data.tags ?? [],
+        analysisResult: data.analysis_result ? data.analysis_result : '',
+        createdAt: data.created_at,
+        updatedAt: data.updated_at,
+      }
+      return card
+    },
   }
 }
