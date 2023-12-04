@@ -31,7 +31,9 @@ export const TutorialLeaveButton: FC = () => {
         })}
       >
         <div className={hstack({ gap: '24px', p: '20px' })}>
-          <p className={css({ fontSize: 'md', fontWeight: 'bold' })}>チュートリアルを退出する</p>
+          <span className={css({ fontSize: 'md', fontWeight: 'bold', color: 'black' })}>
+            チュートリアルを退出する
+          </span>
           <FontAwesomeIcon
             icon={faArrowRightFromBracket}
             style={{ width: '26px', color: '#0C4C97' }}
