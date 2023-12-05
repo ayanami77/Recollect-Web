@@ -31,7 +31,12 @@ export const AnalysisBoard: FC<AnalysisBoardProps> = (props) => {
 
   const handleAnalyze = () => {
     analyzeCardMutation.mutate({
-      cardData: { id: content.id, title: content.title, content: content.content },
+      cardData: {
+        id: content.id,
+        title: content.title,
+        content: content.content,
+        period: content.period,
+      },
       accessToken: user.access_token || '',
     })
   }

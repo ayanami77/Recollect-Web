@@ -95,19 +95,12 @@ export const useMutateCard = () => {
       return cardFactory().analyze(cardData, accessToken)
     },
     {
-      onSuccess: (_, variables) => {
+      onSuccess: (res) => {
         const previousCards = queryClient.getQueryData<Card[]>(['cards'])
         if (previousCards) {
           queryClient.setQueryData<Card[]>(
             ['cards'],
-            previousCards.map((card) =>
-              card.id === variables.cardData.id
-                ? {
-                    ...card,
-                    ...variables.cardData,
-                  }
-                : card,
-            ),
+            previousCards.map((card) => (card.id === res.id ? res : card)),
           )
         }
       },
