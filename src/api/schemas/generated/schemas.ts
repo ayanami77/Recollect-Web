@@ -360,6 +360,35 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         method: 'DELETE',
         ...params,
       }),
+
+    /**
+     * No description
+     *
+     * @tags cards
+     * @name AnalysisPartialUpdate
+     * @summary 自分史の分析
+     * @request PATCH:/cards/analysis/{cardId}
+     */
+    analysisPartialUpdate: (
+      cardId: string,
+      data: {
+        /** @example "文系でも化学部が楽しかった話!" */
+        title?: string
+        /** @example "1" */
+        period?: string
+        /** @example "毎週、教科書で出てくるような有名な実験から面白い実験まで色々なことをしていました。etc ..." */
+        content?: string
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<Card, any>({
+        path: `/cards/analysis/${cardId}`,
+        method: 'PATCH',
+        body: data,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
   }
   users = {
     /**

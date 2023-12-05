@@ -152,12 +152,13 @@ export const HistoryCardEditModal: FC<HistoryCardEditModalProps> = (props) => {
             </div>
             <div>
               <label
-                htmlFor=''
+                htmlFor='content'
                 className={css({ fontSize: 'md', fontWeight: 'bold', minW: '60px' })}
               >
                 内容
               </label>
               <textarea
+                id='content'
                 defaultValue={data.content}
                 className={css({
                   width: '100%',
