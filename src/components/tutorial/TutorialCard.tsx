@@ -150,8 +150,11 @@ export const TutorialCard: FC<TutorialCardProps> = (props) => {
           alignItems: 'start',
         })}
       >
-        <label className={css({ fontSize: 'md', fontWeight: 'bold' })}>内容</label>
+        <label htmlFor='content' className={css({ fontSize: 'md', fontWeight: 'bold' })}>
+          内容
+        </label>
         <textarea
+          id='content'
           placeholder={`ヒント：${placeholderText}`}
           onChange={(e) => handleContentChange(e)}
           value={cardList[cardPosition].content}

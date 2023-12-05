@@ -29,7 +29,9 @@ export const HistoryToTutorialButton = () => {
         })}
       >
         <div className={hstack({ gap: '24px', p: '20px' })}>
-          <p className={css({ fontSize: 'md', fontWeight: 'bold' })}>チュートリアルに進む</p>
+          <span className={css({ fontSize: 'md', fontWeight: 'bold', color: 'black' })}>
+            チュートリアルに進む
+          </span>
           <FontAwesomeIcon icon={faArrowRight} style={{ width: '26px', color: '#0C4C97' }} />
         </div>
       </div>

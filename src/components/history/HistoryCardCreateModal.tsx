@@ -103,10 +103,14 @@ export const HistoryCardCreateModal: FC<HistoryCardCreateModalProps> = (props) =
             )}
           </div>
           <div>
-            <label htmlFor='' className={css({ fontSize: 'md', fontWeight: 'bold', minW: '60px' })}>
+            <label
+              htmlFor='content'
+              className={css({ fontSize: 'md', fontWeight: 'bold', minW: '60px' })}
+            >
               内容
             </label>
             <textarea
+              id='content'
               className={css({
                 width: '100%',
                 minH: '320px',
