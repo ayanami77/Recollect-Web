@@ -3,7 +3,6 @@ import { m } from 'framer-motion'
 import { css } from '../../../styled-system/css'
 import { center, hstack, vstack } from '../../../styled-system/patterns'
 import ReactMarkdown from 'react-markdown'
-import { useMutateOpenAIResponse } from '@/api/hooks/openai/useMutateOpenAi'
 import { CharacteristicTag } from '@/components/common'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -17,6 +16,7 @@ import { AnalysisPCSwitchButton } from './AnalysisPCSwitchButton'
 import { Session } from 'next-auth'
 import { Card as TCard } from '@/api/models/card.model'
 import { toPeriodStringFromNumber } from '@/utils/toPeriodStringFromNumber'
+import { useMutateCard } from '@/api/hooks/card/useMutateCard'
 
 type AnalysisBoardProps = {
   content: TCard
@@ -25,30 +25,21 @@ type AnalysisBoardProps = {
   prev: () => void
 }
 
-const makePrompt = (content: string): string => {
-  return `
-    下記文章を読み、その人の特性を分析し、マークダウン形式で出力してください。
-    なお、文章のフォーマットは以下のようなものとします。
-
-    フォーマット例:「
-        - **責任感**: 美化委員として学校清掃に取り組み、地域ボランティアに自発的に参加する姿勢から、責任感が強いことが分かります。\n- **努力家**: 自由研究での入賞や清掃活動での頑張りから、努力を惜しまない姿勢が伺えます。\n
-    」
-
-    文章:「
-      ${content}
-    」
-  `
-}
-
 export const AnalysisBoard: FC<AnalysisBoardProps> = (props) => {
   const { content, user, next, prev } = props
-  const { openaiResponseMutation } = useMutateOpenAIResponse()
+  const { analyzeCardMutation } = useMutateCard()
 
-  const handleAnalyze = () =>
-    openaiResponseMutation.mutate({
-      credential: { id: content.id, prompt: makePrompt(content.content) },
+  const handleAnalyze = () => {
+    analyzeCardMutation.mutate({
+      cardData: {
+        id: content.id,
+        title: content.title,
+        content: content.content,
+        period: content.period,
+      },
       accessToken: user.access_token || '',
     })
+  }
 
   return (
     <div
@@ -71,7 +62,7 @@ export const AnalysisBoard: FC<AnalysisBoardProps> = (props) => {
       >
         <AnalysisPCSwitchButton
           icon={faChevronLeft}
-          isDisabled={openaiResponseMutation.isLoading}
+          isDisabled={analyzeCardMutation.isLoading}
           onClick={prev}
         />
       </div>
@@ -83,7 +74,7 @@ export const AnalysisBoard: FC<AnalysisBoardProps> = (props) => {
       >
         <AnalysisPCSwitchButton
           icon={faChevronRight}
-          isDisabled={openaiResponseMutation.isLoading}
+          isDisabled={analyzeCardMutation.isLoading}
           onClick={next}
         />
       </div>
@@ -107,12 +98,12 @@ export const AnalysisBoard: FC<AnalysisBoardProps> = (props) => {
         >
           <AnalysisMobileSwitchButton
             icon={faChevronLeft}
-            isDisabled={openaiResponseMutation.isLoading}
+            isDisabled={analyzeCardMutation.isLoading}
             onClick={prev}
           />
           <AnalysisMobileSwitchButton
             icon={faChevronRight}
-            isDisabled={openaiResponseMutation.isLoading}
+            isDisabled={analyzeCardMutation.isLoading}
             onClick={next}
           />
         </div>
@@ -162,7 +153,7 @@ export const AnalysisBoard: FC<AnalysisBoardProps> = (props) => {
             overflow: 'auto',
           })}
         >
-          {openaiResponseMutation.isLoading ? (
+          {analyzeCardMutation.isLoading ? (
             <AnalysisIsAnalyzingIcon />
           ) : content.analysisResult ? (
             <ReactMarkdown className={css({ p: '16px', fontSize: 'sm', md: { fontSize: 'md' } })}>
@@ -200,9 +191,9 @@ export const AnalysisBoard: FC<AnalysisBoardProps> = (props) => {
               fontSize: 'lg',
             },
           })}
-          disabled={openaiResponseMutation.isLoading ? true : false}
+          disabled={analyzeCardMutation.isLoading ? true : false}
           onClick={handleAnalyze}
-          whileTap={openaiResponseMutation.isLoading ? { scale: 1 } : { scale: 0.9 }}
+          whileTap={analyzeCardMutation.isLoading ? { scale: 1 } : { scale: 0.9 }}
         >
           <FontAwesomeIcon
             icon={faMagnifyingGlassChart}

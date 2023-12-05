@@ -106,6 +106,31 @@ paths:
       responses:
         '204':
           description: '成功'
+  '/cards/analysis/{cardId}':
+    patch:
+      summary: '自分史の分析'
+      tags: ['cards']
+      deprecated: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title: { type: string, example: '文系でも化学部が楽しかった話!' }
+                period: { type: string, example: '1' }
+                content:
+                  {
+                    type: string,
+                    example: '毎週、教科書で出てくるような有名な実験から面白い実験まで色々なことをしていました。etc ...',
+                  }
+      responses:
+        '200':
+          description: '成功'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
 
   '/users/login':
     post:
