@@ -30,7 +30,6 @@
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.19",
     "framer-motion": "^10.16.4",
-    "install": "^0.13.0",
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
     "next": "13.4.19",
