@@ -33,7 +33,7 @@ const Analysis = ({ user }: Props) => {
               mt: '24px',
             })}
           >
-            <PageTitle title={'自分史を分析をする'} icon={faMagnifyingGlassChart} />
+            <PageTitle title={'自分史を分析する'} icon={faMagnifyingGlassChart} />
             <AnalysisContainer data={data ?? []} cardId={router.query.card_id} user={user} />
           </div>
         </ContentsWrapper>
