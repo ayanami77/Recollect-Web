@@ -81,7 +81,7 @@ export const HamburgerMenu: FC<HamburgerMenuProps> = (props) => {
         yPos={180}
       />
       <HamburgerMenuItemLink
-        title={'ユーザ―情報'}
+        title={'ユーザー情報'}
         active={active}
         path={'/user'}
         icon={faUserGear}
