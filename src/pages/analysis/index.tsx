@@ -1,7 +1,11 @@
+import dynamic from 'next/dynamic'
+const AnalysisContainer = dynamic(() =>
+  import('@/components/analysis/AnalysisContainer').then((mod) => mod.AnalysisContainer),
+)
+
 import { ContentsWrapper, FadeInWrapper, PageTitle } from '@/components/common'
 import { CommonMeta } from '@/components/common/meta/CommonMeta'
 import { useQueryCards } from '@/api/hooks/card/useQueryCard'
-import { AnalysisContainer } from '@/components/analysis'
 import { useRouter } from 'next/router'
 import { css } from '../../../styled-system/css'
 import { faMagnifyingGlassChart } from '@fortawesome/free-solid-svg-icons'
@@ -15,7 +19,7 @@ type Props = {
 
 const Analysis = ({ user }: Props) => {
   const router = useRouter()
-  const { data } = useQueryCards(user.access_token || '')
+  const { data, isLoading } = useQueryCards(user.access_token || '')
 
   return (
     <>
@@ -23,6 +27,7 @@ const Analysis = ({ user }: Props) => {
         title={'Recollect - 自分史を分析する'}
         description={'AIを利用することで、自分史カードから自分の特性を知ることができます。'}
       />
+
       <FadeInWrapper>
         <ContentsWrapper>
           <div
@@ -34,7 +39,9 @@ const Analysis = ({ user }: Props) => {
             })}
           >
             <PageTitle title={'自分史を分析する'} icon={faMagnifyingGlassChart} />
-            <AnalysisContainer data={data ?? []} cardId={router.query.card_id} user={user} />
+            {!isLoading && (
+              <AnalysisContainer data={data ?? []} cardId={router.query.card_id} user={user} />
+            )}
           </div>
         </ContentsWrapper>
       </FadeInWrapper>
