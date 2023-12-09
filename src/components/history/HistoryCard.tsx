@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { HistoryCardMenu } from './HistoryCardMenu'
 import { Session } from 'next-auth'
+import Link from 'next/link'
 
 type HistoryCardProps = {
   data: {
@@ -71,9 +72,20 @@ export const HistoryCard: FC<HistoryCardProps> = (props) => {
               ))}
             </div>
           ) : (
-            <p className={css({ color: 'lightGreen', fontSize: 'sm', md: { fontSize: 'md' } })}>
-              分析をするとあなたの特性が表示されます
-            </p>
+            <Link href={`/analysis?card_id=${data.id}`}>
+              <span
+                className={css({
+                  color: 'lightGreen',
+                  fontSize: 'sm',
+                  md: { fontSize: 'md' },
+                  _hover: {
+                    textDecoration: 'underline',
+                  },
+                })}
+              >
+                分析をするとあなたの特性が表示されます
+              </span>
+            </Link>
           )}
         </div>
       </div>
