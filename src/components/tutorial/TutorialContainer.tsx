@@ -52,7 +52,7 @@ export const TutorialContainer: FC<TutorialContainerProps> = ({ user }) => {
   ])
 
   const questions = [
-    '周りにはどんな人がいた？',
+    '印象的だったことは？',
     'どんなことをしてあそんでいた？',
     '夢中になったものは？',
     'どんなことに悩んでいた？',

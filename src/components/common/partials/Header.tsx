@@ -7,6 +7,7 @@ import { NavigationMenu } from './NavigationMenu/NavigationMenu'
 import { useState } from 'react'
 import { signOut } from 'next-auth/react'
 import { ConfirmModal } from '.'
+import Link from 'next/link'
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -38,18 +39,25 @@ export const Header = () => {
           zIndex: 10,
         })}
       >
-        <div
-          className={css({ md: { w: '200px', h: '80px' }, w: '160px', h: '60px', pos: 'relative' })}
-        >
-          <Image
-            src={'/img/logo.png'}
-            alt={'Recollectのロゴ'}
-            fill
-            sizes='100%'
-            priority
-            className={css({ objectFit: 'contain' })}
-          />
-        </div>
+        <Link href='/history'>
+          <div
+            className={css({
+              md: { w: '200px', h: '80px' },
+              w: '160px',
+              h: '60px',
+              pos: 'relative',
+            })}
+          >
+            <Image
+              src={'/img/logo.png'}
+              alt={'Recollectのロゴ'}
+              fill
+              sizes='100%'
+              priority
+              className={css({ objectFit: 'contain' })}
+            />
+          </div>
+        </Link>
         {['/history', '/analysis', '/user'].includes(router.pathname) && (
           <>
             {/* ナビゲーションメニュー */}

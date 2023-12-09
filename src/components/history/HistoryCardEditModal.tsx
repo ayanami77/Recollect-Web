@@ -119,7 +119,16 @@ export const HistoryCardEditModal: FC<HistoryCardEditModalProps> = (props) => {
               <div className={hstack({ justify: 'space-between' })}>
                 <label
                   htmlFor='title'
-                  className={css({ fontSize: 'md', fontWeight: 'bold', minW: '72px' })}
+                  className={css({ 
+                    fontSize: 'md', 
+                    fontWeight: 'bold', 
+                    minW: '72px',
+                    _after: {
+                      content: '"*"',
+                      color: 'cinnabar',
+                      ml: '2px',
+                    }, 
+                  })}
                 >
                   タイトル
                 </label>
