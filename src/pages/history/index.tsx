@@ -1,7 +1,4 @@
 import dynamic from 'next/dynamic'
-const HistoryContainer = dynamic(() => import('@/components/history/HistoryContainer').then(mod => mod.HistoryContainer));
-const HistoryToTutorialButton = dynamic(() => import('@/components/history/HistoryToTutorialButton').then(mod => mod.HistoryToTutorialButton));
-
 import { css } from '../../../styled-system/css'
 import { FadeInWrapper, CommonMeta, PageTitle, ContentsWrapper } from '@/components/common'
 import { useQueryCards } from '@/api/hooks/card/useQueryCard'
@@ -9,6 +6,13 @@ import { faMapLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { GetServerSideProps } from 'next'
 import { Session, getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]'
+
+const HistoryContainer = dynamic(() =>
+  import('@/components/history/HistoryContainer').then((mod) => mod.HistoryContainer),
+)
+const HistoryToTutorialButton = dynamic(() =>
+  import('@/components/history/HistoryToTutorialButton').then((mod) => mod.HistoryToTutorialButton),
+)
 
 type Props = {
   user: Session['user']

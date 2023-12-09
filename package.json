@@ -14,7 +14,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "codegen": "swagger-typescript-api -p src/api/schemas/openapi.yaml -o src/api/schemas/generated -n schemas.ts",
-    "analyze": "set ANALYZE=true&& next build"
+    "analyze": "cross-env ANALYZE=true && next build"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
@@ -27,6 +27,7 @@
     "@types/node": "20.5.6",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
+    "cross-env": "^7.0.3",
     "dayjs": "^1.11.10",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.19",

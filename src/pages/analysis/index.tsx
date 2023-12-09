@@ -1,8 +1,4 @@
 import dynamic from 'next/dynamic'
-const AnalysisContainer = dynamic(() =>
-  import('@/components/analysis/AnalysisContainer').then((mod) => mod.AnalysisContainer),
-)
-
 import { ContentsWrapper, FadeInWrapper, PageTitle } from '@/components/common'
 import { CommonMeta } from '@/components/common/meta/CommonMeta'
 import { useQueryCards } from '@/api/hooks/card/useQueryCard'
@@ -12,6 +8,10 @@ import { faMagnifyingGlassChart } from '@fortawesome/free-solid-svg-icons'
 import { GetServerSideProps } from 'next'
 import { Session, getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]'
+
+const AnalysisContainer = dynamic(() =>
+  import('@/components/analysis/AnalysisContainer').then((mod) => mod.AnalysisContainer),
+)
 
 type Props = {
   user: Session['user']
