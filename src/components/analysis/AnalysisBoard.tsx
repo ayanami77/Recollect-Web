@@ -17,7 +17,6 @@ import { Session } from 'next-auth'
 import { Card as TCard } from '@/api/models/card.model'
 import { toPeriodStringFromNumber } from '@/utils/toPeriodStringFromNumber'
 import { useMutateCard } from '@/api/hooks/card/useMutateCard'
-import Link from 'next/link'
 
 type AnalysisBoardProps = {
   content: TCard
