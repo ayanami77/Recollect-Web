@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react'
+import { Dispatch, FC, SetStateAction, useEffect, useRef, useState } from 'react'
 import { css } from '../../../styled-system/css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -30,9 +30,10 @@ type HistoryCardMenuProps = {
     updatedAt: string
   }
   user: Session['user']
+  setIsDetailOpen: Dispatch<SetStateAction<boolean>>
 }
 export const HistoryCardMenu: FC<HistoryCardMenuProps> = (props) => {
-  const { data, user } = props
+  const { data, user, setIsDetailOpen } = props
   const router = useRouter()
   const toastStore = useToastStore()
   const [isOpen, setIsOpen] = useState(false)
@@ -147,7 +148,12 @@ export const HistoryCardMenu: FC<HistoryCardMenuProps> = (props) => {
         </ul>
       )}
       {isEditModalOpen && (
-        <HistoryCardEditModal handleModal={handleEditModal} data={data} user={user} />
+        <HistoryCardEditModal
+          handleModal={handleEditModal}
+          data={data}
+          user={user}
+          setIsDetailOpen={setIsDetailOpen}
+        />
       )}
       {isConfirmModalOpen && (
         <ConfirmModal

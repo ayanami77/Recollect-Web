@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import { css } from '../../../styled-system/css'
 import { hstack } from '../../../styled-system/patterns'
 import { CharacteristicTag } from '@/components/common'
@@ -24,6 +24,16 @@ type HistoryCardProps = {
 export const HistoryCard: FC<HistoryCardProps> = (props) => {
   const { data, user } = props
   const [isOpen, setIsOpen] = useState(false)
+  const [isShowButton, setIsShowButton] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (ref.current && ref.current.offsetWidth < ref.current.scrollWidth) {
+      setIsShowButton(true)
+    } else {
+      setIsShowButton(false)
+    }
+  }, [data])
 
   return (
     <div
@@ -40,7 +50,7 @@ export const HistoryCard: FC<HistoryCardProps> = (props) => {
         },
       })}
     >
-      <HistoryCardMenu data={data} user={user} />
+      <HistoryCardMenu data={data} user={user} setIsDetailOpen={setIsOpen} />
       <h3
         className={css({
           fontSize: 'xl',
@@ -68,6 +78,7 @@ export const HistoryCard: FC<HistoryCardProps> = (props) => {
         </div>
       </div>
       <div
+        ref={ref}
         className={css({
           borderColor: 'gray',
           overflow: isOpen ? 'auto' : 'hidden',
@@ -84,22 +95,24 @@ export const HistoryCard: FC<HistoryCardProps> = (props) => {
       >
         {data.content}
       </div>
-      <button
-        className={hstack({
-          mt: '12px',
-          mx: 'auto',
-          fontSize: 'md',
-          color: 'black',
-          cursor: 'pointer',
-        })}
-        onClick={() => setIsOpen((prev) => !prev)}
-      >
-        {isOpen ? '詳細をとじる' : '詳細をみる'}
-        <FontAwesomeIcon
-          icon={isOpen ? faChevronUp : faChevronDown}
-          className={css({ w: '20px', h: '20px', color: 'black' })}
-        />
-      </button>
+      {isShowButton && (
+        <button
+          className={hstack({
+            mt: '12px',
+            mx: 'auto',
+            fontSize: 'md',
+            color: 'black',
+            cursor: 'pointer',
+          })}
+          onClick={() => setIsOpen((prev) => !prev)}
+        >
+          {isOpen ? '詳細をとじる' : '詳細をみる'}
+          <FontAwesomeIcon
+            icon={isOpen ? faChevronUp : faChevronDown}
+            className={css({ w: '20px', h: '20px', color: 'black' })}
+          />
+        </button>
+      )}
     </div>
   )
 }

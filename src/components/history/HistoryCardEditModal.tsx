@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
 import { css } from '../../../styled-system/css'
 import { flex, hstack } from '../../../styled-system/patterns'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -24,10 +24,11 @@ type HistoryCardEditModalProps = {
     updatedAt: string
   }
   user: Session['user']
+  setIsDetailOpen: Dispatch<SetStateAction<boolean>>
 }
 
 export const HistoryCardEditModal: FC<HistoryCardEditModalProps> = (props) => {
-  const { handleModal, data, user } = props
+  const { handleModal, data, user, setIsDetailOpen } = props
   const { updateCardMutation } = useMutateCard()
   const {
     register,
@@ -68,6 +69,7 @@ export const HistoryCardEditModal: FC<HistoryCardEditModalProps> = (props) => {
     } finally {
       handleModal()
     }
+    setIsDetailOpen(false)
   }
 
   const handleEditMode = () => {
@@ -119,15 +121,15 @@ export const HistoryCardEditModal: FC<HistoryCardEditModalProps> = (props) => {
               <div className={hstack({ justify: 'space-between' })}>
                 <label
                   htmlFor='title'
-                  className={css({ 
-                    fontSize: 'md', 
-                    fontWeight: 'bold', 
+                  className={css({
+                    fontSize: 'md',
+                    fontWeight: 'bold',
                     minW: '72px',
                     _after: {
                       content: '"*"',
                       color: 'cinnabar',
                       ml: '2px',
-                    }, 
+                    },
                   })}
                 >
                   タイトル
