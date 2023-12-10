@@ -31,24 +31,20 @@ export const HistorySortButton: FC<HistorySortButtonProps> = (props) => {
       <FontAwesomeIcon
         icon={faArrowDown}
         className={css(
+          {
+            position: 'absolute',
+            top: '0',
+            right: '0',
+            width: '20px',
+            height: '20px',
+            color: 'dimBlue',
+          },
           isAsc
             ? {
-                position: 'absolute',
-                top: '0',
-                right: '0',
                 transform: 'translate(0, 50%)',
-                width: '20px',
-                height: '20px',
-                color: 'dimBlue',
               }
             : {
-                position: 'absolute',
-                top: '0',
-                right: '0',
                 transform: 'rotate(180deg) translate(0, -50%)',
-                width: '20px',
-                height: '20px',
-                color: 'dimBlue',
               },
         )}
       />
