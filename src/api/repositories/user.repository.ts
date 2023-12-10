@@ -2,20 +2,12 @@ import { apiClient } from '../clients/apiClient'
 import { UserCredential } from '../models/user.model'
 import { User as UserResponse } from '../schemas/generated/schemas'
 
-export type IdDuplicateCheckResponse = {
-  isDuplicate: boolean
-}
-
-export type EmailDuplicateCheckResponse = {
-  isDuplicate: boolean
-}
-
 export interface UserRepository {
   signup: (userCredential: UserCredential, accessToken: string) => Promise<UserResponse>
   login: (userCredential: UserCredential, accessToken: string) => Promise<void>
   logout: (accessToken: string) => Promise<void>
-  idDuplicateCheck: (userId: string, accessToken: string) => Promise<IdDuplicateCheckResponse>
-  emailDuplicateCheck: (email: string, accessToken: string) => Promise<EmailDuplicateCheckResponse>
+  idDuplicateCheck: (userId: string, accessToken: string) => Promise<boolean>
+  emailDuplicateCheck: (email: string, accessToken: string) => Promise<boolean>
 }
 
 const signup: UserRepository['signup'] = async (
