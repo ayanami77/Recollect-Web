@@ -3,10 +3,10 @@ import { FC, useState } from 'react'
 import { css } from '../../../../styled-system/css'
 import { hstack } from '../../../../styled-system/patterns'
 import { OneByOneAnalysisBoard } from './OneByOneAnalysisBoard'
-import { sortCardsByPeriod } from '@/components/history'
 import { Card as TCard } from '@/api/models/card.model'
 import { Session } from 'next-auth'
 import { FadeInWrapper } from '../../common'
+import { sortCardsByPeriod } from '@/utils/sortCardsByPeriod'
 
 type AnalysisContainerProps = {
   data: TCard[]

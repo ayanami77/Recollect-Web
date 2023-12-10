@@ -6,12 +6,18 @@ import { faMapLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { GetServerSideProps } from 'next'
 import { Session, getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]'
+import { hstack } from '../../../styled-system/patterns'
+import { useState } from 'react'
+import { sortCardsByPeriod } from '@/utils/sortCardsByPeriod'
 
 const HistoryContainer = dynamic(() =>
   import('@/components/history/HistoryContainer').then((mod) => mod.HistoryContainer),
 )
 const HistoryToTutorialButton = dynamic(() =>
   import('@/components/history/HistoryToTutorialButton').then((mod) => mod.HistoryToTutorialButton),
+)
+const HistorySortButton = dynamic(() =>
+  import('@/components/history/HistorySortButton').then((mod) => mod.HistorySortButton),
 )
 
 type Props = {
@@ -20,6 +26,12 @@ type Props = {
 
 const History = ({ user }: Props) => {
   const { data } = useQueryCards(user.access_token || '')
+  const allCards = sortCardsByPeriod(data ?? [])
+  const [isAscPeriod, setIsAscPeriod] = useState(true)
+
+  const handleSort = () => {
+    setIsAscPeriod((prev) => !prev)
+  }
 
   return (
     <>
@@ -36,11 +48,23 @@ const History = ({ user }: Props) => {
             mt: '24px',
           })}
         >
-          <PageTitle title={'自分史をみる'} icon={faMapLocationDot} />
-          <HistoryContainer data={data ?? []} user={user} />
+          <div
+            className={hstack({
+              mb: '24px',
+              alignItems: 'center',
+              justify: 'space-between',
+            })}
+          >
+            <PageTitle title={'自分史をみる'} icon={faMapLocationDot} />
+            <HistorySortButton isAscPeriod={isAscPeriod} onClickFunc={handleSort} />
+          </div>
+          <HistoryContainer allCards={allCards} user={user} isAscPeriod={isAscPeriod} />
         </div>
       </ContentsWrapper>
-      {data?.length === 0 && <HistoryToTutorialButton />}
+      {/* いずれかのperiodで自分史が登録されていない場合は、チュートリアルへのボタンを表示する */}
+      {Object.values(allCards).some((cards) => {
+        return cards.length === 0
+      }) && <HistoryToTutorialButton />}
     </>
   )
 }
