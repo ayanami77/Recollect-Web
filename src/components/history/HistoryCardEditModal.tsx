@@ -77,6 +77,7 @@ export const HistoryCardEditModal: FC<HistoryCardEditModalProps> = (props) => {
       setIsConfirmModalOpen(true)
     } else {
       handleModal()
+      setIsDetailOpen(false)
     }
   }
 
