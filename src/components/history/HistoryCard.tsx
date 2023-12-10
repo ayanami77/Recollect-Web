@@ -26,15 +26,18 @@ export const HistoryCard: FC<HistoryCardProps> = (props) => {
   const { data, user } = props
   const [isOpen, setIsOpen] = useState(false)
   const [isShowButton, setIsShowButton] = useState(false)
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (ref.current && ref.current.offsetWidth < ref.current.scrollWidth) {
-      setIsShowButton(true)
-    } else {
-      setIsShowButton(false)
+    if (!isEditModalOpen) {
+      if (ref.current && ref.current.offsetWidth < ref.current.scrollWidth) {
+        setIsShowButton(true)
+      } else {
+        setIsShowButton(false)
+      }
     }
-  }, [data])
+  }, [isEditModalOpen])
 
   return (
     <div
@@ -51,7 +54,13 @@ export const HistoryCard: FC<HistoryCardProps> = (props) => {
         },
       })}
     >
-      <HistoryCardMenu data={data} user={user} setIsDetailOpen={setIsOpen} />
+      <HistoryCardMenu
+        data={data}
+        user={user}
+        setIsDetailOpen={setIsOpen}
+        isEditModalOpen={isEditModalOpen}
+        setIsEditModalOpen={setIsEditModalOpen}
+      />
       <h3
         className={css({
           fontSize: 'xl',
