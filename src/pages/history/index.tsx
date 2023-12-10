@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic'
 import { css } from '../../../styled-system/css'
-import { FadeInWrapper, CommonMeta, PageTitle, ContentsWrapper } from '@/components/common'
+import { CommonMeta, PageTitle, ContentsWrapper } from '@/components/common'
 import { useQueryCards } from '@/api/hooks/card/useQueryCard'
 import { faMapLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { GetServerSideProps } from 'next'
@@ -27,21 +27,19 @@ const History = ({ user }: Props) => {
         title={'Recollect - 自分史をみる'}
         description={'自分史を整理し、時系列順で見ることができます。'}
       />
-      <FadeInWrapper>
-        <ContentsWrapper>
-          <div
-            className={css({
-              w: 'full',
-              maxW: '780px',
-              mx: 'auto',
-              mt: '24px',
-            })}
-          >
-            <PageTitle title={'自分史をみる'} icon={faMapLocationDot} />
-            <HistoryContainer data={data ?? []} user={user} />
-          </div>
-        </ContentsWrapper>
-      </FadeInWrapper>
+      <ContentsWrapper>
+        <div
+          className={css({
+            w: 'full',
+            maxW: '780px',
+            mx: 'auto',
+            mt: '24px',
+          })}
+        >
+          <PageTitle title={'自分史をみる'} icon={faMapLocationDot} />
+          <HistoryContainer data={data ?? []} user={user} />
+        </div>
+      </ContentsWrapper>
       {data?.length === 0 && <HistoryToTutorialButton />}
     </>
   )

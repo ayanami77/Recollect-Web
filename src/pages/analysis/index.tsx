@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic'
-import { ContentsWrapper, FadeInWrapper, PageTitle } from '@/components/common'
+import { ContentsWrapper, PageTitle } from '@/components/common'
 import { CommonMeta } from '@/components/common/meta/CommonMeta'
 import { useQueryCards } from '@/api/hooks/card/useQueryCard'
 import { useRouter } from 'next/router'
@@ -8,43 +8,74 @@ import { faMagnifyingGlassChart } from '@fortawesome/free-solid-svg-icons'
 import { GetServerSideProps } from 'next'
 import { Session, getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]'
+import { flex } from '../../../styled-system/patterns'
+import { AnalysisTabs } from '@/components/analysis/AnalysisTabs'
+import { useState } from 'react'
+import { match } from 'ts-pattern'
 
-const AnalysisContainer = dynamic(() =>
-  import('@/components/analysis/AnalysisContainer').then((mod) => mod.AnalysisContainer),
+const OneByOneAnalysisContainer = dynamic(() =>
+  import('@/components/analysis/OneByOneAnalysis').then((mod) => mod.OneByOneAnalysisContainer),
+)
+
+const ComprehensiveAnalysisContainer = dynamic(() =>
+  import('@/components/analysis/ComprehensiveAnalysis').then(
+    (mod) => mod.ComprehensiveAnalysisContainer,
+  ),
 )
 
 type Props = {
   user: Session['user']
 }
 
+export type TAnalysisType = 'onebyone' | 'comprehensive'
+
 const Analysis = ({ user }: Props) => {
   const router = useRouter()
   const { data, isLoading } = useQueryCards(user.access_token || '')
 
+  const [analysisType, setAnalysisType] = useState<TAnalysisType>('onebyone')
   return (
     <>
       <CommonMeta
         title={'Recollect - 自分史を分析する'}
         description={'AIを利用することで、自分史カードから自分の特性を知ることができます。'}
       />
-
-      <FadeInWrapper>
-        <ContentsWrapper>
+      <ContentsWrapper>
+        <div
+          className={css({
+            w: 'full',
+            maxW: '780px',
+            mx: 'auto',
+            mt: '24px',
+          })}
+        >
           <div
-            className={css({
-              w: 'full',
-              maxW: '780px',
-              mx: 'auto',
-              mt: '24px',
+            className={flex({
+              direction: 'column',
+              md: {
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              },
             })}
           >
             <PageTitle title={'自分史を分析する'} icon={faMagnifyingGlassChart} />
-            {!isLoading && (
-              <AnalysisContainer data={data ?? []} cardId={router.query.card_id} user={user} />
-            )}
+            <AnalysisTabs analysisType={analysisType} setAnalysisType={setAnalysisType} />
           </div>
-        </ContentsWrapper>
-      </FadeInWrapper>
+          {!isLoading &&
+            match(analysisType)
+              .with('onebyone', () => (
+                <OneByOneAnalysisContainer
+                  data={data ?? []}
+                  cardId={router.query.card_id}
+                  user={user}
+                />
+              ))
+              .with('comprehensive', () => (
+                <ComprehensiveAnalysisContainer data={data ?? []} user={user} />
+              ))
+              .exhaustive()}
+        </div>
+      </ContentsWrapper>
     </>
   )
 }
