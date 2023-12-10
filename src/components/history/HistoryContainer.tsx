@@ -22,11 +22,18 @@ export const sortCardsByPeriod = (data: TCard[]) => {
 type HistoryContainerProps = {
   data: TCard[]
   user: Session['user']
+  isAsc: boolean
 }
+
 export const HistoryContainer: FC<HistoryContainerProps> = (props) => {
-  const { data, user } = props
+  const { data, user, isAsc } = props
   const allCards = sortCardsByPeriod(data)
   const toastStore = useToastStore()
+  const periodKeys = Object.keys(allCards)
+
+  if (!isAsc) {
+    periodKeys.reverse()
+  }
 
   return (
     <div
@@ -36,7 +43,7 @@ export const HistoryContainer: FC<HistoryContainerProps> = (props) => {
         mt: '40px',
       })}
     >
-      {Object.keys(allCards).map((period) => {
+      {periodKeys.map((period) => {
         return (
           <HistorySection key={period} period={period as TPeriod} user={user}>
             {allCards[period].length ? (
