@@ -19,6 +19,7 @@ export const HistorySortButton: FC<HistorySortButtonProps> = (props) => {
         p: '8px',
         fontSize: 'md',
         fontWeight: 'bold',
+        color: 'black',
         rounded: 'md',
         cursor: 'pointer',
         md: {
