@@ -5,12 +5,12 @@ import { FC } from 'react'
 import { css } from '../../../styled-system/css'
 
 type HistorySortButtonProps = {
-  isAsc: boolean
+  isAscPeriod: boolean
   onClickFunc: () => void
 }
 
 export const HistorySortButton: FC<HistorySortButtonProps> = (props) => {
-  const { isAsc, onClickFunc } = props
+  const { isAscPeriod, onClickFunc } = props
   return (
     <m.button
       className={css({
@@ -27,7 +27,7 @@ export const HistorySortButton: FC<HistorySortButtonProps> = (props) => {
       })}
       onClick={onClickFunc}
     >
-      {isAsc ? '現在' : '幼少期'}
+      {isAscPeriod ? '現在' : '幼少期'}
       <FontAwesomeIcon
         icon={faArrowDown}
         className={css(
@@ -39,7 +39,7 @@ export const HistorySortButton: FC<HistorySortButtonProps> = (props) => {
             height: '20px',
             color: 'dimBlue',
           },
-          isAsc
+          isAscPeriod
             ? {
                 transform: 'translate(0, 50%)',
               }

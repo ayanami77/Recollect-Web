@@ -8,6 +8,7 @@ import { Session, getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]'
 import { hstack } from '../../../styled-system/patterns'
 import { useState } from 'react'
+import { Card as TCard } from '@/api/models/card.model'
 
 const HistoryContainer = dynamic(() =>
   import('@/components/history/HistoryContainer').then((mod) => mod.HistoryContainer),
@@ -23,12 +24,25 @@ type Props = {
   user: Session['user']
 }
 
+export const sortCardsByPeriod = (data: TCard[]) => {
+  const result: { [key: string]: TCard[] } = {
+    '0': [],
+    '1': [],
+    '2': [],
+    '3': [],
+    '4': [],
+  }
+  for (const d of data) result[d.period].push(d)
+  return result
+}
+
 const History = ({ user }: Props) => {
   const { data } = useQueryCards(user.access_token || '')
-  const [isAsc, setIsAsc] = useState(true)
+  const allCards = sortCardsByPeriod(data ?? [])
+  const [isAscPeriod, setIsAscPeriod] = useState(true)
 
   const handleSort = () => {
-    setIsAsc((prev) => !prev)
+    setIsAscPeriod((prev) => !prev)
   }
 
   return (
@@ -55,13 +69,16 @@ const History = ({ user }: Props) => {
               })}
             >
               <PageTitle title={'自分史をみる'} icon={faMapLocationDot} />
-              <HistorySortButton isAsc={isAsc} onClickFunc={handleSort} />
+              <HistorySortButton isAscPeriod={isAscPeriod} onClickFunc={handleSort} />
             </div>
-            <HistoryContainer data={data ?? []} user={user} isAsc={isAsc} />
+            <HistoryContainer allCards={allCards} user={user} isAscPeriod={isAscPeriod} />
           </div>
         </ContentsWrapper>
       </FadeInWrapper>
-      {data?.length === 0 && <HistoryToTutorialButton />}
+      {/* いずれかのperiodで自分史が登録されていない場合は、チュートリアルへのボタンを表示する */}
+      {Object.values(allCards).some((cards) => {
+        return cards.length === 0
+      }) && <HistoryToTutorialButton />}
     </>
   )
 }

@@ -7,31 +7,18 @@ import { Toast } from '../common'
 import { useToastStore } from '@/store/useToastStore'
 import { Session } from 'next-auth'
 
-export const sortCardsByPeriod = (data: TCard[]) => {
-  const result: { [key: string]: TCard[] } = {
-    '0': [],
-    '1': [],
-    '2': [],
-    '3': [],
-    '4': [],
-  }
-  for (const d of data) result[d.period].push(d)
-  return result
-}
-
 type HistoryContainerProps = {
-  data: TCard[]
+  allCards: { [key: string]: TCard[] }
   user: Session['user']
-  isAsc: boolean
+  isAscPeriod: boolean
 }
 
 export const HistoryContainer: FC<HistoryContainerProps> = (props) => {
-  const { data, user, isAsc } = props
-  const allCards = sortCardsByPeriod(data)
+  const { allCards, user, isAscPeriod } = props
   const toastStore = useToastStore()
   const periodKeys = Object.keys(allCards)
 
-  if (!isAsc) {
+  if (!isAscPeriod) {
     periodKeys.reverse()
   }
 
