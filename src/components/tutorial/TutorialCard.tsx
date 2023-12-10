@@ -118,6 +118,11 @@ export const TutorialCard: FC<TutorialCardProps> = (props) => {
           className={css({
             fontSize: 'md',
             fontWeight: 'bold',
+            _after: {
+              content: '"*"',
+              color: 'cinnabar',
+              ml: '2px',
+            },
           })}
         >
           タイトル
