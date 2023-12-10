@@ -25,11 +25,11 @@ export const userFactory = () => {
     logout: async (accessToken: string) => repository.logout(accessToken),
     idDuplicateCheck: async (userId: string, accessToken: string): Promise<boolean> => {
       const response = await repository.idDuplicateCheck(userId, accessToken)
-      return response.isDuplicate
+      return response
     },
     emailDuplicateCheck: async (email: string, accessToken: string): Promise<boolean> => {
       const response = await repository.emailDuplicateCheck(email, accessToken)
-      return response.isDuplicate
+      return response
     },
   }
 }
