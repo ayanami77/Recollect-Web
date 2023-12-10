@@ -21,8 +21,6 @@ export const authOptions: NextAuthOptions = {
 
         const jwtClaims = {
           sub: user.id,
-          name: user.name,
-          email: user.email,
         }
         const myToken = jwt.sign(jwtClaims, jwtSecret, {
           algorithm: 'HS256',
