@@ -31,7 +31,7 @@ export const HistoryContainer: FC<HistoryContainerProps> = (props) => {
           mt: '40px',
         })}
       >
-        {Object.keys(allCards).map((period) => {
+        {periodKeys.map((period) => {
           return (
             <HistorySection key={period} period={period as TPeriod} user={user}>
               {allCards[period].length ? (
