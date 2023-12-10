@@ -8,7 +8,7 @@ import { Session, getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]'
 import { hstack } from '../../../styled-system/patterns'
 import { useState } from 'react'
-import { Card as TCard } from '@/api/models/card.model'
+import { sortCardsByPeriod } from '@/utils/sortCardsByPeriod'
 
 const HistoryContainer = dynamic(() =>
   import('@/components/history/HistoryContainer').then((mod) => mod.HistoryContainer),
@@ -22,18 +22,6 @@ const HistorySortButton = dynamic(() =>
 
 type Props = {
   user: Session['user']
-}
-
-export const sortCardsByPeriod = (data: TCard[]) => {
-  const result: { [key: string]: TCard[] } = {
-    '0': [],
-    '1': [],
-    '2': [],
-    '3': [],
-    '4': [],
-  }
-  for (const d of data) result[d.period].push(d)
-  return result
 }
 
 const History = ({ user }: Props) => {

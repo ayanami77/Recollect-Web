@@ -3,9 +3,9 @@ import { FC, useState } from 'react'
 import { css } from '../../../styled-system/css'
 import { hstack } from '../../../styled-system/patterns'
 import { AnalysisBoard } from './AnalysisBoard'
-import { sortCardsByPeriod } from '@/components/history'
 import { Card as TCard } from '@/api/models/card.model'
 import { Session } from 'next-auth'
+import { sortCardsByPeriod } from '@/utils/sortCardsByPeriod'
 
 type AnalysisContainerProps = {
   data: TCard[]
