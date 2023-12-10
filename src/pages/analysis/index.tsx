@@ -1,7 +1,7 @@
+import dynamic from 'next/dynamic'
 import { ContentsWrapper, FadeInWrapper, PageTitle } from '@/components/common'
 import { CommonMeta } from '@/components/common/meta/CommonMeta'
 import { useQueryCards } from '@/api/hooks/card/useQueryCard'
-import { AnalysisContainer } from '@/components/analysis'
 import { useRouter } from 'next/router'
 import { css } from '../../../styled-system/css'
 import { faMagnifyingGlassChart } from '@fortawesome/free-solid-svg-icons'
@@ -9,13 +9,17 @@ import { GetServerSideProps } from 'next'
 import { Session, getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]'
 
+const AnalysisContainer = dynamic(() =>
+  import('@/components/analysis/AnalysisContainer').then((mod) => mod.AnalysisContainer),
+)
+
 type Props = {
   user: Session['user']
 }
 
 const Analysis = ({ user }: Props) => {
   const router = useRouter()
-  const { data } = useQueryCards(user.access_token || '')
+  const { data, isLoading } = useQueryCards(user.access_token || '')
 
   return (
     <>
@@ -23,6 +27,7 @@ const Analysis = ({ user }: Props) => {
         title={'Recollect - 自分史を分析する'}
         description={'AIを利用することで、自分史カードから自分の特性を知ることができます。'}
       />
+
       <FadeInWrapper>
         <ContentsWrapper>
           <div
@@ -33,8 +38,10 @@ const Analysis = ({ user }: Props) => {
               mt: '24px',
             })}
           >
-            <PageTitle title={'自分史を分析をする'} icon={faMagnifyingGlassChart} />
-            <AnalysisContainer data={data ?? []} cardId={router.query.card_id} user={user} />
+            <PageTitle title={'自分史を分析する'} icon={faMagnifyingGlassChart} />
+            {!isLoading && (
+              <AnalysisContainer data={data ?? []} cardId={router.query.card_id} user={user} />
+            )}
           </div>
         </ContentsWrapper>
       </FadeInWrapper>

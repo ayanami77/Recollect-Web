@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react'
+import { Dispatch, FC, SetStateAction, useEffect, useRef, useState } from 'react'
 import { css } from '../../../styled-system/css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -30,9 +30,12 @@ type HistoryCardMenuProps = {
     updatedAt: string
   }
   user: Session['user']
+  isEditModalOpen: boolean
+  setIsDetailOpen: Dispatch<SetStateAction<boolean>>
+  setIsEditModalOpen: Dispatch<SetStateAction<boolean>>
 }
 export const HistoryCardMenu: FC<HistoryCardMenuProps> = (props) => {
-  const { data, user } = props
+  const { data, isEditModalOpen, user, setIsDetailOpen, setIsEditModalOpen } = props
   const router = useRouter()
   const toastStore = useToastStore()
   const [isOpen, setIsOpen] = useState(false)
@@ -43,7 +46,6 @@ export const HistoryCardMenu: FC<HistoryCardMenuProps> = (props) => {
   }
 
   // カード編集処理
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const handleEditModal = () => {
     setIsEditModalOpen((prev) => !prev)
     controlScreenScroll(isEditModalOpen)
@@ -147,7 +149,12 @@ export const HistoryCardMenu: FC<HistoryCardMenuProps> = (props) => {
         </ul>
       )}
       {isEditModalOpen && (
-        <HistoryCardEditModal handleModal={handleEditModal} data={data} user={user} />
+        <HistoryCardEditModal
+          handleModal={handleEditModal}
+          data={data}
+          user={user}
+          setIsDetailOpen={setIsDetailOpen}
+        />
       )}
       {isConfirmModalOpen && (
         <ConfirmModal

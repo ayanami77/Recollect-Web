@@ -4,6 +4,10 @@ import { signIn } from 'next-auth/react'
 import { css } from '../../../styled-system/css'
 import { hstack, vstack } from '../../../styled-system/patterns'
 import Image from 'next/image'
+import { apiClient } from '@/api/clients/apiClient'
+import { GetServerSideProps } from 'next'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '../api/auth/[...nextauth]'
 
 const Signin = () => {
   return (
@@ -57,3 +61,39 @@ const Signin = () => {
 }
 
 export default Signin
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getServerSession(req, res, authOptions)
+
+  if (!session?.user) {
+    return {
+      props: {},
+    }
+  }
+
+  const isExistUser = await apiClient.post(
+    '/users/email-duplicate-check',
+    {
+      accessToken: session.user.access_token || '',
+    },
+    {
+      email: session?.user.email,
+    },
+  )
+
+  if (isExistUser) {
+    return {
+      redirect: {
+        destination: '/history',
+        permanent: false,
+      },
+    }
+  } else {
+    return {
+      redirect: {
+        destination: '/signup',
+        permanent: false,
+      },
+    }
+  }
+}

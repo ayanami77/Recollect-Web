@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import { css } from '../../../styled-system/css'
 import { hstack } from '../../../styled-system/patterns'
 import { CharacteristicTag } from '@/components/common'
@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { HistoryCardMenu } from './HistoryCardMenu'
 import { Session } from 'next-auth'
+import Link from 'next/link'
 
 type HistoryCardProps = {
   data: {
@@ -24,6 +25,19 @@ type HistoryCardProps = {
 export const HistoryCard: FC<HistoryCardProps> = (props) => {
   const { data, user } = props
   const [isOpen, setIsOpen] = useState(false)
+  const [isShowButton, setIsShowButton] = useState(false)
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!isEditModalOpen) {
+      if (ref.current && ref.current.offsetWidth < ref.current.scrollWidth) {
+        setIsShowButton(true)
+      } else {
+        setIsShowButton(false)
+      }
+    }
+  }, [isEditModalOpen])
 
   return (
     <div
@@ -40,7 +54,13 @@ export const HistoryCard: FC<HistoryCardProps> = (props) => {
         },
       })}
     >
-      <HistoryCardMenu data={data} user={user} />
+      <HistoryCardMenu
+        data={data}
+        user={user}
+        setIsDetailOpen={setIsOpen}
+        isEditModalOpen={isEditModalOpen}
+        setIsEditModalOpen={setIsEditModalOpen}
+      />
       <h3
         className={css({
           fontSize: 'xl',
@@ -61,13 +81,25 @@ export const HistoryCard: FC<HistoryCardProps> = (props) => {
               ))}
             </div>
           ) : (
-            <p className={css({ color: 'lightGreen', fontSize: 'sm', md: { fontSize: 'md' } })}>
-              分析をするとあなたの特性が表示されます
-            </p>
+            <Link href={`/analysis?card_id=${data.id}`}>
+              <span
+                className={css({
+                  color: 'lightGreen',
+                  fontSize: 'sm',
+                  md: { fontSize: 'md' },
+                  _hover: {
+                    textDecoration: 'underline',
+                  },
+                })}
+              >
+                分析をするとあなたの特性が表示されます
+              </span>
+            </Link>
           )}
         </div>
       </div>
       <div
+        ref={ref}
         className={css({
           borderColor: 'gray',
           overflow: isOpen ? 'auto' : 'hidden',
@@ -84,22 +116,24 @@ export const HistoryCard: FC<HistoryCardProps> = (props) => {
       >
         {data.content}
       </div>
-      <button
-        className={hstack({
-          mt: '12px',
-          mx: 'auto',
-          fontSize: 'md',
-          color: 'black',
-          cursor: 'pointer',
-        })}
-        onClick={() => setIsOpen((prev) => !prev)}
-      >
-        {isOpen ? '詳細をとじる' : '詳細をみる'}
-        <FontAwesomeIcon
-          icon={isOpen ? faChevronUp : faChevronDown}
-          className={css({ w: '20px', h: '20px', color: 'black' })}
-        />
-      </button>
+      {isShowButton && (
+        <button
+          className={hstack({
+            mt: '12px',
+            mx: 'auto',
+            fontSize: 'md',
+            color: 'black',
+            cursor: 'pointer',
+          })}
+          onClick={() => setIsOpen((prev) => !prev)}
+        >
+          {isOpen ? '詳細をとじる' : '詳細をみる'}
+          <FontAwesomeIcon
+            icon={isOpen ? faChevronUp : faChevronDown}
+            className={css({ w: '20px', h: '20px', color: 'black' })}
+          />
+        </button>
+      )}
     </div>
   )
 }

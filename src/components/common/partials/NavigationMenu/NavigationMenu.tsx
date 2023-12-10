@@ -24,7 +24,7 @@ export const NavigationMenu: FC<NavigationMenuProps> = (props) => {
           link={'/analysis'}
           icon={faMagnifyingGlassChart}
         />
-        <NavigationMenuItemLink title={'ユーザ―情報'} link={'/user'} icon={faUserGear} />
+        <NavigationMenuItemLink title={'ユーザー情報'} link={'/user'} icon={faUserGear} />
         <NavigationMenuItemButton
           title={'ログアウト'}
           icon={faArrowRightFromBracket}
