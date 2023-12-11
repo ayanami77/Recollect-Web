@@ -32,15 +32,22 @@ export interface Cards {
 }
 
 export interface User {
-  /** @example "user8864" */
+  /** @example "user1123" */
   user_id: string
-  /** @example "reco_user" */
+  /** @example "user1123" */
   user_name: string
+  /** @example "something" */
+  comprehensive_analysis_result: string
+  /** @example "something" */
+  comprehensive_analysis_score: string
   /** @example "2023-09-01T12:14:57.548Z" */
   created_at: string
   /** @example "2023-09-01T12:14:57.548Z" */
   updated_at: string
 }
+
+/** @example true */
+export type IsDuplicated = boolean
 
 export type QueryParamsType = Record<string | number, any>
 export type ResponseFormat = keyof Omit<Body, 'body' | 'bodyUsed'>
@@ -395,24 +402,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags users
-     * @name LoginCreate
-     * @summary ログイン
-     * @request POST:/users/login
+     * @name UsersList
+     * @summary ユーザーの取得
+     * @request GET:/users
      */
-    loginCreate: (
-      data: {
-        /** @example "user8864" */
-        user_id?: string
-        /** @example "password" */
-        password?: string
-      },
-      params: RequestParams = {},
-    ) =>
-      this.request<void, any>({
-        path: `/users/login`,
-        method: 'POST',
-        body: data,
-        type: ContentType.Json,
+    usersList: (params: RequestParams = {}) =>
+      this.request<User, any>({
+        path: `/users`,
+        method: 'GET',
+        format: 'json',
         ...params,
       }),
 
@@ -426,10 +424,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      */
     signupCreate: (
       data: {
-        /** @example "user8864" */
+        /** @example "unique_id" */
+        sub?: string
+        /** @example "user1123" */
         user_id?: string
-        /** @example "password" */
-        password?: string
+        /** @example "example@gmail.com" */
+        email?: string
       },
       params: RequestParams = {},
     ) =>
@@ -446,14 +446,23 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags users
-     * @name LogoutCreate
-     * @summary ログアウト
-     * @request POST:/users/logout
+     * @name EmailDuplicateCheckCreate
+     * @summary emailの重複チェック
+     * @request POST:/users/email-duplicate-check
      */
-    logoutCreate: (params: RequestParams = {}) =>
-      this.request<void, any>({
-        path: `/users/logout`,
+    emailDuplicateCheckCreate: (
+      data: {
+        /** @example "example@gmail.com" */
+        email?: string
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<IsDuplicated, any>({
+        path: `/users/email-duplicate-check`,
         method: 'POST',
+        body: data,
+        type: ContentType.Json,
+        format: 'json',
         ...params,
       }),
 
@@ -461,13 +470,37 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags users
-     * @name UsersPartialUpdate
-     * @summary ユーザー情報の更新
-     * @request PATCH:/users/{userId}
+     * @name IdDuplicateCheckCreate
+     * @summary user_idの重複チェック
+     * @request POST:/users/id-duplicate-check
      */
-    usersPartialUpdate: (userId: string, params: RequestParams = {}) =>
+    idDuplicateCheckCreate: (
+      data: {
+        /** @example "user1123" */
+        user_id?: string
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<IsDuplicated, any>({
+        path: `/users/id-duplicate-check`,
+        method: 'POST',
+        body: data,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags users
+     * @name ComprehensiveAnalysisPartialUpdate
+     * @summary 自分史から総合分析を行う
+     * @request PATCH:/users/comprehensive-analysis/{userId}
+     */
+    comprehensiveAnalysisPartialUpdate: (userId: string, params: RequestParams = {}) =>
       this.request<User, any>({
-        path: `/users/${userId}`,
+        path: `/users/comprehensive-analysis/${userId}`,
         method: 'PATCH',
         format: 'json',
         ...params,

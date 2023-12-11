@@ -22,30 +22,22 @@ export const useMutateUser = () => {
     },
   )
 
-  const loginMutation = useMutation(
+  const analyzeMutation = useMutation(
     async (params: { userCredential: UserCredential; accessToken: string }) => {
       const { userCredential, accessToken } = params
-      return await userFactory().login(userCredential, accessToken)
+      return await userFactory().analyze(userCredential, accessToken)
     },
     {
-      onSuccess: () => {
-        router.push('/history')
-      },
-      onError: (err: FetchError) => {
-        console.log(err)
-      },
-    },
-  )
-
-  const logoutMutation = useMutation(
-    async (params: { accessToken: string }) => {
-      const { accessToken } = params
-      return await userFactory().logout(accessToken)
-    },
-    {
-      onSuccess: () => {
-        queryClient.clear() // Clear all cache
-        router.push('/')
+      onSuccess: (res) => {
+        const loggedInUser = queryClient.getQueryData(['user'])
+        if (loggedInUser) {
+          queryClient.setQueriesData(['user'], {
+            // TODO: 要検証
+            comprehensiveAnalysisResult: res.comprehensiveAnalysisResult,
+            comprehensiveAnalysisScore: res.comprehensiveAnalysisScore,
+            ...loggedInUser,
+          })
+        }
       },
       onError: (err: FetchError) => {
         console.log(err)
@@ -54,9 +46,9 @@ export const useMutateUser = () => {
   )
 
   const idDuplicateMutation = useMutation(
-    async (params: { userId: string; accessToken: string }) => {
-      const { userId, accessToken } = params
-      return await userFactory().idDuplicateCheck(userId, accessToken)
+    async (params: { userCredential: UserCredential; accessToken: string }) => {
+      const { userCredential, accessToken } = params
+      return await userFactory().idDuplicateCheck(userCredential, accessToken)
     },
     {
       onError: (err: FetchError) => {
@@ -66,9 +58,9 @@ export const useMutateUser = () => {
   )
 
   const emailDuplicateMutation = useMutation(
-    async (params: { email: string; accessToken: string }) => {
-      const { email, accessToken } = params
-      return await userFactory().emailDuplicateCheck(email, accessToken)
+    async (params: { userCredential: UserCredential; accessToken: string }) => {
+      const { userCredential, accessToken } = params
+      return await userFactory().emailDuplicateCheck(userCredential, accessToken)
     },
     {
       onError: (err: FetchError) => {
@@ -78,9 +70,8 @@ export const useMutateUser = () => {
   )
   return {
     signUpMutation,
-    loginMutation,
-    logoutMutation,
     idDuplicateMutation,
     emailDuplicateMutation,
+    analyzeMutation,
   }
 }
