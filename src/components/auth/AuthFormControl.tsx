@@ -18,7 +18,7 @@ type AuthFormControlProps = {
 const makeFormControl = (props: AuthFormControlProps) => {
   const { errors, register, usage } = props
   return {
-    label: 'ユーザ―ID',
+    label: 'ユーザーID',
     type: 'text',
     register: register(usage),
     errorMessage: errors.userId?.message && <ValidationMessage message={errors.userId.message} />,

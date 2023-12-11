@@ -462,7 +462,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags users
      * @name UsersPartialUpdate
-     * @summary ユーザ―情報の更新
+     * @summary ユーザー情報の更新
      * @request PATCH:/users/{userId}
      */
     usersPartialUpdate: (userId: string, params: RequestParams = {}) =>
