@@ -15,7 +15,7 @@ tags:
   - name: 'cards'
     description: '自分史の操作'
   - name: 'users'
-    description: 'ユーザ―の操作'
+    description: 'ユーザーの操作'
 
 paths:
   '/cards':
@@ -182,7 +182,7 @@ paths:
           description: '成功'
   '/users/{userId}':
     patch:
-      summary: 'ユーザ―情報の更新'
+      summary: 'ユーザー情報の更新'
       tags: ['users']
       deprecated: false
       responses:
