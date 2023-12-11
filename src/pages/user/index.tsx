@@ -9,7 +9,7 @@ import { authOptions } from '../api/auth/[...nextauth]'
 const User = () => {
   return (
     <>
-      <CommonMeta title={'Recollect - ユーザ―情報'} description={'ユーザ―情報を表示します。'} />
+      <CommonMeta title={'Recollect - ユーザー情報'} description={'ユーザー情報を表示します。'} />
       <FadeInWrapper>
         <ContentsWrapper>
           <div
@@ -20,7 +20,7 @@ const User = () => {
               mt: '24px',
             })}
           >
-            <PageTitle title={'ユーザ―情報'} icon={faUserGear} />
+            <PageTitle title={'ユーザー情報'} icon={faUserGear} />
           </div>
         </ContentsWrapper>
       </FadeInWrapper>
