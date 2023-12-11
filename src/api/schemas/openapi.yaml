@@ -155,7 +155,9 @@ paths:
             schema:
               type: object
               properties:
+                sub: { type: string, example: 'unique_id' }
                 user_id: { type: string, example: 'user1123' }
+                email: { type: string, example: 'example@gmail.com' }
       responses:
         '200':
           description: '成功'
@@ -226,17 +228,6 @@ paths:
       deprecated: false
       parameters:
         - $ref: '#/components/parameters/Authorization'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                content:
-                  {
-                    type: string,
-                    example: '毎週、教科書で出てくるような有名な実験から面白い実験まで色々なことをしていました。etc ...',
-                  }
       responses:
         '200':
           description: '成功'
