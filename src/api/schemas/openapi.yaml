@@ -297,6 +297,11 @@ components:
         updated_at: { type: string, example: '2023-09-01T12:14:57.548Z' }
       required:
         - user_id
+          user_name
+          comprehensive_analysis_result
+          comprehensive_analysis_score
+          created_at
+          updated_at
     IsDuplicated:
       type: boolean
       example: true
