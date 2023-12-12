@@ -221,7 +221,7 @@ paths:
   #           application/json:
   #             schema:
   #               $ref: '#/components/schemas/User'
-  '/users/comprehensive-analysis/{userId}':
+  '/users/comprehensive-analysis':
     patch:
       summary: '自分史から総合分析を行う'
       tags: ['users']

@@ -496,11 +496,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @tags users
      * @name ComprehensiveAnalysisPartialUpdate
      * @summary 自分史から総合分析を行う
-     * @request PATCH:/users/comprehensive-analysis/{userId}
+     * @request PATCH:/users/comprehensive-analysis
      */
-    comprehensiveAnalysisPartialUpdate: (userId: string, params: RequestParams = {}) =>
+    comprehensiveAnalysisPartialUpdate: (params: RequestParams = {}) =>
       this.request<User, any>({
-        path: `/users/comprehensive-analysis/${userId}`,
+        path: `/users/comprehensive-analysis`,
         method: 'PATCH',
         format: 'json',
         ...params,
