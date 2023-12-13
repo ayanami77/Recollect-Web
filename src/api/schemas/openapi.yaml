@@ -15,7 +15,7 @@ tags:
   - name: 'cards'
     description: '自分史の操作'
   - name: 'users'
-    description: 'ユーザ―の操作'
+    description: 'ユーザーの操作'
 
 paths:
   '/cards':
@@ -24,9 +24,7 @@ paths:
       tags: ['cards']
       deprecated: false
       parameters:
-        - name: user_token
-          in: cookie
-          schema: { type: string }
+        - $ref: '#/components/parameters/Authorization'
       responses:
         '200':
           description: '成功'
@@ -39,9 +37,7 @@ paths:
       tags: ['cards']
       deprecated: false
       parameters:
-        - name: user_token
-          in: cookie
-          schema: { type: string }
+        - $ref: '#/components/parameters/Authorization'
       requestBody:
         description: '作成内容'
         required: true
@@ -70,9 +66,7 @@ paths:
       tags: ['cards']
       deprecated: false
       parameters:
-        - name: user_token
-          in: cookie
-          schema: { type: string }
+        - $ref: '#/components/parameters/Authorization'
       requestBody:
         description: '更新内容'
         required: true
@@ -100,9 +94,7 @@ paths:
       tags: ['cards']
       deprecated: false
       parameters:
-        - name: user_token
-          in: cookie
-          schema: { type: string }
+        - $ref: '#/components/parameters/Authorization'
       responses:
         '204':
           description: '成功'
@@ -111,6 +103,8 @@ paths:
       summary: '自分史の分析'
       tags: ['cards']
       deprecated: false
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
       requestBody:
         content:
           application/json:
@@ -132,29 +126,27 @@ paths:
               schema:
                 $ref: '#/components/schemas/Card'
 
-  '/users/login':
-    post:
-      summary: 'ログイン'
+  '/users':
+    get:
+      summary: 'ユーザーの取得'
       tags: ['users']
       deprecated: false
-      requestBody:
-        description: 'ログイン情報'
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                user_id: { type: string, example: 'user8864' }
-                password: { type: string, example: 'password' }
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
       responses:
-        '204':
+        '200':
           description: '成功'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
   '/users/signup':
     post:
       summary: 'サインアップ'
       tags: ['users']
       deprecated: false
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
       requestBody:
         description: 'サインアップ情報'
         required: true
@@ -163,8 +155,9 @@ paths:
             schema:
               type: object
               properties:
-                user_id: { type: string, example: 'user8864' }
-                password: { type: string, example: 'password' }
+                sub: { type: string, example: 'unique_id' }
+                user_id: { type: string, example: 'user1123' }
+                email: { type: string, example: 'example@gmail.com' }
       responses:
         '200':
           description: '成功'
@@ -172,19 +165,69 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-  '/users/logout':
+  '/users/email-duplicate-check':
     post:
-      summary: 'ログアウト'
+      summary: 'emailの重複チェック'
       tags: ['users']
       deprecated: false
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: { type: string, example: 'example@gmail.com' }
       responses:
-        '204':
+        '200':
           description: '成功'
-  '/users/{userId}':
-    patch:
-      summary: 'ユーザ―情報の更新'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IsDuplicated'
+  '/users/id-duplicate-check':
+    post:
+      summary: 'user_idの重複チェック'
       tags: ['users']
       deprecated: false
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id: { type: string, example: 'user1123' }
+      responses:
+        '200':
+          description: '成功'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IsDuplicated'
+  # '/users/{userId}':
+  #   patch:
+  #     summary: 'ユーザー情報の更新'
+  #     tags: ['users']
+  #     deprecated: false
+  #     responses:
+  #       '200':
+  #         description: '成功'
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/User'
+  '/users/comprehensive-analysis':
+    patch:
+      summary: '自分史から総合分析を行う'
+      tags: ['users']
+      deprecated: false
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
       responses:
         '200':
           description: '成功'
@@ -192,8 +235,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-
 components:
+  parameters:
+    Authorization:
+      name: JWT
+      in: header
+      schema: { type: string }
+      description: Bearer認証を利用
   schemas:
     Card:
       type: object
@@ -232,12 +280,19 @@ components:
     User:
       type: object
       properties:
-        user_id: { type: string, example: 'user8864' }
-        user_name: { type: string, example: 'reco_user' }
+        user_id: { type: string, example: 'user1123' }
+        user_name: { type: string, example: 'user1123' }
+        comprehensive_analysis_result: { type: string, example: 'something' }
+        comprehensive_analysis_score: { type: string, example: 'something' }
         created_at: { type: string, example: '2023-09-01T12:14:57.548Z' }
         updated_at: { type: string, example: '2023-09-01T12:14:57.548Z' }
       required:
         - user_id
         - user_name
+        - comprehensive_analysis_result
+        - comprehensive_analysis_score
         - created_at
         - updated_at
+    IsDuplicated:
+      type: boolean
+      example: true
