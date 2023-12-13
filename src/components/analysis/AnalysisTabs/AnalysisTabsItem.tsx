@@ -19,7 +19,8 @@ export const AnalysisTabsItem: FC<AnalysisTabsItemProps> = (props) => {
           fontWeight: 'bold',
           cursor: 'pointer',
           color: analysisType === role ? 'dimBlue' : 'slate.400',
-          borderBottom: '2px solid',
+          borderBottomWidth: '2px',
+          borderBottomStyle: 'solid',
           borderColor: analysisType === role ? 'dimBlue' : 'slate.400',
           _hover: {
             bg: 'gray',
