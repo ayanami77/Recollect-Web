@@ -13,6 +13,7 @@ import { AnalysisTabs } from '@/components/analysis/AnalysisTabs'
 import { useState } from 'react'
 import { match } from 'ts-pattern'
 import { useQueryUser } from '@/api/hooks/user/useQueryUser'
+import { AnalysisCardsNotFound } from '@/components/analysis/AnalysisCardsNotFound'
 
 const OneByOneAnalysisContainer = dynamic(() =>
   import('@/components/analysis/OneByOneAnalysis').then((mod) => mod.OneByOneAnalysisContainer),
@@ -64,7 +65,11 @@ const Analysis = ({ user }: Props) => {
             <PageTitle title={'自分史を分析する'} icon={faMagnifyingGlassChart} />
             <AnalysisTabs analysisType={analysisType} setAnalysisType={setAnalysisType} />
           </div>
-          {!isLoading &&
+          {!cardsData?.length ? (
+            // 自分史データが存在しない場合
+            <AnalysisCardsNotFound />
+          ) : (
+            !isLoading &&
             match(analysisType)
               .with('onebyone', () => (
                 <OneByOneAnalysisContainer
@@ -89,7 +94,8 @@ const Analysis = ({ user }: Props) => {
                   user={user}
                 />
               ))
-              .exhaustive()}
+              .exhaustive()
+          )}
         </div>
       </ContentsWrapper>
     </>
