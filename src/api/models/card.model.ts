@@ -1,4 +1,11 @@
 import { cardRepository } from '../repositories/card.repository'
+import {
+  AnalyzeCardRequest,
+  CreateCardListRequest,
+  CreateCardRequest,
+  DeleteCardRequest,
+  UpdateCardRequest,
+} from '../schemas/types/card.type'
 
 export type Period = '0' | '1' | '2' | '3' | '4'
 export type Card = {
@@ -32,10 +39,7 @@ export const cardFactory = () => {
       })
       return cards
     },
-    post: async (
-      cardData: Pick<Card, 'title' | 'content' | 'period'>,
-      accessToken: string,
-    ): Promise<Card> => {
+    post: async (cardData: CreateCardRequest, accessToken: string): Promise<Card> => {
       const data = await repository.createCard(cardData, accessToken)
       const card = {
         id: data.card_id,
@@ -50,10 +54,10 @@ export const cardFactory = () => {
       return card
     },
     batchPost: async (
-      cardListData: Pick<Card, 'title' | 'content' | 'period'>[],
+      cardListData: CreateCardListRequest,
       accessToken: string,
     ): Promise<Card[]> => {
-      const data = await repository.createCards(cardListData, accessToken)
+      const data = await repository.createCardList(cardListData, accessToken)
       const cards = data.map((card) => {
         return {
           id: card.card_id,
@@ -68,7 +72,7 @@ export const cardFactory = () => {
       })
       return cards
     },
-    update: async (cardData: Partial<Card>, accessToken: string): Promise<Card> => {
+    update: async (cardData: UpdateCardRequest, accessToken: string): Promise<Card> => {
       const data = await repository.updateCard(cardData, accessToken)
       const card = {
         id: data.card_id,
@@ -82,9 +86,9 @@ export const cardFactory = () => {
       }
       return card
     },
-    delete: async (cardData: Pick<Card, 'id'>, accessToken: string) =>
+    delete: async (cardData: DeleteCardRequest, accessToken: string) =>
       repository.deleteCard(cardData, accessToken),
-    analyze: async (cardData: Partial<Card>, accessToken: string): Promise<Card> => {
+    analyze: async (cardData: AnalyzeCardRequest, accessToken: string): Promise<Card> => {
       const data = await repository.analyzeCard(cardData, accessToken)
       const card = {
         id: data.card_id,
