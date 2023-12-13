@@ -13,8 +13,8 @@ export const toArrayFromStringComprehensiveAnalysisScore = (stringScoreData: str
     return { data: [], labels: [] }
   }
 
-  const data = baseData.length <= 6 ? baseData : baseData.splice(0, 5)
-  const labels = baseLabels.length <= 6 ? baseLabels : baseLabels.splice(0, 5)
+  const data = baseData.length <= 6 ? baseData : baseData.splice(0, 6)
+  const labels = baseLabels.length <= 6 ? baseLabels : baseLabels.splice(0, 6)
 
   return { data, labels }
 }
