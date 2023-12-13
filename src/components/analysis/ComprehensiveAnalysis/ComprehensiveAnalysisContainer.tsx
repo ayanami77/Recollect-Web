@@ -68,7 +68,7 @@ export const ComprehensiveAnalysisContainer: FC<ComprehensiveAnalysisContainerPr
                 <h2
                   className={css({ fontSize: 'xl', fontWeight: 'bold', md: { fontSize: '2xl' } })}
                 >
-                  自分史を総合的に分析します
+                  総合分析
                 </h2>
                 <div className={hstack({ gap: '24px' })}>
                   <span
@@ -99,23 +99,14 @@ export const ComprehensiveAnalysisContainer: FC<ComprehensiveAnalysisContainerPr
                     あなたの特性チャート
                   </h2>
                   <div className={hstack({ gap: '24px' })}>
-                    {false ? (
-                      // <div className={hstack({ flexWrap: 'wrap' })}>
-                      //   {content.tags.map((tag, index) => (
-                      //     <CharacteristicTag key={index} name={tag} />
-                      //   ))}
-                      // </div>
-                      <></>
-                    ) : (
-                      <span
-                        className={css({
-                          fontSize: 'sm',
-                          color: 'lightGreen',
-                        })}
-                      >
-                        分析をするとあなたの特性が数値で可視化されます。
-                      </span>
-                    )}
+                    <span
+                      className={css({
+                        fontSize: 'sm',
+                        color: 'lightGreen',
+                      })}
+                    >
+                      分析をするとあなたの特性が数値で可視化されます。
+                    </span>
                   </div>
                 </div>
                 <ComprehensiveAnalysisRadarChart

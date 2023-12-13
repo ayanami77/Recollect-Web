@@ -1,13 +1,20 @@
-import { FC } from 'react'
+import { FC, useMemo } from 'react'
 import { Radar } from 'react-chartjs-2'
 import { center } from '../../../../styled-system/patterns'
 
-const toArrayFromStringComprehensiveAnalysisScore = (stringScoreData: string) => {
+export const toArrayFromStringComprehensiveAnalysisScore = (stringScoreData: string) => {
   const dataRegex = /\_\_(.*?)\_\_/g
-  const data = stringScoreData.match(dataRegex)?.map((v) => v.slice(2, v.length - 2))
+  const baseData = stringScoreData.match(dataRegex)?.map((v) => v.slice(2, v.length - 2))
 
   const labelRegex = /\*\*(.*?)\*\*/g
-  const labels = stringScoreData.match(labelRegex)?.map((v) => v.slice(2, v.length - 2))
+  const baseLabels = stringScoreData.match(labelRegex)?.map((v) => v.slice(2, v.length - 2))
+
+  if (!baseData || !baseLabels) {
+    return { data: [], labels: [] }
+  }
+
+  const data = baseData.length <= 6 ? baseData : baseData.slice(0, 6)
+  const labels = baseLabels.length <= 6 ? baseLabels : baseLabels.slice(0, 6)
 
   return { data, labels }
 }
@@ -20,7 +27,10 @@ export const ComprehensiveAnalysisRadarChart: FC<ComprehensiveAnalysisRadarChart
 ) => {
   const { comprehensiveAnalysisScore } = props
 
-  const { data, labels } = toArrayFromStringComprehensiveAnalysisScore(comprehensiveAnalysisScore)
+  const { data, labels } = useMemo(
+    () => toArrayFromStringComprehensiveAnalysisScore(comprehensiveAnalysisScore),
+    [comprehensiveAnalysisScore],
+  )
 
   return (
     <div
