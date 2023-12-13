@@ -26,7 +26,7 @@ export default function Signup({ user }: Props) {
   const onSubmitSignUp = async (userCredential: TAuthValidationSchema) => {
     try {
       const isExistUserId = await idDuplicateMutation.mutateAsync({
-        userId: userCredential.userId,
+        userCredential: { userId: userCredential.userId },
         accessToken: user.access_token || '',
       })
 
