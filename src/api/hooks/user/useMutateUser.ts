@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import { userFactory } from '@/api/models/user.model'
+import { User, userFactory } from '@/api/models/user.model'
 import { useRouter } from 'next/router'
 import { queryClient } from '@/api/clients/queryClient'
 import { FetchError } from '@/api/clients/utils/fetchError'
@@ -34,13 +34,15 @@ export const useMutateUser = () => {
     },
     {
       onSuccess: (res) => {
-        const loggedInUser = queryClient.getQueryData(['user'])
+        const loggedInUser = queryClient.getQueryData<User>(['user'])
         if (loggedInUser) {
           queryClient.setQueriesData(['user'], {
-            // TODO: 要検証
+            userId: loggedInUser.userId,
+            userName: loggedInUser.userName,
             comprehensiveAnalysisResult: res.comprehensiveAnalysisResult,
             comprehensiveAnalysisScore: res.comprehensiveAnalysisScore,
-            ...loggedInUser,
+            createdAt: loggedInUser.createdAt,
+            updatedAt: loggedInUser.updatedAt,
           })
         }
       },

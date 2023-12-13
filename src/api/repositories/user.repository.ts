@@ -91,7 +91,7 @@ const emailDuplicateCheck: UserRepository['emailDuplicateCheck'] = async (
 
 const analyze: UserRepository['analyze'] = async (accessToken): Promise<AnalyzeResponse> => {
   const data = await apiClient.patch(
-    `/users/comprehensive-analysis/`,
+    `/users/comprehensive-analysis`,
     { accessToken: accessToken },
     {},
   )
