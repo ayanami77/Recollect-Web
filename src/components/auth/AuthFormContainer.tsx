@@ -1,9 +1,10 @@
-import Link from 'next/link'
 import { css } from '../../../styled-system/css'
 import { vstack } from '../../../styled-system/patterns'
 import { BaseSyntheticEvent, FC, ReactNode } from 'react'
+import { signOut } from 'next-auth/react'
+import { match } from 'ts-pattern'
 
-type TFormType = 'signup' | 'login'
+type TFormType = 'signup'
 type AuthFormContainerProps = {
   children: ReactNode
   formType: TFormType
@@ -12,63 +13,62 @@ type AuthFormContainerProps = {
 
 const makeFormContainer = (props: AuthFormContainerProps) => {
   const { formType } = props
-  switch (formType) {
-    case 'signup':
-      return {
-        title: 'アカウント登録',
-      }
-    case 'login':
-      return {
-        title: 'ログイン',
-        link: (
-          <p className={css({ fontSize: '14px' })}>
-            アカウントをお持ちでない方は
-            <Link href={'/signup'}>
-              <span className={css({ color: 'blue.400' })}>こちら</span>
-            </Link>
-            から
-          </p>
-        ),
-      }
-  }
+  return match(formType)
+    .with('signup', () => {
+      return { title: 'アカウント登録' }
+    })
+    .exhaustive()
 }
 
 export const AuthFormContainer: FC<AuthFormContainerProps> = (props) => {
   const { children, onSubmit } = props
-  const { title, link } = makeFormContainer(props)
+  const { title } = makeFormContainer(props)
+
+  const onSubmitLogout = async () => {
+    // セッションが削除されるため、SSRによって/signinへリダイレクトされる。
+    await signOut()
+  }
+
   return (
-    <form
+    <div
       className={css({
-        w: 'full',
         maxW: '500px',
+        w: 'full',
         mx: 'auto',
         mt: '90px',
-        rounded: '2xl',
       })}
-      onSubmit={onSubmit}
     >
-      <div className={vstack({ alignItems: 'start', w: 'full' })}>
-        <h2 className={css({ fontSize: '2xl', fontWeight: 'bold' })}>{title}</h2>
-        <div className={vstack({ alignItems: 'start', gap: '18px', w: 'full' })}>
-          {/* childrenにはAuthFormControlが入る */}
-          {children}
+      <form onSubmit={onSubmit}>
+        <div className={vstack({ alignItems: 'start', w: 'full' })}>
+          <h2 className={css({ fontSize: '2xl', fontWeight: 'bold' })}>{title}</h2>
+          <div className={vstack({ alignItems: 'start', gap: '18px', w: 'full' })}>
+            {/* childrenにはAuthFormControlが入る */}
+            {children}
+          </div>
+          <button
+            className={css({
+              w: 'full',
+              p: '10px',
+              bg: 'dimBlue',
+              color: 'white',
+              fontWeight: 'bold',
+              rounded: 'xl',
+              mt: '32px',
+              cursor: 'pointer',
+            })}
+          >
+            はじめる
+          </button>
         </div>
-        {link}
+      </form>
+      <div className={css({ w: 'fit-content', mx: 'auto', mt: '48px' })}>
         <button
-          className={css({
-            w: 'full',
-            p: '10px',
-            bg: 'dimBlue',
-            color: 'white',
-            fontWeight: 'bold',
-            rounded: 'xl',
-            mt: '32px',
-            cursor: 'pointer',
-          })}
+          className={css({ cursor: 'pointer', _hover: { textDecoration: 'underline' } })}
+          onClick={onSubmitLogout}
         >
-          はじめる
+          アカウント登録を中止する
         </button>
       </div>
-    </form>
+    </div>
   )
 }
