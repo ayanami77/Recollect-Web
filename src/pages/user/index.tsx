@@ -1,5 +1,5 @@
 import { css } from '../../../styled-system/css'
-import { CommonMeta, ContentsWrapper, FadeInWrapper, PageTitle } from '@/components/common'
+import { CommonMeta, ContentsWrapper, PageTitle } from '@/components/common'
 import { faUserGear } from '@fortawesome/free-solid-svg-icons'
 import { GetServerSideProps } from 'next'
 import { Session, getServerSession } from 'next-auth'
@@ -20,21 +20,19 @@ const User = ({ user }: Props) => {
   return (
     <>
       <CommonMeta title={'Recollect - ユーザー情報'} description={'ユーザー情報を表示します。'} />
-      <FadeInWrapper>
-        <ContentsWrapper>
-          <div
-            className={css({
-              w: 'full',
-              maxW: '780px',
-              mx: 'auto',
-              mt: '24px',
-            })}
-          >
-            <PageTitle title={'ユーザー情報'} icon={faUserGear} />
-            <UserContainer userInfo={userInfo} />
-          </div>
-        </ContentsWrapper>
-      </FadeInWrapper>
+      <ContentsWrapper>
+        <div
+          className={css({
+            w: 'full',
+            maxW: '780px',
+            mx: 'auto',
+            mt: '24px',
+          })}
+        >
+          <PageTitle title={'ユーザー情報'} icon={faUserGear} />
+          <UserContainer userInfo={userInfo} />
+        </div>
+      </ContentsWrapper>
     </>
   )
 }
