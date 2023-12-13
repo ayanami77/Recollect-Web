@@ -1,4 +1,9 @@
 import { userRepository } from '../repositories/user.repository'
+import {
+  EmailDuplicateCheckRequest,
+  IdDuplicateCheckRequest,
+  SignupRequest,
+} from '../schemas/types/user.type'
 
 export type User = {
   userId: string
@@ -29,7 +34,7 @@ export const userFactory = () => {
         updatedAt: response.updated_at,
       }
     },
-    signUp: async (userCredential: UserCredential, accessToken: string): Promise<User> => {
+    signUp: async (userCredential: SignupRequest, accessToken: string): Promise<User> => {
       const response = await repository.signup(userCredential, accessToken)
       return {
         userId: response.user_id,
@@ -41,21 +46,21 @@ export const userFactory = () => {
       }
     },
     idDuplicateCheck: async (
-      userCredential: UserCredential,
+      userCredential: IdDuplicateCheckRequest,
       accessToken: string,
     ): Promise<boolean> => {
       const response = await repository.idDuplicateCheck(userCredential, accessToken)
       return response
     },
     emailDuplicateCheck: async (
-      userCredential: UserCredential,
+      userCredential: EmailDuplicateCheckRequest,
       accessToken: string,
     ): Promise<boolean> => {
       const response = await repository.emailDuplicateCheck(userCredential, accessToken)
       return response
     },
-    analyze: async (userCredential: UserCredential, accessToken: string): Promise<User> => {
-      const response = await repository.analyze(userCredential, accessToken)
+    analyze: async (accessToken: string): Promise<User> => {
+      const response = await repository.analyze(accessToken)
       return {
         userId: response.user_id,
         userName: response.user_name,

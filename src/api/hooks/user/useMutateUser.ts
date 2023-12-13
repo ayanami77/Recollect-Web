@@ -1,14 +1,19 @@
 import { useMutation } from '@tanstack/react-query'
-import { UserCredential, userFactory } from '@/api/models/user.model'
+import { userFactory } from '@/api/models/user.model'
 import { useRouter } from 'next/router'
 import { queryClient } from '@/api/clients/queryClient'
 import { FetchError } from '@/api/clients/utils/fetchError'
+import {
+  EmailDuplicateCheckRequest,
+  IdDuplicateCheckRequest,
+  SignupRequest,
+} from '@/api/schemas/types/user.type'
 
 export const useMutateUser = () => {
   const router = useRouter()
 
   const signUpMutation = useMutation(
-    async (params: { userCredential: UserCredential; accessToken: string }) => {
+    async (params: { userCredential: SignupRequest; accessToken: string }) => {
       const { userCredential, accessToken } = params
       return await userFactory().signUp(userCredential, accessToken)
     },
@@ -23,9 +28,9 @@ export const useMutateUser = () => {
   )
 
   const analyzeMutation = useMutation(
-    async (params: { userCredential: UserCredential; accessToken: string }) => {
-      const { userCredential, accessToken } = params
-      return await userFactory().analyze(userCredential, accessToken)
+    async (params: { accessToken: string }) => {
+      const { accessToken } = params
+      return await userFactory().analyze(accessToken)
     },
     {
       onSuccess: (res) => {
@@ -46,7 +51,7 @@ export const useMutateUser = () => {
   )
 
   const idDuplicateMutation = useMutation(
-    async (params: { userCredential: UserCredential; accessToken: string }) => {
+    async (params: { userCredential: IdDuplicateCheckRequest; accessToken: string }) => {
       const { userCredential, accessToken } = params
       return await userFactory().idDuplicateCheck(userCredential, accessToken)
     },
@@ -58,7 +63,7 @@ export const useMutateUser = () => {
   )
 
   const emailDuplicateMutation = useMutation(
-    async (params: { userCredential: UserCredential; accessToken: string }) => {
+    async (params: { userCredential: EmailDuplicateCheckRequest; accessToken: string }) => {
       const { userCredential, accessToken } = params
       return await userFactory().emailDuplicateCheck(userCredential, accessToken)
     },

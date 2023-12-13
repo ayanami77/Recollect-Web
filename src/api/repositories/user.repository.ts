@@ -1,25 +1,32 @@
 import { apiClient } from '../clients/apiClient'
-import { UserCredential } from '../models/user.model'
-import { User as UserResponse } from '../schemas/generated/schemas'
-import { IsDuplicated as IsDuplicatedResponse } from '../schemas/generated/schemas'
+import {
+  AnalyzeResponse,
+  EmailDuplicateCheckRequest,
+  EmailDuplicateCheckResponse,
+  GetUserResponse,
+  IdDuplicateCheckRequest,
+  IdDuplicateCheckResponse,
+  SignupRequest,
+  SignupResponse,
+} from '../schemas/types/user.type'
 
 export interface UserRepository {
-  getUser: (accessToken: string) => Promise<UserResponse>
-  signup: (userCredential: UserCredential, accessToken: string) => Promise<UserResponse>
+  getUser: (accessToken: string) => Promise<GetUserResponse>
+  signup: (userCredential: SignupRequest, accessToken: string) => Promise<SignupResponse>
   // login: (userCredential: UserCredential, accessToken: string) => Promise<void>
   // logout: (accessToken: string) => Promise<void>
   idDuplicateCheck: (
-    userCredential: UserCredential,
+    userCredential: IdDuplicateCheckRequest,
     accessToken: string,
-  ) => Promise<IsDuplicatedResponse>
+  ) => Promise<IdDuplicateCheckResponse>
   emailDuplicateCheck: (
-    userCredential: UserCredential,
+    userCredential: EmailDuplicateCheckRequest,
     accessToken: string,
-  ) => Promise<IsDuplicatedResponse>
-  analyze: (userCredential: UserCredential, accessToken: string) => Promise<UserResponse>
+  ) => Promise<EmailDuplicateCheckResponse>
+  analyze: (accessToken: string) => Promise<AnalyzeResponse>
 }
 
-const getUser: UserRepository['getUser'] = async (accessToken) => {
+const getUser: UserRepository['getUser'] = async (accessToken): Promise<GetUserResponse> => {
   const data = await apiClient.get(`/users`, { accessToken: accessToken || '' })
   return data
 }
@@ -27,7 +34,7 @@ const getUser: UserRepository['getUser'] = async (accessToken) => {
 const signup: UserRepository['signup'] = async (
   userCredential,
   accessToken,
-): Promise<UserResponse> => {
+): Promise<SignupResponse> => {
   const data = await apiClient.post(
     `/users/signup`,
     { accessToken: accessToken || '' },
@@ -57,7 +64,7 @@ const signup: UserRepository['signup'] = async (
 const idDuplicateCheck: UserRepository['idDuplicateCheck'] = async (
   userCredential,
   accessToken,
-) => {
+): Promise<IdDuplicateCheckResponse> => {
   const data = await apiClient.post(
     '/users/id-duplicate-check',
     { accessToken: accessToken },
@@ -71,7 +78,7 @@ const idDuplicateCheck: UserRepository['idDuplicateCheck'] = async (
 const emailDuplicateCheck: UserRepository['emailDuplicateCheck'] = async (
   userCredential,
   accessToken,
-) => {
+): Promise<EmailDuplicateCheckResponse> => {
   const data = await apiClient.post(
     '/users/email-duplicate-check',
     { accessToken: accessToken },
@@ -82,9 +89,9 @@ const emailDuplicateCheck: UserRepository['emailDuplicateCheck'] = async (
   return data
 }
 
-const analyze: UserRepository['analyze'] = async (userCredential, accessToken) => {
+const analyze: UserRepository['analyze'] = async (accessToken): Promise<AnalyzeResponse> => {
   const data = await apiClient.patch(
-    `/users/comprehensive-analysis/${userCredential.userId}`,
+    `/users/comprehensive-analysis/`,
     { accessToken: accessToken },
     {},
   )
