@@ -15,7 +15,7 @@ describe('toArrayFromStringComprehensiveAnalysisScore', () => {
     }
     expect(toArrayFromStringComprehensiveAnalysisScore(mockData)).toStrictEqual(mockOutput)
   })
-  test('受け取ったスコアの文字列からdataとlabelsを返す（特性が6つ以上の場合）', () => {
+  test('受け取ったスコアの文字列からdataとlabelsを返す（特性が6つより多い場合）', () => {
     const mockData =
       '- **積極性**: __90__\n' +
       '- **計画性**: __88__\n' +
