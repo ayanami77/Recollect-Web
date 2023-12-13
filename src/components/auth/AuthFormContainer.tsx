@@ -63,7 +63,11 @@ export const AuthFormContainer: FC<AuthFormContainerProps> = (props) => {
       </form>
       <div className={css({ w: 'fit-content', mx: 'auto', mt: '48px' })}>
         <button
-          className={css({ cursor: 'pointer', _hover: { textDecoration: 'underline' } })}
+          className={css({
+            color: 'black',
+            cursor: 'pointer',
+            _hover: { textDecoration: 'underline' },
+          })}
           onClick={onSubmitLogout}
         >
           アカウント登録を中止する
