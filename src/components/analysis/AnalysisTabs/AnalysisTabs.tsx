@@ -20,7 +20,7 @@ export const AnalysisTabs: FC<AnalysisTabsProps> = (props) => {
           onClickFunc={() => setAnalysisType('onebyone')}
         />
         <AnalysisTabsItem
-          label='総合分析β版'
+          label='総合分析（β版）'
           role='comprehensive'
           analysisType={analysisType}
           onClickFunc={() => setAnalysisType('comprehensive')}

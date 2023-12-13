@@ -12,6 +12,7 @@ import { flex } from '../../../styled-system/patterns'
 import { AnalysisTabs } from '@/components/analysis/AnalysisTabs'
 import { useState } from 'react'
 import { match } from 'ts-pattern'
+import { useQueryUser } from '@/api/hooks/user/useQueryUser'
 
 const OneByOneAnalysisContainer = dynamic(() =>
   import('@/components/analysis/OneByOneAnalysis').then((mod) => mod.OneByOneAnalysisContainer),
@@ -31,9 +32,11 @@ export type TAnalysisType = 'onebyone' | 'comprehensive'
 
 const Analysis = ({ user }: Props) => {
   const router = useRouter()
-  const { data, isLoading } = useQueryCards(user.access_token || '')
-
   const [analysisType, setAnalysisType] = useState<TAnalysisType>('onebyone')
+
+  const { data: cardsData, isLoading } = useQueryCards(user.access_token || '')
+  const { data: userData } = useQueryUser(user.access_token || '')
+
   return (
     <>
       <CommonMeta
@@ -65,13 +68,26 @@ const Analysis = ({ user }: Props) => {
             match(analysisType)
               .with('onebyone', () => (
                 <OneByOneAnalysisContainer
-                  data={data ?? []}
+                  data={cardsData ?? []}
                   cardId={router.query.card_id}
                   user={user}
                 />
               ))
               .with('comprehensive', () => (
-                <ComprehensiveAnalysisContainer data={data ?? []} user={user} />
+                <ComprehensiveAnalysisContainer
+                  data={
+                    userData ?? {
+                      // TODO
+                      userId: '',
+                      userName: '',
+                      comprehensiveAnalysisResult: '',
+                      comprehensiveAnalysisScore: '',
+                      createdAt: '',
+                      updatedAt: '',
+                    }
+                  }
+                  user={user}
+                />
               ))
               .exhaustive()}
         </div>
