@@ -1,4 +1,4 @@
-import { Footer, Header } from '@/components/common'
+import { Header } from '@/components/common'
 import { Noto_Sans_JP } from 'next/font/google'
 import { FC, ReactNode } from 'react'
 import { css } from '../../../styled-system/css'
@@ -10,7 +10,6 @@ const GlobalLayout: FC<{ children: ReactNode }> = ({ children }) => {
     <div className={notesansjp.className}>
       <Header />
       <main className={css({ mt: '80px', md: { mt: '100px' } })}>{children}</main>
-      <Footer />
     </div>
   )
 }

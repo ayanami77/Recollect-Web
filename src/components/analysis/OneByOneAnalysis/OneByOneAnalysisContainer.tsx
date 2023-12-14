@@ -1,10 +1,11 @@
 import Link from 'next/link'
 import { FC, useState } from 'react'
-import { css } from '../../../styled-system/css'
-import { hstack } from '../../../styled-system/patterns'
-import { AnalysisBoard } from './AnalysisBoard'
+import { css } from '../../../../styled-system/css'
+import { hstack } from '../../../../styled-system/patterns'
+import { OneByOneAnalysisBoard } from './OneByOneAnalysisBoard'
 import { Card as TCard } from '@/api/models/card.model'
 import { Session } from 'next-auth'
+import { FadeInWrapper } from '../../common'
 import { sortCardsByPeriod } from '@/utils/sortCardsByPeriod'
 
 type AnalysisContainerProps = {
@@ -12,7 +13,7 @@ type AnalysisContainerProps = {
   cardId?: string | string[]
   user: Session['user']
 }
-export const AnalysisContainer: FC<AnalysisContainerProps> = (props) => {
+export const OneByOneAnalysisContainer: FC<AnalysisContainerProps> = (props) => {
   const { data, cardId, user } = props
   const [index, setIndex] = useState(0)
 
@@ -48,23 +49,28 @@ export const AnalysisContainer: FC<AnalysisContainerProps> = (props) => {
   }
 
   return (
-    <div
-      className={hstack({
-        w: 'full',
-        mt: '40px',
-      })}
-    >
-      {allCards.length ? (
-        <AnalysisBoard content={allCards[index]} next={next} prev={prev} user={user} />
-      ) : (
-        <div className={css({ px: '20px', py: '16px' })}>
-          自分史が作成されていません。
-          <Link href={'/history'}>
-            <span className={css({ color: 'blue.400' })}>自分史をみる</span>
-          </Link>
-          からデータを登録することができます。
-        </div>
-      )}
-    </div>
+    <FadeInWrapper>
+      <div
+        className={hstack({
+          w: 'full',
+          mt: '24px',
+          md: {
+            mt: '40px',
+          },
+        })}
+      >
+        {allCards.length ? (
+          <OneByOneAnalysisBoard content={allCards[index]} next={next} prev={prev} user={user} />
+        ) : (
+          <div className={css({ px: '20px', py: '16px' })}>
+            自分史が作成されていません。
+            <Link href={'/history'}>
+              <span className={css({ color: 'blue.400' })}>自分史をみる</span>
+            </Link>
+            からデータを登録することができます。
+          </div>
+        )}
+      </div>
+    </FadeInWrapper>
   )
 }

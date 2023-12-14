@@ -1,31 +1,26 @@
 import { FC } from 'react'
-import { m } from 'framer-motion'
-import { css } from '../../../styled-system/css'
-import { center, hstack, vstack } from '../../../styled-system/patterns'
+import { css } from '../../../../styled-system/css'
+import { center, hstack, vstack } from '../../../../styled-system/patterns'
 import ReactMarkdown from 'react-markdown'
 import { CharacteristicTag } from '@/components/common'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faChevronLeft,
-  faChevronRight,
-  faMagnifyingGlassChart,
-} from '@fortawesome/free-solid-svg-icons'
-import { AnalysisIsAnalyzingIcon } from './AnalysisIsAnalyzingIcon'
-import { AnalysisMobileSwitchButton } from './AnalysisMobileSwitchButton'
-import { AnalysisPCSwitchButton } from './AnalysisPCSwitchButton'
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { AnalysisIsAnalyzingIcon } from '../AnalysisIsAnalyzingIcon'
+import { OneByOneAnalysisPCSwitchButton } from './OneByOneAnalysisPCSwitchButton'
+import { OneByOneAnalysisMobileSwitchButton } from './OneByOneAnalysisMobileSwitchButton'
 import { Session } from 'next-auth'
 import { Card as TCard } from '@/api/models/card.model'
 import { toPeriodStringFromNumber } from '@/utils/toPeriodStringFromNumber'
 import { useMutateCard } from '@/api/hooks/card/useMutateCard'
+import { AnalysisAnalyzeButton } from '../AnalysisAnalyzeButton'
 
-type AnalysisBoardProps = {
+type OneByOneAnalysisBoardProps = {
   content: TCard
   user: Session['user']
   next: () => void
   prev: () => void
 }
 
-export const AnalysisBoard: FC<AnalysisBoardProps> = (props) => {
+export const OneByOneAnalysisBoard: FC<OneByOneAnalysisBoardProps> = (props) => {
   const { content, user, next, prev } = props
   const { analyzeCardMutation } = useMutateCard()
 
@@ -60,7 +55,7 @@ export const AnalysisBoard: FC<AnalysisBoardProps> = (props) => {
           lg: { display: 'block', pos: 'absolute', top: '240px', left: '-120px' },
         })}
       >
-        <AnalysisPCSwitchButton
+        <OneByOneAnalysisPCSwitchButton
           icon={faChevronLeft}
           isDisabled={analyzeCardMutation.isLoading}
           onClick={prev}
@@ -72,7 +67,7 @@ export const AnalysisBoard: FC<AnalysisBoardProps> = (props) => {
           lg: { display: 'block', pos: 'absolute', top: '240px', right: '-120px' },
         })}
       >
-        <AnalysisPCSwitchButton
+        <OneByOneAnalysisPCSwitchButton
           icon={faChevronRight}
           isDisabled={analyzeCardMutation.isLoading}
           onClick={next}
@@ -96,12 +91,12 @@ export const AnalysisBoard: FC<AnalysisBoardProps> = (props) => {
             lg: { display: 'none' },
           })}
         >
-          <AnalysisMobileSwitchButton
+          <OneByOneAnalysisMobileSwitchButton
             icon={faChevronLeft}
             isDisabled={analyzeCardMutation.isLoading}
             onClick={prev}
           />
-          <AnalysisMobileSwitchButton
+          <OneByOneAnalysisMobileSwitchButton
             icon={faChevronRight}
             isDisabled={analyzeCardMutation.isLoading}
             onClick={next}
@@ -168,39 +163,11 @@ export const AnalysisBoard: FC<AnalysisBoardProps> = (props) => {
           )}
         </div>
 
-        <m.button
-          className={hstack({
-            maxW: '280px',
-            w: 'full',
-            mx: 'auto',
-            mt: '16px',
-            px: '20px',
-            py: '12px',
-            bg: 'dimBlue',
-            fontSize: 'md',
-            fontWeight: 'bold',
-            color: 'white',
-            rounded: 'xl',
-            cursor: 'pointer',
-            justify: 'center',
-            _disabled: {
-              opacity: '0.8',
-              cursor: 'default',
-            },
-            md: {
-              fontSize: 'lg',
-            },
-          })}
-          disabled={analyzeCardMutation.isLoading ? true : false}
-          onClick={handleAnalyze}
-          whileTap={analyzeCardMutation.isLoading ? { scale: 1 } : { scale: 0.9 }}
-        >
-          <FontAwesomeIcon
-            icon={faMagnifyingGlassChart}
-            style={{ width: '24px', height: '24px', color: 'white' }}
-          />
-          {content.analysisResult ? 'もう一度分析してみる' : '分析してみる'}
-        </m.button>
+        <AnalysisAnalyzeButton
+          isLoading={analyzeCardMutation.isLoading}
+          analysisResult={content.analysisResult}
+          onClickFunc={handleAnalyze}
+        />
       </div>
     </div>
   )
