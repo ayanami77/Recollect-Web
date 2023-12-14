@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic'
 import { css } from '../../../styled-system/css'
-import { FadeInWrapper, CommonMeta, PageTitle, ContentsWrapper } from '@/components/common'
+import { CommonMeta, PageTitle, ContentsWrapper } from '@/components/common'
 import { useQueryCards } from '@/api/hooks/card/useQueryCard'
 import { faMapLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { GetServerSideProps } from 'next'
@@ -39,30 +39,28 @@ const History = ({ user }: Props) => {
         title={'Recollect - 自分史をみる'}
         description={'自分史を整理し、時系列順で見ることができます。'}
       />
-      <FadeInWrapper>
-        <ContentsWrapper>
+      <ContentsWrapper>
+        <div
+          className={css({
+            w: 'full',
+            maxW: '780px',
+            mx: 'auto',
+            mt: '24px',
+          })}
+        >
           <div
-            className={css({
-              w: 'full',
-              maxW: '780px',
-              mx: 'auto',
-              mt: '24px',
+            className={hstack({
+              mb: '24px',
+              alignItems: 'center',
+              justify: 'space-between',
             })}
           >
-            <div
-              className={hstack({
-                mb: '24px',
-                alignItems: 'center',
-                justify: 'space-between',
-              })}
-            >
-              <PageTitle title={'自分史をみる'} icon={faMapLocationDot} />
-              <HistorySortButton isAscPeriod={isAscPeriod} onClickFunc={handleSort} />
-            </div>
-            <HistoryContainer allCards={allCards} user={user} isAscPeriod={isAscPeriod} />
+            <PageTitle title={'自分史をみる'} icon={faMapLocationDot} />
+            <HistorySortButton isAscPeriod={isAscPeriod} onClickFunc={handleSort} />
           </div>
-        </ContentsWrapper>
-      </FadeInWrapper>
+          <HistoryContainer allCards={allCards} user={user} isAscPeriod={isAscPeriod} />
+        </div>
+      </ContentsWrapper>
       {/* いずれかのperiodで自分史が登録されていない場合は、チュートリアルへのボタンを表示する */}
       {Object.values(allCards).some((cards) => {
         return cards.length === 0

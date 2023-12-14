@@ -2,10 +2,17 @@ import { useMutation } from '@tanstack/react-query'
 import { Card, cardFactory } from '@/api/models/card.model'
 import { queryClient } from '@/api/clients/queryClient'
 import { FetchError } from '@/api/clients/utils/fetchError'
+import {
+  AnalyzeCardRequest,
+  CreateCardListRequest,
+  CreateCardRequest,
+  DeleteCardRequest,
+  UpdateCardRequest,
+} from '@/api/schemas/types/card.type'
 
 export const useMutateCard = () => {
   const createCardMutation = useMutation(
-    (params: { cardData: Pick<Card, 'title' | 'content' | 'period'>; accessToken: string }) => {
+    (params: { cardData: CreateCardRequest; accessToken: string }) => {
       const { cardData, accessToken } = params
       return cardFactory().post(cardData, accessToken)
     },
@@ -23,7 +30,7 @@ export const useMutateCard = () => {
   )
 
   const createCardsMutation = useMutation(
-    (params: { cardData: Pick<Card, 'title' | 'content' | 'period'>[]; accessToken: string }) => {
+    (params: { cardData: CreateCardListRequest; accessToken: string }) => {
       const { cardData, accessToken } = params
       return cardFactory().batchPost(cardData, accessToken)
     },
@@ -41,7 +48,7 @@ export const useMutateCard = () => {
   )
 
   const updateCardMutation = useMutation(
-    (params: { cardData: Partial<Card>; accessToken: string }) => {
+    (params: { cardData: UpdateCardRequest; accessToken: string }) => {
       const { cardData, accessToken } = params
       return cardFactory().update(cardData, accessToken)
     },
@@ -69,7 +76,7 @@ export const useMutateCard = () => {
   )
 
   const deleteUserMutation = useMutation(
-    (params: { cardData: Pick<Card, 'id'>; accessToken: string }) => {
+    (params: { cardData: DeleteCardRequest; accessToken: string }) => {
       const { cardData, accessToken } = params
       return cardFactory().delete(cardData, accessToken)
     },
@@ -90,7 +97,7 @@ export const useMutateCard = () => {
   )
 
   const analyzeCardMutation = useMutation(
-    (params: { cardData: Partial<Card>; accessToken: string }) => {
+    (params: { cardData: AnalyzeCardRequest; accessToken: string }) => {
       const { cardData, accessToken } = params
       return cardFactory().analyze(cardData, accessToken)
     },

@@ -1,29 +1,37 @@
-import { Card } from '../models/card.model'
 import { apiClient } from '../clients/apiClient'
 import { Card as CardResponse } from '../schemas/generated/schemas'
+import {
+  AnalyzeCardRequest,
+  AnalyzeCardResponse,
+  CreateCardListRequest,
+  CreateCardListResponse,
+  CreateCardRequest,
+  CreateCardResponse,
+  DeleteCardRequest,
+  ListCardsResponse,
+  UpdateCardRequest,
+  UpdateCardResponse,
+} from '../schemas/types/card.type'
 
 export interface CardRepository {
-  listCards: (accessToken: string) => Promise<CardResponse[]>
-  createCard: (
-    cardData: Pick<Card, 'title' | 'content' | 'period'>,
+  listCards: (accessToken: string) => Promise<ListCardsResponse>
+  createCard: (cardData: CreateCardRequest, accessToken: string) => Promise<CreateCardResponse>
+  createCardList: (
+    cardListData: CreateCardListRequest,
     accessToken: string,
-  ) => Promise<CardResponse>
-  createCards: (
-    cardListData: Pick<Card, 'title' | 'content' | 'period'>[],
-    accessToken: string,
-  ) => Promise<CardResponse[]>
-  updateCard: (cardData: Partial<Card>, accessToken: string) => Promise<CardResponse>
-  deleteCard: (cardData: Pick<Card, 'id'>, accessToken: string) => void
-  analyzeCard: (cardData: Partial<Card>, accessToken: string) => Promise<CardResponse>
+  ) => Promise<CreateCardListResponse>
+  updateCard: (cardData: UpdateCardRequest, accessToken: string) => Promise<UpdateCardResponse>
+  deleteCard: (cardData: DeleteCardRequest, accessToken: string) => void
+  analyzeCard: (cardData: AnalyzeCardRequest, accessToken: string) => Promise<AnalyzeCardResponse>
 }
 
-const listCards: CardRepository['listCards'] = async (accessToken): Promise<CardResponse[]> => {
+const listCards: CardRepository['listCards'] = async (accessToken): Promise<ListCardsResponse> => {
   const data = await apiClient.get('/cards', { accessToken: accessToken || '' })
   return data
 }
 
 const createCard: CardRepository['createCard'] = async (
-  cardData: Pick<Card, 'title' | 'content' | 'period'>,
+  cardData: CreateCardRequest,
   accessToken,
 ): Promise<CardResponse> => {
   const data = await apiClient.post(
@@ -38,52 +46,54 @@ const createCard: CardRepository['createCard'] = async (
   return data
 }
 
-const createCards: CardRepository['createCards'] = async (
-  cardData: Pick<Card, 'title' | 'content' | 'period'>[],
+const createCardList: CardRepository['createCardList'] = async (
+  cardListData: CreateCardListRequest,
   accessToken,
-): Promise<CardResponse[]> => {
+): Promise<CreateCardListResponse> => {
   const data = await apiClient.post(
     `/cards/batch`,
     { accessToken: accessToken || '' },
     {
-      cards: cardData,
+      cards: cardListData,
     },
   )
   return data
 }
 
 const updateCard: CardRepository['updateCard'] = async (
-  cardData: Partial<Card>,
+  cardData: UpdateCardRequest,
   accessToken,
-): Promise<CardResponse> => {
+): Promise<UpdateCardResponse> => {
   const data = await apiClient.patch(
     `/cards/${cardData.id}`,
     { accessToken: accessToken || '' },
     {
-      // cardDataに保持している値を展開してしまう。
-      ...cardData,
+      title: cardData.title,
+      content: cardData.content,
+      period: cardData.period,
     },
   )
   return data
 }
 
 const deleteCard: CardRepository['deleteCard'] = async (
-  cardData: Pick<Card, 'id'>,
+  deleteCardRequest: DeleteCardRequest,
   accessToken,
 ) => {
-  await apiClient.destroy(`/cards/${cardData.id}`, { accessToken: accessToken || '' })
+  await apiClient.destroy(`/cards/${deleteCardRequest.id}`, { accessToken: accessToken || '' })
 }
 
 const analyzeCard: CardRepository['analyzeCard'] = async (
-  cardData: Partial<Card>,
+  cardData: AnalyzeCardRequest,
   accessToken,
-): Promise<CardResponse> => {
+): Promise<AnalyzeCardResponse> => {
   const data = await apiClient.patch(
     `/cards/analysis/${cardData.id}`,
     { accessToken: accessToken || '' },
     {
-      // cardDataに保持している値を展開してしまう。
-      ...cardData,
+      title: cardData.title,
+      content: cardData.content,
+      period: cardData.period,
     },
   )
   return data
@@ -92,7 +102,7 @@ const analyzeCard: CardRepository['analyzeCard'] = async (
 export const cardRepository: CardRepository = {
   listCards,
   createCard,
-  createCards,
+  createCardList,
   updateCard,
   deleteCard,
   analyzeCard,
