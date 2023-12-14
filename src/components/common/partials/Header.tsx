@@ -39,7 +39,7 @@ export const Header = () => {
           zIndex: 10,
         })}
       >
-        <Link href={router.pathname === '/signin' || '/' ? '/' : '/history'}>
+        <Link href={router.pathname === '/signin' || router.pathname === '/' ? '/' : '/history'}>
           <div
             className={css({
               md: { w: '200px', h: '80px' },
