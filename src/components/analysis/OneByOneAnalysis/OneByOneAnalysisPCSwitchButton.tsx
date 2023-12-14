@@ -1,15 +1,15 @@
 import { m } from 'framer-motion'
 import { FC } from 'react'
-import { center } from '../../../styled-system/patterns'
+import { center } from '../../../../styled-system/patterns'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 
-type AnalysisPCSwitchButtonProps = {
+type OneByOneAnalysisPCSwitchButtonProps = {
   icon: IconDefinition
   isDisabled: boolean
   onClick: () => void
 }
-export const AnalysisPCSwitchButton: FC<AnalysisPCSwitchButtonProps> = (props) => {
+export const OneByOneAnalysisPCSwitchButton: FC<OneByOneAnalysisPCSwitchButtonProps> = (props) => {
   const { onClick, isDisabled, icon } = props
   return (
     <m.button

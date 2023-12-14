@@ -1,5 +1,5 @@
 import { CommonMeta } from '@/components/common/meta'
-import { ContentsWrapper } from '@/components/common'
+import { ContentsWrapper, Footer } from '@/components/common'
 import { signIn } from 'next-auth/react'
 import { css } from '../../../styled-system/css'
 import { hstack, vstack } from '../../../styled-system/patterns'
@@ -55,6 +55,7 @@ const Signin = () => {
             </div>
           </div>
         </div>
+        <Footer />
       </ContentsWrapper>
     </>
   )

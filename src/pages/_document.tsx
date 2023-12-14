@@ -5,7 +5,13 @@ export default function Document() {
   return (
     <Html lang='ja'>
       <Head />
-      <body className={css({ backgroundColor: 'lightGray' })}>
+      <body
+        className={css({
+          backgroundColor: 'lightGray',
+          wordBreak: 'break-all',
+          overflowWrap: 'break-word',
+        })}
+      >
         <Main />
         <NextScript />
       </body>

@@ -1,4 +1,4 @@
-import { CommonMeta } from '@/components/common'
+import { CommonMeta, Footer } from '@/components/common'
 import { ContentsWrapper } from '@/components/common'
 import Image from 'next/image'
 import { vstack } from '../../styled-system/patterns'
@@ -62,6 +62,7 @@ const Entrance = () => {
             </span>
           </Link>
         </section>
+        <Footer />
       </ContentsWrapper>
     </>
   )

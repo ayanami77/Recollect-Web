@@ -1,35 +1,74 @@
 import { userRepository } from '../repositories/user.repository'
+import {
+  EmailDuplicateCheckRequest,
+  IdDuplicateCheckRequest,
+  SignupRequest,
+} from '../schemas/types/user.type'
 
 export type User = {
-  user_id: string
-  user_name: string
-  created_at: Date | string
-  updated_at: Date | string
+  userId: string
+  userName: string
+  comprehensiveAnalysisResult: string
+  comprehensiveAnalysisScore: string
+  createdAt: Date | string
+  updatedAt: Date | string
 }
 
 export type UserCredential = {
-  userId: string
-  sub: string
-  email: string
+  userId?: string
+  sub?: string
+  email?: string
 }
 
 export const userFactory = () => {
   const repository = userRepository
   return {
-    signUp: async (userCredential: UserCredential, accessToken: string): Promise<User> => {
+    getUser: async (accessToken: string) => {
+      const response = await repository.getUser(accessToken)
+      return {
+        userId: response.user_id,
+        userName: response.user_name,
+        comprehensiveAnalysisResult: response.comprehensive_analysis_result,
+        comprehensiveAnalysisScore: response.comprehensive_analysis_score,
+        createdAt: response.created_at,
+        updatedAt: response.updated_at,
+      }
+    },
+    signUp: async (userCredential: SignupRequest, accessToken: string): Promise<User> => {
       const response = await repository.signup(userCredential, accessToken)
+      return {
+        userId: response.user_id,
+        userName: response.user_name,
+        comprehensiveAnalysisResult: response.comprehensive_analysis_result,
+        comprehensiveAnalysisScore: response.comprehensive_analysis_score,
+        createdAt: response.created_at,
+        updatedAt: response.updated_at,
+      }
+    },
+    idDuplicateCheck: async (
+      userCredential: IdDuplicateCheckRequest,
+      accessToken: string,
+    ): Promise<boolean> => {
+      const response = await repository.idDuplicateCheck(userCredential, accessToken)
       return response
     },
-    login: async (userCredential: UserCredential, accessToken: string) =>
-      repository.login(userCredential, accessToken),
-    logout: async (accessToken: string) => repository.logout(accessToken),
-    idDuplicateCheck: async (userId: string, accessToken: string): Promise<boolean> => {
-      const response = await repository.idDuplicateCheck(userId, accessToken)
+    emailDuplicateCheck: async (
+      userCredential: EmailDuplicateCheckRequest,
+      accessToken: string,
+    ): Promise<boolean> => {
+      const response = await repository.emailDuplicateCheck(userCredential, accessToken)
       return response
     },
-    emailDuplicateCheck: async (email: string, accessToken: string): Promise<boolean> => {
-      const response = await repository.emailDuplicateCheck(email, accessToken)
-      return response
+    analyze: async (accessToken: string): Promise<User> => {
+      const response = await repository.analyze(accessToken)
+      return {
+        userId: response.user_id,
+        userName: response.user_name,
+        comprehensiveAnalysisResult: response.comprehensive_analysis_result,
+        comprehensiveAnalysisScore: response.comprehensive_analysis_score,
+        createdAt: response.created_at,
+        updatedAt: response.updated_at,
+      }
     },
   }
 }
