@@ -1,6 +1,4 @@
-import Link from 'next/link'
 import { FC, useState } from 'react'
-import { css } from '../../../../styled-system/css'
 import { hstack } from '../../../../styled-system/patterns'
 import { OneByOneAnalysisBoard } from './OneByOneAnalysisBoard'
 import { Card as TCard } from '@/api/models/card.model'
@@ -59,17 +57,7 @@ export const OneByOneAnalysisContainer: FC<AnalysisContainerProps> = (props) => 
           },
         })}
       >
-        {allCards.length ? (
-          <OneByOneAnalysisBoard content={allCards[index]} next={next} prev={prev} user={user} />
-        ) : (
-          <div className={css({ px: '20px', py: '16px' })}>
-            自分史が作成されていません。
-            <Link href={'/history'}>
-              <span className={css({ color: 'blue.400' })}>自分史をみる</span>
-            </Link>
-            からデータを登録することができます。
-          </div>
-        )}
+        <OneByOneAnalysisBoard content={allCards[index]} next={next} prev={prev} user={user} />
       </div>
     </FadeInWrapper>
   )
