@@ -64,7 +64,7 @@ export const TutorialContainer: FC<TutorialContainerProps> = ({ user }) => {
 
   const handleValidate = () => {
     const hasTitle = !!cardList[cardPosition].title
-    const isContentTooLong = cardList[cardPosition].content.length > 500
+    const isContentTooLong = cardList[cardPosition].content.length > 1000
 
     setIsValidatedTitle(!hasTitle)
     setIsValidatedContent(isContentTooLong)

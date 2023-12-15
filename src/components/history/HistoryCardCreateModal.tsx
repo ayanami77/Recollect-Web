@@ -116,7 +116,7 @@ export const HistoryCardCreateModal: FC<HistoryCardCreateModalProps> = (props) =
               htmlFor='content'
               className={css({ fontSize: 'md', fontWeight: 'bold', minW: '60px' })}
             >
-              内容
+              内容(最大1000文字)
             </label>
             <textarea
               id='content'

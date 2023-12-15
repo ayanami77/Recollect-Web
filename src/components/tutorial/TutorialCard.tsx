@@ -159,7 +159,7 @@ export const TutorialCard: FC<TutorialCardProps> = (props) => {
         })}
       >
         <label htmlFor='content' className={css({ fontSize: 'md', fontWeight: 'bold' })}>
-          内容
+          内容(最大1000文字)
         </label>
         <textarea
           id='content'
@@ -180,7 +180,7 @@ export const TutorialCard: FC<TutorialCardProps> = (props) => {
             },
           })}
         />
-        {isValidatedContent && <ValidationMessage message={'500文字以内で記述します'} />}
+        {isValidatedContent && <ValidationMessage message={'1000文字以内で記述します'} />}
       </div>
     </div>
   )
