@@ -59,25 +59,32 @@ export const TutorialContainer: FC<TutorialContainerProps> = ({ user }) => {
     '熱中したことは？',
   ]
 
-  const [isValidated, setIsValidated] = useState(false)
+  const [isValidatedTitle, setIsValidatedTitle] = useState(false)
+  const [isValidatedContent, setIsValidatedContent] = useState(false)
 
   const handleValidate = () => {
-    if (cardList[cardPosition].title) return false
-    setIsValidated(true)
-    return true
+    const hasTitle = !!cardList[cardPosition].title
+    const isContentTooLong = cardList[cardPosition].content.length > 500
+
+    setIsValidatedTitle(!hasTitle)
+    setIsValidatedContent(isContentTooLong)
+
+    return !hasTitle || isContentTooLong
   }
 
   const handleNext = () => {
     if (handleValidate()) return
     setCardPosition((prevValue) => Math.min(prevValue + 1, 4))
     setCurrentValue((prevValue) => Math.min(prevValue + progressStepSize, 100))
-    setIsValidated(false)
+    setIsValidatedTitle(false)
+    setIsValidatedContent(false)
   }
 
   const handlePrev = () => {
     setCardPosition((prevValue) => Math.max(prevValue - 1, 0))
     setCurrentValue((prevValue) => Math.max(prevValue - progressStepSize, progressStepSize))
-    setIsValidated(false)
+    setIsValidatedTitle(false)
+    setIsValidatedContent(false)
   }
 
   return (
@@ -88,7 +95,8 @@ export const TutorialContainer: FC<TutorialContainerProps> = ({ user }) => {
           cardPosition={cardPosition}
           cardList={cardList}
           placeholderText={questions[cardPosition]}
-          isValidated={isValidated}
+          isValidatedTitle={isValidatedTitle}
+          isValidatedContent={isValidatedContent}
           handleNext={handleNext}
           handlePrev={handlePrev}
           setCardList={setCardList}

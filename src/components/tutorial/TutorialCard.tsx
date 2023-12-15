@@ -17,7 +17,8 @@ type TutorialCardProps = {
   cardPosition: number
   placeholderText: string
   cardList: TutorialCard[]
-  isValidated: boolean
+  isValidatedTitle: boolean
+  isValidatedContent: boolean
   handleNext: () => void
   handlePrev: () => void
   setCardList: Dispatch<SetStateAction<TutorialCard[]>>
@@ -28,7 +29,8 @@ export const TutorialCard: FC<TutorialCardProps> = (props) => {
     cardPosition,
     placeholderText,
     cardList,
-    isValidated,
+    isValidatedTitle,
+    isValidatedContent,
     handleNext,
     handlePrev,
     setCardList,
@@ -148,7 +150,7 @@ export const TutorialCard: FC<TutorialCardProps> = (props) => {
           })}
         />
       </div>
-      {isValidated && <ValidationMessage message={'タイトルは必須です。'} />}
+      {isValidatedTitle && <ValidationMessage message={'タイトルは必須です。'} />}
       <div
         className={vstack({
           mt: '12px',
@@ -178,6 +180,7 @@ export const TutorialCard: FC<TutorialCardProps> = (props) => {
             },
           })}
         />
+        {isValidatedContent && <ValidationMessage message={'500文字以内で記述します'} />}
       </div>
     </div>
   )
