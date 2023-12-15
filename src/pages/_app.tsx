@@ -5,6 +5,8 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import GlobalLayout from '@/components/layouts/GlobalLayout'
 import { LazyMotion, domAnimation } from 'framer-motion'
 import { SessionProvider } from 'next-auth/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
+import { Analytics } from '@vercel/analytics/react'
 
 import {
   Chart as ChartJS,
@@ -30,6 +32,8 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
         <LazyMotion features={domAnimation}>
           <GlobalLayout>
             <Component {...pageProps} />
+            <SpeedInsights />
+            <Analytics />
           </GlobalLayout>
         </LazyMotion>
       </QueryClientProvider>
