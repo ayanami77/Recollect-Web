@@ -11,7 +11,7 @@ type AnalysisTabsProps = {
 export const AnalysisTabs: FC<AnalysisTabsProps> = (props) => {
   const { analysisType, setAnalysisType } = props
   return (
-    <div className={css({ w: 'fit-content', ml: 'auto', mt: '10px' })}>
+    <div className={css({ w: 'fit-content', ml: 'auto', mt: '10px', md: { mt: '0px' } })}>
       <ul className={hstack({ gap: '0' })}>
         <AnalysisTabsItem
           label='ひとつずつ分析'
