@@ -46,7 +46,14 @@ export const ComprehensiveAnalysisContainer: FC<ComprehensiveAnalysisContainerPr
           })}
         >
           <div className={vstack({ gap: '8px', alignItems: 'start', overflow: 'hidden' })}>
-            <h2 className={css({ fontSize: 'xl', fontWeight: 'bold', md: { fontSize: '2xl' } })}>
+            <h2
+              className={css({
+                fontSize: 'xl',
+                fontWeight: 'bold',
+                px: '12px',
+                md: { fontSize: '2xl' },
+              })}
+            >
               全期間
             </h2>
             <div

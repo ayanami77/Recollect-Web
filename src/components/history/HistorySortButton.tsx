@@ -15,7 +15,7 @@ export const HistorySortButton: FC<HistorySortButtonProps> = (props) => {
     <m.button
       className={css({
         position: 'relative',
-        w: '100px',
+        w: '80px',
         p: '8px',
         fontSize: 'md',
         fontWeight: 'bold',
@@ -28,7 +28,13 @@ export const HistorySortButton: FC<HistorySortButtonProps> = (props) => {
       })}
       onClick={onClickFunc}
     >
-      {isAscPeriod ? '現在' : '幼少期'}
+      <span
+        className={css({
+          mr: '10px',
+        })}
+      >
+        {isAscPeriod ? '現在' : '幼少期'}
+      </span>
       <FontAwesomeIcon
         icon={faArrowDown}
         className={css(
