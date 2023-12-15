@@ -75,7 +75,7 @@ export const HistorySection: FC<HistorySectionProps> = (props) => {
             icon={faPlus}
             style={{ width: '20px', height: '20px', color: 'white' }}
           />
-          自分史を追加する
+          自分史を作成する
         </m.button>
       </div>
       {isOpen && (

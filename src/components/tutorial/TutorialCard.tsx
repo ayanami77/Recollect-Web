@@ -17,7 +17,8 @@ type TutorialCardProps = {
   cardPosition: number
   placeholderText: string
   cardList: TutorialCard[]
-  isValidated: boolean
+  isValidatedTitle: boolean
+  isValidatedContent: boolean
   handleNext: () => void
   handlePrev: () => void
   setCardList: Dispatch<SetStateAction<TutorialCard[]>>
@@ -28,7 +29,8 @@ export const TutorialCard: FC<TutorialCardProps> = (props) => {
     cardPosition,
     placeholderText,
     cardList,
-    isValidated,
+    isValidatedTitle,
+    isValidatedContent,
     handleNext,
     handlePrev,
     setCardList,
@@ -148,7 +150,7 @@ export const TutorialCard: FC<TutorialCardProps> = (props) => {
           })}
         />
       </div>
-      {isValidated && <ValidationMessage message={'タイトルは必須です。'} />}
+      {isValidatedTitle && <ValidationMessage message={'タイトルは必須です。'} />}
       <div
         className={vstack({
           mt: '12px',
@@ -157,7 +159,7 @@ export const TutorialCard: FC<TutorialCardProps> = (props) => {
         })}
       >
         <label htmlFor='content' className={css({ fontSize: 'md', fontWeight: 'bold' })}>
-          内容
+          内容(最大1000文字)
         </label>
         <textarea
           id='content'
@@ -178,6 +180,7 @@ export const TutorialCard: FC<TutorialCardProps> = (props) => {
             },
           })}
         />
+        {isValidatedContent && <ValidationMessage message={'1000文字以内で記述します'} />}
       </div>
     </div>
   )

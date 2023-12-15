@@ -65,7 +65,7 @@ export const HistoryCardCreateModal: FC<HistoryCardCreateModalProps> = (props) =
           },
         })}
       >
-        自分史を追加する
+        自分史を作成する
       </h2>
       <form onSubmit={handleSubmit(onSubmitCreate)} className={css({ mt: '12px' })}>
         <div className={flex({ direction: 'column', gap: '12px' })}>
@@ -73,15 +73,15 @@ export const HistoryCardCreateModal: FC<HistoryCardCreateModalProps> = (props) =
             <div className={hstack({ justify: 'space-between' })}>
               <label
                 htmlFor='title'
-                className={css({ 
-                  fontSize: 'md', 
+                className={css({
+                  fontSize: 'md',
                   fontWeight: 'bold',
                   minW: '72px',
                   _after: {
                     content: '"*"',
                     color: 'cinnabar',
                     ml: '2px',
-                  }, 
+                  },
                 })}
               >
                 タイトル
@@ -116,7 +116,7 @@ export const HistoryCardCreateModal: FC<HistoryCardCreateModalProps> = (props) =
               htmlFor='content'
               className={css({ fontSize: 'md', fontWeight: 'bold', minW: '60px' })}
             >
-              内容
+              内容(最大1000文字)
             </label>
             <textarea
               id='content'
