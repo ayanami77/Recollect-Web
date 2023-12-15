@@ -13,8 +13,11 @@ export const UserLoggedInUser: FC<UserLoggedInUserProps> = (props) => {
       <h2
         className={css({
           mb: '16px',
-          fontSize: '2xl',
+          fontSize: 'xl',
           fontWeight: 'bold',
+          md: {
+            fontSize: '2xl',
+          },
         })}
       >
         ログイン中のユーザー

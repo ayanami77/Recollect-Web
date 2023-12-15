@@ -77,9 +77,12 @@ export const OneByOneAnalysisBoard: FC<OneByOneAnalysisBoardProps> = (props) => 
       <div className={hstack({ justify: 'space-between' })}>
         <h2
           className={css({
-            fontSize: '2xl',
+            fontSize: 'xl',
             fontWeight: 'bold',
             px: '12px',
+            md: {
+              fontSize: '2xl',
+            },
           })}
         >
           {toPeriodStringFromNumber(content.period)}

@@ -38,7 +38,15 @@ export const HistorySection: FC<HistorySectionProps> = (props) => {
         })}
       >
         <div className={hstack({ justify: 'space-between' })}>
-          <h2 className={css({ fontSize: '2xl', w: 'fit', fontWeight: 'bold', pl: '12px' })}>
+          <h2
+            className={css({
+              fontSize: 'xl',
+              w: 'fit',
+              fontWeight: 'bold',
+              pl: '12px',
+              md: { fontSize: '2xl' },
+            })}
+          >
             {toPeriodStringFromNumber(period)}
           </h2>
         </div>
