@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "prepare": "panda codegen",
-    "json-server": "json-server --watch src/api/mocks/index.json --port 4000 --routes src/api/mocks/routes.json",
     "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx}'",
     "dev": "next dev",
     "build": "next build",
@@ -27,6 +26,8 @@
     "@types/node": "20.5.6",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
+    "@vercel/analytics": "^1.1.1",
+    "@vercel/speed-insights": "^1.0.2",
     "chart.js": "^4.4.1",
     "cross-env": "^7.0.3",
     "eslint": "8.47.0",
