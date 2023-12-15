@@ -10,7 +10,7 @@ type Props = {
   user: Session['user']
 }
 
-export default function Tutorial({ user }: Props) {
+const Tutorial = ({ user }: Props) => {
   return (
     <>
       <CommonMeta title={'Recollect - チュートリアル'} description={'チュートリアルページです。'} />
@@ -31,6 +31,8 @@ export default function Tutorial({ user }: Props) {
     </>
   )
 }
+
+export default Tutorial
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getServerSession(req, res, authOptions)
