@@ -42,7 +42,7 @@ const Analysis = ({ user }: Props) => {
     <>
       <CommonMeta
         title={'Recollect - 自分史を分析する'}
-        description={'AIを利用することで、自分史カードから自分の特性を知ることができます。'}
+        description={'自分史を分析して、自分の特性を知ることができます。'}
       />
       <ContentsWrapper>
         <div

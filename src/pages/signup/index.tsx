@@ -51,7 +51,7 @@ const Signup = ({ user }: Props) => {
     <>
       <CommonMeta
         title={'Recollect - アカウント登録'}
-        description={'Recollectの利用にあたって、アカウント登録をする。'}
+        description={'Recollectにアカウント登録をする。'}
       />
       <ContentsWrapper>
         <AuthFormContainer formType={'signup'} onSubmit={handleSubmit(onSubmitSignUp)}>

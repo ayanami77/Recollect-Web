@@ -13,7 +13,10 @@ type Props = {
 const Tutorial = ({ user }: Props) => {
   return (
     <>
-      <CommonMeta title={'Recollect - チュートリアル'} description={'チュートリアルページです。'} />
+      <CommonMeta
+        title={'Recollect - チュートリアル'}
+        description={'自分史作成のチュートリアルです。'}
+      />
       <FadeInWrapper>
         <ContentsWrapper>
           <div
