@@ -13,7 +13,7 @@ type Props = {
   user: Session['user']
 }
 
-export default function Signup({ user }: Props) {
+const Signup = ({ user }: Props) => {
   const { signUpMutation, idDuplicateMutation } = useMutateUser()
   const {
     register,
@@ -51,7 +51,7 @@ export default function Signup({ user }: Props) {
     <>
       <CommonMeta
         title={'Recollect - アカウント登録'}
-        description={'Recollectの利用にあたって、アカウント登録をする。'}
+        description={'Recollectにアカウント登録をする。'}
       />
       <ContentsWrapper>
         <AuthFormContainer formType={'signup'} onSubmit={handleSubmit(onSubmitSignUp)}>
@@ -61,6 +61,8 @@ export default function Signup({ user }: Props) {
     </>
   )
 }
+
+export default Signup
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getServerSession(req, res, authOptions)

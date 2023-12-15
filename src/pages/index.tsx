@@ -8,10 +8,7 @@ import Link from 'next/link'
 const Entrance = () => {
   return (
     <>
-      <CommonMeta
-        title={'Recollect'}
-        description={'自分史作成サービスRecollectについて知り、はじめてみる。'}
-      />
+      <CommonMeta title={'Recollect'} description={'Recollectを知り、はじめてみる。'} />
       <ContentsWrapper>
         <section className={vstack({ gap: '48px', justifyContent: 'center', mt: '40px' })}>
           <div className={vstack({ gap: '16px', alignItems: 'start' })}>
