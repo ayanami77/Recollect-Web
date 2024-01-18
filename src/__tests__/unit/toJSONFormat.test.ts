@@ -1,4 +1,4 @@
-import { toJSONFormat } from '@/api/clients/utils/toJSONFormat'
+import { toJSONFormat } from '@/api/utils/toJSONFormat'
 
 const mockData = {
   id: '749824b0-1faf-460d-aa5c-fa59aadceeed',

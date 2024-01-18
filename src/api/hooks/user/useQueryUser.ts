@@ -1,6 +1,7 @@
-import { FetchError } from '@/api/clients/utils/fetchError'
+import { FetchError } from '@/api/utils/fetchError'
 import { useQuery } from '@tanstack/react-query'
-import { User, userFactory } from '@/api/models/user.model'
+import { User } from '@/api/models/user.model'
+import { userFactory } from '@/api/factory/user.factory'
 
 export const useQueryUser = (accessToken: string) => {
   return useQuery<User, FetchError>(['user'], () => userFactory().getUser(accessToken), {

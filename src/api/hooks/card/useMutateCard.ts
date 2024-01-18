@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
-import { Card, cardFactory } from '@/api/models/card.model'
+import { Card } from '@/api/models/card.model'
 import { queryClient } from '@/api/clients/queryClient'
-import { FetchError } from '@/api/clients/utils/fetchError'
+import { FetchError } from '@/api/utils/fetchError'
 import {
   AnalyzeCardRequest,
   CreateCardListRequest,
@@ -9,6 +9,7 @@ import {
   DeleteCardRequest,
   UpdateCardRequest,
 } from '@/api/schemas/types/card.type'
+import { cardFactory } from '@/api/factory/card.factory'
 
 export const useMutateCard = () => {
   const createCardMutation = useMutation(
