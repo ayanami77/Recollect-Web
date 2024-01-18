@@ -2,7 +2,7 @@ import './index.css'
 import type { AppProps } from 'next/app'
 import { queryClient } from '@/api/clients/queryClient'
 import { QueryClientProvider } from '@tanstack/react-query'
-import GlobalLayout from '@/components/layouts/GlobalLayout'
+import DefaultLayout from '@/layouts/DefaultLayout'
 import { LazyMotion, domAnimation } from 'framer-motion'
 import { SessionProvider } from 'next-auth/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
@@ -30,11 +30,11 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
     <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>
         <LazyMotion features={domAnimation}>
-          <GlobalLayout>
+          <DefaultLayout>
             <Component {...pageProps} />
             <SpeedInsights />
             <Analytics />
-          </GlobalLayout>
+          </DefaultLayout>
         </LazyMotion>
       </QueryClientProvider>
     </SessionProvider>
