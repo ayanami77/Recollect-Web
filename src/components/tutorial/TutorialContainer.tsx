@@ -1,12 +1,7 @@
 import { FC, useState } from 'react'
 import { vstack } from '../../../styled-system/patterns'
 import { Period as TPeriod } from '@/api/models/card.model'
-import {
-  TutorialLeaveButton,
-  TutorialToHistoryButton,
-  TutorialCard,
-  TutorialProgressBar,
-} from '@/components/tutorial'
+import { TutorialToHistoryButton, TutorialCard, TutorialProgressBar } from '@/components/tutorial'
 import { Session } from 'next-auth'
 
 type Card = {
@@ -110,7 +105,6 @@ export const TutorialContainer: FC<TutorialContainerProps> = ({ user }) => {
           user={user}
         />
       </div>
-      <TutorialLeaveButton />
     </>
   )
 }

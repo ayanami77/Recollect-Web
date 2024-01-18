@@ -5,6 +5,7 @@ import { Session, getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]'
 import { TutorialContainer } from '@/components/tutorial/TutorialContainer'
 import { css } from '../../../styled-system/css'
+import { TutorialLeaveButton } from '@/components/tutorial'
 
 type Props = {
   user: Session['user']
@@ -29,6 +30,7 @@ const Tutorial = ({ user }: Props) => {
           >
             <TutorialContainer user={user} />
           </div>
+          <TutorialLeaveButton />
         </ContentsWrapper>
       </FadeInWrapper>
     </>
