@@ -1,13 +1,14 @@
 import { useMutation } from '@tanstack/react-query'
-import { User, userFactory } from '@/api/models/user.model'
+import { User } from '@/api/models/user.model'
 import { useRouter } from 'next/router'
 import { queryClient } from '@/api/clients/queryClient'
-import { FetchError } from '@/api/clients/utils/fetchError'
+import { FetchError } from '@/api/utils/fetchError'
 import {
   EmailDuplicateCheckRequest,
   IdDuplicateCheckRequest,
   SignupRequest,
 } from '@/api/schemas/types/user.type'
+import { userFactory } from '@/api/factory/user.factory'
 
 export const useMutateUser = () => {
   const router = useRouter()

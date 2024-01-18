@@ -13,34 +13,26 @@ export const TutorialLeaveButton: FC = () => {
   const handleConfirmModal = () => {
     setIsOpen((prev) => !prev)
   }
+
   return (
-    <>
+    <div className={css({ w: 'fit', pb: '6px' })}>
       <button
         className={css({
-          position: 'fixed',
-          bottom: '20px',
           bg: 'white',
-          left: '24px',
-          cursor: 'pointer',
           rounded: 'xl',
           shadow: 'xl',
+          cursor: 'pointer',
         })}
         onClick={handleConfirmModal}
       >
-        <div
-          className={css({
-            minW: '200px',
-          })}
-        >
-          <div className={hstack({ gap: '24px', p: '20px' })}>
-            <span className={css({ fontSize: 'md', fontWeight: 'bold', color: 'black' })}>
-              チュートリアルを退出する
-            </span>
-            <FontAwesomeIcon
-              icon={faArrowRightFromBracket}
-              style={{ width: '26px', color: '#0C4C97' }}
-            />
-          </div>
+        <div className={hstack({ gap: '24px', p: '20px' })}>
+          <span className={css({ fontSize: 'md', fontWeight: 'bold', color: 'black' })}>
+            チュートリアルを退出する
+          </span>
+          <FontAwesomeIcon
+            icon={faArrowRightFromBracket}
+            style={{ width: '26px', color: '#0C4C97' }}
+          />
         </div>
       </button>
       {isOpen && (
@@ -54,6 +46,6 @@ export const TutorialLeaveButton: FC = () => {
           }}
         />
       )}
-    </>
+    </div>
   )
 }

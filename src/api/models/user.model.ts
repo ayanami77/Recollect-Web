@@ -1,9 +1,4 @@
-import { userRepository } from '../repositories/user.repository'
-import {
-  EmailDuplicateCheckRequest,
-  IdDuplicateCheckRequest,
-  SignupRequest,
-} from '../schemas/types/user.type'
+import { User as UserResponse } from '../schemas/generated/schemas'
 
 export type User = {
   userId: string
@@ -20,55 +15,13 @@ export type UserCredential = {
   email?: string
 }
 
-export const userFactory = () => {
-  const repository = userRepository
+export const toUser = (user: UserResponse): User => {
   return {
-    getUser: async (accessToken: string) => {
-      const response = await repository.getUser(accessToken)
-      return {
-        userId: response.user_id,
-        userName: response.user_name,
-        comprehensiveAnalysisResult: response.comprehensive_analysis_result,
-        comprehensiveAnalysisScore: response.comprehensive_analysis_score,
-        createdAt: response.created_at,
-        updatedAt: response.updated_at,
-      }
-    },
-    signUp: async (userCredential: SignupRequest, accessToken: string): Promise<User> => {
-      const response = await repository.signup(userCredential, accessToken)
-      return {
-        userId: response.user_id,
-        userName: response.user_name,
-        comprehensiveAnalysisResult: response.comprehensive_analysis_result,
-        comprehensiveAnalysisScore: response.comprehensive_analysis_score,
-        createdAt: response.created_at,
-        updatedAt: response.updated_at,
-      }
-    },
-    idDuplicateCheck: async (
-      userCredential: IdDuplicateCheckRequest,
-      accessToken: string,
-    ): Promise<boolean> => {
-      const response = await repository.idDuplicateCheck(userCredential, accessToken)
-      return response
-    },
-    emailDuplicateCheck: async (
-      userCredential: EmailDuplicateCheckRequest,
-      accessToken: string,
-    ): Promise<boolean> => {
-      const response = await repository.emailDuplicateCheck(userCredential, accessToken)
-      return response
-    },
-    analyze: async (accessToken: string): Promise<User> => {
-      const response = await repository.analyze(accessToken)
-      return {
-        userId: response.user_id,
-        userName: response.user_name,
-        comprehensiveAnalysisResult: response.comprehensive_analysis_result,
-        comprehensiveAnalysisScore: response.comprehensive_analysis_score,
-        createdAt: response.created_at,
-        updatedAt: response.updated_at,
-      }
-    },
+    userId: user.user_id,
+    userName: user.user_name,
+    comprehensiveAnalysisResult: user.comprehensive_analysis_result,
+    comprehensiveAnalysisScore: user.comprehensive_analysis_score,
+    createdAt: user.created_at,
+    updatedAt: user.updated_at,
   }
 }

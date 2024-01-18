@@ -2,32 +2,24 @@
 
 自分史作成アプリ「Recollect」のフロントエンドです。
 
-## 技術スタック
+## アプリ概要
 
-**Recollect-Web**は主に以下の技術スタックで構成されています。
+就活生のための自分史作成とそこから自己の特性をAIで分析できるサービスです。
+以下の機能を提供しています。
+
+- 幼少期から現在にかけて時系列で自分史を整理出来る機能。
+- 新規ユーザーのための、チュートリアル機能。
+- 自分史の内容に基づいて、自己の特性をAIで分析できる機能。
+
+## 主な技術スタック
 
 - Next.js - Pages Router
 - TypeScript
 - Panda CSS
-- Framer Motion
 - react-hook-form
 - zod
 - TanStack Query
 - zustand
-- swagger-typescript-api
-- OpenAI API
-
-また、テストライブラリとして次のものを利用しています。
-
-- eslint
-- Jest
-- React Testing Library
-- Storybook
-- msw
-
-## CI/CD
-
-現在、Github Actionsでテストを回しています。
 
 ## 環境構築
 
@@ -88,7 +80,7 @@ pnpm storybook
   - `chore:` .. ライブラリや補助ツールを導入したい時など
   - `docs:` .. ドキュメントの更新時
 - PR作成時
-  - 基本、PRのテンプレートに沿って記入してください。（場合によっては内容の省略ok）
+  - 基本、PRのテンプレートに沿って記入してください。
   - また、本プロジェクトではgithub projectsを利用してタスク管理を行っているので、それをもとにissueを立ててくれると嬉しいです。
 
 ## ユースケース図

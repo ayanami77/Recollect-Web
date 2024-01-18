@@ -1,4 +1,4 @@
-export class FetchError {
+class FetchError {
   public message: string
   public status: number
 
@@ -7,3 +7,5 @@ export class FetchError {
     this.status = status
   }
 }
+
+export { FetchError }
