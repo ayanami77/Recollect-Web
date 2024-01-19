@@ -50,7 +50,7 @@ export const ConfirmModal: FC<ConfirmModalProps> = (props) => {
             alignItems: 'start',
             p: '24px',
             bg: 'white',
-            rounded: '3xl',
+            rounded: 'xl',
             shadow: '2xl',
           })}
         >

@@ -55,6 +55,10 @@ export const AuthFormContainer: FC<AuthFormContainerProps> = (props) => {
               rounded: 'xl',
               mt: '32px',
               cursor: 'pointer',
+              transition: 'background .15s',
+              _hover: {
+                bg: 'hovered_dimBlue',
+              },
             })}
           >
             はじめる

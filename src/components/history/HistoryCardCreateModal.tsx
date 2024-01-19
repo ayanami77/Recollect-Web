@@ -163,9 +163,9 @@ export const HistoryCardCreateModal: FC<HistoryCardCreateModalProps> = (props) =
               color: 'white',
               rounded: 'lg',
               cursor: 'pointer',
-              _disabled: {
-                opacity: 0.8,
-                cursor: 'default',
+              transition: 'background .15s',
+              _hover: {
+                bg: 'hovered_dimBlue',
               },
             })}
           >

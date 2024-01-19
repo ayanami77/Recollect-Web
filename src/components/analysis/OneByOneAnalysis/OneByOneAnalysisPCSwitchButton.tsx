@@ -21,6 +21,12 @@ export const OneByOneAnalysisPCSwitchButton: FC<OneByOneAnalysisPCSwitchButtonPr
         rounded: '3xl',
         color: 'white',
         cursor: 'pointer',
+        transition: 'background .15s',
+        _hover: isDisabled
+          ? {}
+          : {
+              bg: 'hovered_dimBlue',
+            },
         _disabled: {
           opacity: '0.8',
           cursor: 'default',

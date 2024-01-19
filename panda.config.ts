@@ -23,13 +23,16 @@ export default defineConfig({
             value: '#F5F5F5',
           },
           gray: {
-            value: '#E0E0E0',
+            value: '#e8e8e8',
           },
           white: {
             value: '#FFFFFF',
           },
           dimBlue: {
             value: '#0C4C97',
+          },
+          hovered_dimBlue: {
+            value: '#195db0',
           },
           dimGray: {
             value: '#0000009c',

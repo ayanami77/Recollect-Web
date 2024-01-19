@@ -41,7 +41,7 @@ export const HistoryCardModalBase: FC<HistoryCardModalBaseProps> = (props) => {
           className={css({
             width: 'full',
             bg: 'white',
-            rounded: '2xl',
+            rounded: 'xl',
             px: '20px',
             py: '24px',
             md: {

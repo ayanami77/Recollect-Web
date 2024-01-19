@@ -14,7 +14,17 @@ export const NavigationMenuItemButton: FC<NavigationMenuItemButtonProps> = (prop
 
   return (
     <li>
-      <button className={css({ cursor: 'pointer' })} onClick={onClickFunc}>
+      <button
+        className={css({
+          rounded: 'xl',
+          cursor: 'pointer',
+          transition: 'background .15s',
+          _hover: {
+            bg: 'gray',
+          },
+        })}
+        onClick={onClickFunc}
+      >
         <span
           className={hstack({
             fontWeight: 'bold',

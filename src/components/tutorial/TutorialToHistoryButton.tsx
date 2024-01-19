@@ -1,4 +1,3 @@
-import { m } from 'framer-motion'
 import { Dispatch, FC, SetStateAction, useReducer } from 'react'
 import { css } from '../../../styled-system/css'
 import { useRouter } from 'next/router'
@@ -52,7 +51,7 @@ export const TutorialToHistoryButton: FC<TutorialToHistoryButtonProps> = (props)
   }
 
   return (
-    <m.button
+    <button
       className={css({
         w: '200px',
         color: 'white',
@@ -64,12 +63,15 @@ export const TutorialToHistoryButton: FC<TutorialToHistoryButtonProps> = (props)
         fontWeight: 'bold',
         mt: '20px',
         visibility: cardPosition === 4 ? 'visible' : 'hidden',
+        transition: 'background .15s',
+        _hover: {
+          bg: 'hovered_dimBlue',
+        },
       })}
       disabled={submitted}
       onClick={() => handleSubmit()}
-      whileTap={{ scale: submitted ? 1 : 0.9 }}
     >
       {submitted ? '読み込み中...' : '自分史を見る！'}
-    </m.button>
+    </button>
   )
 }

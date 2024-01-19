@@ -215,6 +215,12 @@ export const HistoryCardEditModal: FC<HistoryCardEditModalProps> = (props) => {
                 color: 'white',
                 rounded: 'lg',
                 cursor: 'pointer',
+                transition: 'background .15s',
+                _hover: isEdited
+                  ? {
+                      bg: 'hovered_dimBlue',
+                    }
+                  : {},
                 _disabled: {
                   opacity: 0.8,
                   cursor: 'default',
