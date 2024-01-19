@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import { css } from '../../../styled-system/css'
 import { faMagnifyingGlassChart } from '@fortawesome/free-solid-svg-icons'
 import { GetServerSideProps } from 'next'
-import { Session, getServerSession } from 'next-auth'
+import { getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]'
 import { flex } from '../../../styled-system/patterns'
 import { AnalysisTabs } from '@/components/analysis/AnalysisTabs'
@@ -25,18 +25,14 @@ const ComprehensiveAnalysisContainer = dynamic(() =>
   ),
 )
 
-type Props = {
-  user: Session['user']
-}
-
 export type TAnalysisType = 'onebyone' | 'comprehensive'
 
-const Analysis = ({ user }: Props) => {
+const Analysis = () => {
   const router = useRouter()
   const [analysisType, setAnalysisType] = useState<TAnalysisType>('onebyone')
 
-  const { data: cardsData, isLoading } = useQueryCards(user.access_token || '')
-  const { data: userData } = useQueryUser(user.access_token || '')
+  const { data: cardsData, isLoading } = useQueryCards()
+  const { data: userData } = useQueryUser()
 
   return (
     <>
@@ -72,11 +68,7 @@ const Analysis = ({ user }: Props) => {
             !isLoading &&
             match(analysisType)
               .with('onebyone', () => (
-                <OneByOneAnalysisContainer
-                  data={cardsData ?? []}
-                  cardId={router.query.card_id}
-                  user={user}
-                />
+                <OneByOneAnalysisContainer data={cardsData ?? []} cardId={router.query.card_id} />
               ))
               .with('comprehensive', () => (
                 <ComprehensiveAnalysisContainer
@@ -91,7 +83,6 @@ const Analysis = ({ user }: Props) => {
                       updatedAt: '',
                     }
                   }
-                  user={user}
                 />
               ))
               .exhaustive()
@@ -106,8 +97,6 @@ export default Analysis
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getServerSession(req, res, authOptions)
-  const user = session?.user
-
   if (!session) {
     return {
       redirect: {
@@ -116,7 +105,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
       },
     }
   }
-
+  const user = session?.user
   return {
     props: { user },
   }

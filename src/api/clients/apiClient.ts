@@ -1,5 +1,5 @@
-import { FetchError } from './utils/fetchError'
-import { toJSONFormat } from './utils/toJSONFormat'
+import { FetchError } from '../errors/fetchError'
+import { toJSONFormat } from '../utils/toJSONFormat'
 
 const baseURL =
   process.env.NEXT_PUBLIC_API_MOCKING === 'enabled'

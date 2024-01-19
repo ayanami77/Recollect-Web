@@ -13,6 +13,7 @@ type NavigationMenuItemLinkProps = {
 export const NavigationMenuItemLink: FC<NavigationMenuItemLinkProps> = (props) => {
   const { title, link, icon } = props
   const router = useRouter()
+  const isPathname = router.pathname === link
 
   return (
     <li>
@@ -22,8 +23,14 @@ export const NavigationMenuItemLink: FC<NavigationMenuItemLinkProps> = (props) =
             fontWeight: 'bold',
             p: '12px',
             rounded: 'xl',
-            bg: router.pathname === link ? 'white' : 'transparent',
-            shadow: router.pathname === link ? 'lg' : 'none',
+            bg: isPathname ? 'white' : 'transparent',
+            shadow: isPathname ? 'lg' : 'none',
+            transition: 'background .15s',
+            _hover: isPathname
+              ? {}
+              : {
+                  bg: 'gray',
+                },
           })}
         >
           <FontAwesomeIcon

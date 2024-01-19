@@ -15,9 +15,6 @@ import { useToastStore } from '@/store/useToastStore'
 import { controlScreenScroll } from '@/utils/controlScreenScroll'
 import { HistoryCardEditModal } from './HistoryCardEditModal'
 import { Period as TPeriod } from '@/api/models/card.model'
-import { GetServerSideProps } from 'next'
-import { authOptions } from '@/pages/api/auth/[...nextauth]'
-import { Session, getServerSession } from 'next-auth'
 
 type HistoryCardMenuProps = {
   data: {
@@ -29,13 +26,12 @@ type HistoryCardMenuProps = {
     createdAt: string
     updatedAt: string
   }
-  user: Session['user']
   isEditModalOpen: boolean
   setIsDetailOpen: Dispatch<SetStateAction<boolean>>
   setIsEditModalOpen: Dispatch<SetStateAction<boolean>>
 }
 export const HistoryCardMenu: FC<HistoryCardMenuProps> = (props) => {
-  const { data, isEditModalOpen, user, setIsDetailOpen, setIsEditModalOpen } = props
+  const { data, isEditModalOpen, setIsDetailOpen, setIsEditModalOpen } = props
   const router = useRouter()
   const toastStore = useToastStore()
   const [isOpen, setIsOpen] = useState(false)
@@ -59,7 +55,6 @@ export const HistoryCardMenu: FC<HistoryCardMenuProps> = (props) => {
     try {
       await deleteUserMutation.mutateAsync({
         cardData: { id: cardId },
-        accessToken: user.access_token || '',
       })
       toastStore.show('自分史を削除しました', 'success')
       toastStore.hide()
@@ -152,7 +147,6 @@ export const HistoryCardMenu: FC<HistoryCardMenuProps> = (props) => {
         <HistoryCardEditModal
           handleModal={handleEditModal}
           data={data}
-          user={user}
           setIsDetailOpen={setIsDetailOpen}
         />
       )}
@@ -169,22 +163,4 @@ export const HistoryCardMenu: FC<HistoryCardMenuProps> = (props) => {
       )}
     </div>
   )
-}
-
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const session = await getServerSession(req, res, authOptions)
-  const user = session?.user
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/signin',
-        permanent: false,
-      },
-    }
-  }
-
-  return {
-    props: { user },
-  }
 }

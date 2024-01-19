@@ -5,16 +5,14 @@ import { HistorySection } from './HistorySection'
 import { FC } from 'react'
 import { FadeInWrapper, Toast } from '../common'
 import { useToastStore } from '@/store/useToastStore'
-import { Session } from 'next-auth'
 
 type HistoryContainerProps = {
   allCards: { [key: string]: TCard[] }
-  user: Session['user']
   isAscPeriod: boolean
 }
 
 export const HistoryContainer: FC<HistoryContainerProps> = (props) => {
-  const { allCards, user, isAscPeriod } = props
+  const { allCards, isAscPeriod } = props
   const toastStore = useToastStore()
   const periodKeys = Object.keys(allCards)
 
@@ -33,10 +31,10 @@ export const HistoryContainer: FC<HistoryContainerProps> = (props) => {
       >
         {periodKeys.map((period) => {
           return (
-            <HistorySection key={period} period={period as TPeriod} user={user}>
+            <HistorySection key={period} period={period as TPeriod}>
               {allCards[period].length ? (
                 allCards[period].map((card) => {
-                  return <HistoryCard data={card} key={card.id} user={user} />
+                  return <HistoryCard data={card} key={card.id} />
                 })
               ) : (
                 <span

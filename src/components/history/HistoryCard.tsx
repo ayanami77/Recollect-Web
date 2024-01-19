@@ -6,7 +6,6 @@ import { Period as TPeriod } from '@/api/models/card.model'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { HistoryCardMenu } from './HistoryCardMenu'
-import { Session } from 'next-auth'
 import Link from 'next/link'
 
 type HistoryCardProps = {
@@ -19,11 +18,10 @@ type HistoryCardProps = {
     createdAt: string
     updatedAt: string
   }
-  user: Session['user']
 }
 
 export const HistoryCard: FC<HistoryCardProps> = (props) => {
-  const { data, user } = props
+  const { data } = props
   const [isOpen, setIsOpen] = useState(false)
   const [isShowButton, setIsShowButton] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
@@ -56,7 +54,6 @@ export const HistoryCard: FC<HistoryCardProps> = (props) => {
     >
       <HistoryCardMenu
         data={data}
-        user={user}
         setIsDetailOpen={setIsOpen}
         isEditModalOpen={isEditModalOpen}
         setIsEditModalOpen={setIsEditModalOpen}

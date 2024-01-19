@@ -1,20 +1,24 @@
 import { useMutation } from '@tanstack/react-query'
-import { User, userFactory } from '@/api/models/user.model'
+import { User } from '@/api/models/user.model'
 import { useRouter } from 'next/router'
 import { queryClient } from '@/api/clients/queryClient'
-import { FetchError } from '@/api/clients/utils/fetchError'
+import { FetchError } from '@/api/errors/fetchError'
 import {
   EmailDuplicateCheckRequest,
   IdDuplicateCheckRequest,
   SignupRequest,
 } from '@/api/schemas/types/user.type'
+import { userFactory } from '@/api/factory/user.factory'
+import { getSession } from 'next-auth/react'
 
 export const useMutateUser = () => {
   const router = useRouter()
 
   const signUpMutation = useMutation(
-    async (params: { userCredential: SignupRequest; accessToken: string }) => {
-      const { userCredential, accessToken } = params
+    async (params: { userCredential: SignupRequest }) => {
+      const { userCredential } = params
+      const session = await getSession()
+      const accessToken = session?.user.access_token ?? ''
       return await userFactory().signUp(userCredential, accessToken)
     },
     {
@@ -28,8 +32,9 @@ export const useMutateUser = () => {
   )
 
   const analyzeMutation = useMutation(
-    async (params: { accessToken: string }) => {
-      const { accessToken } = params
+    async () => {
+      const session = await getSession()
+      const accessToken = session?.user.access_token ?? ''
       return await userFactory().analyze(accessToken)
     },
     {
@@ -53,8 +58,10 @@ export const useMutateUser = () => {
   )
 
   const idDuplicateMutation = useMutation(
-    async (params: { userCredential: IdDuplicateCheckRequest; accessToken: string }) => {
-      const { userCredential, accessToken } = params
+    async (params: { userCredential: IdDuplicateCheckRequest }) => {
+      const { userCredential } = params
+      const session = await getSession()
+      const accessToken = session?.user.access_token ?? ''
       return await userFactory().idDuplicateCheck(userCredential, accessToken)
     },
     {
@@ -65,8 +72,10 @@ export const useMutateUser = () => {
   )
 
   const emailDuplicateMutation = useMutation(
-    async (params: { userCredential: EmailDuplicateCheckRequest; accessToken: string }) => {
-      const { userCredential, accessToken } = params
+    async (params: { userCredential: EmailDuplicateCheckRequest }) => {
+      const { userCredential } = params
+      const session = await getSession()
+      const accessToken = session?.user.access_token ?? ''
       return await userFactory().emailDuplicateCheck(userCredential, accessToken)
     },
     {

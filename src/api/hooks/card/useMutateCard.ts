@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
-import { Card, cardFactory } from '@/api/models/card.model'
+import { Card } from '@/api/models/card.model'
 import { queryClient } from '@/api/clients/queryClient'
-import { FetchError } from '@/api/clients/utils/fetchError'
+import { FetchError } from '@/api/errors/fetchError'
 import {
   AnalyzeCardRequest,
   CreateCardListRequest,
@@ -9,11 +9,15 @@ import {
   DeleteCardRequest,
   UpdateCardRequest,
 } from '@/api/schemas/types/card.type'
+import { cardFactory } from '@/api/factory/card.factory'
+import { getSession } from 'next-auth/react'
 
 export const useMutateCard = () => {
   const createCardMutation = useMutation(
-    (params: { cardData: CreateCardRequest; accessToken: string }) => {
-      const { cardData, accessToken } = params
+    async (params: { cardData: CreateCardRequest }) => {
+      const { cardData } = params
+      const session = await getSession()
+      const accessToken = session?.user.access_token ?? ''
       return cardFactory().post(cardData, accessToken)
     },
     {
@@ -30,8 +34,10 @@ export const useMutateCard = () => {
   )
 
   const createCardsMutation = useMutation(
-    (params: { cardData: CreateCardListRequest; accessToken: string }) => {
-      const { cardData, accessToken } = params
+    async (params: { cardData: CreateCardListRequest }) => {
+      const { cardData } = params
+      const session = await getSession()
+      const accessToken = session?.user.access_token ?? ''
       return cardFactory().batchPost(cardData, accessToken)
     },
     {
@@ -48,8 +54,10 @@ export const useMutateCard = () => {
   )
 
   const updateCardMutation = useMutation(
-    (params: { cardData: UpdateCardRequest; accessToken: string }) => {
-      const { cardData, accessToken } = params
+    async (params: { cardData: UpdateCardRequest }) => {
+      const { cardData } = params
+      const session = await getSession()
+      const accessToken = session?.user.access_token ?? ''
       return cardFactory().update(cardData, accessToken)
     },
     {
@@ -76,8 +84,10 @@ export const useMutateCard = () => {
   )
 
   const deleteUserMutation = useMutation(
-    (params: { cardData: DeleteCardRequest; accessToken: string }) => {
-      const { cardData, accessToken } = params
+    async (params: { cardData: DeleteCardRequest }) => {
+      const { cardData } = params
+      const session = await getSession()
+      const accessToken = session?.user.access_token ?? ''
       return cardFactory().delete(cardData, accessToken)
     },
     {
@@ -97,8 +107,10 @@ export const useMutateCard = () => {
   )
 
   const analyzeCardMutation = useMutation(
-    (params: { cardData: AnalyzeCardRequest; accessToken: string }) => {
-      const { cardData, accessToken } = params
+    async (params: { cardData: AnalyzeCardRequest }) => {
+      const { cardData } = params
+      const session = await getSession()
+      const accessToken = session?.user.access_token ?? ''
       return cardFactory().analyze(cardData, accessToken)
     },
     {

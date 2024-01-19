@@ -1,11 +1,9 @@
-import { m } from 'framer-motion'
 import { Dispatch, FC, SetStateAction, useReducer } from 'react'
 import { css } from '../../../styled-system/css'
 import { useRouter } from 'next/router'
 import { Period as TPeriod } from '@/api/models/card.model'
 import { useMutateCard } from '@/api/hooks/card/useMutateCard'
 import { useToastStore } from '@/store/useToastStore'
-import { Session } from 'next-auth'
 
 type Card = {
   period: TPeriod
@@ -19,10 +17,9 @@ type TutorialToHistoryButtonProps = {
   progressStepSize: number
   setCurrentValue: Dispatch<SetStateAction<number>>
   handleValidate: () => boolean
-  user: Session['user']
 }
 export const TutorialToHistoryButton: FC<TutorialToHistoryButtonProps> = (props) => {
-  const { cardList, cardPosition, progressStepSize, setCurrentValue, handleValidate, user } = props
+  const { cardList, cardPosition, progressStepSize, setCurrentValue, handleValidate } = props
   const router = useRouter()
   const toastStore = useToastStore()
   const [submitted, updateSubmitted] = useReducer(() => true, false)
@@ -39,7 +36,6 @@ export const TutorialToHistoryButton: FC<TutorialToHistoryButtonProps> = (props)
     try {
       const res = await createCardsMutation.mutateAsync({
         cardData: cardList,
-        accessToken: user.access_token || '',
       })
       if (res) {
         toastStore.show('自分史を作成しました', 'success')
@@ -55,7 +51,7 @@ export const TutorialToHistoryButton: FC<TutorialToHistoryButtonProps> = (props)
   }
 
   return (
-    <m.button
+    <button
       className={css({
         w: '200px',
         color: 'white',
@@ -67,12 +63,15 @@ export const TutorialToHistoryButton: FC<TutorialToHistoryButtonProps> = (props)
         fontWeight: 'bold',
         mt: '20px',
         visibility: cardPosition === 4 ? 'visible' : 'hidden',
+        transition: 'background .15s',
+        _hover: {
+          bg: 'hovered_dimBlue',
+        },
       })}
       disabled={submitted}
       onClick={() => handleSubmit()}
-      whileTap={{ scale: submitted ? 1 : 0.9 }}
     >
       {submitted ? '読み込み中...' : '自分史を見る！'}
-    </m.button>
+    </button>
   )
 }

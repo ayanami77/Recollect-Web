@@ -1,4 +1,3 @@
-import { Session } from 'next-auth'
 import { FC } from 'react'
 import { hstack, vstack } from '../../../../styled-system/patterns'
 import { css } from '../../../../styled-system/css'
@@ -11,17 +10,14 @@ import { User as TUser } from '@/api/models/user.model'
 
 type ComprehensiveAnalysisContainerProps = {
   data: TUser
-  user: Session['user']
 }
 
 export const ComprehensiveAnalysisContainer: FC<ComprehensiveAnalysisContainerProps> = (props) => {
-  const { data, user } = props
+  const { data } = props
   const { analyzeMutation } = useMutateUser()
 
   const handleAnalyze = () => {
-    analyzeMutation.mutate({
-      accessToken: user.access_token || '',
-    })
+    analyzeMutation.mutate()
   }
 
   return (

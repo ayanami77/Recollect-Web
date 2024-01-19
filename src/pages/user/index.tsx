@@ -2,18 +2,14 @@ import { css } from '../../../styled-system/css'
 import { CommonMeta, ContentsWrapper, PageTitle } from '@/components/common'
 import { faUserGear } from '@fortawesome/free-solid-svg-icons'
 import { GetServerSideProps } from 'next'
-import { Session, getServerSession } from 'next-auth'
+import { getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]'
 import { useQueryUser } from '@/api/hooks/user/useQueryUser'
 import { UserContainer } from '@/components/user'
 import { User as TUser } from '@/api/models/user.model'
 
-type Props = {
-  user: Session['user']
-}
-
-const User = ({ user }: Props) => {
-  const { data } = useQueryUser(user.access_token || '')
+const User = () => {
+  const { data } = useQueryUser()
   const userInfo: Pick<TUser, 'userId'> = {
     userId: data?.userId ?? '',
   }
@@ -40,8 +36,6 @@ export default User
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getServerSession(req, res, authOptions)
-  const user = session?.user
-
   if (!session) {
     return {
       redirect: {
@@ -50,7 +44,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
       },
     }
   }
-
+  const user = session?.user
   return {
     props: { user },
   }
