@@ -1,8 +1,7 @@
-import { FC, useState } from 'react'
+import { useState } from 'react'
 import { vstack } from '../../../styled-system/patterns'
 import { Period as TPeriod } from '@/api/models/card.model'
 import { TutorialToHistoryButton, TutorialCard, TutorialProgressBar } from '@/components/tutorial'
-import { Session } from 'next-auth'
 
 type Card = {
   period: TPeriod
@@ -10,11 +9,7 @@ type Card = {
   content: string
 }
 
-type TutorialContainerProps = {
-  user: Session['user']
-}
-
-export const TutorialContainer: FC<TutorialContainerProps> = ({ user }) => {
+export const TutorialContainer = () => {
   const progressStepSize = 100 / 6
   const [currentValue, setCurrentValue] = useState<number>(progressStepSize)
   const [cardPosition, setCardPosition] = useState<number>(0)
@@ -102,7 +97,6 @@ export const TutorialContainer: FC<TutorialContainerProps> = ({ user }) => {
           progressStepSize={progressStepSize}
           setCurrentValue={setCurrentValue}
           handleValidate={handleValidate}
-          user={user}
         />
       </div>
     </>

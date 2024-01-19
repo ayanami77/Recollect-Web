@@ -1,17 +1,13 @@
 import { ContentsWrapper, FadeInWrapper } from '@/components/common'
 import { CommonMeta } from '@/components/common/meta'
 import { GetServerSideProps } from 'next'
-import { Session, getServerSession } from 'next-auth'
+import { getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]'
 import { TutorialContainer } from '@/components/tutorial/TutorialContainer'
 import { css } from '../../../styled-system/css'
 import { TutorialLeaveButton } from '@/components/tutorial'
 
-type Props = {
-  user: Session['user']
-}
-
-const Tutorial = ({ user }: Props) => {
+const Tutorial = () => {
   return (
     <>
       <CommonMeta
@@ -28,7 +24,7 @@ const Tutorial = ({ user }: Props) => {
               mt: '24px',
             })}
           >
-            <TutorialContainer user={user} />
+            <TutorialContainer />
           </div>
           <TutorialLeaveButton />
         </ContentsWrapper>
@@ -41,8 +37,6 @@ export default Tutorial
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getServerSession(req, res, authOptions)
-  const user = session?.user
-
   if (!session) {
     return {
       redirect: {
@@ -51,7 +45,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
       },
     }
   }
-
+  const user = session?.user
   return {
     props: { user },
   }

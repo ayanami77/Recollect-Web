@@ -2,17 +2,15 @@ import { FC, useState } from 'react'
 import { hstack } from '../../../../styled-system/patterns'
 import { OneByOneAnalysisBoard } from './OneByOneAnalysisBoard'
 import { Card as TCard } from '@/api/models/card.model'
-import { Session } from 'next-auth'
 import { FadeInWrapper } from '../../common'
 import { sortCardsByPeriod } from '@/utils/sortCardsByPeriod'
 
 type AnalysisContainerProps = {
   data: TCard[]
   cardId?: string | string[]
-  user: Session['user']
 }
 export const OneByOneAnalysisContainer: FC<AnalysisContainerProps> = (props) => {
-  const { data, cardId, user } = props
+  const { data, cardId } = props
   const [index, setIndex] = useState(0)
 
   const makeAllCards = (data: TCard[]) => {
@@ -57,7 +55,7 @@ export const OneByOneAnalysisContainer: FC<AnalysisContainerProps> = (props) => 
           },
         })}
       >
-        <OneByOneAnalysisBoard content={allCards[index]} next={next} prev={prev} user={user} />
+        <OneByOneAnalysisBoard content={allCards[index]} next={next} prev={prev} />
       </div>
     </FadeInWrapper>
   )

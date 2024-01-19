@@ -7,7 +7,6 @@ import { Period as TPeriod } from '@/api/models/card.model'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CardValidationSchema, TCardValidationSchema } from '@/libs/validations/cardValidation'
 import { useToastStore } from '@/store/useToastStore'
-import { Session } from 'next-auth'
 import { HistoryCardModalBase } from './base/HistoryCardModalBase'
 import { ValidationMessage } from '../common/partials/ValidationMessage'
 
@@ -16,11 +15,10 @@ type HistoryCardCreateModalProps = {
   data: {
     period: TPeriod
   }
-  user: Session['user']
 }
 
 export const HistoryCardCreateModal: FC<HistoryCardCreateModalProps> = (props) => {
-  const { handleModal, data, user } = props
+  const { handleModal, data } = props
   const { createCardMutation } = useMutateCard()
   const toastStore = useToastStore()
   const {
@@ -40,7 +38,6 @@ export const HistoryCardCreateModal: FC<HistoryCardCreateModalProps> = (props) =
           title: d.title,
           content: d.content,
         },
-        accessToken: user.access_token || '',
       })
       if (res) {
         toastStore.show('自分史を作成しました', 'success')

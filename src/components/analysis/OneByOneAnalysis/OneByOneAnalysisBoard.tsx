@@ -7,7 +7,6 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 import { AnalysisIsAnalyzingIcon } from '../AnalysisIsAnalyzingIcon'
 import { OneByOneAnalysisPCSwitchButton } from './OneByOneAnalysisPCSwitchButton'
 import { OneByOneAnalysisMobileSwitchButton } from './OneByOneAnalysisMobileSwitchButton'
-import { Session } from 'next-auth'
 import { Card as TCard } from '@/api/models/card.model'
 import { toPeriodStringFromNumber } from '@/utils/toPeriodStringFromNumber'
 import { useMutateCard } from '@/api/hooks/card/useMutateCard'
@@ -15,13 +14,12 @@ import { AnalysisAnalyzeButton } from '../AnalysisAnalyzeButton'
 
 type OneByOneAnalysisBoardProps = {
   content: TCard
-  user: Session['user']
   next: () => void
   prev: () => void
 }
 
 export const OneByOneAnalysisBoard: FC<OneByOneAnalysisBoardProps> = (props) => {
-  const { content, user, next, prev } = props
+  const { content, next, prev } = props
   const { analyzeCardMutation } = useMutateCard()
 
   const handleAnalyze = () => {
@@ -32,7 +30,6 @@ export const OneByOneAnalysisBoard: FC<OneByOneAnalysisBoardProps> = (props) => 
         content: content.content,
         period: content.period,
       },
-      accessToken: user.access_token || '',
     })
   }
 

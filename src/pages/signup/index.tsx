@@ -27,7 +27,6 @@ const Signup = ({ user }: Props) => {
     try {
       const isExistUserId = await idDuplicateMutation.mutateAsync({
         userCredential: { userId: userCredential.userId },
-        accessToken: user.access_token || '',
       })
 
       if (isExistUserId) {
@@ -41,7 +40,6 @@ const Signup = ({ user }: Props) => {
           sub: user.sub || '',
           email: user.email || '',
         },
-        accessToken: user.access_token || '',
       })
     } catch (error) {
       alert(error)
@@ -66,8 +64,6 @@ export default Signup
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getServerSession(req, res, authOptions)
-  const user = session?.user
-
   if (!session) {
     return {
       redirect: {
@@ -76,7 +72,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
       },
     }
   }
-
+  const user = session?.user
   const isExistUser = await apiClient.post(
     '/users/email-duplicate-check',
     {
