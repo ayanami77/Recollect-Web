@@ -4,7 +4,7 @@ import { CommonMeta, PageTitle, ContentsWrapper } from '@/components/common'
 import { useQueryCards } from '@/api/hooks/card/useQueryCard'
 import { faMapLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { GetServerSideProps } from 'next'
-import { Session, getServerSession } from 'next-auth'
+import { getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]'
 import { hstack } from '../../../styled-system/patterns'
 import { useState } from 'react'
@@ -20,12 +20,8 @@ const HistorySortButton = dynamic(() =>
   import('@/components/history/HistorySortButton').then((mod) => mod.HistorySortButton),
 )
 
-type Props = {
-  user: Session['user']
-}
-
-const History = ({ user }: Props) => {
-  const { data } = useQueryCards(user.access_token || '')
+const History = () => {
+  const { data } = useQueryCards()
   const allCards = sortCardsByPeriod(data ?? [])
   const [isAscPeriod, setIsAscPeriod] = useState(true)
 
@@ -58,7 +54,7 @@ const History = ({ user }: Props) => {
             <PageTitle title={'自分史をみる'} icon={faMapLocationDot} />
             <HistorySortButton isAscPeriod={isAscPeriod} onClickFunc={handleSort} />
           </div>
-          <HistoryContainer allCards={allCards} user={user} isAscPeriod={isAscPeriod} />
+          <HistoryContainer allCards={allCards} isAscPeriod={isAscPeriod} />
         </div>
       </ContentsWrapper>
       {/* いずれかのperiodで自分史が登録されていない場合は、チュートリアルへのボタンを表示する */}
@@ -73,8 +69,6 @@ export default History
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getServerSession(req, res, authOptions)
-  const user = session?.user
-
   if (!session) {
     return {
       redirect: {
@@ -83,7 +77,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
       },
     }
   }
-
+  const user = session?.user
   return {
     props: { user },
   }

@@ -1,5 +1,4 @@
 import { FC, ReactNode } from 'react'
-import { m } from 'framer-motion'
 import { css } from '../../../styled-system/css'
 import { hstack, vstack } from '../../../styled-system/patterns'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -8,17 +7,15 @@ import { useState } from 'react'
 import { controlScreenScroll } from '@/utils/controlScreenScroll'
 import { HistoryCardCreateModal } from './HistoryCardCreateModal'
 import { Period as TPeriod } from '@/api/models/card.model'
-import { Session } from 'next-auth'
 import { toPeriodStringFromNumber } from '@/utils/toPeriodStringFromNumber'
 
 type HistorySectionProps = {
   children: ReactNode
   period: TPeriod
-  user: Session['user']
 }
 
 export const HistorySection: FC<HistorySectionProps> = (props) => {
-  const { children, period, user } = props
+  const { children, period } = props
   const [isOpen, setIsOpen] = useState(false)
   const handleCreateModal = () => {
     controlScreenScroll(isOpen)
@@ -51,7 +48,7 @@ export const HistorySection: FC<HistorySectionProps> = (props) => {
           </h2>
         </div>
         <div className={vstack({ justify: 'start', gap: '24px', mt: '12px' })}>{children}</div>
-        <m.button
+        <button
           className={hstack({
             justify: 'center',
             w: '96%',
@@ -64,23 +61,24 @@ export const HistorySection: FC<HistorySectionProps> = (props) => {
             bg: 'dimBlue',
             rounded: 'full',
             cursor: 'pointer',
+            transition: 'background .15s',
+            _hover: {
+              bg: 'hovered_dimBlue',
+            },
             md: {
               fontSize: 'md',
             },
           })}
           onClick={handleCreateModal}
-          whileHover={{ scale: 1.02 }}
         >
           <FontAwesomeIcon
             icon={faPlus}
             style={{ width: '20px', height: '20px', color: 'white' }}
           />
           自分史を作成する
-        </m.button>
+        </button>
       </div>
-      {isOpen && (
-        <HistoryCardCreateModal data={{ period }} handleModal={handleCreateModal} user={user} />
-      )}
+      {isOpen && <HistoryCardCreateModal data={{ period }} handleModal={handleCreateModal} />}
     </>
   )
 }

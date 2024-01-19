@@ -25,6 +25,10 @@ export const TutorialPCSwitchButton: FC<TutorialPCSwitchButtonProps> = (props) =
           (cardPosition === 0 && movement === 'prev') || (cardPosition === 4 && movement === 'next')
             ? 'hidden'
             : 'visible',
+        transition: 'background .15s',
+        _hover: {
+          bg: 'hovered_dimBlue',
+        },
       })}
       whileTap={{ scale: 0.9 }}
     >

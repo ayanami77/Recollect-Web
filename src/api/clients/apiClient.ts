@@ -1,4 +1,4 @@
-import { FetchError } from '../utils/fetchError'
+import { FetchError } from '../errors/fetchError'
 import { toJSONFormat } from '../utils/toJSONFormat'
 
 const baseURL =

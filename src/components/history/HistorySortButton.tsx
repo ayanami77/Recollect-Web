@@ -1,6 +1,5 @@
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { m } from 'framer-motion'
 import { FC } from 'react'
 import { css } from '../../../styled-system/css'
 
@@ -12,16 +11,20 @@ type HistorySortButtonProps = {
 export const HistorySortButton: FC<HistorySortButtonProps> = (props) => {
   const { isAscPeriod, onClickFunc } = props
   return (
-    <m.button
+    <button
       className={css({
         position: 'relative',
-        w: '80px',
+        w: '100px',
         p: '8px',
         fontSize: 'md',
         fontWeight: 'bold',
         color: 'black',
         rounded: 'md',
         cursor: 'pointer',
+        transition: 'background .15s',
+        _hover: {
+          bg: 'gray',
+        },
         md: {
           fontSize: 'md',
         },
@@ -41,7 +44,7 @@ export const HistorySortButton: FC<HistorySortButtonProps> = (props) => {
           {
             position: 'absolute',
             top: '0',
-            right: '0',
+            right: '8px',
             width: '20px',
             height: '20px',
             color: 'dimBlue',
@@ -55,6 +58,6 @@ export const HistorySortButton: FC<HistorySortButtonProps> = (props) => {
               },
         )}
       />
-    </m.button>
+    </button>
   )
 }

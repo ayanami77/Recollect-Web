@@ -8,7 +8,6 @@ import { ConfirmModal } from '@/components/common'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CardValidationSchema, TCardValidationSchema } from '@/libs/validations/cardValidation'
 import { useToastStore } from '@/store/useToastStore'
-import { Session } from 'next-auth'
 import { HistoryCardModalBase } from './base/HistoryCardModalBase'
 import { ValidationMessage } from '../common/partials/ValidationMessage'
 
@@ -23,12 +22,11 @@ type HistoryCardEditModalProps = {
     createdAt: string
     updatedAt: string
   }
-  user: Session['user']
   setIsDetailOpen: Dispatch<SetStateAction<boolean>>
 }
 
 export const HistoryCardEditModal: FC<HistoryCardEditModalProps> = (props) => {
-  const { handleModal, data, user, setIsDetailOpen } = props
+  const { handleModal, data, setIsDetailOpen } = props
   const { updateCardMutation } = useMutateCard()
   const {
     register,
@@ -57,7 +55,6 @@ export const HistoryCardEditModal: FC<HistoryCardEditModalProps> = (props) => {
           title: d.title,
           content: d.content,
         },
-        accessToken: user.access_token || '',
       })
       if (res) {
         toastStore.show('自分史を更新しました', 'success')
@@ -218,6 +215,12 @@ export const HistoryCardEditModal: FC<HistoryCardEditModalProps> = (props) => {
                 color: 'white',
                 rounded: 'lg',
                 cursor: 'pointer',
+                transition: 'background .15s',
+                _hover: isEdited
+                  ? {
+                      bg: 'hovered_dimBlue',
+                    }
+                  : {},
                 _disabled: {
                   opacity: 0.8,
                   cursor: 'default',
