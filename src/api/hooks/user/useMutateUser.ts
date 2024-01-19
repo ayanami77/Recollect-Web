@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query'
 import { User } from '@/api/models/user.model'
 import { useRouter } from 'next/router'
 import { queryClient } from '@/api/clients/queryClient'
-import { FetchError } from '@/api/utils/fetchError'
+import { FetchError } from '@/api/errors/fetchError'
 import {
   EmailDuplicateCheckRequest,
   IdDuplicateCheckRequest,

@@ -1,4 +1,4 @@
-import { FetchError } from '@/api/utils/fetchError'
+import { FetchError } from '@/api/errors/fetchError'
 import { useQuery } from '@tanstack/react-query'
 import { User } from '@/api/models/user.model'
 import { userFactory } from '@/api/factory/user.factory'

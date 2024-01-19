@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import { Card } from '@/api/models/card.model'
 import { queryClient } from '@/api/clients/queryClient'
-import { FetchError } from '@/api/utils/fetchError'
+import { FetchError } from '@/api/errors/fetchError'
 import {
   AnalyzeCardRequest,
   CreateCardListRequest,
