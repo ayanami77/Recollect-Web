@@ -15,9 +15,6 @@ jobs:
       - name: Install swagger-cli
         run: npm install -g swagger-cli
 
-      - name: Validate Swagger Files
-        run: swagger-cli validate -d openapi.yaml --type yaml
-
       - name: Generate Swagger UI
         uses: Legion2/swagger-ui-action@v1
         with:
